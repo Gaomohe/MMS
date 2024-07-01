@@ -3,7 +3,7 @@ public class Main {
         System.out.println("Hello world!");
 
         System.out.println("我是刘兆坤，我在这里做了修改，大家能看到吗");
-        System.out.println("year,s**k me");
+        System.out.println("yeah,s**k me");
 
     }
 }
