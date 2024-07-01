@@ -7,6 +7,16 @@
         <element id="directory" name="classes">
           <element id="module-output" name="MMS" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-fileupload-1.2.2" />
+          <element id="library" level="project" name="commons-io-2.4" />
+          <element id="library" level="project" name="fastjson-1.2.13" />
+          <element id="library" level="project" name="jsp-api" />
+          <element id="library" level="project" name="mysql-connector-j-8.4.0" />
+          <element id="library" level="project" name="jstl" />
+          <element id="library" level="project" name="servlet-api" />
+          <element id="library" level="project" name="standard" />
+        </element>
       </element>
     </root>
   </artifact>
