@@ -12,6 +12,9 @@
     <title>EasyWeb后台开发框架</title>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/module/admin.css?v=314"/>
+    <link rel="stylesheet" href="<%= path %>/iframe/assets/LayUIMini/css/layuimini.css?v=2.0.4.2" media="all">
+    <link rel="stylesheet" href="<%= path %>/iframe/assets/LayUIMini/css/themes/default.css" media="all">
+    <link rel="stylesheet" href="<%= path %>/iframe/assets/LayUIMini/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -60,7 +63,7 @@
                     </dd>
                     <hr>
                     <dd lay-unselect>
-                        <a ew-event="logout" data-url="page/template/login.html">退出</a>
+                        <a ew-event="logout" data-url="../iframe/login.jsp">退出</a>
                     </dd>
                 </dl>
             </li>
@@ -70,18 +73,15 @@
         </ul>
     </div>
 
-    <%--初始化侧面菜单栏--%>
-    <div class="layui-side">
-        <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-filter="admin-side-nav" lay-shrink="all"></ul>
-        </div>
+    <!--无限极左侧菜单-->
+    <div class="layui-side layui-bg-black layuimini-menu-left">
     </div>
 
     <!-- 主体部分 -->
     <div class="layui-body"></div>
     <!-- 底部 -->
     <div class="layui-footer">
-        copyright © 2019 <a href="http://easyweb.vip" target="_blank">easyweb.vip</a> all rights reserved.
+        copyright © 2019 <a href="http://easyweb.vip" target="_blank">医药系统</a> all rights reserved.
         <span class="pull-right">Version 3.1.4</span>
     </div>
 </div>
@@ -103,43 +103,58 @@
 
         // 默认加载主页
         index.loadHome({
-            menuPath: 'iframe/selectPages/所有首页可选择页面/console.jsp',
+            menuPath: '../iframe/medicine/homePage/introduction.jsp',
             menuName: '<i class="layui-icon layui-icon-home"></i>'
         });
 
     });
 </script>
-<script id="sideNav" type="text/html">
-    {{#  layui.each(d, function(index, item){ }}
-    <li class="layui-nav-item">
-        <a lay-href="{{item.url}}"><i class="{{item.icon}}"></i>&emsp;<cite>{{ item.name }}</cite></a>
-        {{# if(item.subMenus&&item.subMenus.length>0){ getSubMenus(item.subMenus); } }}
-    </li>
-    {{#  }); }}
-    {{# function getSubMenus(subMenus){ }}
-    <dl class="layui-nav-child">
-        {{# layui.each(subMenus, function(index, subItem){ }}
-        <dd>
-            <a lay-href="{{ subItem.url }}">{{ subItem.name }}</a>
-            {{# if(subItem.subMenus&&subItem.subMenus.length>0){ getSubMenus(subItem.subMenus); } }}
-        </dd>
-        {{# }); }}
-    </dl>
-    {{# } }}
-</script>
+<script src="<%= path %>/iframe/assets/LayUIMini/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script>
-    layui.use([ 'element', 'admin','laytpl'], function () {
-        var $ = layui.jquery;
-        var element = layui.element;
-        var admin = layui.admin;
-        var laytpl = layui.laytpl;
+    layui.use(['jquery', 'layer', 'miniAdmin','miniTongji'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            miniAdmin = layui.miniAdmin,
+            miniTongji = layui.miniTongji;
 
-        $.get('json/side.json', function (res) {
-            laytpl(sideNav.innerHTML).render(res.data, function (html) {
-                $('[lay-filter=admin-side-nav]').html(html);
-                element.render('nav', 'admin-side-nav');  // 这里非常重要
-            });
-        }, 'json');
+        var options = {
+            iniUrl: "/menu?action=selelctMenu",    // 初始化接口
+            clearUrl: "json/init.json", // 缓存清理接口
+            urlHashLocation: false,      // 是否打开hash定位
+            bgColorDefault: false,      // 主题默认配置
+            multiModule: true,          // 是否开启多模块
+            menuChildOpen: false,       // 是否默认展开菜单
+            loadingTime: 0,             // 初始化加载时间
+            pageAnim: true,             // iframe窗口动画
+            maxTabNum: 20,              // 最大的tab打开数量
+        };
+        miniAdmin.render(options);
+
+        // 百度统计代码，只统计指定域名
+        /* miniTongji.render({
+            specific: true,
+            domains: [
+                '99php.cn',
+                'layuimini.99php.cn',
+                'layuimini-onepage.99php.cn',
+            ],
+        }); */
+
+        $('.login-out').on("click", function () {
+            $.ajax({
+                url:"/LoginServlet/loginOut",
+                type:"post",
+                success:function(data){
+                    if(data == 1){
+                        layer.msg('退出登录成功', function () {
+                            window.location = 'login.jsp';
+                        });
+                    }
+                }
+            })
+        });
+
+        /* $('#') */
     });
 </script>
 </body>
