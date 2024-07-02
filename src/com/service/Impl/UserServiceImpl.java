@@ -11,4 +11,10 @@ public class UserServiceImpl implements UserService {
     public int login(User user) {
         return userDao.login(user);
     }
+
+    //条件查询用户——通过id查询用户所有信息
+    @Override
+    public User getUserById(User user) {
+        return null;
+    }
 }
