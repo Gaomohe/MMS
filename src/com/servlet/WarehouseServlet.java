@@ -7,6 +7,6 @@ public class WarehouseServlet extends BaseServlet {
 
     @Override
     public Class getServlet() {
-        return null;
+        return WarehouseServlet.class;
     }
 }
