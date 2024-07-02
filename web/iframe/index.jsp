@@ -103,7 +103,7 @@
 
         // 默认加载主页
         index.loadHome({
-            menuPath: 'page/console/console.html',
+            menuPath: 'iframe/selectPages/所有首页可选择页面/console.jsp',
             menuName: '<i class="layui-icon layui-icon-home"></i>'
         });
 
