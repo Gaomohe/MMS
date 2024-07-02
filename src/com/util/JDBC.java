@@ -14,7 +14,7 @@ public class JDBC {
             Class.forName("com.mysql.jdbc.Driver");
             String url="jdbc:mysql://localhost:3306/medicine";
             String name="root";
-            String password="010717";
+            String password="gzx123zyl920";
             connection = DriverManager.getConnection(url, name, password);
         }catch (Exception e){
             e.printStackTrace();

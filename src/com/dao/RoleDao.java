@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Menu;
 import com.pojo.Role;
 import com.pojo.User;
 
@@ -16,4 +17,31 @@ public interface RoleDao {
     public int updateRole(Role role);
     //新增角色
     public int addRole(Role role);
+
+
+    //分页
+    public List<Role> getRoleAll(int page, int limit);
+
+    //
+    public List<Role> getRoleAll();
+
+    //重名验证
+    public int isUname(Role role);
+
+
+
+    //id查所有
+    public Role allRoleByRoleid(int roleid);
+
+
+
+
+
+    public List<Menu> menuByRoleid(int id);
+
+    //删除原有权限
+    public int delRoleMenu(int id);
+
+    //添加新的绑定
+    public int addNewMenu(int id,int resId);
 }
