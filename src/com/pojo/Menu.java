@@ -1,22 +1,22 @@
 package com.pojo;
 
 public class Menu {
-    private int id;
+    private int resId;
     private String name;
     private int parentId;
     private String resKey;
-    private String type;
+    private int type;
     private String resUrl;
     private int level;
     private String icon;
     private String description;
 
-    public int getId() {
-        return id;
+    public int getResId() {
+        return resId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setResId(int resId) {
+        this.resId = resId;
     }
 
     public String getName() {
@@ -43,11 +43,11 @@ public class Menu {
         this.resKey = resKey;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

@@ -8,6 +8,7 @@ import com.util.ResultData;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static com.util.Vessel.userService;
 
@@ -28,6 +29,10 @@ public class UserServlet extends BaseServlet {
         user.setPassword(password);
         int login = 0;
         login = userService.login(user);
+        if (login > 0) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user",user);
+        }
         ResultData resultData = new ResultData();
         resultData = Result.resultStatus(login);
         return resultData;
