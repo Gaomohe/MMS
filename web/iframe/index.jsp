@@ -73,7 +73,8 @@
     <!--无限极左侧菜单-->
     <div class="layui-side">
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-filter="admin-side-nav" lay-shrink="all" id="side-nav"></ul>
+            <ul class="layui-nav layui-nav-tree arrow2" lay-filter="admin-side-nav" lay-accordion="true"
+                style="margin-top: 15px" id="side-nav"></ul>
         </div>
     </div>
     <!-- 主体部分 -->
@@ -128,14 +129,14 @@
     function renderMenu(item) {
         var html = '<li class="layui-nav-item">';
         if (item.child && item.child.length > 0) {
-            html += '<a href="javascript:;">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
+            html += '<a lay-href="javascript:;">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
             html += '<dl class="layui-nav-child">';
             item.child.forEach(function (child) {
                 html += renderMenu(child);
             });
             html += '</dl>';
         } else {
-            html += '<a href="' + item.href + '" target="' + item.target + '">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
+            html += '<a lay-href="' + item.href + '" target="' + item.target + '">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
         }
         html += '</li>';
         return html;
