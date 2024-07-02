@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 public class JDBC {
     private static  Connection connection =null;
     private static PreparedStatement preparedStatement=null;
-    private static    ResultSet resultSet =null;
+    private static  ResultSet resultSet =null;
     static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             String url="jdbc:mysql://localhost:3306/medicine";
             String name="root";
             String password="gzx123zyl920";
@@ -50,5 +50,4 @@ public class JDBC {
         }
         return num;
     }
-
 }
