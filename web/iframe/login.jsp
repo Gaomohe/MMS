@@ -256,12 +256,12 @@
             });
             return false; // 阻止表单跳转。如果需要表单跳转，去掉这句即可。
         });
-
         // 图形验证码刷新
         $('.login-captcha').click(function () {
             this.src = this.src.split('?')[0] + '?t=' + new Date().getTime();
         });
     });
+
 </script>
 </body>
 </html>
