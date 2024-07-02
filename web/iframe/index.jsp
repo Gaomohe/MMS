@@ -108,14 +108,33 @@
         });
 
     });
-
+</script>
+<script id="sideNav" type="text/html">
+    {{#  layui.each(d, function(index, item){ }}
+    <li class="layui-nav-item">
+        <a lay-href="{{item.url}}"><i class="{{item.icon}}"></i>&emsp;<cite>{{ item.name }}</cite></a>
+        {{# if(item.subMenus&&item.subMenus.length>0){ getSubMenus(item.subMenus); } }}
+    </li>
+    {{#  }); }}
+    {{# function getSubMenus(subMenus){ }}
+    <dl class="layui-nav-child">
+        {{# layui.each(subMenus, function(index, subItem){ }}
+        <dd>
+            <a lay-href="{{ subItem.url }}">{{ subItem.name }}</a>
+            {{# if(subItem.subMenus&&subItem.subMenus.length>0){ getSubMenus(subItem.subMenus); } }}
+        </dd>
+        {{# }); }}
+    </dl>
+    {{# } }}
+</script>
+<script>
     layui.use([ 'element', 'admin','laytpl'], function () {
         var $ = layui.jquery;
         var element = layui.element;
         var admin = layui.admin;
         var laytpl = layui.laytpl;
 
-        $.get('/test', function (res) {
+        $.get('json/side.json', function (res) {
             laytpl(sideNav.innerHTML).render(res.data, function (html) {
                 $('[lay-filter=admin-side-nav]').html(html);
                 element.render('nav', 'admin-side-nav');  // 这里非常重要

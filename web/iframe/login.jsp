@@ -2,8 +2,8 @@
 <%
     String path = request.getContextPath();
 %>
+<!DOCTYPE>
 <html>
-
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,51 +11,70 @@
     <link href="<%= path %>/iframe/assets/images/favicon.ico" rel="icon">
     <title>登录</title>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="<%= path %>/iframe/assets/module/admin.css?v=314"/>
+    <link rel="stylesheet" href="<%= path %>/iframe/assets/css/login.css?v=314">
+    <link rel="stylesheet" href=".<%= path %>/iframe/assets/module/admin.css?v=314">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
-
-<!-- 页面加载loading -->
-<div class="page-loading">
-    <div class="ball-loader">
-        <span></span><span></span><span></span><span></span>
+<div class="login-wrapper">
+    <div class="login-header">
+        <img src="<%= path %>/iframe/assets/images/logo.png"> 欢迎登录医药管理系统
     </div>
-</div>
-
-<!-- 正文开始 -->
-<div class="layui-fluid">
-    <div class="layui-card">
-        <div class="layui-card-body">
-            <div class="layui-form toolbar">
+    <div class="login-body">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <i class="layui-icon layui-icon-engine"></i>&nbsp;&nbsp;用户登录
+            </div>
+            <form class="layui-card-body layui-form layui-form-pane">
                 <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label w-auto">账号：</label>
-                        <div class="layui-input-inline mr0">
-                            <input name="account" class="layui-input" type="text" placeholder="请输入账号"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label w-auto">日期：</label>
-                        <div class="layui-input-inline mr0">
-                            <input name="dateRange" class="layui-input date-icon" type="text" placeholder="请选择日期范围"
-                                   autocomplete="off"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <button class="layui-btn icon-btn" lay-filter="formSubSearchLog" lay-submit>
-                            <i class="layui-icon">&#xe615;</i>搜索
-                        </button>
-                        <button id="btnExpLog" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
+                    <div class="layui-input-block">
+                        <input name="username" type="text" placeholder="账号" class="layui-input"
+                               lay-verType="tips" lay-verify="required" required/>
                     </div>
                 </div>
-            </div>
-
-            <table class="layui-table" id="tableLog" lay-filter="tableLog"></table>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
+                    <div class="layui-input-block">
+                        <input name="password" type="password" placeholder="密码" class="layui-input"
+                               lay-verType="tips" lay-verify="required" required/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i></label>
+                    <div class="layui-input-block">
+                        <div class="layui-row inline-block">
+                            <div class="layui-col-xs7">
+                                <input name="code" type="text" placeholder="验证码" class="layui-input"
+                                       autocomplete="off" lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                            <div class="layui-col-xs5" style="padding-left: 6px;">
+                                <img class="login-captcha" src="https://www.oschina.net/action/user/captcha">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <a href="javascript:;" class="layui-link">帐号注册</a>
+                    <a href="javascript:;" class="layui-link pull-right">忘记密码？</a>
+                </div>
+                <div class="layui-form-item">
+                    <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
+                </div>
+            </form>
         </div>
+    </div>
+
+    <div class="login-footer">
+        <p>© 2019 easyweb.vip 版权所有</p>
+        <p>
+            <span><a href="https://easyweb.vip" target="_blank">获取授权</a></span>
+            <span><a href="https://easyweb.vip/doc/" target="_blank">开发文档</a></span>
+            <span><a href="https://demo.easyweb.vip/spa/" target="_blank">单页面版</a></span>
+        </p>
     </div>
 </div>
 
@@ -63,71 +82,42 @@
 <script type="text/javascript" src="<%= path %>/iframe/assets/libs/layui/layui.js"></script>
 <script type="text/javascript" src="<%= path %>/iframe/assets/js/common.js?v=314"></script>
 <script>
-    layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
+    layui.use(['layer', 'form'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
-        var table = layui.table;
-        var util = layui.util;
-        var laydate = layui.laydate;
+        // 表单提交
+        form.on('submit(login-submit)', function (obj) {
+                obj = obj.field;
+                console.log(obj.field);
+                $.ajax({
+                    url: "/",
+                    type: "post",
+                    data: {
+                        action: "Login",
+                        name: obj.username,
+                        password: obj.password,
+                        code:obj.code
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        if (/*data.status == 200 &&*/ a===true) {
+                            layer.msg('登录成功', {icon: 1, time: 1500}, function () {
+                                location.replace('./iframe/index.jsp')
+                            });
+                        } else {
+                            layer.msg('登录失败', {icon: 2, time: 1500}, data.msg);
+                            $('.login-captcha').click();
+                        }
+                    }
+                })
+            });
 
-        // 渲染表格
-        var insTb = table.render({
-            elem: '#tableLog',
-            url: '../../json/loginRecord.json',
-            page: true,
-            cellMinWidth: 100,
-            title: '登录日志',
-            cols: [[
-                {type: 'checkbox'},
-                {field: 'username', sort: true, title: '账号'},
-                {field: 'nickName', sort: true, title: '用户名'},
-                {field: 'ipAddress', sort: true, title: 'IP'},
-                {field: 'device', sort: true, title: '设备'},
-                {field: 'osName', sort: true, title: '设备类型'},
-                {field: 'browserType', sort: true, title: '浏览器'},
-                {
-                    field: 'createTime', templet: function (d) {
-                        return util.toDateString(d.createTime);
-                    }, title: '登录时间'
-                }
-            ]]
+        // 图形验证码
+        $('.login-captcha').click(function () {
+            this.src = this.src + '?t=' + (new Date).getTime();
         });
-
-        // 时间范围
-        laydate.render({
-            elem: 'input[name="dateRange"]',
-            type: 'date',
-            range: true,
-            trigger: 'click'
-        });
-
-        // 搜索
-        form.on('submit(formSubSearchLog)', function (data) {
-            if (data.field.dateRange) {
-                var searchDate = data.field.dateRange.split(' - ');
-                data.field.startDate = searchDate[0];
-                data.field.endDate = searchDate[1];
-            } else {
-                data.field.startDate = '';
-                data.field.endDate = '';
-            }
-            data.field.dateRange = undefined;
-            insTb.reload({where: data.field}, 'data');
-        });
-
-        // 导出excel
-        $('#btnExpLog').click(function () {
-            var checkRows = table.checkStatus('tableLog');
-            if (checkRows.data.length == 0) {
-                layer.msg('请选择要导出的数据', {icon: 2});
-            } else {
-                table.exportFile(insTb.config.id, checkRows.data, 'xls');
-            }
-        });
-
     });
 </script>
-
 </body>
 </html>
