@@ -29,8 +29,10 @@ public abstract class BaseServlet extends HttpServlet {
             if (invoke instanceof String){
                 String str = (String)invoke;
                 request.getRequestDispatcher(str + ".jsp").forward(request,response);
-            }else{
-                String string = JSON.toJSONString(invoke);
+            }else if(invoke instanceof ResultData){
+                ResultData resultData=(ResultData)invoke;
+                //json字符串-->，字符串，对象，数组，集合，map
+                String string = JSON.toJSONString(resultData);
                 PrintWriter writer = response.getWriter();
                 writer.write(string);
                 writer.flush();

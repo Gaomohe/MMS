@@ -11,10 +11,10 @@ public class JDBC {
     private static    ResultSet resultSet =null;
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url="jdbc:mysql://localhost:3306/medicine";
             String name="root";
-            String password="123456";
+            String password="gzx123zyl920";
             connection = DriverManager.getConnection(url, name, password);
         }catch (Exception e){
             e.printStackTrace();
