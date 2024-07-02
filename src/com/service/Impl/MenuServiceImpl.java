@@ -19,7 +19,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     ////通过用户id与目录类型type查询用户目录(查询2级目录)
-    @Override
+    /*@Override
     public InitJson getMenuList(int id) {
 
         //存放目录集合
@@ -65,7 +65,52 @@ public class MenuServiceImpl implements MenuService {
         initJson.setMenuInfo(list);
 
         return initJson;
+    }*/
+
+    @Override
+    public InitJson getMenuList(int id) {
+
+        //存放目录集合
+        List<IndexJson> indexJsonList = new ArrayList<IndexJson>();
+        //查询目录
+        List<Menu> menuList = menuDao.getMenuList(id, 0);
+        for (Menu menu : menuList) {
+            IndexJson indexJson = new IndexJson();
+            indexJson.setTitle(menu.getName());
+            indexJson.setImage("");
+            indexJson.setTarget("");
+            indexJson.setIcon(menu.getIcon());
+            indexJson.setHref("");
+
+            //存放菜单的集合
+            List<IndexJson> indexJsonList1 = new ArrayList<>();
+            List<Menu> menuList1 = menuDao.getMenuList(id, 1);
+            for (Menu menu1 : menuList1) {
+                if (menu1.getParentId() == menu.getResId()) {
+                    IndexJson indexJson1 = new IndexJson();
+                    indexJson1.setTitle(menu1.getName());
+                    indexJson1.setImage("");
+                    indexJson1.setTarget("_self");
+                    indexJson1.setIcon(menu1.getIcon());
+                    indexJson1.setHref(menu1.getResUrl() + "&&resId=" + menu1.getResId());
+                    indexJsonList1.add(indexJson1);
+                }
+            }
+            indexJson.setChild(indexJsonList1);
+            indexJsonList.add(indexJson);
+        }
+
+        IndexJson logoInfo = new IndexJson("LAYUI MINI", "", "images/logo.png");
+        IndexJson homeInfo = new IndexJson("首页", "page/welcome-1.html?t=1");
+
+        InitJson initJson = new InitJson();
+        initJson.setLogoInfo(logoInfo);
+        initJson.setHomeInfo(homeInfo);
+        initJson.setMenuInfo(indexJsonList); // 直接设置 indexJsonList
+
+        return initJson;
     }
+
 
     ////通过用户id与菜单的编号id获取用户所在菜单目录的按钮
     @Override

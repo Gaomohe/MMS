@@ -18,23 +18,18 @@ public interface RoleDao {
     //新增角色
     public int addRole(Role role);
 
-
     //分页
     public List<Role> getRoleAll(int page, int limit);
 
-    //
+    //无条件查询获取所有的角色信息
     public List<Role> getRoleAll();
 
     //重名验证
     public int isUname(Role role);
 
 
-
     //id查所有
     public Role allRoleByRoleid(int roleid);
-
-
-
 
 
     public List<Menu> menuByRoleid(int id);
