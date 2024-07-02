@@ -32,7 +32,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
                     <div class="layui-input-block">
-                        <input name="username" type="text" placeholder="账号" class="layui-input"
+                        <input name="id" type="text" placeholder="账号" class="layui-input"
                                lay-verType="tips" lay-verify="required" required/>
                     </div>
                 </div>
@@ -91,17 +91,17 @@
                 obj = obj.field;
                 console.log(obj.field);
                 $.ajax({
-                    url: "/",
-                    type: "post",
+                    url: "/user",
+                    type: "GET",
                     data: {
                         action: "Login",
-                        name: obj.username,
+                        id: obj.id,
                         password: obj.password,
                         code:obj.code
                     },
                     dataType: "text",
                     success: function (data) {
-                        if (/*data.status == 200 &&*/ a===true) {
+                        if (data.status == 200) {
                             layer.msg('登录成功', {icon: 1, time: 1500}, function () {
                                 location.replace('./iframe/index.jsp')
                             });
@@ -112,7 +112,6 @@
                     }
                 })
             });
-
         // 图形验证码
         $('.login-captcha').click(function () {
             this.src = this.src + '?t=' + (new Date).getTime();
