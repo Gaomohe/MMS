@@ -1,6 +1,6 @@
 package com.pojo;
 
-public class medicine {
+public class Medicine {
     private int mId;
     private String mName;
     private String specification;
