@@ -12,7 +12,6 @@
     <title>EasyWeb后台开发框架</title>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/module/admin.css?v=314"/>
-    <link rel="stylesheet" href="<%= path %>/iframe/assets/LayUIMini/css/layuimini.css?v=2.0.4.2" media="all">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -74,7 +73,7 @@
     <!--无限极左侧菜单-->
     <div class="layui-side">
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-filter="admin-side-nav" lay-shrink="all"></ul>
+            <ul class="layui-nav layui-nav-tree" lay-filter="admin-side-nav" lay-shrink="all" id="side-nav"></ul>
         </div>
     </div>
     <!-- 主体部分 -->
@@ -109,36 +108,38 @@
 
     });
 </script>
+<script src="../iframe/assets/libs/jquery/jquery-3.2.1.min.js"></script>
 <script>
-   // 获取菜单数据并渲染
-   $.ajax({
-            url: '/menu?action=selectMenu',
-            method: 'GET',
-            success: function (data) {
-                var menuHtml = '';
-                data.forEach(function (item) {
-                    menuHtml += renderMenu(item);
-                });
-                $('#side-nav').html(menuHtml);
-                layui.element.render('nav', 'admin-side-nav');
-            }
-        });
-
-        function renderMenu(item) {
-            var html = '<li class="layui-nav-item">';
-            if (item.children && item.children.length > 0) {
-                html += '<a href="javascript:;">' + (item.icon ? '<i class="layui-icon ' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
-                html += '<dl class="layui-nav-child">';
-                item.children.forEach(function (child) {
-                    html += renderMenu(child);
-                });
-                html += '</dl>';
-            } else {
-                html += '<a href="' + item.href + '">' + (item.icon ? '<i class="layui-icon ' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
-            }
-            html += '</li>';
-            return html;
+    // 获取菜单数据并渲染
+    $.ajax({
+        url: '/menu?action=selectMenu',
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var menuHtml = '';
+            data.menuInfo.forEach(function (item) {
+                menuHtml += renderMenu(item);
+            });
+            $('#side-nav').html(menuHtml);
+            layui.element.render('nav', 'admin-side-nav');
         }
+    });
+
+    function renderMenu(item) {
+        var html = '<li class="layui-nav-item">';
+        if (item.child && item.child.length > 0) {
+            html += '<a href="javascript:;">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
+            html += '<dl class="layui-nav-child">';
+            item.child.forEach(function (child) {
+                html += renderMenu(child);
+            });
+            html += '</dl>';
+        } else {
+            html += '<a href="' + item.href + '" target="' + item.target + '">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
+        }
+        html += '</li>';
+        return html;
+    }
 </script>
 </body>
 </html>
