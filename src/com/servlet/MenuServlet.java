@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.pojo.Menu;
 import com.pojo.User;
 import com.util.BaseServlet;
 import com.util.InitJson;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.List;
 
 import static com.util.Vessel.menuService;
 
@@ -20,6 +22,7 @@ public class MenuServlet extends BaseServlet {
         return MenuServlet.class;
     }
 
+    //获取所有目录
     public void selectMenu(HttpServletRequest request, HttpServletResponse response){
         try {
             request.setCharacterEncoding("utf-8");
@@ -35,5 +38,15 @@ public class MenuServlet extends BaseServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    //获取所有按钮
+    public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        int resId = Integer.parseInt(request.getParameter("resId"));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("menuList",menuList);
+        return "/admin/page/system/menu/menuList";
     }
 }

@@ -70,6 +70,6 @@ public class MenuServiceImpl implements MenuService {
     ////通过用户id与菜单的编号id获取用户所在菜单目录的按钮
     @Override
     public List<Menu> getMenuBtn(int id, int resId) {
-        return Collections.emptyList();
+        return menuDao.getMenuBtn(id,resId);
     }
 }
