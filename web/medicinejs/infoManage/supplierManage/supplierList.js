@@ -19,9 +19,6 @@ layui.extend({
         height : "full-125",
         limit : 20,
         limits : [10,15,20,25],
-        done:function (data){
-            console.log(data)
-        },
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
             {field: 'sId', title: '供货商编号',  align:'center',width:100},

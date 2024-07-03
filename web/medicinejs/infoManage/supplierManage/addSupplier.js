@@ -64,6 +64,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
             },
             type:"post",
             success:function(data){
+                console.log(data)
                 var info = JSON.parse(data);
                 if(info.status == 200){
                     layer.msg("添加成功")
