@@ -26,4 +26,18 @@ public class InitDaoImpl {
         Object[] objects = new Object[]{id};
         return JDBC.update(sql,objects) > 0;
     }
+
+    //按照id获取某表的某条信息---------参数(id,id名称,表名)
+    public ResultSet getOne(int id,String idName,String tableName){
+        String sql = "select * from "+tableName+" where "+idName+" = ?";
+        Object[] objects = new Object[]{id};
+        return JDBC.select(sql,objects);
+    }
+
+    //按照其他(String类型的)获取某表的某条信息---------参数(id,id名称,表名)
+    public ResultSet getOne(String other,String otherName,String tableName){
+        String sql = "select * from "+tableName+" where "+otherName+" = ?";
+        Object[] objects = new Object[]{other};
+        return JDBC.select(sql,objects);
+    }
 }
