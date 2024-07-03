@@ -108,7 +108,7 @@ public class MenuDaoImpl implements MenuDao {
 
     @Override
     public Menu isExist(String s) {
-        String sql = "SELECT * FROM `resources` WHERE `resKey`= '?';";
+        String sql = "SELECT * FROM `resources` WHERE `resKey`= ?;";
         Object[] objects = new Object[1];
         objects[0] = "'"+s+"'";
         ResultSet resultSet = JDBC.select(sql,objects);

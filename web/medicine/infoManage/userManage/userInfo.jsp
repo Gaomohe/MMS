@@ -23,7 +23,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">账号</label>
         <div class="layui-input-inline">
-            <input type="text" name="uid" id="uid" value="${user1.id}" lay-verify="required" disabled="" placeholder="用户编号" autocomplete="off" class="layui-input">
+            <input type="text" name="id" id="id" value="${user1.id}" lay-verify="required" disabled="" placeholder="用户编号" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -43,23 +43,58 @@
     <div class="layui-form-item">
         <label class="layui-form-label">联系方式</label>
         <div class="layui-input-inline">
-            <input type="text" name="telNumber" value="${user1.telNumber}" id="realName" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+            <input type="text" name="telNumber" value="${user1.telNumber}" id="telNumber" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <label class="layui-form-label">家庭住址</label>
+        <div class="layui-input-inline">
+            <input type="text" name="address" value="${user1.address}" id="address" lay-verify="required" placeholder="家庭住址" autocomplete="off" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item" pane="">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="st_Sex" id="sex1"  value="1" title="男">
-            <input type="radio" name="st_Sex" id="sex2" value="2" title="女">
+            <input type="radio" name="st_Sex" id="sex1"  value="男" title="男">
+            <input type="radio" name="st_Sex" id="sex2" value="女" title="女">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-inline">
+            <input type="text" name="age" value="${user1.age}" id="age" lay-verify="required" placeholder="年龄" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">出生日期</label>
+        <div class="layui-input-inline">
+            <input type="text" name="birthday" value="${user1.birthday}" id="birthday" lay-verify="required" placeholder="出生日期" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="createDate" value="${user1.createDate}" id="createDate" lay-verify="required" placeholder="创建时间" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">微信</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat" value="${user1.wechat}" id="wechat" lay-verify="required" placeholder="微信" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <button class="layui-btn layui-btn-fluid" id="xiugai" lay-filter="addUser">修改用户</button>
     </div>
 </form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=basePath %>admin/pagejs/system/user/infoUser.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/infoManage/userManage/userInfo.js" charset="utf-8"></script>
 </body>
 </html>
