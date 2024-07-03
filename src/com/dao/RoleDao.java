@@ -13,6 +13,7 @@ public interface RoleDao {
     public Role getRoleById(int id);
     //根据id删除角色
     public int delRole(int id);
+    public int delRole_Res(int id);
     //修改角色信息
     public int updateRole(Role role);
     //新增角色
@@ -26,7 +27,6 @@ public interface RoleDao {
 
     //重名验证
     public int isUname(Role role);
-
 
     //id查所有
     public Role allRoleByRoleid(int roleid);

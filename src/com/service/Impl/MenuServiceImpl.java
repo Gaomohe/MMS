@@ -111,6 +111,11 @@ public class MenuServiceImpl implements MenuService {
         return initJson;
     }
 
+    @Override
+    public Menu getMenuById(int id) {
+        return menuDao.getMenuById(id);
+    }
+
 
     ////通过用户id与菜单的编号id获取用户所在菜单目录的按钮
     @Override

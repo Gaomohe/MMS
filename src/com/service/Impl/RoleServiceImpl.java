@@ -21,7 +21,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int delRoleById(int id) {
-        return roleDao.delRole(id);
+        int i = roleDao.delRole(id);
+        int i1 = roleDao.delRole_Res(id);
+        return i+i1;
     }
 
     @Override

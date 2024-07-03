@@ -73,6 +73,31 @@ public class MenuDaoImpl implements MenuDao {
         return menulist;
     }
 
+    @Override
+    public Menu getMenuById(int id) {
+        String sql = "select * from resources where resId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        Menu menu = new Menu();
+        try{
+            while(resultSet.next()){
+                menu.setResId(resultSet.getInt(1));
+                menu.setName(resultSet.getString(2));
+                menu.setParentId(resultSet.getInt(3));
+                menu.setResKey(resultSet.getString(4));
+                menu.setType(resultSet.getInt(5));
+                menu.setResUrl(resultSet.getString(6));
+                menu.setLevel(resultSet.getInt(7));
+                menu.setIcon(resultSet.getString(8));
+                menu.setDescription(resultSet.getString(9));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return menu;
+    }
+
 
     //通过用户id与菜单的编号id获取用户所在菜单目录的按钮
     @Override

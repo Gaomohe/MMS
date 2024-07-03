@@ -62,6 +62,13 @@ public class RoleDaoImpl implements RoleDao {
         int count= JDBC.update(sql,objects);
         return count;
     }
+    public int delRole_Res(int id) {
+        String sql=" DELETE FROM `role_res` WHERE `roleId`=?";
+        Object[]  objects= new Object[1];
+        objects[0]=id;
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
 
     @Override
     public int updateRole(Role role) {
@@ -78,7 +85,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public int addRole(Role role) {
-        String sql=" insert into ly_user(state,name,roleKey,description) value(?,?,?,?)";
+        String sql=" insert into role(state,name,roleKey,description) value(?,?,?,?)";
         Object[]  objects= new Object[4];
         objects[0]=role.getState();
         objects[1]=role.getName();

@@ -5,6 +5,7 @@ import com.pojo.Menu;
 import com.pojo.User;
 import com.util.BaseServlet;
 import com.util.InitJson;
+import com.util.Result;
 import com.util.ResultData;
 
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +51,18 @@ public class MenuServlet extends BaseServlet {
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
         return "medicine/infoManage/medUserManage/medUserList.jsp";
+    }
+
+    public ResultData selectMenuById(HttpServletRequest request, HttpServletResponse response){
+        try {
+            request.setCharacterEncoding("utf-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        response.setCharacterEncoding("utf-8");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Menu menuById = menuService.getMenuById(id);
+        return Result.resultData(menuById);
     }
 
     //添加新菜单
