@@ -2,7 +2,11 @@ package com.servlet;
 
 import com.pojo.Menu;
 import com.pojo.User;
+import com.service.Impl.MiddlemanServiceImpl;
 import com.util.BaseServlet;
+import com.util.ResultData;
+import com.util.init.ToJSON;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +18,7 @@ import static com.util.Vessel.menuService;
 
 @WebServlet("/middleMan")
 public class MiddleManServlet extends BaseServlet {
+    MiddlemanServiceImpl middlemanService = new MiddlemanServiceImpl();
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
 
         int resId = Integer.parseInt(request.getParameter("resId"));
@@ -30,7 +35,18 @@ public class MiddleManServlet extends BaseServlet {
     }
 
     public void selectMiddleMan(HttpServletRequest request, HttpServletResponse response){
-
+        ToJSON.toJson(response,middlemanService.selectMiddleMan());
     }
+    public ResultData delMiddleMan(HttpServletRequest request, HttpServletResponse response){
+        return middlemanService.delMiddleMan(Integer.parseInt(request.getParameter("workId")));
+    }
+    public ResultData selectMiddleManById(HttpServletRequest request, HttpServletResponse response){
+        return middlemanService.selectMiddleManById(Integer.parseInt(request.getParameter("workId")));
+    }
+    public ResultData checkMiddleManName(HttpServletRequest request, HttpServletResponse response){
+        return middlemanService.checkMiddleManName(request.getParameter("mname"));
+    }
+    public ResultData updateMiddleMan
+
 
 }
