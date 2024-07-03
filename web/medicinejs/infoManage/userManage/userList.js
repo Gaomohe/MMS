@@ -55,7 +55,7 @@ layui.extend({
         console.log(obj);
         switch (obj.event) {
             case 'delUser':
-                if(files.length>1 | files.length<1){
+                if(files.length > 1 | files.length<1){
                     layer.msg("请选择一行进行删除",{icon:2})
                     return;
                 }else {
@@ -274,7 +274,7 @@ layui.extend({
         layui.layer.open({
             title : "修改用户信息",
             type : 2,
-            content : "admin/page/system/user/userInfo.jsp",
+            content : "medicine/infoManage/userManage/userInfo.jsp",
             area:['500px','540px'],
             success:function(layero, index){
                 $.ajax({
@@ -479,7 +479,5 @@ layui.extend({
             area:['400px','490px'],
         })
     }
-
-
 
 })
