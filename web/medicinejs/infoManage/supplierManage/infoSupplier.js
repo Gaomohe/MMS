@@ -43,12 +43,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var sname = $("#sname").val();
         var sname2 = $("#sname2").val();
         var supplierId = $("#supplierId").val();
-        var operationWay = $("#supplierId").val();
-        var tel = $("#supplierId").val();
-        var contact = $("#supplierId").val();
-        var status = $("#supplierId").val();
-        var license = $("#supplierId").val();
-        var createTime = $("#supplierId").val();
+        var operationWay = $("#operationWay").val();
+        var tel = $("#tel").val();
+        var contact = $("#contact").val();
+        var status = $("#status").val();
+        var license = $("#license").val();
+        var createTime = $("#createTime").val();
         if(sname.length == "" ){
             layer.msg("供货商名称不能为空")
             return false;
