@@ -22,7 +22,7 @@ layui.extend({
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
             {field: 'logId', title: '编号',  align:'center',width:100},
-            {field: 'time', title: '状态',  align:'center',width:100},
+            {field: 'time', title: '时间',  align:'center',width:100},
             {field: 'name', title: '用户名', width:150, align:"center"},
             {field: 'action', title:'动作' , width:150, align:"center"},
             {field: 'item', title:'事务' , width:150, align:"center"}
