@@ -1,0 +1,214 @@
+{
+	"code": 0,
+	"count": 0,
+	"data": [
+		{
+			"authority": "system",
+			"authorityId": 0,
+			"authorityName": "系统管理",
+			"checked": true,
+			"isMenu": 1,
+			"open": true,
+			"parentId": -1
+		},
+		{
+			"authority": "system:staff:view",
+			"authorityId": 0,
+			"authorityName": "员工管理",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 1
+		},
+		{
+			"authority": "system:staff:add",
+			"authorityId": 0,
+			"authorityName": "员工新增",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 2
+		},
+		{
+			"authority": "system:staff:update",
+			"authorityId": 0,
+			"authorityName": "员工修改",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 2
+		},
+		{
+			"authority": "system:staff:remove",
+			"authorityId": 0,
+			"authorityName": "员工删除",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 2
+		},
+		{
+			"authority": "system:staff:resetPwd",
+			"authorityId": 0,
+			"authorityName": "重置密码",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 2
+		},
+		{
+			"authority": "system:menu:view",
+			"authorityId": 0,
+			"authorityName": "权限管理",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 1
+		},
+		{
+			"authority": "system:menu:add",
+			"authorityId": 0,
+			"authorityName": "权限新增",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 15
+		},
+		{
+			"authority": "system:menu:edit",
+			"authorityId": 0,
+			"authorityName": "权限修改",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 15
+		},
+		{
+			"authority": "system:menu:remove",
+			"authorityId": 0,
+			"authorityName": "权限删除",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 15
+		},
+		{
+			"authority": "system:user:menu",
+			"authorityId": 0,
+			"authorityName": "分配权限",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 2
+		},
+		{
+			"authority": "client",
+			"authorityId": 0,
+			"authorityName": "客户关系",
+			"checked": true,
+			"isMenu": 1,
+			"open": true,
+			"parentId": -1
+		},
+		{
+			"authority": "client:mine:view",
+			"authorityId": 0,
+			"authorityName": "我的客户",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "client:mine:add",
+			"authorityId": 0,
+			"authorityName": "新增",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 24
+		},
+		{
+			"authority": "client:mine:update",
+			"authorityId": 0,
+			"authorityName": "修改",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 24
+		},
+		{
+			"authority": "client:mine:remove",
+			"authorityId": 0,
+			"authorityName": "删除",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 24
+		},
+		{
+			"authority": "clien:comm:add",
+			"authorityId": 0,
+			"authorityName": "添加沟通记录",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "clien:contact:add",
+			"authorityId": 0,
+			"authorityName": "添加联系人",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "client:contract:add",
+			"authorityId": 0,
+			"authorityName": "添加合同",
+			"checked": true,
+			"isMenu": 3,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "client:public:view",
+			"authorityId": 0,
+			"authorityName": "公共客户",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "client:contact:view",
+			"authorityId": 0,
+			"authorityName": "客户联系人",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "client:contact:view",
+			"authorityId": 0,
+			"authorityName": "客户沟通记录",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 23
+		},
+		{
+			"authority": "client:contact:view",
+			"authorityId": 0,
+			"authorityName": "销售合同",
+			"checked": true,
+			"isMenu": 2,
+			"open": true,
+			"parentId": 23
+		}
+	],
+	"msg": ""
+}

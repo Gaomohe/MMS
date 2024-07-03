@@ -79,7 +79,7 @@ public class MenuDaoImpl implements MenuDao {
         String sql = "SELECT * FROM resources WHERE resources.resId IN(\n" +
                 "SELECT resid FROM `role_res` WHERE roleid\n" +
                 "IN(SELECT roleId FROM `user_role` WHERE userId=?)\n" +
-                ") AND TYPE = 1 AND parentId = ?";
+                ") AND TYPE = 2 AND parentId = ?";
         Object[] objects = new Object[2];
         objects[0] = id;
         objects[1] = resId;

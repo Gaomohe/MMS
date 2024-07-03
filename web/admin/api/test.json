@@ -1,0 +1,62 @@
+{
+	"homeInfo": {
+		"href": "page/welcome-1.html?t=1",
+		"image": "",
+		"title": "首页"
+	},
+	"logoInfo": {
+		"href": "",
+		"image": "images/logo.png",
+		"title": "LIQIN Admin"
+	},
+	"menuInfo": [
+		{
+			"child": [
+				{
+					"child": [
+						{
+							"href": "../UserServlet?action=allUserBtn&menuid=2",
+							"icon": "fa fa-users",
+							"target": "_self",
+							"title": "用户管理"
+						},
+						{
+							"href": "../MenuServlet?action=allMenu&menuid=3",
+							"icon": "fa fa-sitemap",
+							"target": "_self",
+							"title": "权限管理"
+						},
+						{
+							"href": "../RoleServlet?action=allRoleIndex&menuid=4",
+							"icon": "fa fa-user-secret",
+							"target": "_self",
+							"title": "角色管理"
+						}
+					],
+					"href": "",
+					"icon": "fa fa-shield",
+					"target": "_self",
+					"title": "系统权限菜单"
+				},
+				{
+					"child": [
+						{
+							"href": "../系统基本参数&menuid=18",
+							"icon": "fa fa-wrench",
+							"target": "_self",
+							"title": "系统基本参数"
+						}
+					],
+					"href": "",
+					"icon": "fa fa-cog",
+					"target": "_self",
+					"title": "系统设置"
+				}
+			],
+			"href": "",
+			"icon": "fa fa-address-book",
+			"target": "_self",
+			"title": "系统管理"
+		}
+	]
+}

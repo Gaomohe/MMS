@@ -13,7 +13,7 @@ layui.extend({
     /*------------- 加载用户数据 --------------------------------*/
     var tableIns = table.render({
         elem: '#userList',
-        url : '/user?action=allUser',
+        url : '/user?action=getAllUser',
         toolbar: '#toolbarDemo',
         page : true,
         height: 'full-145',

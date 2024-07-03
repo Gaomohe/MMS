@@ -1,0 +1,21 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 100,
+  "data": [
+    {
+      "id": "1",
+      "loginName": "user1",
+      "userAddress": "123 Main St",
+      "createTime": "2023-01-01 10:00:00",
+      "cost": "100.00"
+    },
+    {
+      "id": "2",
+      "loginName": "user2",
+      "userAddress": "456 Elm St",
+      "createTime": "2023-01-02 11:00:00",
+      "cost": "150.00"
+    }
+  ]
+}
