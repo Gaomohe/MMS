@@ -1,9 +1,13 @@
+import com.pojo.User;
+import com.service.Impl.UserServiceImpl;
+import com.util.JDBC;
+import com.util.LayuiTable;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
-        System.out.println("我是刘兆坤，我在这里做了修改，大家能看到吗");
-        System.out.println("yeah,s**k me");
-
+        UserServiceImpl userService = new UserServiceImpl();
+        JDBC jdbc = new JDBC();
+        LayuiTable<User> allUser = userService.getAllUser(10, 10);
+        System.out.println(allUser);
     }
 }

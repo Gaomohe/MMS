@@ -1,5 +1,6 @@
 package com.dao.Impl;
 
+import com.dao.Impl.init.InitDaoImpl;
 import com.dao.UserDao;
 import com.pojo.User;
 import com.util.JDBC;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends InitDaoImpl implements UserDao {
 
     //用户登录
     @Override
@@ -32,4 +33,6 @@ public class UserDaoImpl implements UserDao {
         }
         return count;
     }
+
+
 }

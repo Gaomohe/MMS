@@ -1,23 +1,24 @@
 package com.servlet;
 
-import com.pojo.Menu;
+import com.alibaba.fastjson.JSON;
 import com.pojo.User;
-import com.util.BaseServlet;
-import com.util.Result;
-import com.util.ResultData;
+import com.service.Impl.UserServiceImpl;
+import com.util.*;
+import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.util.List;
+import java.io.PrintWriter;
 
-import static com.util.Vessel.menuService;
 import static com.util.Vessel.userService;
 
 @WebServlet("/user")
 public class UserServlet extends BaseServlet {
+    UserServiceImpl userService = new UserServiceImpl();
+
     @Override
     public Class getServlet() {
         return UserServlet.class;
@@ -41,14 +42,10 @@ public class UserServlet extends BaseServlet {
         resultData = Result.resultStatus(login);
         return resultData;
     }
-
-    //获取所有按钮
-    public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
-        int resId = Integer.parseInt(request.getParameter("resId"));
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
-        session.setAttribute("menuList",menuList);
-        return "/medicine/infoManage/userManage/userList";
+    public void getAllUser(HttpServletRequest request, HttpServletResponse response){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+        ToJSON.toJson(response,userService.getAllUser(page,limit));
     }
 }
