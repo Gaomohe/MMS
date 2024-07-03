@@ -126,4 +126,11 @@ public class RoleServlet extends BaseServlet {
         int i = roleService.addDoRole(role);
         return Result.resultStatus(i);
     }
+    public ResultData<Role> checkUname(HttpServletRequest request, HttpServletResponse response){
+        String rname = request.getParameter("rname");
+        Role role = new Role();
+        role.setName(rname);
+        int uname = roleService.isUname(role);
+        return Result.resultNameStatus(uname);
+    }
 }

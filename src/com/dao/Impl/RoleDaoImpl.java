@@ -150,7 +150,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public int isUname(Role role) {
-        String sql="select * from ly_role where name=?";
+        String sql="select * from role where name=?";
         Object[]  objects= new Object[1];
         objects[0]=role.getName();
         ResultSet resultSet = JDBC.select(sql, objects);

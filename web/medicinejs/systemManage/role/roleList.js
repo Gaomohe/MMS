@@ -98,9 +98,9 @@ layui.extend({
             area:['350px','230px'],
             success:function(layero, index){
                 $.ajax({
-                    url:"/role?action=allRoleByRoleid",
+                    url:"/role?action=getRoleById",
                     type:"post",
-                    data:{"roleid":roleid},
+                    data:{"id":roleid},
                     success:function(data){
                         var info = JSON.parse(data);
                         console.log(info);
