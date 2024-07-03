@@ -60,4 +60,15 @@ public class UserServlet extends BaseServlet {
         session.setAttribute("menuList",menuList);
         return "/medicine/infoManage/userManage/userList";
     }
+
+    //删除一个人
+    public ResultData delUser(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        return userService.delUser(id);
+    }
+
+    public ResultData allUserByUserid(HttpServletRequest request, HttpServletResponse response){
+        return null;
+    }
+
 }

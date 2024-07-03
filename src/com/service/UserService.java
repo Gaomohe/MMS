@@ -2,6 +2,7 @@ package com.service;
 
 import com.pojo.User;
 import com.util.LayuiTable;
+import com.util.ResultData;
 
 public interface UserService {
     //用户登录
@@ -12,6 +13,8 @@ public interface UserService {
 
     //返回所有用户(分页)--------参数（页数，区间）
     public LayuiTable<User> getAllUser(int page,int limit);
+
+    public ResultData delUser(int id);
 
 
 }

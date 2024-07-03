@@ -4,6 +4,7 @@ import com.dao.Impl.UserDaoImpl;
 import com.pojo.User;
 import com.service.UserService;
 import com.util.LayuiTable;
+import com.util.ResultData;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import static com.util.Vessel.userDao;
 public class UserServiceImpl implements UserService {
     UserDaoImpl userDao = new UserDaoImpl();
     LayuiTable<User> layuiTable = new LayuiTable<>();
+    ResultData resultData = new ResultData();
     //用户登录
     @Override
     public int login(User user) {
@@ -59,5 +61,19 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return layuiTable;
+    }
+
+    @Override
+    public ResultData delUser(int id) {
+        if (userDao.delOne(id,"id","user")){
+            resultData.setStatus(200);
+            resultData.setMsg("删除成功");
+            resultData.setData(null);
+        }else {
+            resultData.setStatus(400);
+            resultData.setMsg("删除失败");
+            resultData.setData(null);
+        }
+        return resultData;
     }
 }

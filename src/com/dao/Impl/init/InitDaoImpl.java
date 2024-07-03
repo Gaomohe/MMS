@@ -19,4 +19,11 @@ public class InitDaoImpl {
         String sql = "select * from "+tableName;
         return JDBC.select(sql,new Object[1]);
     }
+
+    //按id删除某个表的信息-------------参数（id,表名）
+    public boolean delOne(int id,String idname,String tableName){
+        String sql="delete from "+tableName+" where "+idname+" =?";
+        Object[] objects = new Object[]{id};
+        return JDBC.update(sql,objects) > 0;
+    }
 }
