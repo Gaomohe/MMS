@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>新增经手人</title>
+    <title>新增供应商</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -49,18 +49,18 @@
     </div>
 
     <div class="layui-form-item">
-    <label class="layui-form-label">经手药品名</label>
-    <div class="layui-input-inline">
-        <input type="text" name="medName" id="medName" lay-verify="required" placeholder="请输入经手药品名" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">经手药品名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="medName" id="medName" lay-verify="required" placeholder="请输入经手药品名" autocomplete="off" class="layui-input">
+        </div>
     </div>
-</div>
 
     <div class="layui-form-item">
-    <label class="layui-form-label">药品规格</label>
-    <div class="layui-input-inline">
-        <input type="text" name="standard" id="standard" lay-verify="required" placeholder="请输入药品规格" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">药品规格</label>
+        <div class="layui-input-inline">
+            <input type="text" name="standard" id="standard" lay-verify="required" placeholder="请输入药品规格" autocomplete="off" class="layui-input">
+        </div>
     </div>
-</div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">经手数量</label>
@@ -89,14 +89,13 @@
             <input type="text" name="supplierName" id="supplierName" lay-verify="required" placeholder="请输入供货商名称" autocomplete="off" class="layui-input">
         </div>
     </div>
-    
-    <br/><br/>
+
     <div class="layui-form-item">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="addSupplier">新增经手人</button>
+        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="upSupplier">修改供应商</button>
     </div>
 </form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/infoManage/middleManManage/addMiddleMan.js"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/infoManage/middleManManage/infoMiddleMan.js"></script>
 </body>
 </html>

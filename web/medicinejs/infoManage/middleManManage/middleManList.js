@@ -100,26 +100,29 @@ layui.extend({
         layui.layer.open({
             title : "修改经手人信息",
             type : 2,
-            content : "medicine/infoManage/supplierManage/supplierInfo.jsp",
+            content : "medicine/infoManage/middleManManage/middleManInfo.jsp",
             area:['350px','230px'],
             success:function(layero, index){
                 $.ajax({
                     url:"/middleMan?action=selectMiddleManById",//根据id查询的方法
                     type:"post",
-                    data:{"supplierId":supplierId},
+                    data:{"workId":workId},
                     success:function(data){
                         var info = JSON.parse(data);
                         console.log(info);
                         var body = layui.layer.getChildFrame('body', index);
-                        body.find("#supplierId").val(info.data.id);
-                        body.find("#sname2").val(info.data.name);
-                        body.find("#sname").val(info.data.name);
-                        body.find("#operationWay").val(info.data.operationWay);
+                        body.find("#workId").val(info.data.id);
+                        body.find("#mName2").val(info.data.name);
+                        body.find("#mName").val(info.data.name);
                         body.find("#tel").val(info.data.tel);
-                        body.find("#contact").val(info.data.contact);
-                        body.find("#status").val(info.data.status);
-                        body.find("#license").val(info.data.license);
-                        body.find("#createTime").val(info.data.createTime);
+                        body.find("#email").val(info.data.email);
+                        body.find("#department").val(info.data.department);
+                        body.find("#medName").val(info.data.medName);
+                        body.find("#standard").val(info.data.standard);
+                        body.find("#medNum").val(info.data.medNum);
+                        body.find("#date").val(info.data.date);
+                        body.find("#place").val(info.data.place);
+                        body.find("#supplierName").val(info.data.supplierName);
                     }
                 })
                 /*        			//获取新窗口对象
@@ -135,7 +138,7 @@ layui.extend({
         layui.layer.open({
             title : "新增经手人",
             type : 2,
-            content : "medicine/infoManage/supplierManage/supplierAdd.jsp",
+            content : "medicine/infoManage/middleManManage/middleManAdd.jsp",
             area:['400px','500px'],
         });
     }
