@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.pojo.Menu;
+import com.pojo.Middleman;
 import com.pojo.User;
 import com.service.Impl.MiddlemanServiceImpl;
 import com.util.BaseServlet;
@@ -47,7 +48,34 @@ public class MiddleManServlet extends BaseServlet {
         return middlemanService.checkMiddleManName(request.getParameter("mname"));
     }
     public ResultData updateMiddleMan(HttpServletRequest request, HttpServletResponse response){
-        return null;
+        Middleman middleman = new Middleman();
+        middleman.setmName(request.getParameter("mname"));
+        middleman.setWorkId(Integer.parseInt(request.getParameter("workId")));
+        middleman.setMedNum(Integer.parseInt(request.getParameter("medNum")));
+        middleman.setTel(request.getParameter("tel"));
+        middleman.setEmail(request.getParameter("email"));
+        middleman.setDepartment(request.getParameter("department"));
+        middleman.setMedName(request.getParameter("medName"));
+        middleman.setStandard(request.getParameter("standard"));
+        middleman.setDate(request.getParameter("date"));
+        middleman.setPlace(request.getParameter("place"));
+        return middlemanService.updateMiddleMan(middleman);
+    }
+    public ResultData isUname(HttpServletRequest request, HttpServletResponse response){
+        return middlemanService.checkMiddleManName(request.getParameter("mname"));
+    }
+    public ResultData addMiddleMan(HttpServletRequest request, HttpServletResponse response){
+        Middleman middleman = new Middleman();
+        middleman.setmName(request.getParameter("mname"));
+        middleman.setMedNum(Integer.parseInt(request.getParameter("medNum")));
+        middleman.setTel(request.getParameter("tel"));
+        middleman.setEmail(request.getParameter("email"));
+        middleman.setDepartment(request.getParameter("department"));
+        middleman.setMedName(request.getParameter("medName"));
+        middleman.setStandard(request.getParameter("standard"));
+        middleman.setDate(request.getParameter("date"));
+        middleman.setPlace(request.getParameter("place"));
+        return middlemanService.addMiddleMan(middleman);
     }
 
 

@@ -17,4 +17,9 @@ public interface MiddlemanService {
 
     //
     public ResultData checkMiddleManName(String name);
+
+    //更新
+    public ResultData updateMiddleMan(Middleman middleman);
+
+    public ResultData addMiddleMan(Middleman middleman);
 }

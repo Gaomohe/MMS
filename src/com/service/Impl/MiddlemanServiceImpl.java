@@ -109,4 +109,37 @@ public class MiddlemanServiceImpl implements MiddlemanService {
         }
         return resultData;
     }
+
+    @Override
+    public ResultData updateMiddleMan(Middleman middleman) {
+        try {
+            if (middlemanDao.updateMiddleMan(middleman)){
+                resultData.setStatus(200);
+                resultData.setMsg("更新成功");
+                resultData.setData(null);
+            }else {
+                resultData.setStatus(400);
+                resultData.setMsg("更新失败");
+                resultData.setData(null);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData addMiddleMan(Middleman middleman) {
+        if (middlemanDao.addMiddleMan(middleman)){
+            resultData.setStatus(200);
+            resultData.setMsg("添加成功");
+            resultData.setData(null);
+        }else {
+            resultData.setStatus(400);
+            resultData.setMsg("添加失败");
+            resultData.setData(null);
+        }
+        return resultData;
+    }
 }
