@@ -1,13 +1,14 @@
 package com.service;
 
 import com.pojo.Supplier;
+import com.util.LayuiTable;
 import com.util.ResultData;
 
 import java.util.List;
 
 public interface SupplierServlce {
     //获取所有--------------参数（无）
-    public List<Supplier> selectSupplier();
+    public LayuiTable<Supplier> selectSupplier();
 
     //删除-----------参数（id）
     public ResultData delSupplier(int id);
@@ -22,6 +23,6 @@ public interface SupplierServlce {
     public ResultData updateSupplier(Supplier supplier);
 
     //添加------------参数(Supplier)
-    public ResultData addRole(Supplier supplier);
+    public ResultData addSupplier(Supplier supplier);
 
 }

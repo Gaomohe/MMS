@@ -9,5 +9,5 @@ public interface SupplierDao{
     public boolean updateSupplier(Supplier supplier);
 
     //添加-----------参数Supplier）
-    public boolean addRole(Supplier supplier);
+    public boolean addSupplier(Supplier supplier);
 }

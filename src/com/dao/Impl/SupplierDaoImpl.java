@@ -14,7 +14,7 @@ public class SupplierDaoImpl extends InitDaoImpl implements SupplierDao {
     }
 
     @Override
-    public boolean addRole(Supplier supplier) {
+    public boolean addSupplier(Supplier supplier) {
         String sql = "insert into supplier(sName, operationWay, tel, contact, status, license, createTime) VALUE (?,?,?,?,?,?,?)";
         Object[] objects = new Object[]{supplier.getsName(),supplier.getOperationWay(),supplier.getTel(),supplier.getContact(),supplier.getStatus(),supplier.getLicense(),supplier.getCreateTime()};
         return JDBC.update(sql,objects) > 0;

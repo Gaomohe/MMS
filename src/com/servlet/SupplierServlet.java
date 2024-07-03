@@ -64,7 +64,7 @@ public class SupplierServlet extends BaseServlet {
         return supplierServlce.checkSupplierName(request.getParameter("rname"));
     }
 
-    public ResultData addRole(HttpServletRequest request, HttpServletResponse response){
+    public ResultData addSupplier(HttpServletRequest request, HttpServletResponse response){
         Supplier supplier = new Supplier();
         supplier.setsName(request.getParameter("sname"));
         supplier.setOperationWay(request.getParameter("operationWay"));
@@ -73,7 +73,7 @@ public class SupplierServlet extends BaseServlet {
         supplier.setStatus(request.getParameter("status"));
         supplier.setLicense(request.getParameter("license"));
         supplier.setCreateTime(request.getParameter("createTime"));
-        return supplierServlce.addRole(supplier);
+        return supplierServlce.addSupplier(supplier);
     }
 
 

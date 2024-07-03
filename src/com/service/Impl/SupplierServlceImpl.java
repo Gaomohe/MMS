@@ -3,6 +3,7 @@ package com.service.Impl;
 import com.dao.Impl.SupplierDaoImpl;
 import com.pojo.Supplier;
 import com.service.SupplierServlce;
+import com.util.LayuiTable;
 import com.util.ResultData;
 
 import java.sql.ResultSet;
@@ -12,10 +13,12 @@ import java.util.List;
 public class SupplierServlceImpl implements SupplierServlce {
     SupplierDaoImpl supplierDao = new SupplierDaoImpl();
     ResultData resultData = new ResultData();
+    LayuiTable<Supplier> layuiTable = new LayuiTable<>();
     @Override
-    public List<Supplier> selectSupplier() {
+    public LayuiTable<Supplier> selectSupplier() {
         ResultSet supplier = supplierDao.getAll("supplier");
         List<Supplier> suppliers = new ArrayList<>();
+        int count = 0;
         try {
             while (supplier.next()){
                 Supplier sup = new Supplier();
@@ -28,12 +31,16 @@ public class SupplierServlceImpl implements SupplierServlce {
                 sup.setLicense(supplier.getString(7));
                 sup.setCreateTime(supplier.getString(8));
                 suppliers.add(sup);
+                count++;
             }
-
+            layuiTable.setCode(0);
+            layuiTable.setCount(count);
+            layuiTable.setData(suppliers);
+            layuiTable.setMsg("");
         }catch (Exception e){
             e.printStackTrace();
         }
-        return suppliers;
+        return layuiTable;
     }
 
     @Override
@@ -117,8 +124,8 @@ public class SupplierServlceImpl implements SupplierServlce {
     }
 
     @Override
-    public ResultData addRole(Supplier supplier) {
-        if (supplierDao.addRole(supplier)){
+    public ResultData addSupplier(Supplier supplier) {
+        if (supplierDao.addSupplier(supplier)){
             resultData.setStatus(200);
             resultData.setMsg("添加成功");
             resultData.setData(null);
