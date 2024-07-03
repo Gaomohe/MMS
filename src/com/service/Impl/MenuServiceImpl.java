@@ -117,4 +117,29 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> getMenuBtn(int id, int resId) {
         return menuDao.getMenuBtn(id,resId);
     }
+
+    @Override
+    public boolean isExist(String s) {
+        Menu menu = menuDao.isExist(s);
+        boolean isExist = true;
+        if (menu.getResKey() == null){
+            isExist = false;
+        }
+        return isExist;
+    }
+
+    @Override
+    public int addMenu(Menu menu) {
+        return menuDao.addMenu(menu);
+    }
+
+    @Override
+    public int delMenu(int id) {
+        return menuDao.delMenu(id);
+    }
+
+    @Override
+    public int updateMenu(Menu menu) {
+        return menuDao.updateMenu(menu);
+    }
 }

@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="<%= path %>/iframe/assets/images/favicon.ico" rel="icon">
-    <title>EasyWeb后台开发框架</title>
+    <title>医药管理系统</title>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/module/admin.css?v=314"/>
     <!--[if lt IE 9]>
@@ -23,7 +23,7 @@
     <div class="layui-header">
         <div class="layui-logo">
             <img src="<%= path %>/iframe/assets/images/logo.png"/>
-            <cite>&nbsp;EasyWeb Iframe</cite>
+            <cite>医药管理系统</cite>
         </div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item" lay-unselect>

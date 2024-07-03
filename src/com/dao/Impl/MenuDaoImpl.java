@@ -73,6 +73,7 @@ public class MenuDaoImpl implements MenuDao {
         return menulist;
     }
 
+
     //通过用户id与菜单的编号id获取用户所在菜单目录的按钮
     @Override
     public List<Menu> getMenuBtn(int id, int resId) {
@@ -103,5 +104,73 @@ public class MenuDaoImpl implements MenuDao {
             e.printStackTrace();
         }
         return menulist;
+    }
+
+    @Override
+    public Menu isExist(String s) {
+        String sql = "SELECT * FROM `resources` WHERE `resKey`= '?';";
+        Object[] objects = new Object[1];
+        objects[0] = "'"+s+"'";
+        ResultSet resultSet = JDBC.select(sql,objects);
+        Menu menu = new Menu();
+        try{
+            while(resultSet.next()){
+                menu.setResKey(resultSet.getString(4));
+                System.out.println(menu.getResKey());
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return menu;
+    }
+
+    //新增菜单
+    @Override
+    public int addMenu(Menu menu) {
+        String sql="INSERT INTO `resources` \n" +
+                "(`name`,`parentId`,`resKey`,`type`,`resUrl`,`level`,`icon`,`description`) \n" +
+                "VALUES \n" +
+                "(?,?,?,?,?,?,?,?);";
+        Object[] objects= new Object[8];
+        objects[0] = menu.getName();
+        objects[1] = menu.getParentId();
+        objects[2] = menu.getResKey();
+        objects[3] = menu.getType();
+        objects[4] = menu.getResUrl();
+        objects[5] = menu.getLevel();
+        objects[6] = menu.getIcon();
+        objects[7] = menu.getDescription();
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
+
+    //删除菜单
+    @Override
+    public int delMenu(int id) {
+        String sql="DELETE FROM `resources` WHERE `resId` = ?";
+        Object[]  objects= new Object[1];
+        objects[0]=id;
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
+
+    //修改菜单
+    @Override
+    public int updateMenu(Menu menu) {
+        String sql="UPDATE `resources` SET " +
+                "`name`=?,`parentId`=?,`resKey`=?,`type`=?, `resUrl`=?,`level`=?,`icon`=?,`description`=?" +
+                "WHERE `resId`=?";
+        Object[]  objects= new Object[9];
+        objects[0] = menu.getName();
+        objects[1] = menu.getParentId();
+        objects[2] = menu.getResKey();
+        objects[3] = menu.getType();
+        objects[4] = menu.getResUrl();
+        objects[5] = menu.getLevel();
+        objects[6] = menu.getIcon();
+        objects[7] = menu.getDescription();
+        objects[8] = menu.getResId();
+        int count= JDBC.update(sql,objects);
+        return count;
     }
 }
