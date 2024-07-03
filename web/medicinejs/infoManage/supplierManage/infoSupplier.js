@@ -8,7 +8,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     function checkUname(sname){
         var is = false;
         $.ajax({
-            url:"/supplier?action=upSupplier",
+            url:"/supplier?action=checkSupplierName",
             data:{"sname":sname},
             async:false,
             type:"post",
@@ -55,7 +55,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         }
 
         $.ajax({
-            url:"/role?action=updateRole",
+            url:"/supplier?action=updateSupplier",
             data:{"sname":sname,"supplierId":supplierId},
             tyep:"post",
             success:function(data){

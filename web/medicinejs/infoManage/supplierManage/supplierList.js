@@ -12,7 +12,7 @@ layui.extend({
     //表格渲染
     var tableIns = table.render({
         elem: '#supplierList',
-        url : '/supplier?',
+        url : '/supplier?action=selectSupplier',
         cellMinWidth : 95,
         page : true,
         toolbar: '#supplierDemo',
@@ -101,7 +101,7 @@ layui.extend({
             area:['350px','230px'],
             success:function(layero, index){
                 $.ajax({
-                    url:"/",//根据id查询的方法
+                    url:"/supplier?action=selectSupplierById",//根据id查询的方法
                     type:"post",
                     data:{"supplierId":supplierId},
                     success:function(data){
