@@ -15,7 +15,7 @@ layui.extend({
         url : '/supplier?',
         cellMinWidth : 95,
         page : true,
-        toolbar: '#supplierDemo',
+        toolbar: '#suppilerDemo',
         height : "full-125",
         limit : 20,
         limits : [10,15,20,25],
@@ -62,7 +62,6 @@ layui.extend({
                 break;
 
             case 'addSupplier':	//新增供应商
-                console.log("ssssss");
                 addSupplier();
                 break;
 
