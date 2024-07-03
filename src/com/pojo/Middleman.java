@@ -11,6 +11,15 @@ public class Middleman {
     private int medNum;
     private String date;
     private String place;
+    private String supplierName;
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
 
     public int getWorkId() {
         return workId;

@@ -29,5 +29,8 @@ public class MiddleManServlet extends BaseServlet {
         return MiddleManServlet.class;
     }
 
+    public void selectMiddleMan(HttpServletRequest request, HttpServletResponse response){
+
+    }
 
 }
