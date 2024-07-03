@@ -35,4 +35,9 @@ public class RoleServiceImpl implements RoleService {
     public int addDoRole(Role role) {
         return roleDao.addRole(role);
     }
+
+    @Override
+    public int isUname(Role role) {
+        return roleDao.isUname(role);
+    }
 }

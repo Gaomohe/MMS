@@ -11,4 +11,6 @@ public interface RoleService {
     public int delRoleById(int id);
     public int updateDoRole(Role role);
     public int addDoRole(Role role);
+    //重名验证
+    public int isUname(Role role);
 }
