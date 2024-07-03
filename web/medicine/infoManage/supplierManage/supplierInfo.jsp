@@ -23,18 +23,18 @@
     <div class="layui-form-item">
         <label class="layui-form-label">供应商编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="roleid" id="roleid" disabled=""	 lay-verify="required" placeholder="角色编号" autocomplete="off" class="layui-input">
+            <input type="text" name="supplierId" id="supplierId" disabled=""	 lay-verify="required" placeholder="供货商编号" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">供应商名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="rname2" id="rname2" readonly style="display:none" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
-            <input type="text" name="rname" id="rname" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+            <input type="text" name="sname2" id="sname2" readonly style="display:none" lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
+            <input type="text" name="sname" id="sname" lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="addRole">修改角色</button>
+        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="upSupplier">修改供应商</button>
     </div>
 </form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>

@@ -15,7 +15,7 @@ layui.extend({
         url : '/supplier?',
         cellMinWidth : 95,
         page : true,
-        toolbar: '#suppilerDemo',
+        toolbar: '#supplierDemo',
         height : "full-125",
         limit : 20,
         limits : [10,15,20,25],
@@ -46,7 +46,7 @@ layui.extend({
                     layer.msg("请选择一行数据进行操作")
                     return false;
                 }
-                layer.confirm('删除角色后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
+                layer.confirm('删除供应商后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
                     delSupplier(supplierId);
                     layer.close(index);
                 });
@@ -86,7 +86,7 @@ layui.extend({
                 var info = JSON.parse(data);
                 if(info.status == 200){
                     layer.msg("删除成功");
-                    tableIns.reload("#newsList");
+                    tableIns.reload("#supplierList");
                 }
             }
         })
@@ -95,22 +95,22 @@ layui.extend({
     //修改供应商
     function upSupplier(supplierId){
         layui.layer.open({
-            title : "修改角色",
+            title : "修改供货商信息",
             type : 2,
-            content : "admin/page/system/role/roleInfo.jsp",
+            content : "medicine/infoManage/supplierManage/supplierInfo.jsp",
             area:['350px','230px'],
             success:function(layero, index){
                 $.ajax({
-                    url:"/role?action=allRoleByRoleid",
+                    url:"/",//根据id查询的方法
                     type:"post",
-                    data:{"roleid":roleid},
+                    data:{"supplierId":supplierId},
                     success:function(data){
                         var info = JSON.parse(data);
                         console.log(info);
                         var body = layui.layer.getChildFrame('body', index);
-                        body.find("#roleid").val(info.data.id);
-                        body.find("#rname2").val(info.data.name);
-                        body.find("#rname").val(info.data.name);
+                        body.find("#supplierId").val(info.data.id);
+                        body.find("#sname2").val(info.data.name);
+                        body.find("#sname").val(info.data.name);
                     }
                 })
                 /*        			//获取新窗口对象
@@ -127,8 +127,8 @@ layui.extend({
         layui.layer.open({
             title : "新增供应商",
             type : 2,
-            content : "admin/page/system/role/roleAdd.jsp",
-            area:['350px','200px'],
+            content : "medicine/infoManage/supplierManage/supplierAdd.jsp",
+            area:['400px','500px'],
         });
     }
 

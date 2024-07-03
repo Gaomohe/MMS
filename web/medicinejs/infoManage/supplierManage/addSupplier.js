@@ -39,21 +39,29 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
-        var rname = $("#rname").val();
-        if(rname.length == "" ){
-            layer.msg("角色名不能为空")
+        var sname = $("#sname").val();
+        if(sname.length == "" ){
+            layer.msg("供应商名称不能为空")
             return false;
-        }else if(rname.length != null){
-            var check = checkUname(rname);
+        }else if(sname.length != null){
+            var check = checkUname(sname);
             console.log(check);
             if(check == false){
-                layer.msg("角色名已存在! 请重新输入")
+                layer.msg("该供货商已存在! 请重新输入")
                 return false;
             }
         }
         $.ajax({
             url:"/role?action=addRole",
-            data:{"rname":rname},
+            data:{
+                "sname":sname,
+                "operationWay":operationWay,
+                "tel":tel,
+                "contact":contact,
+                "Status":Status,
+                "license":license,
+                "createTime":createTime
+            },
             type:"post",
             success:function(data){
                 var info = JSON.parse(data);

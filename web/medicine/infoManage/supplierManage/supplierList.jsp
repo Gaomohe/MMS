@@ -29,11 +29,11 @@
             供应商列表
         </blockquote>
         <script type="text/html" id="supplierDemo">
-
+            <c:forEach var="menu" items="${menuList}" varStatus="s">
+                ${menu.resUrl}
+            </c:forEach>
         </script>
-        <c:forEach var="menu" items="${menuList}" varStatus="s">
-            ${menu.resUrl}
-        </c:forEach>
+
         <table id="supplierList" lay-filter="supplierList"></table>
     </div>
 </div>

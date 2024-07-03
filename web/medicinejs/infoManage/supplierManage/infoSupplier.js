@@ -4,12 +4,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         ,layedit = layui.layedit
         ,laydate = layui.laydate;
 
-    //***********验证角色名是否存在***************
-    function checkUname(rname){
+    //***********验证供应商名是否存在***************
+    function checkUname(sname){
         var is = false;
         $.ajax({
-            url:"/role?action=checkUname",
-            data:{"rname":rname},
+            url:"/supplier?action=upSupplier",
+            data:{"sname":sname},
             async:false,
             type:"post",
             success:function(data){
@@ -40,23 +40,23 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
-        var rname = $("#rname").val();
-        var rname2 = $("#rname2").val();
-        var roleid = $("#roleid").val();
-        if(rname.length == "" ){
-            layer.msg("角色名不能为空")
+        var sname = $("#sname").val();
+        var sname2 = $("#sname2").val();
+        var supplierId = $("#supplierId").val();
+        if(sname.length == "" ){
+            layer.msg("供货商名称不能为空")
             return false;
-        }else if(rname.length != null && rname!=rname2 ){
-            var check = checkUname(rname);
+        }else if(sname.length != null && sname!=sname2 ){
+            var check = checkUname(sname);
             if(check == false){
-                layer.msg("角色名已存在! 请重新输入")
+                layer.msg("供货商名称已存在! 请重新输入")
                 return false;
             }
         }
 
         $.ajax({
             url:"/role?action=updateRole",
-            data:{"rname":rname,"roleid":roleid},
+            data:{"sname":sname,"supplierId":supplierId},
             tyep:"post",
             success:function(data){
                 var info = JSON.parse(data);
