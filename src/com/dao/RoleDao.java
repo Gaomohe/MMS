@@ -31,12 +31,15 @@ public interface RoleDao {
     //id查所有
     public Role allRoleByRoleid(int roleid);
 
-
-    public List<Menu> menuByRoleid(int id);
-
     //删除原有权限
     public int delRoleMenu(int id);
 
     //添加新的绑定
     public int addNewMenu(int id,int resId);
+
+    //获取角色全部权限
+    public List<Menu> getMenus();
+
+    //回显角色已有权限
+    public List<Menu> menuByRoleid(int id);
 }

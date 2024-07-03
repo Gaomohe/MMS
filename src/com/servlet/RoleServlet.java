@@ -121,10 +121,56 @@ public class RoleServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
     public ResultData<Role> checkUname(HttpServletRequest request, HttpServletResponse response){
-        String rname = request.getParameter("rname");
+        String rname = request.getParameter("name");
         Role role = new Role();
         role.setName(rname);
         int uname = roleService.isUname(role);
         return Result.resultNameStatus(uname);
+    }
+
+    //获取全部权限信息
+    public void MenuDtree(HttpServletRequest request, HttpServletResponse response){
+        try {
+            LayuiTable<Dtree> treeTableList = roleService.getMenus();
+            String string = JSON.toJSONString(treeTableList);
+            PrintWriter writer = response.getWriter();
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //回显角色已有权限
+    public void menuByRoleId(HttpServletRequest request, HttpServletResponse response){
+        String idStr = request.getParameter("id");
+        int id = Integer.parseInt(idStr);
+        List<Menu> list = roleService.menuByRoleid(id);
+        try {
+            String string = JSON.toJSONString(list);
+            PrintWriter writer = response.getWriter();
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //修改角色绑定的权限
+    public ResultData UpdateRoleMenu(HttpServletRequest request, HttpServletResponse response){
+        String roleid = request.getParameter("roleid");
+        int id = Integer.parseInt(roleid);
+        String[] arrays = request.getParameterValues("array");
+        System.out.println(arrays.toString());
+        int[] arrayInts = new int[arrays.length];
+        for (int i = 0; i < arrays.length; i++) {
+            arrayInts[i] = Integer.parseInt(arrays[i]);
+        }
+        int i = roleService.UpdateRoleMenu(id, arrayInts);
+        ResultData resultData = new ResultData();
+        resultData = Result.resultStatus(i);
+        return resultData;
     }
 }

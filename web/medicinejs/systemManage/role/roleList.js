@@ -78,12 +78,13 @@ layui.extend({
         $.ajax({
             url:"/role?action=delRole",
             type:"post",
-            data:{"roleid":roleid},
+            data:{"id":roleid},
             success:function(data){
                 var info = JSON.parse(data);
                 if(info.status == 200){
+                    console.log(info.status)
                     layer.msg("删除成功");
-                    tableIns.reload("#newsList");
+                    tableIns.reload("#userList");
                 }
             }
         })
@@ -94,8 +95,8 @@ layui.extend({
         layui.layer.open({
             title : "修改角色",
             type : 2,
-            content : "admin/page/system/role/roleInfo.jsp",
-            area:['350px','230px'],
+            content : "medicine/systemManage/role/roleInfo.jsp",
+            area:['350px','430px'],
             success:function(layero, index){
                 $.ajax({
                     url:"/role?action=getRoleById",
@@ -123,8 +124,8 @@ layui.extend({
         layui.layer.open({
             title : "新增角色",
             type : 2,
-            content : "admin/page/system/role/roleAdd.jsp",
-            area:['350px','200px'],
+            content : "medicine/systemManage/role/roleAdd.jsp",
+            area:['350px','430px'],
         });
     }
 
@@ -146,15 +147,15 @@ layui.extend({
                     line: true,  // 显示树线
                     done:function () {
                         $.ajax({
-                            url:"/role?action=menuByRoleid",
+                            url:"/role?action=menuByRoleId",
                             type:"post",
-                            data:{"roleid":roleid},
+                            data:{"id":roleid},
                             success:function(res) {
                                 var cs = JSON.parse(res);
                                 console.log(cs);
                                 $.each(cs,function(index,row){
-                                    console.log(row.id);
-                                    dtree.chooseDataInit("dataTree3",[row.id]); // 初始化选中
+                                    console.log(row.resId);
+                                    dtree.chooseDataInit("dataTree3",[row.resId]); // 初始化选中
                                 })
                             }
                         })

@@ -5,11 +5,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         ,laydate = layui.laydate;
 
     //***********验证角色名是否存在***************
-    function checkUname(rname){
+    function checkUname(name){
         var is = false;
         $.ajax({
-            url:"/role?action=isUname",
-            data:{"rname":rname},
+            url:"/role?action=checkUname",
+            data:{"name":name},
             async:false,
             type:"post",
             success:function(data){
@@ -39,12 +39,15 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
-        var rname = $("#rname").val();
-        if(rname.length == "" ){
+        var name = $("#name").val();
+        var state = $("#state").val();
+        var roleKey = $("#roleKey").val();
+        var description = $("#description").val();
+        if(name.length == "" ){
             layer.msg("角色名不能为空")
             return false;
-        }else if(rname.length != null){
-            var check = checkUname(rname);
+        }else if(name.length != null){
+            var check = checkUname(name);
             console.log(check);
             if(check == false){
                 layer.msg("角色名已存在! 请重新输入")
@@ -53,7 +56,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         }
         $.ajax({
             url:"/role?action=addRole",
-            data:{"rname":rname},
+            data:{
+                "name":name,
+                "state":state,
+                "roleKey":roleKey,
+                "description":description,
+            },
             type:"post",
             success:function(data){
                 var info = JSON.parse(data);

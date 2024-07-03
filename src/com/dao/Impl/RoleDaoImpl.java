@@ -8,6 +8,7 @@ import com.util.JDBC;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RoleDaoImpl implements RoleDao {
@@ -190,12 +191,59 @@ public class RoleDaoImpl implements RoleDao {
         return role1;
     }
 
+    //删除角色原有权限
+    @Override
+    public int delRoleMenu(int id) {
+        String sql="DELETE FROM role_res WHERE roleId = ?";
+        Object[]  objects= new Object[1];
+        objects[0]=id;
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
 
+    //为角色添加新权限
+    @Override
+    public int addNewMenu(int id, int resId) {
+        String sql=" insert into role_res(roleId,resId) value(?,?)";
+        Object[]  objects= new Object[2];
+        objects[0]=id;
+        objects[1]=resId;
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
 
+    //获取角色所有权限
+    @Override
+    public List<Menu> getMenus() {
+        String sql = "SELECT * FROM `resources` WHERE resId > ?";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<Menu> menuList = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Menu menu = new Menu();
+                menu.setResId(resultSet.getInt(1));
+                menu.setName(resultSet.getString(2));
+                menu.setParentId(resultSet.getInt(3));
+                menu.setResKey(resultSet.getString(4));
+                menu.setType(resultSet.getInt(5));
+                menu.setResUrl(resultSet.getString(6));
+                menu.setLevel(resultSet.getInt(7));
+                menu.setIcon(resultSet.getString(8));
+                menu.setDescription(resultSet.getString(9));
+                menuList.add(menu);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return menuList;
+    }
 
+    //回显角色已有权限
     @Override
     public List<Menu> menuByRoleid(int id) {
-        String sql = "SELECT * FROM ly_role_res WHERE roleid=?";
+        String sql = "SELECT * FROM role_res WHERE roleId=?";
         Object[] objects = new Object[1];
         objects[0]=id;
         ResultSet resultSet = JDBC.select(sql,objects);
@@ -203,7 +251,7 @@ public class RoleDaoImpl implements RoleDao {
         try{
             while(resultSet.next()){
                 Menu menu = new Menu();
-                menu.setResId(resultSet.getInt(1));
+                menu.setResId(resultSet.getInt(2));
                 List.add(menu);
             }
         }catch (Exception e){
@@ -212,24 +260,4 @@ public class RoleDaoImpl implements RoleDao {
         return List;
     }
 
-
-
-    @Override
-    public int delRoleMenu(int id) {
-        String sql="DELETE FROM ly_role_res WHERE roleid = ?";
-        Object[]  objects= new Object[1];
-        objects[0]=id;
-        int count= JDBC.update(sql,objects);
-        return count;
-    }
-
-    @Override
-    public int addNewMenu(int id, int resId) {
-        String sql=" insert into ly_role_res(roleid,resid) value(?,?)";
-        Object[]  objects= new Object[2];
-        objects[0]=id;
-        objects[1]=resId;
-        int count= JDBC.update(sql,objects);
-        return count;
-    }
 }

@@ -46,7 +46,9 @@ public class MiddleManServlet extends BaseServlet {
     public ResultData checkMiddleManName(HttpServletRequest request, HttpServletResponse response){
         return middlemanService.checkMiddleManName(request.getParameter("mname"));
     }
-    public ResultData updateMiddleMan
+    public ResultData updateMiddleMan(HttpServletRequest request, HttpServletResponse response){
+        return null;
+    }
 
 
 }

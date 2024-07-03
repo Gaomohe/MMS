@@ -29,8 +29,26 @@
     <div class="layui-form-item">
         <label class="layui-form-label">角色名</label>
         <div class="layui-input-inline">
-            <input type="text" name="rname2" id="rname2" readonly style="display:none" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
-            <input type="text" name="rname" id="rname" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+            <input type="text" name="name2" id="name2" readonly style="display:none" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+            <input type="text" name="name" id="name" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-inline">
+            <input type="text" name="state" id="state" lay-verify="required" placeholder="状态" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色标识</label>
+        <div class="layui-input-inline">
+            <input type="text" name="roleKey" id="roleKey" lay-verify="required" placeholder="角色标识" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色描述</label>
+        <div class="layui-input-inline">
+            <input type="text" name="description" id="description" lay-verify="required" placeholder="角色描述" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
