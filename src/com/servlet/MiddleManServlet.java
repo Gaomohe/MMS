@@ -4,6 +4,7 @@ import com.pojo.Menu;
 import com.pojo.User;
 import com.util.BaseServlet;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static com.util.Vessel.menuService;
 
+@WebServlet("/middleMan")
 public class MiddleManServlet extends BaseServlet {
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
 
@@ -24,6 +26,8 @@ public class MiddleManServlet extends BaseServlet {
 
     @Override
     public Class getServlet() {
-        return null;
+        return MiddleManServlet.class;
     }
+
+
 }

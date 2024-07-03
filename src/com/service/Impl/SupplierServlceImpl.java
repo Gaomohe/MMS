@@ -101,7 +101,7 @@ public class SupplierServlceImpl implements SupplierServlce {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return resultData;
     }
 
     @Override
