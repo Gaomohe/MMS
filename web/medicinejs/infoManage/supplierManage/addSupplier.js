@@ -5,11 +5,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         ,laydate = layui.laydate;
 
     //***********验证角色名是否存在***************
-    function checkUname(rname){
+    function checkUname(sname){
         var is = false;
         $.ajax({
-            url:"/role?action=isUname",
-            data:{"rname":rname},
+            url:"/supplier?action=isUname",
+            data:{"sname":sname},
             async:false,
             type:"post",
             success:function(data){
@@ -52,7 +52,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
             }
         }
         $.ajax({
-            url:"/role?action=addRole",
+            url:"/supplier?action=addSupplier",
             data:{
                 "sname":sname,
                 "operationWay":operationWay,
