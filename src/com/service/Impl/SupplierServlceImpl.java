@@ -15,11 +15,16 @@ public class SupplierServlceImpl implements SupplierServlce {
     ResultData resultData = new ResultData();
     LayuiTable<Supplier> layuiTable = new LayuiTable<>();
     @Override
-    public LayuiTable<Supplier> selectSupplier() {
-        ResultSet supplier = supplierDao.getAll("supplier");
+    public LayuiTable<Supplier> selectSupplier(int page, int limit) {
+        ResultSet supplier = supplierDao.getAll(page,limit,"supplier");
+        ResultSet supp = supplierDao.getAll("supplier");
         List<Supplier> suppliers = new ArrayList<>();
         int count = 0;
         try {
+            while (supp.next()){
+                count++;
+            }
+
             while (supplier.next()){
                 Supplier sup = new Supplier();
                 sup.setSid(supplier.getInt(1));
@@ -31,7 +36,6 @@ public class SupplierServlceImpl implements SupplierServlce {
                 sup.setLicense(supplier.getString(7));
                 sup.setCreateTime(supplier.getString(8));
                 suppliers.add(sup);
-                count++;
             }
             layuiTable.setCode(0);
             layuiTable.setCount(count);

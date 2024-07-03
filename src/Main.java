@@ -9,8 +9,7 @@ public class Main {
     public static void main(String[] args) {
         UserServiceImpl userService = new UserServiceImpl();
         JDBC jdbc = new JDBC();
-        SupplierServlceImpl supplierServlce = new SupplierServlceImpl();
-        LayuiTable<Supplier> supplierLayuiTable = supplierServlce.selectSupplier();
-        System.out.println(supplierLayuiTable);
+        LayuiTable<User> allUser = userService.getAllUser(7, 5);
+        System.out.println(allUser.getData().size());
     }
 }

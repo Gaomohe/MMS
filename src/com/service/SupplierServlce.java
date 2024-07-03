@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SupplierServlce {
     //获取所有--------------参数（无）
-    public LayuiTable<Supplier> selectSupplier();
+    public LayuiTable<Supplier> selectSupplier(int page, int limit);
 
     //删除-----------参数（id）
     public ResultData delSupplier(int id);

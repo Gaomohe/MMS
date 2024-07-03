@@ -7,7 +7,7 @@ import com.util.ResultData;
 
 public interface MiddlemanService {
     //获取所有-------------参数(无)
-    public LayuiTable<Middleman> selectMiddleMan();
+    public LayuiTable<Middleman> selectMiddleMan(int page, int limit);
 
     //删除-----------------参数（id）
     public ResultData delMiddleMan(int id);

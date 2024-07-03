@@ -36,7 +36,10 @@ public class MiddleManServlet extends BaseServlet {
     }
 
     public void selectMiddleMan(HttpServletRequest request, HttpServletResponse response){
-        ToJSON.toJson(response,middlemanService.selectMiddleMan());
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+        ToJSON.toJson(response,middlemanService.selectMiddleMan(page,limit));
     }
     public ResultData delMiddleMan(HttpServletRequest request, HttpServletResponse response){
         return middlemanService.delMiddleMan(Integer.parseInt(request.getParameter("workId")));

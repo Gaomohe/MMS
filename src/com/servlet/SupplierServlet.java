@@ -33,7 +33,10 @@ public class SupplierServlet extends BaseServlet {
     }
 
     public void selectSupplier(HttpServletRequest request, HttpServletResponse response){
-        ToJSON.toJson(response,supplierServlce.selectSupplier());
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+        ToJSON.toJson(response,supplierServlce.selectSupplier(page,limit));
     }
 
     public ResultData delSupplier(HttpServletRequest request, HttpServletResponse response){

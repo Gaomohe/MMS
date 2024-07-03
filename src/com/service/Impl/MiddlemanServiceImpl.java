@@ -17,11 +17,15 @@ public class MiddlemanServiceImpl implements MiddlemanService {
     LayuiTable<Middleman> layuiTable = new LayuiTable<>();
 
     @Override
-    public LayuiTable<Middleman> selectMiddleMan() {
-        ResultSet middleman = middlemanDao.getAll("middleman");
+    public LayuiTable<Middleman> selectMiddleMan(int page, int limit) {
+        ResultSet middleman = middlemanDao.getAll(page,limit,"middleman");
+        ResultSet midd = middlemanDao.getAll("middleman");
         List<Middleman> middlemens = new ArrayList<>();
         int count = 0;
         try {
+            while (midd.next()){
+                count++;
+            }
             while (middleman.next()){
                 Middleman mid = new Middleman();
                 mid.setWorkId(middleman.getInt(1));
