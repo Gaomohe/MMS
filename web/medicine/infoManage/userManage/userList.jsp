@@ -49,7 +49,7 @@
 
 
 <%--<script type="text/javascript" src="../admin/lib/layui-v2.5.5/layui.js"></script>--%>
-<script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <%--<script type="text/javascript" src="../../pagejs/system/user/userList.js"></script>--%>
 <script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/infoManage/userManage/userList.js" charset="UTF-8"></script>
 <%--<script type="text/javascript" src="<%=basePath %>admin/pagejs/system/user/userList.js" charset="utf-8"></script>--%>
