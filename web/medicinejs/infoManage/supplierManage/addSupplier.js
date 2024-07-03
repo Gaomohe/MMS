@@ -40,6 +40,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
         var sname = $("#sname").val();
+        var operationWay = $("#operationWay").val();
+        var tel = $("#tel").val();
+        var contact = $("#contact").val();
+        var Status = $("#Status").val();
+        var license = $("#license").val();
+        var createTime = $("#createTime").val();
         if(sname.length == "" ){
             layer.msg("供应商名称不能为空")
             return false;
