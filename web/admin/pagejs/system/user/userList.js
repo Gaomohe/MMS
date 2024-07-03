@@ -1,4 +1,4 @@
-layui.extend({
+﻿layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
 }).use(['form','layer','laydate','table','laytpl','dtree'],function(){
     var form = layui.form,
@@ -13,7 +13,7 @@ layui.extend({
     /*------------- 加载用户数据 --------------------------------*/
     var tableIns = table.render({
         elem: '#userList',
-        url : '/user?action=getAllUser',
+        url : '/user?action=allUser',
         toolbar: '#toolbarDemo',
         page : true,
         height: 'full-145',
@@ -22,18 +22,16 @@ layui.extend({
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
             {field: 'id', title: '编号',  align:'center'},
-            {field: 'userName', title: '登录名', minWidth:100, align:"center"},
-            {field: 'sex', title: '用户性别', align:'center'},
-            {field: 'age', title: '年龄', align:'center'},
-            {field: 'password', title: '密码', minWidth:100, align:"center"},
-            {field: 'cardBalance', title: '医疗卡余额',  align:'center'},
-            {field: 'code', title: '编码',  align:'center'},
-            {field: 'telNumber', title: '联系方式',  align:'center'},
-            {field: 'address', title: '家庭住址',  align:'center'},
-            {field: 'birthday', title: '出生日期',  align:'center'},
-            {field: 'createDate', title: '创建时间',  align:'center'},
-            {field: 'wechat', title: '微信',  align:'center'},
-            {title:'操作', width:150, templet: '#barDemo'}
+            {field: 'name', title: '登录名', minWidth:100, align:"center"},
+            {field: 'accountName', title: '真实姓名',  align:'center'},
+            {field: 'password', title: '密码',  align:'center'},
+            {field: 'picPath', title: '图片',  align:'center',templet:function(d){
+                    return '<img src="/admin/pagejs/system/user/b701487c-83e2-4174-89bc-a6c6c3dc22881.jpg"/>';
+                }},
+            {field: 'sex', title: '用户性别', align:'center',templet:function(d){
+                    return d.sex == "1" ? "男" : "女";
+                }},
+            ,{title:'操作', width:150, templet: '#barDemo'}
         ]]
     });
     /*------------- 加载用户数据 --end------------------------------*/
@@ -42,20 +40,21 @@ layui.extend({
     $("#doSubmit").click(function(){
         var like = $("#likename").val()
         tableIns.reload({
-            url:"http://rm-bp1ln5cud01u6z7893o.mysql.rds.aliyuncs.com:8723/EEDemo/Interfaces?action=allUser&uname="+like,
+            url:"http://localhost:8723/EEDemo/Interfaces?action=allUser&uname="+like,
             page: {
                 curr: 1 //重新从第 1 页开始
             }
         });
     })
 
+
     table.on('toolbar(userList)',function (obj) {
-        var checkdata= table.checkStatus(obj.config.id)
-        var files= checkdata.data;
-        console.log(obj);
+       var checkdata= table.checkStatus(obj.config.id)
+       var files= checkdata.data;
+       console.log(obj);
         switch (obj.event) {
             case 'delUser':
-                if(files.length > 1 | files.length<1){
+                if(files.length>1 | files.length<1){
                     layer.msg("请选择一行进行删除",{icon:2})
                     return;
                 }else {
@@ -66,7 +65,7 @@ layui.extend({
                 addUser();
                 break;
             case 'upUser':
-                // selectByIdUser(files[0].id,files[0].name);
+                 // selectByIdUser(files[0].id,files[0].name);
                 upUser(files[0].id);
                 break;
             case 'selectDesc':
@@ -76,6 +75,7 @@ layui.extend({
                 upLoad();
                 break;
         }
+
     })
 
     function upLoad(){
@@ -274,7 +274,7 @@ layui.extend({
         layui.layer.open({
             title : "修改用户信息",
             type : 2,
-            content : "medicine/infoManage/userManage/userInfo.jsp",
+            content : "admin/page/system/user/userInfo.jsp",
             area:['500px','540px'],
             success:function(layero, index){
                 $.ajax({
@@ -479,5 +479,7 @@ layui.extend({
             area:['400px','490px'],
         })
     }
+
+
 
 })
