@@ -151,12 +151,12 @@ public class MenuServlet extends BaseServlet {
         return resultData;
     }
     //根据唯一标识判断是否存在
-    public void selectMenuByResKey(HttpServletRequest request, HttpServletResponse response){
+    public ResultData<Menu> selectMenuByResKey(HttpServletRequest request, HttpServletResponse response){
+        ResultData<Menu> resultData = new ResultData<>();
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
             String resKey = request.getParameter("resKey");
-            ResultData<Menu> resultData = new ResultData<>();
             boolean exist = menuService.isExist(resKey);
             if (exist == true){
                 resultData.setMsg("此标识已存在");
@@ -167,5 +167,6 @@ public class MenuServlet extends BaseServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
+       return resultData;
     }
 }
