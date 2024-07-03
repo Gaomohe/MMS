@@ -61,7 +61,7 @@ public class SupplierServlet extends BaseServlet {
 
     }
     public ResultData isUname(HttpServletRequest request, HttpServletResponse response){
-        return supplierServlce.checkSupplierName(request.getParameter("rname"));
+        return supplierServlce.checkSupplierName(request.getParameter("sname"));
     }
 
     public ResultData addSupplier(HttpServletRequest request, HttpServletResponse response){
