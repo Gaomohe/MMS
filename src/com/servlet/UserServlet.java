@@ -111,6 +111,6 @@ public class UserServlet extends BaseServlet {
         user.setBirthday(request.getParameter("birthday"));
         user.setCreateDate(request.getParameter("createDate"));
         user.setWechat(request.getParameter("wechat"));
-        return null;
+        return userService.addUser(user);
     }
 }

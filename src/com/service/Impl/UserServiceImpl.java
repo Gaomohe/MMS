@@ -187,6 +187,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultData addUser(User user) {
-        return null;
+        if (userDao.addUser(user)){
+            resultData.setStatus(200);
+            resultData.setMsg("添加成功");
+            resultData.setData(null);
+        }else {
+            resultData.setStatus(400);
+            resultData.setMsg("添加失败");
+            resultData.setData(null);
+        }
+        return resultData;
     }
 }
