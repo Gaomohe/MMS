@@ -66,13 +66,7 @@ public class RoleServlet extends BaseServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         int i = roleService.delRoleById(id);
         ResultData<Role> resultData = new ResultData<>();
-        if(i>1){
-            resultData.setMsg("角色删除成功");
-            resultData.setStatus(200);
-        }else {
-            resultData.setMsg("角色删除失败");
-            resultData.setStatus(500);
-        }
+        Result.resultStatus(i);
         return resultData;
     }
     //更新角色
