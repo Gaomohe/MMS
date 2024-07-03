@@ -16,9 +16,9 @@ public class RoleDaoImpl implements RoleDao {
         String sql=" select * from role";
         ResultSet baseSelect = JDBC.select(sql, new Object[1]);
         List<Role> roleList = new ArrayList<Role>();
-        Role role = new Role();
         try {
             while (baseSelect.next()){
+                Role role = new Role();
                 role.setId(baseSelect.getInt(1));
                 role.setState(baseSelect.getInt(2));
                 role.setName(baseSelect.getString(3));

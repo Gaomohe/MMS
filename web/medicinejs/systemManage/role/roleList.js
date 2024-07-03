@@ -12,7 +12,7 @@ layui.extend({
     //表格渲染
     var tableIns = table.render({
         elem: '#newsList',
-        url : '/role?action=allRole',
+        url : '/role?action=getRoleList',
         cellMinWidth : 95,
         page : true,
         toolbar: '#roleDemo',
