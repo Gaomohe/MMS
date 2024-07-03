@@ -78,7 +78,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">创建时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="createDate" value="${user1.createDate}" id="createDate" lay-verify="required" placeholder="创建时间" autocomplete="off" class="layui-input">
+            <input type="date" name="createDate" value="${user1.createDate}" id="createDate" lay-verify="required" placeholder="创建时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 

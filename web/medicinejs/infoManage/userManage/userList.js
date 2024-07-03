@@ -284,17 +284,20 @@ layui.extend({
                     success:function(data){
                         var info = JSON.parse(data);
                         var body = layui.layer.getChildFrame('body', index);
-                        body.find("#uid").val(info.data.id);
-                        body.find("#uname2").val(info.data.name);
-                        body.find("#uname").val(info.data.name);
-                        body.find("#password").val(info.data.password);
-                        body.find("#realName").val(info.data.accountName);
-                        body.find("#email").val(info.data.email);
-                        body.find("#phone").val(info.data.phone);
+                        body.find("#id").val(info.data.id);
+                        body.find("#userName2").val(info.data.name);
+                        body.find("#sex").val(info.data.sex);
+                        body.find("#age").val(info.data.age);
+                        body.find("#pass").val(info.data.password);
+                        body.find("#telNumber").val(info.data.telNumber);
+                        body.find("#address").val(info.data.address);
+                        body.find("#birthday").val(info.data.birthday);
+                        body.find("#createDate").val(info.data.createDate);
+                        body.find("#wechat").val(info.data.wechat);
 
                         //性别(单选)
                         var sex2 = info.data.sex;
-                        if(sex2 == 1){
+                        if(sex2 == "男"){
                             body.find("#sex1").prop("checked",true);
                         }else{
                             body.find("#sex2").prop("checked",true);
@@ -475,8 +478,8 @@ layui.extend({
         layui.layer.open({
             title : "添加用户",
             type : 2,
-            content : "admin/page/system/user/userAdd.jsp",
-            area:['400px','490px'],
+            content : "medicine/infoManage/userManage/userAdd.jsp",
+            area:['400px','500px'],
         })
     }
 

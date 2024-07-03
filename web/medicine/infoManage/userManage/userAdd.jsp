@@ -21,45 +21,71 @@
 <body class="childrenBody">
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
     <div class="layui-form-item">
-        <label class="layui-form-label">登录名</label>
+        <label class="layui-form-label">账号</label>
         <div class="layui-input-inline">
-            <input type="text" name="uname" id="uname" lay-verify="required" placeholder="请输入登录名" autocomplete="off" class="layui-input">
+            <input type="text" name="id" id="id" value="${user1.id}" lay-verify="required" disabled="" placeholder="用户编号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userName" value="${user1.userName}" id="userName" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
-            <input type="text" name="password" id="password" placeholder="默认密码123456"  value="123456" autocomplete="off" class="layui-input">
+            <input type="text" name="password" value="${user1.password}" id="password" placeholder="默认密码123456"  value="123456" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">联系方式</label>
         <div class="layui-input-inline">
-            <input type="text" name="realName" id="realName" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            <input type="text" name="telNumber" value="${user1.telNumber}" id="telNumber" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <label class="layui-form-label">家庭住址</label>
+        <div class="layui-input-inline">
+            <input type="text" name="address" value="${user1.address}" id="address" lay-verify="required" placeholder="家庭住址" autocomplete="off" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item" pane="">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="1" title="男" checked="">
-            <input type="radio" name="sex" value="2" title="女">
+            <input type="radio" name="st_Sex" id="sex1"  value="男" title="男">
+            <input type="radio" name="st_Sex" id="sex2" value="女" title="女">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">邮箱</label>
+        <label class="layui-form-label">年龄</label>
         <div class="layui-input-inline">
-            <input type="email" name="email" id="email" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            <input type="text" name="age" value="${user1.age}" id="age" lay-verify="required" placeholder="年龄" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">手机号</label>
+        <label class="layui-form-label">出生日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="phone" id="phone" lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            <input type="text" name="birthday" value="${user1.birthday}" id="birthday" lay-verify="required" placeholder="出生日期" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-inline">
+            <input type="date" name="createDate" value="${user1.createDate}" id="createDate" lay-verify="required" placeholder="创建时间" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">微信</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat" value="${user1.wechat}" id="wechat" lay-verify="required" placeholder="微信" autocomplete="off" class="layui-input">
         </div>
     </div>
 

@@ -68,7 +68,49 @@ public class UserServlet extends BaseServlet {
     }
 
     public ResultData allUserByUserid(HttpServletRequest request, HttpServletResponse response){
-        return null;
+        int id = Integer.parseInt(request.getParameter("userid"));
+        return userService.allUserByUserid(id);
     }
 
+    public ResultData allRole(HttpServletRequest request, HttpServletResponse response){
+        return userService.allRole();
+    }
+
+    public ResultData queryUserIsRole(HttpServletRequest request, HttpServletResponse response){
+        return userService.queryUserIsRole(Integer.parseInt(request.getParameter("userid")));
+    }
+
+    public ResultData doUpdateUser(HttpServletRequest request, HttpServletResponse response){
+        User user = new User();
+        user.setId(Integer.parseInt(request.getParameter("id")));
+        user.setUserName(request.getParameter("name"));
+        user.setPassword(request.getParameter("pass"));
+        user.setTelNumber(request.getParameter("telNumber"));
+        user.setAddress(request.getParameter("address"));
+        user.setSex(request.getParameter("sex"));
+        user.setAge(Integer.parseInt(request.getParameter("age")));
+        user.setBirthday(request.getParameter("birthday"));
+        user.setCreateDate(request.getParameter("createDate"));
+        user.setWechat(request.getParameter("wechat"));
+        return userService.doUpdateUser(user);
+    }
+
+    public ResultData isUname(HttpServletRequest request, HttpServletResponse response){
+        return userService.isUname(request.getParameter("uname"));
+    }
+
+    public ResultData addUser(HttpServletRequest request, HttpServletResponse response){
+        User user = new User();
+        user.setId(Integer.parseInt(request.getParameter("id")));
+        user.setUserName(request.getParameter("name"));
+        user.setPassword(request.getParameter("pass"));
+        user.setTelNumber(request.getParameter("telNumber"));
+        user.setAddress(request.getParameter("address"));
+        user.setSex(request.getParameter("sex"));
+        user.setAge(Integer.parseInt(request.getParameter("age")));
+        user.setBirthday(request.getParameter("birthday"));
+        user.setCreateDate(request.getParameter("createDate"));
+        user.setWechat(request.getParameter("wechat"));
+        return null;
+    }
 }

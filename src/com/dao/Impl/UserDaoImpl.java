@@ -34,5 +34,26 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
         return count;
     }
 
+    @Override
+    public ResultSet queryUserIsRole(int id) {
+        String sql = "select * from role where id in (select roleId from user_role where userId = ?)";
+        Object[] objects = new Object[]{id};
+        return JDBC.select(sql,objects);
+    }
+
+    @Override
+    public boolean doUpdateUser(User user) {
+        String sql = "update user set userName=?,password=?,cardBalance=?,code=?,telNumber=?,address=?,sex=?,age=?,birthday=?,createDate=?,wechat=? where id=?";
+        Object[] objects = new Object[]{user.getUserName(),user.getPassword(),user.getCardBalance(),user.getCode(),user.getTelNumber(),user.getAddress(),user.getSex(),user.getAge(),user.getBirthday(),user.getCreateDate(),user.getWechat(),user.getId()};
+        return JDBC.update(sql,objects) > 0;
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        String sql = "insert into user(userName, password, cardBalance, code, telNumber, address, sex, age, birthday, createDate, wechat) VALUE (?,?,?,?,?,?,?,?,?,?,?)";
+        Object[] objects = new Object[]{user.getUserName(),user.getPassword(),user.getCardBalance(),user.getCode(),user.getTelNumber(),user.getAddress(),user.getSex(),user.getAge(),user.getBirthday(),user.getCreateDate(),user.getWechat()};
+        return JDBC.update(sql,objects) > 0;
+    }
+
 
 }
