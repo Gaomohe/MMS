@@ -78,6 +78,7 @@ layui.extend({
 
     //删除供应商
     function delSupplier(supplierId){
+        console.log(supplierId)
         $.ajax({
             url:"/supplier?action=delSupplier",
             type:"post",

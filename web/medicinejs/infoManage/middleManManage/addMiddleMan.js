@@ -40,6 +40,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
         var mname = $("#mname").val();
+        var tel = $("#tel").val();
+        var email = $("#email").val();
+        var department = $("#department").val();
+        var medName = $("#medName").val();
+        var standard = $("#standard").val();
+        var medNum = $("#medNum").val();
+        var date = $("#date").val();
+        var supplierName = $("#supplierName").val();
         if(mname.length == "" ){
             layer.msg("经手人名称不能为空")
             return false;
@@ -54,7 +62,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         $.ajax({
             url:"/middleMan?action=addMiddleMan",
             data:{
-                "mName":mName,
+                "mname":mname,
                 "tel":tel,
                 "email":email,
                 "department":department,

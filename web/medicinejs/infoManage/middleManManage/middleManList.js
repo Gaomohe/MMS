@@ -112,8 +112,8 @@ layui.extend({
                         console.log(info);
                         var body = layui.layer.getChildFrame('body', index);
                         body.find("#workId").val(info.data.id);
-                        body.find("#mName2").val(info.data.name);
-                        body.find("#mName").val(info.data.name);
+                        body.find("#mname2").val(info.data.name);
+                        body.find("#mname").val(info.data.name);
                         body.find("#tel").val(info.data.tel);
                         body.find("#email").val(info.data.email);
                         body.find("#department").val(info.data.department);
