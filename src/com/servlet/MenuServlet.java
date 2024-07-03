@@ -47,6 +47,6 @@ public class MenuServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        return "/admin/page/system/menu/menuList";
+        return "/medicine/systemManage/system/menuList";
     }
 }
