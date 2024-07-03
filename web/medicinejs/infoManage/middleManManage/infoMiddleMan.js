@@ -40,8 +40,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
-        var mname = $("#sname").val();
-        var mname2 = $("#sname2").val();
+        var mname = $("#mname").val();
+        var mname2 = $("#mname2").val();
         var workId = $("#workId").val();
         var tel = $("#tel").val();
         var email = $("#email").val();

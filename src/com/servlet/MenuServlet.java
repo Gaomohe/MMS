@@ -50,7 +50,7 @@ public class MenuServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        return "medicine/infoManage/medUserManage/medUserList.jsp";
+        return "medicine/infoManage/medUserManage/medUserList";
     }
 
     public ResultData selectMenuById(HttpServletRequest request, HttpServletResponse response){

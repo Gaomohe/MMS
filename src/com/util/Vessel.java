@@ -1,21 +1,11 @@
 package com.util;
 
-import com.dao.Impl.MenuDaoImpl;
-import com.dao.Impl.RoleDaoImpl;
-import com.dao.Impl.UserDaoImpl;
-import com.dao.Impl.WarehouseDaoImpl;
-import com.dao.MenuDao;
-import com.dao.RoleDao;
-import com.dao.UserDao;
-import com.dao.WarehouseDao;
-import com.service.Impl.MenuServiceImpl;
-import com.service.Impl.RoleServiceImpl;
-import com.service.Impl.UserServiceImpl;
-import com.service.Impl.WarehouseServiceImpl;
-import com.service.MenuService;
-import com.service.RoleService;
-import com.service.UserService;
-import com.service.WarehouseService;
+import com.dao.*;
+import com.dao.Impl.*;
+import com.pojo.Log;
+import com.pojo.User;
+import com.service.*;
+import com.service.Impl.*;
 
 public class Vessel {
     public static UserDao userDao = new UserDaoImpl();
@@ -27,4 +17,7 @@ public class Vessel {
     public static WarehouseService warehouseService = new WarehouseServiceImpl();
     public static RoleDao roleDao = new RoleDaoImpl();
     public static RoleService roleService = new RoleServiceImpl();
+
+    public static LogDao logDao = new LogDaoImpl();
+    public static LogService logService = new LogServiceImpl();
 }
