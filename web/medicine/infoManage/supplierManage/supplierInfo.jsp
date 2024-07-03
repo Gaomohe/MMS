@@ -33,6 +33,49 @@
             <input type="text" name="sname" id="sname" lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">供货方式</label>
+        <div class="layui-input-inline">
+            <input type="text" name="operationWay" id="operationWay" lay-verify="required" placeholder="请输入供货方式" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input type="text" name="tel" id="tel" lay-verify="required" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系人</label>
+        <div class="layui-input-inline">
+            <input type="text" name="contact" id="contact" lay-verify="required" placeholder="请输入联系人姓名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-inline">
+            <input type="text" name="status" id="status" lay-verify="required" placeholder="请输入审核状态" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">许可证</label>
+        <div class="layui-input-inline">
+            <input type="text" name="license" id="license" lay-verify="required" placeholder="请输入许可证到期日期" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="createTime" id="createTime" lay-verify="required" placeholder="请输入创建时间" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="upSupplier">修改供应商</button>
     </div>

@@ -43,6 +43,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var sname = $("#sname").val();
         var sname2 = $("#sname2").val();
         var supplierId = $("#supplierId").val();
+        var operationWay = $("#supplierId").val();
+        var tel = $("#supplierId").val();
+        var contact = $("#supplierId").val();
+        var status = $("#supplierId").val();
+        var license = $("#supplierId").val();
+        var createTime = $("#supplierId").val();
         if(sname.length == "" ){
             layer.msg("供货商名称不能为空")
             return false;
@@ -56,7 +62,16 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
         $.ajax({
             url:"/supplier?action=updateSupplier",
-            data:{"sname":sname,"supplierId":supplierId},
+            data:{
+                "sname":sname,
+                "supplierId":supplierId,
+                "operationWay":operationWay,
+                "tel":tel,
+                "contact":contact,
+                "status":status,
+                "license":license,
+                "createTime":createTime
+            },
             tyep:"post",
             success:function(data){
                 var info = JSON.parse(data);

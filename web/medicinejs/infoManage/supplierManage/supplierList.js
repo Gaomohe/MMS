@@ -111,6 +111,12 @@ layui.extend({
                         body.find("#supplierId").val(info.data.id);
                         body.find("#sname2").val(info.data.name);
                         body.find("#sname").val(info.data.name);
+                        body.find("#operationWay").val(info.data.operationWay);
+                        body.find("#tel").val(info.data.tel);
+                        body.find("#contact").val(info.data.contact);
+                        body.find("#status").val(info.data.status);
+                        body.find("#license").val(info.data.license);
+                        body.find("#createTime").val(info.data.createTime);
                     }
                 })
                 /*        			//获取新窗口对象
