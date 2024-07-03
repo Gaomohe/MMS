@@ -16,9 +16,6 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var birthday = $("birthday").val();
         var createDate = $("createDate").val();
         var wechat = $("wechat").val();
-        
-
-
         var data = {
             action:"doUpdateUser",
             "id":id,
