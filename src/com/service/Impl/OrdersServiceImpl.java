@@ -19,7 +19,14 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public LayuiTable<Orders> selectOrders(int page, int limit) {
-       return ordersDao.selectOrders(page, limit);
+        int curePage = (page-1)*limit;
+        List<Orders> ordersAll = ordersDao.selectOrders(curePage, limit);
+        LayuiTable<Orders> ordersLayuiTable = new LayuiTable<Orders>();
+        ordersLayuiTable.setMsg("");
+        ordersLayuiTable.setCode(0);
+        ordersLayuiTable.setCount(ordersDao.selectOrders().size());
+        ordersLayuiTable.setData(ordersAll);
+        return ordersLayuiTable;
     }
 
     @Override

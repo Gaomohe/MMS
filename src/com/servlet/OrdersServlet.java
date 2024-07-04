@@ -6,6 +6,7 @@ import com.pojo.Role;
 import com.pojo.User;
 import com.service.OrdersService;
 import com.util.BaseServlet;
+import com.util.LayuiTable;
 import com.util.TableJSON;
 import com.util.init.ToJSON;
 
@@ -32,7 +33,6 @@ public class OrdersServlet extends BaseServlet {
     public void selectOrders(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        page = (page-1)*limit;
         ToJSON.toJson(response, ordersService.selectOrders(page,limit));
     }
     @Override
