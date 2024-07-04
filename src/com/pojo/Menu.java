@@ -10,6 +10,15 @@ public class Menu {
     private int level;
     private String icon;
     private String description;
+    private String fatherName;
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
 
     public int getResId() {
         return resId;

@@ -1,12 +1,10 @@
 package com.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.pojo.Btn;
 import com.pojo.Menu;
 import com.pojo.User;
-import com.util.BaseServlet;
-import com.util.InitJson;
-import com.util.Result;
-import com.util.ResultData;
+import com.util.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +41,20 @@ public class MenuServlet extends BaseServlet {
         }
     }
 
+    //获取所有目录权限
+    public void getResource(HttpServletRequest request, HttpServletResponse response){
+        try {
+            LayuiTable<TreeTable> treeTableList = menuService.getMenus();
+            String string = JSON.toJSONString(treeTableList);
+            PrintWriter writer = response.getWriter();
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     //获取所有按钮
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
@@ -50,7 +62,7 @@ public class MenuServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        return "medicine/infoManage/medUserManage/medUserList";
+        return "medicine/systemManage/system/menuList";
     }
 
     public ResultData selectMenuById(HttpServletRequest request, HttpServletResponse response){
@@ -111,7 +123,7 @@ public class MenuServlet extends BaseServlet {
 
     //删除菜单
     public ResultData<Menu> delMenu(HttpServletRequest request, HttpServletResponse response){
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("menuid"));
         int i = menuService.delMenu(id);
         ResultData<Menu> resultData = new ResultData<>();
         if(i>0){
@@ -182,4 +194,190 @@ public class MenuServlet extends BaseServlet {
         }
        return resultData;
     }
+
+
+
+    public void allButtonType(HttpServletRequest request, HttpServletResponse response){
+        try {
+
+            List<Btn> btnList = menuService.getBtnAll();
+            String string = JSON.toJSONString(btnList);
+            PrintWriter writer = response.getWriter();
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void menuByType(HttpServletRequest request, HttpServletResponse response){
+        try {
+            String typeStr = request.getParameter("mtype");
+            int type = Integer.parseInt(typeStr);
+            List<Menu> menuList = menuService.getMenuByType(type);
+            String string = JSON.toJSONString(menuList);
+            PrintWriter writer = response.getWriter();
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public ResultData addResources(HttpServletRequest request, HttpServletResponse response){
+        String mname = request.getParameter("mname");
+        String mfunction = request.getParameter("mfunction");
+        String type2 = request.getParameter("type2");
+        int type = Integer.parseInt(type2);
+        String icon = request.getParameter("icon");
+        String resUrl = request.getParameter("resUrl");
+        String mbtn = request.getParameter("mbtn");
+        String fatherStr = request.getParameter("father");
+        int father = Integer.parseInt(fatherStr);
+
+        Menu menu = new Menu();
+        menu.setName(mname);
+        menu.setResKey(mfunction);
+        menu.setType(type-1);
+        menu.setIcon(icon);
+
+        if (menu.getType()==2){
+            menu.setResUrl(mbtn);
+        }else if (menu.getType()==1){
+            menu.setResUrl(resUrl);
+        }
+        menu.setParentId(father);
+
+        int i = 0;
+        ResultData resultData = new ResultData();
+        i = menuService.addMenu(menu);
+        if (i > 0){
+            try{
+                resultData.setMsg("add success");
+                resultData.setStatus(200);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else {
+            try{
+                resultData.setMsg("add fail");
+                resultData.setStatus(100);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return resultData;
+    }
+
+    public ResultData allMenuById(HttpServletRequest request, HttpServletResponse response){
+
+        String menuid = request.getParameter("menuid");
+        int mid = Integer.parseInt(menuid);
+        Menu menu1 = new Menu();
+        menu1.setResId(mid);
+        Menu menu = new Menu();
+        menu = menuService.allMenuById(menu1);
+        ResultData resultData = new ResultData();
+        try{
+            resultData.setMsg("all menu ok");
+            resultData.setStatus(200);
+            resultData.setData(menu);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultData;
+    }
+
+    //验证权限名是否存在
+    public ResultData isMenuName(HttpServletRequest request, HttpServletResponse response){
+        String name = request.getParameter("name");
+        Menu menu = new Menu();
+        menu.setName(name);
+        int i = 0;
+        i = menuService.isMenuName(menu);
+
+        ResultData resultData = new ResultData();
+
+        try {
+            if (i > 0){
+                resultData.setMsg("is menu ok");
+                resultData.setStatus(200);
+            }else {
+                resultData.setMsg("is menu fail");
+                resultData.setStatus(100);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultData;
+    }
+
+    //验证请求路径是否存在
+    public ResultData isMenuUrl(HttpServletRequest request, HttpServletResponse response){
+        String url = request.getParameter("url");
+        Menu menu = new Menu();
+        menu.setResUrl(url);
+        int i = 0;
+        i = menuService.isMenuUrl(menu);
+
+        ResultData resultData = new ResultData();
+
+        try {
+            if (i > 0){
+                resultData.setMsg("is menu ok");
+                resultData.setStatus(200);
+            }else {
+                resultData.setMsg("is menu fail");
+                resultData.setStatus(100);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultData;
+    }
+
+    //修改权限
+    public ResultData upMenu(HttpServletRequest request, HttpServletResponse response){
+
+        String midStr = request.getParameter("mid");
+        int mid = Integer.parseInt(midStr);
+        String mname = request.getParameter("mname");
+        String resKey = request.getParameter("mfunction");
+        String type2 = request.getParameter("type2");
+        int type = Integer.parseInt(type2);
+        String icon = request.getParameter("icon");
+        String father = request.getParameter("father");
+        int presentId = Integer.parseInt(father);
+        String mbtn = request.getParameter("mbtn");
+
+        Menu menu = new Menu();
+        menu.setResId(mid);
+        menu.setName(mname);
+        menu.setResKey(resKey);
+        menu.setType(type-1);
+        menu.setIcon(icon);
+        menu.setResUrl(mbtn);
+        menu.setParentId(presentId);
+
+        ResultData resultData = new ResultData();
+
+        int i = 0;
+        i = menuService.updateMenu(menu);
+        try {
+            if (i > 0){
+                resultData.setMsg("update success");
+                resultData.setStatus(200);
+            }else {
+                resultData.setMsg("update fail");
+                resultData.setStatus(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultData;
+    }
+
 }

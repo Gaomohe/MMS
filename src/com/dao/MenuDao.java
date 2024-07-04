@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Btn;
 import com.pojo.Menu;
 
 import java.util.List;
@@ -23,4 +24,21 @@ public interface MenuDao {
     public int delMenu(int id);
     //修改菜单信息
     public int updateMenu(Menu menu);
+    //获取所有按钮
+    public List<Btn> getBtnAll();
+
+    //根据目录类型获取目录
+    public List<Menu> getMenuByType(int type);
+
+    //根据id获取所有目录
+    public List<Menu> allMenuById(Menu menu);
+
+    //跟据据id获取父级名称
+    public List<Menu> getFatherName(int id);
+
+    //判断权限名是否存在
+    public int isMenuName(Menu menu);
+
+    //判断请求路径是否存在
+    public int isMenuUrl(Menu menu);
 }

@@ -156,7 +156,7 @@ layui.use(['form','layer','layedit','laydate','upload'],function(){
                 var html = '<option value="0">请选择</option>';
                 $.each(cs,function (index, item) {
                     console.log(item)
-                    html += '<option value="'+item.id+'">'+item.resName+'</option>';
+                    html += '<option value="'+item.id+'">'+item.name+'</option>';
                 });
             }
             dom.html(html);

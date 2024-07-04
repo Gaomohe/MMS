@@ -1,9 +1,12 @@
 package com.service.Impl;
 
+import com.pojo.Btn;
 import com.pojo.Menu;
 import com.service.MenuService;
 import com.util.IndexJson;
 import com.util.InitJson;
+import com.util.LayuiTable;
+import com.util.TreeTable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +15,38 @@ import java.util.List;
 import static com.util.Vessel.menuDao;
 
 public class MenuServiceImpl implements MenuService {
+    //获取所有权限目录
+    @Override
+    public LayuiTable<TreeTable> getMenus() {
+        LayuiTable<TreeTable> layuiTable = new LayuiTable<>();
+        List<Menu> menuList = menuDao.getMenuList();
+        List<TreeTable> treeTableList = new ArrayList<>();
+        for (Menu menu : menuList) {
+            TreeTable treeTable = new TreeTable();
+            treeTable.setAuthorityId(menu.getResId());
+            treeTable.setAuthorityName(menu.getName());
+            treeTable.setAuthority(menu.getResKey());
+            treeTable.setIsMenu(menu.getType());
+            treeTable.setChecked(true);
+            treeTable.setOpen(true);
+            if (menu.getType()==0) {
+                treeTable.setParentId(menu.getParentId()-1);
+            }else {
+                treeTable.setParentId(menu.getParentId());
+            }
+            treeTableList.add(treeTable);
+        }
+        layuiTable.setMsg("");
+        layuiTable.setCode(0);
+        layuiTable.setCount(100);
+        layuiTable.setData(treeTableList);
+        return layuiTable;
+    }
+
     ////查询所有菜单列表
     @Override
     public List<Menu> getMenuList() {
-        return Collections.emptyList();
+        return menuDao.getMenuList();
     }
 
     ////通过用户id与目录类型type查询用户目录(查询2级目录)
@@ -146,5 +177,52 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int updateMenu(Menu menu) {
         return menuDao.updateMenu(menu);
+    }
+
+    @Override
+    public List<Btn> getBtnAll() {
+        List<Btn> btnList = menuDao.getBtnAll();
+        return btnList;
+    }
+
+    @Override
+    public List<Menu> getMenuByType(int type) {
+        return menuDao.getMenuByType(type-2);
+    }
+
+    //根据目录id获取目录
+    @Override
+    public Menu allMenuById(Menu menu) {
+        Menu menu2 = new Menu();
+        for (Menu menu1 : menuDao.allMenuById(menu)) {
+            menu2 = menu1;
+        }
+        Menu fatherMenu = getFatherName(menu2.getParentId());
+        menu2.setFatherName(fatherMenu.getName());
+        int type = menu2.getType() + 1;
+        menu2.setType(type);
+//        menu2.setResName(fatherMenu.getName());
+        return menu2;
+    }
+
+    @Override
+    public Menu getFatherName(int id) {
+        Menu menu2 = new Menu();
+        for (Menu menu1 : menuDao.getFatherName(id)) {
+            menu2 = menu1;
+        }
+        return menu2;
+    }
+
+    //判断权限名是否存在
+    @Override
+    public int isMenuName(Menu menu) {
+        return menuDao.isMenuName(menu);
+    }
+
+    //判断请求路径是否存在
+    @Override
+    public int isMenuUrl(Menu menu) {
+        return menuDao.isMenuUrl(menu);
     }
 }

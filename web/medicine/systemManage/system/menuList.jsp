@@ -40,8 +40,9 @@
     </div>
 </div>
 
-<script src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
-<script src="<%=basePath %>iframe/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="<%=basePath %>admin/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/systemManage/system/menuList.js" charset="utf-8"></script>
 </body>
 </html>
+

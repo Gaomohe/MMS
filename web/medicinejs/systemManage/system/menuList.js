@@ -49,7 +49,7 @@ layui.use(['layer','table', 'treeTable'], function () {
                 layui.layer.open({
                     title : "添加权限",
                     type : 2,
-                    content : "admin/page/system/menu/menuAdd.jsp",
+                    content : "medicine/systemManage/system/menuAdd.jsp",
                     area:['600px','500px'],
                 })
                 break;
@@ -126,7 +126,7 @@ layui.use(['layer','table', 'treeTable'], function () {
                 type:2,
                 title:"修改权限",
                 area:['700px','600px'],
-                content:"admin/page/system/menu/menuInfo.jsp",
+                content:"medicine/systemManage/system/menuInfo.jsp",
                 success:function(layero, index){
                     $.post("/menu?action=allMenuById",
                         {"menuid":authorityId},
