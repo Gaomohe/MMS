@@ -78,6 +78,7 @@ public class MiddleManServlet extends BaseServlet {
         middleman.setStandard(request.getParameter("standard"));
         middleman.setDate(request.getParameter("date"));
         middleman.setPlace(request.getParameter("place"));
+        middleman.setSupplierName(request.getParameter("supplierName"));
         return middlemanService.addMiddleMan(middleman);
     }
 

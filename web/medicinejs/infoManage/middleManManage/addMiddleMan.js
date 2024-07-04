@@ -47,6 +47,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var standard = $("#standard").val();
         var medNum = $("#medNum").val();
         var date = $("#date").val();
+        var place = $("#place").val();
         var supplierName = $("#supplierName").val();
         if(mname.length == "" ){
             layer.msg("经手人名称不能为空")
@@ -70,6 +71,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                 "standard":standard,
                 "medNum":medNum,
                 "date":date,
+                "place":place,
                 "supplierName":supplierName
             },
             type:"post",
