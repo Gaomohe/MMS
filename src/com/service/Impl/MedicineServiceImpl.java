@@ -5,6 +5,8 @@ import com.dao.MedicineDao;
 import com.pojo.Medicine;
 import com.service.MedicineService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MedicineServiceImpl implements MedicineService {
@@ -12,56 +14,90 @@ public class MedicineServiceImpl implements MedicineService {
     MedicineDao medicineDao = new MedicineDaoImpl();
     @Override
     public int addMedicine(Medicine medicine) {
-        return 0;
+
+        return medicineDao.addMedicine(medicine);
     }
 
     @Override
     public int delMedicine(int tableCoding) {
-        return 0;
+
+        return medicineDao.delMedicine(tableCoding);
     }
 
     @Override
     public int delMedicineByMId(int mId) {
-        return 0;
+
+        return medicineDao.delMedicineByMId(mId);
     }
 
     @Override
     public int updateMedicinePrice(Medicine medicine) {
-        return 0;
+
+        return medicineDao.updateMedicinePrice(medicine);
     }
 
     @Override
-    public int updateMedicineLastCuringDate(Medicine medicine) {
-        return 0;
+    public int updateMedicineLastCuringDate(int  mid) {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+        Medicine medicine = new Medicine();
+        medicine.setmId(mid);
+        medicine.setLastCuringDate(format);
+        return medicineDao.updateMedicineLastCuringDate(medicine);
     }
 
     @Override
     public int updateMedicineWarehousingDate(Medicine medicine) {
-        return 0;
+
+        return medicineDao.updateMedicineWarehousingDate(medicine);
     }
 
     @Override
     public int updateMedicineNumber(Medicine medicine) {
-        return 0;
+
+        return medicineDao.updateMedicineNumber(medicine);
     }
 
     @Override
     public int updateMedicineBasic(Medicine medicine) {
-        return 0;
+
+        return medicineDao.updateMedicineBasic(medicine);
     }
 
     @Override
     public List<Medicine> getAllMedicine() {
-        return null;
+
+        return medicineDao.getAllMedicine();
     }
 
     @Override
     public Medicine getMedicine(int tableCoding) {
-        return null;
+
+        return medicineDao.getMedicine(tableCoding);
     }
 
     @Override
     public List<Medicine> getMedicineByQuery(String[] query) {
-        return null;
+        int i = 0;
+        String[] condition = new String[4];
+        for (String s:query){
+            if (s.equals(" ")){
+                condition[i] = "%";
+            }else {
+                condition[i] = s;
+                System.out.println(s);
+            }
+            i++;
+        }
+        List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(condition);
+        return medicineDao.getMedicineByQuery(condition);
     }
+
+    //可用于价格修改时药品的回显
+    @Override
+    public List<Medicine> getMedicineByMId(int mId) {
+        return medicineDao.getMedicineByMId(mId);
+    }
+
 }

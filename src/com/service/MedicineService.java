@@ -9,11 +9,12 @@ public interface MedicineService {
     public int addMedicine(Medicine medicine);
     //药品删除
     public int delMedicine(int tableCoding);
+    //根据药品编号删除药品
     public int delMedicineByMId(int mId);
     //药品价格修改
     public int updateMedicinePrice(Medicine medicine);
     //药品养护日期修改
-    public int updateMedicineLastCuringDate(Medicine medicine);
+    public int updateMedicineLastCuringDate(int mid);
     //药品入库时间修改
     public int updateMedicineWarehousingDate(Medicine medicine);
     //药品库存数量修改
@@ -26,4 +27,6 @@ public interface MedicineService {
     public Medicine getMedicine(int tableCoding);
     //多条件查询（药品名称，商品分类，药品功效，剂型）
     public List<Medicine> getMedicineByQuery(String[] query);
+    //根据药品编码显示一条药品的数据
+    public List<Medicine> getMedicineByMId(int mId);
 }
