@@ -23,6 +23,6 @@ public class ShoppingServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), Integer.parseInt(request.getParameter("resId")));
         session.setAttribute("menuList",menuList);
-        return "/medicine/shoppingManage/requestApply/shoppingList";
+        return "/medicine/shoppingManage/requestApply/shopList";
     }
 }

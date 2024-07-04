@@ -21,21 +21,24 @@
 <body class="childrenBody">
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
     <div class="layui-form-item">
-        <label class="layui-form-label">name</label>
+        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
         <div class="layui-input-inline">
-            <input type="text" name="sname" id="name" lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
+            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
         </div>
-    </div><div class="layui-form-item">
-    <label class="layui-form-label">other1</label>
-    <div class="layui-input-inline">
-        <input type="text" name="sname" id="other1" lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">other2</label>
-    <div class="layui-input-inline">
-        <input type="text" name="sname" id="other2" lay-verify="required" placeholder="请输入供应商名称" autocomplete="off" class="layui-input">
-    </div>
+        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
+        <div class="layui-input-inline">
+            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
+        <div class="layui-input-inline">
+            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
+        <div class="layui-input-inline">
+            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
+        </div>
 </div>
+
     <br/><br/>
     <div class="layui-form-item">
         <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="add">申请</button>

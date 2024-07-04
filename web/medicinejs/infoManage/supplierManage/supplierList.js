@@ -11,7 +11,7 @@ layui.extend({
 
     //表格渲染
     var tableIns = table.render({
-        elem: '#shoppingList',
+        elem: '#supplierList',
         url : '/supplier?action=selectSupplier',
         cellMinWidth : 95,
         page : true,
@@ -36,7 +36,7 @@ layui.extend({
     });
 
     //工具栏事件
-    table.on('toolbar(shoppingList)', function(obj){
+    table.on('toolbar(supplierList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var supplierId = '';
