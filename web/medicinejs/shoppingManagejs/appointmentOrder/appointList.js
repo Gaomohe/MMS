@@ -58,28 +58,6 @@ layui.extend({
         console.log(obj);
         switch (obj.event) {
             case 'delAppoint':
-                // if(files.length > 1 | files.length<1){
-                //     layer.msg("请选择一行进行删除",{icon:2})
-                //     return;
-                // }else {
-                //     del(files[0].id);
-                // }
-                //可批量删除
-                /*if (files.length > 0) {
-                    var ids = files.map(function(file) {
-                        console.log("bbbbbbbb");
-                        console.log(file);
-                        console.log("bbbbbbbb");
-                        return file.mId;
-                    });
-                    console.log("aaaaaaa");
-                    console.log(ids);
-                    console.log("aaaaaaa");
-                    del(ids);
-
-                } else {
-                    layer.msg("请选择要删除的申请", { icon: 2 });
-                }*/
                 if (files.length > 0) {
                     files.forEach(function(file) {
                         // 假设每个file对象都有一个id属性，用于标识用户
@@ -94,7 +72,8 @@ layui.extend({
                 if (files.length > 0) {
                     files.forEach(function(file) {
                         // 假设每个file对象都有一个id属性，用于标识用户
-                        addAppoint(file.id);
+                        total++;
+                        addAppoint(file.mId);
                     });
                 } else {
                     layer.msg("请选择要添加的预约", {icon: 2});
@@ -378,10 +357,11 @@ layui.extend({
     }
 
     //新增用户
-    function addUser(){
+    function addAppoint(id){
         layui.layer.open({
             title : "添加用户",
             type : 2,
+            data:{"id":id},
             content : "medicine/infoManage/userManage/userAdd.jsp",
             area:['400px','500px'],
         })
@@ -419,7 +399,4 @@ layui.extend({
 
         ]]
     });
-
-
-
 })

@@ -14,7 +14,7 @@ public interface OrdersDao {
     //按id查询全部订单
     public Orders getOrdersById(int id);
     //分页
-    public LayuiTable<Orders> selectOrders(int page, int limit);
+    public List<Orders> selectOrders(int page, int limit);
     //删除订单
     public int delOrders(int id);
     //更新订单

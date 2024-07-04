@@ -87,14 +87,13 @@ public class OrdersDaoImpl implements OrdersDao{
     }
 
     @Override
-    public LayuiTable<Orders> selectOrders(int page, int limit) {
+    public List<Orders> selectOrders(int page, int limit) {
         String sql=" select * from orders limit ?,?";
         Object[] objects= new Object[2];
         objects[0]=page;
         objects[1]=limit;
         ResultSet resultSet = JDBC.select(sql, objects);
         List<Orders> list = new ArrayList<Orders>();
-        LayuiTable<Orders> layuiTable = new LayuiTable<Orders>();
         try {
             while (resultSet.next()){
                 Orders orders = new Orders();
@@ -120,11 +119,10 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
                 list.add(orders);
             }
-            layuiTable.setData(list);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return layuiTable;
+        return list;
     }
 
     @Override

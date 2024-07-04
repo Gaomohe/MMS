@@ -14,6 +14,14 @@ public class Appointment {
     private String supplier;
     private String approvalNumber;
     private String placeOrigin;
+    private String applyUser;
+    private String applyTime;
+    private String pharmacist;
+    private String pharmacistApprove;
+    private String pharmacistTime;
+    private String finance;
+    private String financeApprove;
+    private String financeTime;
 
     public double getPurchasePrice() {
         return purchasePrice;
@@ -122,5 +130,67 @@ public class Appointment {
         this.placeOrigin = placeOrigin;
     }
 
+    public String getApplyUser() {
+        return applyUser;
+    }
 
+    public void setApplyUser(String applyUser) {
+        this.applyUser = applyUser;
+    }
+
+    public String getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(String applyTime) {
+        this.applyTime = applyTime;
+    }
+
+    public String getPharmacist() {
+        return pharmacist;
+    }
+
+    public void setPharmacist(String pharmacist) {
+        this.pharmacist = pharmacist;
+    }
+
+    public String getPharmacistApprove() {
+        return pharmacistApprove;
+    }
+
+    public void setPharmacistApprove(String pharmacistApprove) {
+        this.pharmacistApprove = pharmacistApprove;
+    }
+
+    public String getPharmacistTime() {
+        return pharmacistTime;
+    }
+
+    public void setPharmacistTime(String pharmacistTime) {
+        this.pharmacistTime = pharmacistTime;
+    }
+
+    public String getFinance() {
+        return finance;
+    }
+
+    public void setFinance(String finance) {
+        this.finance = finance;
+    }
+
+    public String getFinanceApprove() {
+        return financeApprove;
+    }
+
+    public void setFinanceApprove(String financeApprove) {
+        this.financeApprove = financeApprove;
+    }
+
+    public String getFinanceTime() {
+        return financeTime;
+    }
+
+    public void setFinanceTime(String financeTime) {
+        this.financeTime = financeTime;
+    }
 }

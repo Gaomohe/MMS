@@ -19,7 +19,8 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     //获取所有已批申请
     @Override
     public ResultSet getAppointList() {
-        String sql = "select * from appoint";
+        String sql = "select * from appoint \n" +
+                "where pharmacistApprove = '已批准' and financeApprove = '已批准';";
         Object[] obj = new Object[1];
         obj[0] = 0;
         return JDBC.select(sql, obj);
