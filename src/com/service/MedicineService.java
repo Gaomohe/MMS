@@ -1,10 +1,10 @@
-package com.dao;
+package com.service;
 
 import com.pojo.Medicine;
 
 import java.util.List;
 
-public interface MedicineDao {
+public interface MedicineService {
     //药品增加
     public int addMedicine(Medicine medicine);
     //药品删除
