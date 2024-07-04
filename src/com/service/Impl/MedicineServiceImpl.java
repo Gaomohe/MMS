@@ -2,6 +2,7 @@ package com.service.Impl;
 
 import com.dao.Impl.MedicineDaoImpl;
 import com.dao.MedicineDao;
+import com.pojo.DicNum;
 import com.pojo.Medicine;
 import com.service.MedicineService;
 
@@ -52,12 +53,6 @@ public class MedicineServiceImpl implements MedicineService {
     public int updateMedicineWarehousingDate(Medicine medicine) {
 
         return medicineDao.updateMedicineWarehousingDate(medicine);
-    }
-
-    @Override
-    public int updateMedicineNumber(Medicine medicine) {
-
-        return medicineDao.updateMedicineNumber(medicine);
     }
 
     @Override
@@ -137,5 +132,38 @@ public class MedicineServiceImpl implements MedicineService {
     public List<Medicine> getMedicineByMId(int mId) {
         return medicineDao.getMedicineByMId(mId);
     }
+
+    //新增库存维护表
+    @Override
+    public int addDic_Num(int tableCoding,int number,int patientId) {
+        Medicine medicine = medicineDao.getMedicine(tableCoding);
+        return medicineDao.addDic_Num(medicine,patientId,number);
+    }
+
+    //改变维护表状态
+    @Override
+    public int updateDic_Num(int tableCoding,int patientId) {
+        DicNum dicNum = medicineDao.getDic_Num(tableCoding, patientId);
+        if (dicNum.getStatue().equals("未付款")){
+            dicNum.setStatue("已付款");
+        }else if (dicNum.getStatue().equals("已付款")){
+            dicNum.setStatue("未付款");
+        }
+        return medicineDao.updateDic_Num(dicNum);
+    }
+
+    //修改药品库存
+    @Override
+    public int updateMedicineNumber(Medicine medicine,int num,int patientId) {
+        addDic_Num(medicine.getTableCoding(),num,patientId);
+        Medicine medicine1 = medicineDao.getMedicine(medicine.getTableCoding());
+        medicine1.setNumber(medicine1.getNumber()-num);
+        return medicineDao.updateMedicineNumber(medicine1);
+    }
+
+    //实现药品库存回滚
+   /* public int RollBack(int tableCoding){
+
+    }*/
 
 }

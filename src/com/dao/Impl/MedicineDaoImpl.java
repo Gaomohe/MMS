@@ -1,6 +1,7 @@
 package com.dao.Impl;
 
 import com.dao.MedicineDao;
+import com.pojo.DicNum;
 import com.pojo.Medicine;
 import com.util.JDBC;
 
@@ -389,5 +390,66 @@ public class MedicineDaoImpl implements MedicineDao {
             e.printStackTrace();
         }
         return medicines;
+    }
+
+    @Override
+    public int addDic_Num(Medicine medicine, int patientId, int number) {
+        String sql="INSERT INTO `dic_num` (`tableCoding`,`number`,`statue`,`patientId`)VALUES(?,?,?,?)";
+        Object[] objects= new Object[4];
+        objects[0] = medicine.getTableCoding();
+        objects[1] = number;
+        objects[2] = "未付款";
+        objects[3] = patientId;
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
+
+    @Override
+    public DicNum getDic_Num(int tableCoding, int patirntId) {
+        String sql = "SELECT * FROM `dic_num` WHERE `tableCoding`= ? AND `patientId`=?";
+        Object[] objects = new Object[2];
+        objects[0] = tableCoding;
+        objects[1] = patirntId;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        DicNum dicNum = new DicNum();
+        try{
+            while(resultSet.next()){
+                dicNum.setTableCoding(resultSet.getInt(1));
+                dicNum.setNumber(resultSet.getInt(2));
+                dicNum.setStatue(resultSet.getString(3));
+                dicNum.setPatientId(resultSet.getInt(4));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dicNum;
+    }
+
+    @Override
+    public int getDic_Num(int tableCoding) {
+        String sql = "SELECT SUM(number) FROM `dic_num` WHERE `tableCoding`= ? AND `statue`='未付款'";
+        Object[] objects = new Object[1];
+        objects[0] = tableCoding;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        int i = 0;
+        try{
+            while(resultSet.next()){
+                i=resultSet.getInt(1);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @Override
+    public int updateDic_Num(DicNum dicNum) {
+        String sql="UPDATE `dic_num` SET `statue`=? WHERE `tableCoding`=?,`patientId`=?";
+        Object[] objects= new Object[3];
+        objects[0] = dicNum.getStatue();
+        objects[1] = dicNum.getTableCoding();
+        objects[2] = dicNum.getTableCoding();
+        int count= JDBC.update(sql,objects);
+        return count;
     }
 }

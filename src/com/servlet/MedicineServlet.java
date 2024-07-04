@@ -55,14 +55,21 @@ public class MedicineServlet extends BaseServlet {
         List<Medicine> allMedicine = medicineService.getMedicineByQuery(queries);
         return Result.resultData(allMedicine);
     }
+    //多条件查询药品（多轮查询）
+    public ResultData<Medicine> getMedicineByQuerys(HttpServletRequest request, HttpServletResponse response){
+        String[] querie1s = request.getParameterValues("query1");
+        String[] querie2s = request.getParameterValues("query2");
+        String[] querie3s = request.getParameterValues("query3");
+        String[] querie4s = request.getParameterValues("query4");
+        List<Medicine> allMedicine = medicineService.getMedicineByQuerys(querie1s,querie2s,querie3s,querie4s);
+        return Result.resultData(allMedicine);
+    }
     //修改价格时多个药品回显,,
     public ResultData<Medicine> getMedicineByMId(HttpServletRequest request, HttpServletResponse response){
         int mid = Integer.parseInt(request.getParameter("mid"));
         List<Medicine> allMedicine = medicineService.getMedicineByMId(mid);
         return Result.resultData(allMedicine);
     }
-
-
     //新增药品,,
     public ResultData<Medicine> addMedicine(HttpServletRequest request, HttpServletResponse response){
         Medicine medicine = new Medicine();
