@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.pojo.Medicine;
 import com.pojo.Menu;
+import com.pojo.User;
 import com.service.Impl.MedicineServiceImpl;
 import com.service.MedicineService;
 import com.util.BaseServlet;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.util.Vessel.menuService;
+
 @WebServlet("/medicine")
 public class MedicineServlet extends BaseServlet {
     @Override
@@ -21,9 +24,21 @@ public class MedicineServlet extends BaseServlet {
         return MedicineServlet.class;
     }
     MedicineService medicineService = new MedicineServiceImpl();
+
+    //获取所有按钮
+    public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        int resId = Integer.parseInt(request.getParameter("resId"));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("menuList",menuList);
+        return "medicine/medicineManage/medDictionary/dictionaryList";
+    }
     //获取所有药品、、
     public ResultData<Medicine> getAllMedicine(HttpServletRequest request, HttpServletResponse response){
-        List<Medicine> allMedicine = medicineService.getAllMedicine();
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit);
         return Result.resultData(allMedicine);
     }
     //药品回显,,
@@ -40,7 +55,7 @@ public class MedicineServlet extends BaseServlet {
         List<Medicine> allMedicine = medicineService.getMedicineByQuery(queries);
         return Result.resultData(allMedicine);
     }
-    //修改价格时多个药品回显
+    //修改价格时多个药品回显,,
     public ResultData<Medicine> getMedicineByMId(HttpServletRequest request, HttpServletResponse response){
         int mid = Integer.parseInt(request.getParameter("mid"));
         List<Medicine> allMedicine = medicineService.getMedicineByMId(mid);
@@ -98,7 +113,7 @@ public class MedicineServlet extends BaseServlet {
         int i = medicineService.delMedicineByMId(mid);
         return Result.resultStatus(i);
     }
-    //修改药品价格
+    //修改药品价格,,
     public ResultData<Medicine> updateMedicinePrice(HttpServletRequest request, HttpServletResponse response){
         int mid = Integer.parseInt(request.getParameter("mid"));
         Double price = Double.parseDouble(request.getParameter("salePrice"));
@@ -108,13 +123,13 @@ public class MedicineServlet extends BaseServlet {
         int i = medicineService.updateMedicinePrice(medicine);
         return Result.resultStatus(i);
     }
-    //修改养护日期
+    //修改养护日期,,
     public ResultData<Medicine> updateMedicineLastCuringDate(HttpServletRequest request, HttpServletResponse response){
-        int mid = Integer.parseInt(request.getParameter("mid"));
-        int i = medicineService.updateMedicineLastCuringDate(mid);
+        int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
+        int i = medicineService.updateMedicineLastCuringDate(tableCoding);
         return Result.resultStatus(i);
     }
-    //修改入库时间
+    //修改入库时间,,
     public ResultData<Medicine> updateMedicineWarehousingDate(HttpServletRequest request, HttpServletResponse response){
         int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
         String warehousingDate = request.getParameter("warehousingDate");
@@ -129,7 +144,7 @@ public class MedicineServlet extends BaseServlet {
 
         return Result.resultStatus(i);
     }*/
-    //药品基本信息修改
+    //药品基本信息修改,,
     public ResultData<Medicine> updateMedicineBasic(HttpServletRequest request, HttpServletResponse response){
         Medicine medicine = new Medicine();
         medicine.setmId(Integer.parseInt(request.getParameter("mid")));

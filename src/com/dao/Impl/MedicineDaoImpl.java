@@ -1,9 +1,7 @@
 package com.dao.Impl;
 
-import com.dao.Impl.init.InitDaoImpl;
 import com.dao.MedicineDao;
 import com.pojo.Medicine;
-import com.pojo.Menu;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
@@ -71,13 +69,11 @@ public class MedicineDaoImpl implements MedicineDao {
     //删除药品
     @Override
     public int delMedicine(int tableCoding) {
-        InitDaoImpl initDao = new InitDaoImpl();
-        int i = 0;
-        boolean b = initDao.delOne(tableCoding, "mId", "dictionary");
-        if (b==true){
-            i=1;
-        }
-        return i;
+        String sql="DELETE FROM `dictionary` WHERE `tableCoding` = ?;";
+        Object[]  objects= new Object[1];
+        objects[0]=tableCoding;
+        int count= JDBC.update(sql,objects);
+        return count;
     }
 
     //根据mid删除药品
@@ -116,7 +112,7 @@ public class MedicineDaoImpl implements MedicineDao {
     public int updateMedicineWarehousingDate(Medicine medicine) {
         String sql="UPDATE `dictionary` SET `WarehousingDate` = ? WHERE `tableCoding`=?";
         Object[]  objects= new Object[2];
-        objects[0] = medicine.getLastCuringDate();
+        objects[0] = medicine.getWarehousingDate();
         objects[1] = medicine.getTableCoding();
         int count= JDBC.update(sql,objects);
         return count;
@@ -142,7 +138,7 @@ public class MedicineDaoImpl implements MedicineDao {
                 "`supplier`=?,`warehousingDate`=?,`locationDescription`=?,`sign`=?,`warehousingRemarks`=?,`drugFrom`=?,\n" +
                 "`handlingInformation`=?,`approvalNumber`=?,`LastCuringDate`=?,`timesStorage`=?,`documentNumber`=?,`placeOrigin`=?,\n" +
                 "`batchsNumber`=?,`recordNumber`=?,`mId`=?\n" +
-                "WHERE ``tableCoding``=?";
+                "WHERE `tableCoding` =?";
         Object[] objects = new Object[33];
         objects[0] = medicine.getmName();
         objects[1] = medicine.getSpecification();
@@ -183,9 +179,12 @@ public class MedicineDaoImpl implements MedicineDao {
 
     //查找所有药品的所有信息
     @Override
-    public List<Medicine> getAllMedicine() {
-        String sql = "SELECT * FROM `dictionary` ";
-        ResultSet resultSet = JDBC.select(sql,new Object[1]);
+    public List<Medicine> getAllMedicine(int index, int limit) {
+        String sql = "SELECT * FROM `dictionary` limit ?,? ";
+        Object[] objects = new Object[2];
+        objects[0] = index;
+        objects[1] = limit;
+        ResultSet resultSet = JDBC.select(sql,objects);
         List<Medicine> medicines = new ArrayList<Medicine>();
         try{
             while(resultSet.next()){
