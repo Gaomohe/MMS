@@ -25,8 +25,10 @@ public interface MedicineService {
     public List<Medicine> getAllMedicine(int index,int limit);
     //药品回显
     public Medicine getMedicine(int tableCoding);
-    //多条件查询（药品名称，商品分类，药品功效，剂型）
+    //多条件查询单轮（药品名称，商品分类，药品功效，剂型）
     public List<Medicine> getMedicineByQuery(String[] query);
+    //多条件查询多轮（药品名称，商品分类，药品功效，剂型）
+    public List<Medicine> getMedicineByQuerys(String[] query1,String[] query2,String[] query3);
     //根据药品编码显示一条药品的数据
     public List<Medicine> getMedicineByMId(int mId);
 }

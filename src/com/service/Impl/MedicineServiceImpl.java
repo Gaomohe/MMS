@@ -77,6 +77,7 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineDao.getMedicine(tableCoding);
     }
 
+    //多条件查询单轮
     @Override
     public List<Medicine> getMedicineByQuery(String[] query) {
         int i = 0;
@@ -92,6 +93,13 @@ public class MedicineServiceImpl implements MedicineService {
         }
         List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(condition);
         return medicineDao.getMedicineByQuery(condition);
+    }
+
+    //多条件查询（多轮）
+    @Override
+    public List<Medicine> getMedicineByQuerys(String[] query1, String[] query2, String[] query3) {
+        String[] codition = new String[];
+        return null;
     }
 
     //可用于价格修改时药品的回显
