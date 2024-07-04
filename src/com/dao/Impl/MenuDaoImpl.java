@@ -195,7 +195,7 @@ public class MenuDaoImpl implements MenuDao {
         objects[4] = menu.getResUrl();
         objects[5] = menu.getLevel();
         objects[6] = menu.getIcon();
-        objects[7] = menu.getDescription();
+        objects[7] = "";//menu.getDescription()
         objects[8] = menu.getResId();
         int count= JDBC.update(sql,objects);
         return count;

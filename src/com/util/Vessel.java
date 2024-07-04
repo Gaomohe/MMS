@@ -20,4 +20,6 @@ public class Vessel {
 
     public static LogDao logDao = new LogDaoImpl();
     public static LogService logService = new LogServiceImpl();
+
+    public static AppointService appointService = new AppointServiceImpl();
 }

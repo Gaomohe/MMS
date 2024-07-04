@@ -13,7 +13,7 @@ layui.extend({
     /*------------- 加载用户数据 --------------------------------*/
     var tableIns = table.render({
         elem: '#userList',
-        url : '/user?action=getAllUser',
+        url : '/appoint?action=getAllAppoint',
         toolbar: '#toolbarDemo',
         page : true,
         height: 'full-145',
@@ -31,12 +31,9 @@ layui.extend({
             {field: 'purchasePrice', title: '采购价',  align:'center'},
             {field: 'code', title: '批号',  align:'center'},
             {field: 'mType', title: '药品分类',  align:'center'},
-            // {field: 'defined', title: '自定义类',  align:'center'},
             {field: 'supplier', title: '供货单位',  align:'center'},
-            // {field: 'warehousingRemarks', title: '入库备注',  align:'center'},
             {field: 'approvalNumber', title: '准批文号',  align:'center'},
             {field: 'placeOrigin', title: '产地',  align:'center'},
-            // {field: 'batchsNumber', title: '批次号',  align:'center'},
             {title:'操作', width:150, templet: '#barDemo'}
         ]]
     });
@@ -58,18 +55,34 @@ layui.extend({
         var files= checkdata.data;
         console.log(obj);
         switch (obj.event) {
-            case 'delUser':
-                if(files.length > 1 | files.length<1){
-                    layer.msg("请选择一行进行删除",{icon:2})
-                    return;
-                }else {
-                    del(files[0].id);
+            case 'delAppoint':
+                // if(files.length > 1 | files.length<1){
+                //     layer.msg("请选择一行进行删除",{icon:2})
+                //     return;
+                // }else {
+                //     del(files[0].id);
+                // }
+                //可批量删除
+                if (files.length > 0) {
+                    files.forEach(function(file) {
+                        // 假设每个file对象都有一个id属性，用于标识用户
+                        del(file.id);
+                    });
+                } else {
+                    layer.msg("请选择要添加的用户", {icon: 2});
                 }
                 break;
-            case 'addUser':
-                addUser();
+            case 'addAppoint':
+                if (files.length > 0) {
+                    files.forEach(function(file) {
+                        // 假设每个file对象都有一个id属性，用于标识用户
+                        addAppoint(file.id);
+                    });
+                } else {
+                    layer.msg("请选择要添加的用户", {icon: 2});
+                }
                 break;
-            case 'upUser':
+            case 'upAppoint':
                 // selectByIdUser(files[0].id,files[0].name);
                 upUser(files[0].id);
                 break;
@@ -95,41 +108,16 @@ layui.extend({
         })
     }
 
-    /*table.on('tool(userList)',function (obj) {
-        console.log(obj)
-        switch (obj.event) {
-            case 'delUser':
-                if(files.length>1 | files.length<1){
-                    layer.msg("请选择一行进行删除",{icon:2})
-                    return;
-                }else {
-                    del(files[0].id);
-                }
-                break;
-            case 'addUser':
-                addUser();
-                break;
-            case 'upUser':
-                selectByIdUser(files[0].id,files[0].userName)
-                break;
-            case 'selectDesc':
-                break;
-        }
 
-    })*/
     //删除
     function del(id){
         alert(id)
         $.ajax({
-            url:"/user",
-            data:{
-                action:"delUser",
-                id:id
-            },
+            url:"/appoint?action=delAppoint",
+            data:{"id":id},
             type:"get",
             dataType:"json",
             success:function (res) {
-                layer.msg(res.msg,{icon: 6})
                 tableIns.reload("#userList");
             }
         })
@@ -149,129 +137,7 @@ layui.extend({
         })
     }
 
-    /*table.on('toolbar(newsList)',function (obj) {
 
-      /!*获取当前数据表格的 id*!/
-      var  checkStatus=  table.checkStatus(obj.config.id)
-      var trData=  checkStatus.data;
-      var user=null;
-      for (let i = 0; i <trData.length ; i++) {
-            user=trData[i]
-        }
-      switch (obj.event) {
-          case 'delUser':
-            if(trData.length==1){
-               let id= trData[0].id;
-                $.ajax({
-                    url:"/LoginServlet?type=delUser",
-                    data:{
-                         userid:id
-                      },
-                    type:"POST",
-                    dataType:"json",
-                    success:function(data){
-                        alert(data.cord)
-                        if(data.cord == 200){
-                            layer.msg("删除成功")
-                            tableIns.reload("#newsList");
-                        }
-                    }
-                })
-
-            }else{
-                layer.msg("请选怎一条进行删除")
-          }
-              break;
-
-          case 'upUser':
-              if(trData.length==1) {
-                  let id = trData[0].id;
-                  layui.layer.open({
-                      title : "修改用户",
-                      type : 2,
-                      content : "/LoginServlet?type=getUser&id="+id,
-                      area:['600px','690px'],
-                  })
-              }else{
-                  layer.msg("请选怎一条进行修改")
-              }
-              break;
-
-          case 'addUser':
-              layui.layer.open({
-                    title:"添加用户",
-                    type:2,
-                    content:"/admin/page/system/user/userAdd.jsp",
-                    area:['600px','690px']
-              })
-              break;
-
-
-          case 'hairMenu':
-              alert(4)
-              break;
-      }
-
-    })*/
-
-    //工具栏事件
-    /*table.on('toolbar(newsList)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id);
-        var data = checkStatus.data;
-        var userid = '';
-        for(i=0;i<data.length;i++){
-            userid = data[i].id;
-        }
-        switch(obj.event){
-            case 'hairMenu':	//分配权限
-                if(data.length == 0 || data.length > 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return ;
-                }else{
-                    hairMenu(userid);
-                }
-                break;
-
-            case 'addUser':	//新增用户
-                addUser();
-                break;
-
-            case 'hairRole':	//分配角色
-                if(data.length == 0 || data.length > 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return ;
-                }else{
-                    //HairRole(userid);
-                }
-                break;
-
-            case 'upUser':	//修改用户信息
-                if(data.length == 0 || data.length > 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return ;
-                }else{
-                    upUser(userid);
-                }
-                break;
-
-            case 'delUser':	//删除用户
-                if(data.length == 0 || data.length > 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return ;
-                }else{
-                    layer.confirm('确定删除用户吗', {icon: 3, title:'提示'}, function(index){
-                        var loginName = $("#loginName").val();
-                        if(userid == loginName){
-                            layer.msg("你正在登录当前账号,无法删除")
-                        }else{
-                            delUser(userid);
-                            layer.close(index);
-                        }
-                    });
-                }
-                break;
-        };
-    });*/
 
     //修改用户
     function upUser(userid){

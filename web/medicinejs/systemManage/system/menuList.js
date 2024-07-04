@@ -135,14 +135,14 @@ layui.use(['layer','table', 'treeTable'], function () {
                             console.log(info)
 
                             var body = layui.layer.getChildFrame('body', index);
-                            body.find("#mid").val(info.data.id);
-                            body.find("#mname").val(info.data.resName);  //权限名
+                            body.find("#mid").val(info.data.resId);
+                            body.find("#mname").val(info.data.name);  //权限名
                             body.find("#mfunction").val(info.data.resKey);	//请求路径
                             var select = 'dd[lay-value='+info.data.type+']';
                             body.find("#type2").siblings("div.layui-form-select").find('dl').find(select).click();	//菜单样式
                             body.find("#mbtn").val(info.data.resUrl);		//按钮代码
                             body.find("#icon").val(info.data.icon);		//icon图标
-                            var menuid3 = info.data.id;
+                            var menuid3 = info.data.resId;
                             //上级的下拉框
                             $.post("/menu?action=allMenuById",{"menuid":menuid3},function(res){
                                 var cs = JSON.parse(res);
