@@ -9,6 +9,8 @@ layui.extend({
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
 
+    var counts = 0;
+    var total = 0;
 
     /*------------- 加载用户数据 --------------------------------*/
     var tableIns = table.render({
@@ -81,6 +83,7 @@ layui.extend({
                 if (files.length > 0) {
                     files.forEach(function(file) {
                         // 假设每个file对象都有一个id属性，用于标识用户
+                        total++;
                         del(file.mId);
                     });
                 } else {
@@ -109,10 +112,10 @@ layui.extend({
                 break;
         }
     });
+
     //删除
     function del(ids) {
-        var counts = 0;
-        var total = ids.length;
+
         $.ajax({
             url: "/appoint?action=delAppoint",
             data: { "ids": ids },
@@ -124,6 +127,8 @@ layui.extend({
                 console.log(res);
                 console.log(res.status);
                 counts++;
+                console.log(counts);
+                console.log(total);
                 if (counts == total) {
                     if (res.status) {
                         layer.msg("删除成功", { icon: 1 });
