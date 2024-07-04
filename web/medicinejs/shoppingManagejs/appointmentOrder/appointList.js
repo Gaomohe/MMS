@@ -63,10 +63,25 @@ layui.extend({
                 //     del(files[0].id);
                 // }
                 //可批量删除
+                /*if (files.length > 0) {
+                    var ids = files.map(function(file) {
+                        console.log("bbbbbbbb");
+                        console.log(file);
+                        console.log("bbbbbbbb");
+                        return file.mId;
+                    });
+                    console.log("aaaaaaa");
+                    console.log(ids);
+                    console.log("aaaaaaa");
+                    del(ids);
+
+                } else {
+                    layer.msg("请选择要删除的申请", { icon: 2 });
+                }*/
                 if (files.length > 0) {
                     files.forEach(function(file) {
                         // 假设每个file对象都有一个id属性，用于标识用户
-                        del(file.id);
+                        del(file.mId);
                     });
                 } else {
                     layer.msg("you are not select", {icon: 2});
@@ -79,12 +94,12 @@ layui.extend({
                         addAppoint(file.id);
                     });
                 } else {
-                    layer.msg("请选择要添加的用户", {icon: 2});
+                    layer.msg("请选择要添加的预约", {icon: 2});
                 }
                 break;
             case 'upAppoint':
                 // selectByIdUser(files[0].id,files[0].name);
-                upUser(files[0].id);
+                upAppoint(files[0].id);
                 break;
             case 'selectDesc':
 
@@ -93,7 +108,33 @@ layui.extend({
                 upLoad();
                 break;
         }
-    })
+    });
+    //删除
+    function del(ids) {
+        var counts = 0;
+        var total = ids.length;
+        $.ajax({
+            url: "/appoint?action=delAppoint",
+            data: { "ids": ids },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("res");
+                console.log(res);
+                console.log(res.status);
+                counts++;
+                if (counts == total) {
+                    if (res.status) {
+                        layer.msg("删除成功", { icon: 1 });
+                        tableIns.reload();
+                    } else {
+                        layer.msg("删除失败", { icon: 2 });
+                    }
+                }
+            }
+        });
+    }
 
     function upLoad(){
         layer.open({
@@ -109,19 +150,7 @@ layui.extend({
     }
 
 
-    //删除
-    function del(id){
-        alert(id)
-        $.ajax({
-            url:"/appoint?action=delAppoint",
-            data:{"id":id},
-            type:"get",
-            dataType:"json",
-            success:function (res) {
-                tableIns.reload("#userList");
-            }
-        })
-    }
+
 
     //修改回显
     function  selectByIdUser(id,uname) {
@@ -140,7 +169,7 @@ layui.extend({
 
 
     //修改用户
-    function upUser(userid){
+    function upAppoint(userid){
         layui.layer.open({
             title : "修改用户信息",
             type : 2,

@@ -42,7 +42,9 @@ public class AppointServlet extends BaseServlet {
     }
 
     public ResultData delAppoint(HttpServletRequest request, HttpServletResponse response){
-        int mId = Integer.parseInt(request.getParameter("id"));
+        String ids = request.getParameter("ids");
+        System.out.println(ids.toString());
+        int mId = Integer.parseInt(ids);
         int i = appointService.delAppoint(mId);
         return Result.resultStatus(i);
     }
