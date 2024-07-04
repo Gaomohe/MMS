@@ -12,17 +12,20 @@ import java.util.List;
 
 import static com.util.Vessel.menuService;
 
-@WebServlet("/shopping")
-public class ShoppingServlet extends BaseServlet {
+@WebServlet("/appoint")
+public class AppointServlet extends BaseServlet {
     @Override
-    public Class<?> getServlet() {
-        return ShoppingServlet.class;
+    public Class getServlet() {
+        return AppointServlet.class;
     }
+
+    //获取所有按钮
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
-        List<Menu> menuList = menuService.getMenuBtn(user.getId(), Integer.parseInt(request.getParameter("resId")));
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        return "/medicine/shoppingManage/appointmentOrder/appointList";
+        return "medicine/shoppingManage/appointmentOrder/appointList";
     }
 }
