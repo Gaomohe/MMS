@@ -33,7 +33,7 @@ public class Medicine {
     private String placeOrigin;
     private String batchsNumber;
     private int recordNumber;
-
+    private int tableCoding;
 
     public int getmId() {
         return mId;
@@ -289,5 +289,13 @@ public class Medicine {
 
     public void setRecordNumber(int recordNumber) {
         this.recordNumber = recordNumber;
+    }
+
+    public int getTableCoding() {
+        return tableCoding;
+    }
+
+    public void setTableCoding(int tableCoding) {
+        this.tableCoding = tableCoding;
     }
 }

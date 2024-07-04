@@ -21,7 +21,7 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'sId', title: '供货商编号',  align:'center',width:100},
+            {field: 'sid', title: '供货商编号',  align:'center',width:100},
             {field: 'sName', title: '供货商名称',  align:'center',width:100},
             {field: 'operationWay', title: '供货方式', width:150, align:"center"},
             {field: 'tel', title:'电话' , width:150, align:"center"},
@@ -29,7 +29,10 @@ layui.extend({
             {field: 'status', title:'状态' , width:150, align:"center"},
             {field: 'license', title:'许可证到期日期' , width:150, align:"center"},
             {field: 'createTime', title:'创建时间' , width:150, align:"center"}
-        ]]
+        ]],
+        // done:function (data){
+        //     console.log(data)
+        // }
     });
 
     //工具栏事件
@@ -38,7 +41,7 @@ layui.extend({
         var data = checkStatus.data;
         var supplierId = '';
         for(i=0;i<data.length;i++){
-            supplierId = data[i].id;
+            supplierId = data[i].sid;//这里得和上面的field里的id名对应
         }
         switch(obj.event){
             case 'delSupplier':	//删除供应商
@@ -78,7 +81,6 @@ layui.extend({
 
     //删除供应商
     function delSupplier(supplierId){
-        console.log(supplierId)
         $.ajax({
             url:"/supplier?action=delSupplier",
             type:"post",
@@ -109,9 +111,9 @@ layui.extend({
                         var info = JSON.parse(data);
                         console.log(info);
                         var body = layui.layer.getChildFrame('body', index);
-                        body.find("#supplierId").val(info.data.id);
-                        body.find("#sname2").val(info.data.name);
-                        body.find("#sname").val(info.data.name);
+                        body.find("#supplierId").val(info.data.sid);
+                        body.find("#sname2").val(info.data.sName);
+                        body.find("#sname").val(info.data.sName);
                         body.find("#operationWay").val(info.data.operationWay);
                         body.find("#tel").val(info.data.tel);
                         body.find("#contact").val(info.data.contact);

@@ -51,7 +51,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var medNum = $("#medNum").val();
         var date = $("#date").val();
         var place = $("#place").val();
-        if(sname.length == "" ){
+        if(mname.length == "" ){
             layer.msg("经手人名称不能为空")
             return false;
         }else if(mname.length != null && mname!=mname2 ){
