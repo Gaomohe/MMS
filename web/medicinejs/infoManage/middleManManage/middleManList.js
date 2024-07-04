@@ -32,7 +32,7 @@ layui.extend({
             {field: 'date', title:'经手时间' , width:150, align:"center"},
             {field: 'place', title:'经手地点' , width:150, align:"center"},
             {field: 'supplierName', title:'供货商名称' , width:150, align:"center"}
-        ]]
+        ]],
     });
 
     //工具栏事件
@@ -41,8 +41,10 @@ layui.extend({
         var data = checkStatus.data;
         var workId = '';
         for(i=0;i<data.length;i++){
-            workId = data[i].id;
+            workId = data[i].workId;
         }
+
+        console.log(workId)
         switch(obj.event){
             case 'delMiddleMan':	//删除经手人
                 if(data.length != 1){
@@ -111,9 +113,9 @@ layui.extend({
                         var info = JSON.parse(data);
                         console.log(info);
                         var body = layui.layer.getChildFrame('body', index);
-                        body.find("#workId").val(info.data.id);
-                        body.find("#mname2").val(info.data.name);
-                        body.find("#mname").val(info.data.name);
+                        body.find("#workId").val(info.data.workId);
+                        body.find("#mname2").val(info.data.mName);
+                        body.find("#mname").val(info.data.mName);
                         body.find("#tel").val(info.data.tel);
                         body.find("#email").val(info.data.email);
                         body.find("#department").val(info.data.department);

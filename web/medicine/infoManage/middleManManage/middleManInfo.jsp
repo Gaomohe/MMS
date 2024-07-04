@@ -21,9 +21,16 @@
 <body class="childrenBody">
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
     <div class="layui-form-item">
+        <label class="layui-form-label">经手人工号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="workId" id="workId" disabled="" lay-verify="required" placeholder="请输入经手人姓名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <label class="layui-form-label">经手人姓名</label>
         <div class="layui-input-inline">
-            <input type="text" name="mname" id="mname" lay-verify="required" placeholder="请输入经手人姓名 autocomplete="off" class="layui-input">
+            <input type="text" name="mname" id="mname" lay-verify="required" placeholder="请输入经手人姓名" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -91,7 +98,7 @@
     </div>
 
     <div class="layui-form-item">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="upSupplier">修改供应商</button>
+        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="upMiddleMan">修改经手人</button>
     </div>
 </form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>

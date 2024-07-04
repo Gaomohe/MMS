@@ -30,6 +30,7 @@ public class MiddlemanServiceImpl implements MiddlemanService {
                 Middleman mid = new Middleman();
                 mid.setWorkId(middleman.getInt(1));
                 mid.setmName(middleman.getString(2));
+                mid.setTel(middleman.getString(3));
                 mid.setEmail(middleman.getString(4));
                 mid.setDepartment(middleman.getString(5));
                 mid.setMedName(middleman.getString(6));
@@ -73,6 +74,7 @@ public class MiddlemanServiceImpl implements MiddlemanService {
             if (middleman.next()){
                 mid.setWorkId(middleman.getInt(1));
                 mid.setmName(middleman.getString(2));
+                mid.setTel(middleman.getString(3));
                 mid.setEmail(middleman.getString(4));
                 mid.setDepartment(middleman.getString(5));
                 mid.setMedName(middleman.getString(6));
