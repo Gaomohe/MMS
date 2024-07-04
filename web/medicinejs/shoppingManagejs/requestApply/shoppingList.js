@@ -1,40 +1,79 @@
 layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','laytpl','dtree'],function(){
+}).use(['form','layer','laydate','table','upload','dtree'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         laydate = layui.laydate,
-        laytpl = layui.laytpl,
+        upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
 
+
+
     /*------------- 加载销售数据 --------------------------------*/
     var tableIns = table.render({
-        elem: '#userList',
-        url : '/user?action=getAllUser',
-        toolbar: '#toolbarDemo',
+        elem: '#shoppingList',
+        url : '/shopping?action=getAll',
+        toolbar: '#shoppingDemo',
         page : true,
         height: 'full-145',
         limit : 10,
         limits : [5,10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
-            {field: 'id', title: '编号',  align:'center'},
-            {field: 'userName', title: '登录名', minWidth:100, align:"center"},
-            {field: 'sex', title: '用户性别', align:'center'},
-            {field: 'age', title: '年龄', align:'center'},
-            {field: 'password', title: '密码', minWidth:100, align:"center"},
-            // {field: 'cardBalance', title: '医疗卡余额',  align:'center'},
-            // {field: 'code', title: '编码',  align:'center'},
-            {field: 'telNumber', title: '联系方式',  align:'center'},
-            {field: 'address', title: '家庭住址',  align:'center'},
-            {field: 'birthday', title: '出生日期',  align:'center'},
-            {field: 'createDate', title: '创建时间',  align:'center'},
-            {field: 'wechat', title: '微信',  align:'center'},
-            {title:'操作', width:150, templet: '#barDemo'}
+            {field: 'mId', title: '药品id',  align:'center'},
+            {field: 'mName', title: '药品名称',  align:'center'},
+            {field: 'specification', title: '规格',  align:'center'},
+            {field: 'number', title: '库存',  align:'center'},
+            {field: 'purchasePrice', title: '价格',  align:'center'},
+            {field: 'opera', title: '操作',  align:'center',templet:function (d){
+                    return '<a href="/shopping?action=select&mId=' + d.mId + '" class="layui-btn layui-btn-xs">查询</a>';
+                }},
+
         ]]
     });
+    // // 获取搜素框
+    // form.on('select()', function(data){
+    //     var selectedValue = data.value;
+    //     alert(selectedValue)
+    // });
+
+
+    //工具栏事件
+    table.on('toolbar(shoppingList)', function(obj){
+        var checkStatus = table.checkStatus(obj.config.id);
+        var data = checkStatus.data;
+        var shopId = '';
+        for(let i=0;i<data.length;i++){
+            shopId = data[i].sid;//这里得和上面的field里的id名对应
+        }
+        switch(obj.event){
+            case 'add':	//新增
+                add();
+                break;
+            case 'time':	//时间
+                time();
+                break;
+        }
+    });
+
+    function time(){
+        laydate.render({
+            elem: '#ID-laydate-demo',
+            done:function (value, date, endDate){
+
+            }
+        });
+    }
+    function add(){
+        layui.layer.open({
+            title : "申请",
+            type : 2,
+            content : "medicine/shoppingManage/requestApply/applyList.jsp",
+            area:['400px','500px'],
+        });
+    }
 
 
 })

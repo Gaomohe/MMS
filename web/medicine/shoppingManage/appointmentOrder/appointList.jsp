@@ -20,7 +20,7 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <blockquote class="layui-elem-quote quoteBox">
-            用户管理
+
         </blockquote>
         <script type="text/html" id="toolbarDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
