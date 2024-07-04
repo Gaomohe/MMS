@@ -43,7 +43,7 @@ layui.extend({
     $("#doSubmit").click(function(){
         var like = $("#likename").val()
         tableIns.reload({
-            url:"http://rm-bp1ln5cud01u6z7893o.mysql.rds.aliyuncs.com:8723/EEDemo/Interfaces?action=allUser&uname="+like,
+            url:"http://localhost:8723/EEDemo/Interfaces?action=allUser&uname="+like,
             page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -69,7 +69,7 @@ layui.extend({
                         del(file.id);
                     });
                 } else {
-                    layer.msg("请选择要添加的用户", {icon: 2});
+                    layer.msg("you are not select", {icon: 2});
                 }
                 break;
             case 'addAppoint':

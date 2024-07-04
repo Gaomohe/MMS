@@ -21,7 +21,7 @@ public interface MedicineDao {
     //药品基本信息修改
     public int updateMedicineBasic(Medicine medicine);
     //全部查询
-    public List<Medicine> getAllMedicine();
+    public List<Medicine> getAllMedicine(int index,int limit);
     //全部查询
     public List<Medicine> getMedicineByMId(int mId);
     //药品回显

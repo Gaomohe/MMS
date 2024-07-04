@@ -14,7 +14,7 @@ public interface MedicineService {
     //药品价格修改
     public int updateMedicinePrice(Medicine medicine);
     //药品养护日期修改
-    public int updateMedicineLastCuringDate(int mid);
+    public int updateMedicineLastCuringDate(int tableCoding);
     //药品入库时间修改
     public int updateMedicineWarehousingDate(Medicine medicine);
     //药品库存数量修改
@@ -22,7 +22,7 @@ public interface MedicineService {
     //药品基本信息修改
     public int updateMedicineBasic(Medicine medicine);
     //全部查询
-    public List<Medicine> getAllMedicine();
+    public List<Medicine> getAllMedicine(int index,int limit);
     //药品回显
     public Medicine getMedicine(int tableCoding);
     //多条件查询（药品名称，商品分类，药品功效，剂型）

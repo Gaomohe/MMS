@@ -37,12 +37,12 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public int updateMedicineLastCuringDate(int  mid) {
+    public int updateMedicineLastCuringDate(int  tableCoding) {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
         Medicine medicine = new Medicine();
-        medicine.setmId(mid);
+        medicine.setTableCoding(tableCoding);
         medicine.setLastCuringDate(format);
         return medicineDao.updateMedicineLastCuringDate(medicine);
     }
@@ -66,9 +66,9 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public List<Medicine> getAllMedicine() {
-
-        return medicineDao.getAllMedicine();
+    public List<Medicine> getAllMedicine(int index, int limit) {
+        int page = (index-1)*limit;
+        return medicineDao.getAllMedicine(page,limit);
     }
 
     @Override
