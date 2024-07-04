@@ -6,6 +6,7 @@ import com.pojo.Medicine;
 import com.service.MedicineService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -97,9 +98,38 @@ public class MedicineServiceImpl implements MedicineService {
 
     //多条件查询（多轮）
     @Override
-    public List<Medicine> getMedicineByQuerys(String[] query1, String[] query2, String[] query3) {
-        String[] codition = new String[];
-        return null;
+    public List<Medicine> getMedicineByQuerys(String[] query1, String[] query2, String[] query3, String[] query4) {
+        int i = 0;
+        List<Medicine> list = new ArrayList<Medicine>();
+        while (query1.length>i || query2.length>i || query3.length>i || query4.length>i){
+            String[] codition = new String[4];
+            if (query1.length>i){
+                codition[0] = query1[i];
+            }else {
+                codition[0] = "%";
+            }
+            if (query2.length>i){
+                codition[1] = query2[i];
+            }else {
+                codition[1] = "%";
+            }
+            if (query3.length>i){
+                codition[2] = query3[i];
+            }else {
+                codition[2] = "%";
+            }
+            if (query4.length>i){
+                codition[3] = query4[i];
+            }else {
+                codition[3] = "%";
+            }
+            List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(codition);
+            for (Medicine medicine:medicineByQuery){
+                list.add(medicine);
+            }
+            i++;
+        }
+        return list;
     }
 
     //可用于价格修改时药品的回显
