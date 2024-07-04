@@ -29,11 +29,11 @@
             采购订单列表
         </blockquote>
         <script type="text/html" id="ordersDemo">
-
+            <c:forEach var="menu" items="${menuList}" varStatus="s">
+                ${menu.resUrl}
+            </c:forEach>
         </script>
-        <c:forEach var="menu" items="${menuList}" varStatus="s">
-            ${menu.resUrl}
-        </c:forEach>
+
 
         <table id="ordersList" lay-filter="ordersList"></table>
     </div>
