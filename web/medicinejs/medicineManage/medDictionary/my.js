@@ -1,4 +1,4 @@
-layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel'], function() {
+layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel', 'tableSelect'], function() {
 	var $ = layui.jquery;
 	var layer = layui.layer;
 	var element = layui.element;
@@ -6,22 +6,21 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel'], function
 	var table = layui.table;
 	var tableX = layui.tableX;
 	var layer = layui.layer;
+	var tableSelect = layui.tableSelect;
 
 	// 前端分页
 	tableX.render({
 		elem: '#xTable1',
 		url: '/medicine?action=getAllMedicine',
-		minHeight:10,
 		toolbar: '#toolbarDemo',
 		page: true,
 		height: 'full-145',
 		limit: 10,
 		limits: [5,10,15,20,25],
 		cols: [
-			[{
-					fixed: "left",
-					type: "checkbox",
-					width: 50
+			[{fixed: "left",
+				type: "checkbox",
+				width: 50
 				},
 				{
 					field: 'tableCoding',
@@ -250,6 +249,85 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel'], function
 					templet: '#barDemo',
 				}
 			]
-		]
+		],
+		height: 390
 	});
+	setTimeout(function () {
+		table.resize('xTable1');
+	}, 200);
+	table.on('toolbar(xTable1)', function(obj){
+		var checkStatus = table.checkStatus(obj.config.id);
+		var data = checkStatus.data;
+		var roleid = '';
+		for(i=0;i<data.length;i++){
+			roleid = data[i].id;
+		}
+		switch(obj.event){
+			case 'delRole':	//删除角色
+				if(data.length != 1){
+					layer.msg("请选择一行数据进行操作")
+					return false;
+				}
+				layer.confirm('删除角色后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
+					delRole(roleid);
+					layer.close(index);
+				});
+				break;
+
+			case 'upRole':	//修改角色
+				if(data.length != 1){
+					layer.msg("请选择一行数据进行操作")
+					return false;
+				}else{
+					upRole(roleid);
+				}
+				break;
+
+			case 'addRole':	//新增角色
+				addRole();
+				break;
+
+			case 'hairMenu':	//修改角色权限
+				if(data.length == 0 || data.length > 1){
+					layer.msg("请选择一行数据进行操作")
+					return ;
+				}else{
+					hairMenu(roleid);
+				}
+				break;
+		};
+	});
+});
+
+layui.use(['layer', 'form', 'admin', 'citypicker', 'formSelects', 'tableSelect', 'admin', 'QRCode', 'introJs'], function () {
+	var $ = layui.jquery;
+	var layer = layui.layer;
+	var form = layui.form;
+	var admin = layui.admin;
+	var cityPicker = layui.citypicker;
+	var formSelects = layui.formSelects;
+	var tableSelect = layui.tableSelect;
+	var QRCode = layui.QRCode;
+	var introJs = layui.introJs;
+
+	// 显示加载层
+	$('#btnShowLoading1').click(function () {
+		admin.showLoading('#divLoading', 1, '.9');
+		setTimeout(function () {
+			admin.removeLoading('#divLoading', true, true);
+		}, 2000);
+	});
+	$('#btnShowLoading2').click(function () {
+		admin.showLoading('#divLoading', 2, '.8');
+		setTimeout(function () {
+			admin.removeLoading('#divLoading', true, true);
+		}, 2000);
+	});
+	$('#btnShowLoading3').click(function () {
+		admin.showLoading('#divLoading', 3, '.8');
+		setTimeout(function () {
+			admin.removeLoading('#divLoading', true, true);
+		}, 2000);
+	});
+
 });

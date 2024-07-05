@@ -1,13 +1,13 @@
 package com.pojo;
 
 public class Type {
-    private String Type;
+    private String typename;
 
-    public String getType() {
-        return Type;
+    public String getTypename() {
+        return typename;
     }
 
-    public void setType(String type) {
-        Type = type;
+    public void setTypename(String typename) {
+        this.typename = typename;
     }
 }

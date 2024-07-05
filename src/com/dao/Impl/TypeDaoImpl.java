@@ -17,7 +17,7 @@ public class TypeDaoImpl implements TypeDao {
     public int addGoodsType(Type type) {
         String sql = "INSERT INTO `goodscategory` (`typeName`) VALUE (?)";
         Object[] objects = new Object[1];
-        objects[0] = type.getType();
+        objects[0] = type.getTypename();
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -26,7 +26,7 @@ public class TypeDaoImpl implements TypeDao {
     public int addMType(Type type) {
         String sql = "INSERT INTO `drugclassification` (`typeName`) VALUE (?)";
         Object[] objects = new Object[1];
-        objects[0] = type.getType();
+        objects[0] = type.getTypename();
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -35,7 +35,7 @@ public class TypeDaoImpl implements TypeDao {
     public int addfreeType(Type type) {
         String sql = "INSERT INTO `customclassification` (`typeName`) VALUE (?)";
         Object[] objects = new Object[1];
-        objects[0] = type.getType();
+        objects[0] = type.getTypename();
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -44,7 +44,7 @@ public class TypeDaoImpl implements TypeDao {
     public int dosage(Type type) {
         String sql = "INSERT INTO `dosageform` (`typeName`) VALUE (?)";
         Object[] objects = new Object[1];
-        objects[0] = type.getType();
+        objects[0] = type.getTypename();
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -59,7 +59,7 @@ public class TypeDaoImpl implements TypeDao {
        try{
            while (resultSet.next()){
                Type type = new Type();
-               type.setType(resultSet.getString(1));
+               type.setTypename(resultSet.getString(1));
                list.add(type);
            }
        }catch (Exception e){
@@ -76,7 +76,7 @@ public class TypeDaoImpl implements TypeDao {
         try{
             while (resultSet.next()){
                 Type type = new Type();
-                type.setType(resultSet.getString(1));
+                type.setTypename(resultSet.getString(1));
                 list.add(type);
             }
         }catch (Exception e){
@@ -93,7 +93,7 @@ public class TypeDaoImpl implements TypeDao {
         try{
             while (resultSet.next()){
                 Type type = new Type();
-                type.setType(resultSet.getString(1));
+                type.setTypename(resultSet.getString(1));
                 list.add(type);
             }
         }catch (Exception e){
@@ -110,7 +110,7 @@ public class TypeDaoImpl implements TypeDao {
         try{
             while (resultSet.next()){
                 Type type = new Type();
-                type.setType(resultSet.getString(1));
+                type.setTypename(resultSet.getString(1));
                 list.add(type);
             }
         }catch (Exception e){

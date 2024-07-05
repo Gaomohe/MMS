@@ -232,12 +232,11 @@ public class MedicineDaoImpl implements MedicineDao {
     }
 
     @Override
-    public List<Medicine> getAllMedicine(int index, int limit, String type) {
-        String sql = "SELECT * FROM `dictionary` ORDER BY `tableCoding` ? LIMIT ?,?";
-        Object[] objects = new Object[3];
-        objects[0] = type;
-        objects[1] = index;
-        objects[2] = limit;
+    public List<Medicine> getAllMedicine(int index, int limit, String order, String title) {
+        String sql = "SELECT * FROM (SELECT * FROM `dictionary` LIMIT ?,? ) AS subquery ORDER BY "+title+" "+order;
+        Object[] objects = new Object[2];
+        objects[0] = index;
+        objects[1] = limit;
         ResultSet resultSet = JDBC.select(sql,objects);
         List<Medicine> medicines = new ArrayList<Medicine>();
         try{

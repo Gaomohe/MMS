@@ -43,28 +43,28 @@ public class TypeServlet extends BaseServlet {
     public ResultData<Type> addGoodsType(HttpServletRequest request, HttpServletResponse response){
         String s = request.getParameter("type");
         Type type = new Type();
-        type.setType(s);
+        type.setTypename(s);
         int i = typeService.addGoodsType(type);
         return Result.resultStatus(i);
     }
     public ResultData<Type> addMType(HttpServletRequest request, HttpServletResponse response){
         String s = request.getParameter("type");
         Type type = new Type();
-        type.setType(s);
+        type.setTypename(s);
         int i = typeService.addMType(type);
         return Result.resultStatus(i);
     }
     public ResultData<Type> addfreeType(HttpServletRequest request, HttpServletResponse response){
         String s = request.getParameter("type");
         Type type = new Type();
-        type.setType(s);
+        type.setTypename(s);
         int i = typeService.addfreeType(type);
         return Result.resultStatus(i);
     }
     public ResultData<Type> adddosage(HttpServletRequest request, HttpServletResponse response){
         String s = request.getParameter("type");
         Type type = new Type();
-        type.setType(s);
+        type.setTypename(s);
         int i = typeService.dosage(type);
         return Result.resultStatus(i);
     }
