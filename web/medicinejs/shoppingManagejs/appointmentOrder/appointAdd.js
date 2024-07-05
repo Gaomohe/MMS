@@ -142,8 +142,6 @@ layui.extend({
     }
 
 
-
-
     //修改回显
     function  selectByIdUser(id,uname) {
         layer.open({
@@ -404,7 +402,6 @@ layui.extend({
             {fixed:"left",type: "checkbox", width:50},
             {field: 'id', title: '编号',  align:'center'},
             {title:'操作', width:150, templet: '#barDemo'}
-
         ]]
     });
 })
