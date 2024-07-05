@@ -40,6 +40,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
+        var oId = $("#oId").val();
         var oName = $("#oName").val();
         var oName2 = $("#oName2").val();
         var specification = $("#specification").val();
@@ -74,6 +75,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         $.ajax({
             url:"/orders?action=updateOrders",
             data:{
+                "oId":oId,
                 "oName": oName,
                 "specification": specification,
                 "manufactor": manufactor,

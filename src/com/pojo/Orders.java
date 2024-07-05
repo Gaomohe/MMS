@@ -7,7 +7,7 @@ public class Orders {
     private String manufactor; // 生产企业
     private String unit; // 单位
     private int oNum; // 订单数量
-    private double salePrice; // 采购单价
+    private int salePrice; // 采购单价
     private String shippingAddress; // 发货地址
     private String deliveryAddress; // 收货地址
     private String shippingTime; // 发货时间
@@ -74,7 +74,7 @@ public class Orders {
         return salePrice;
     }
 
-    public void setSalePrice(double salePrice) {
+    public void setSalePrice(int salePrice) {
         this.salePrice = salePrice;
     }
 

@@ -39,25 +39,26 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
+        var oId = $("#oId").val();
         var oName = $("#oName").val();
-        var specification = $("#specification").val();
-        var manufactor = $("#manufactor").val();
-        var unit = $("#unit").val();
+        var Specification = $("#Specification").val();
+        var Manufactor = $("#Manufactor").val();
+        var Unit = $("#Unit").val();
         var oNum = $("#oNum").val();
         var salePrice = $("#salePrice").val();
-        var shippingAddress = $("#shippingAddress").val();
-        var deliveryAddress = $("#deliveryAddress").val();
-        var shippingTime = $("#shippingTime").val();
-        var shippingWay = $("#shippingWay").val();
-        var tempControlWay = $("#tempControlWay").val();
-        var deliveryTime = $("#deliveryTime").val();
-        var deliveryTemp = $("#deliveryTemp").val();
-        var attachment = $("#attachment").val();
-        var salesman = $("#salesman").val();
-        var buyer = $("#buyer").val();
-        var recipient = $("#recipient").val();
-        var condition = $("#condition").val();
-        var statement = $("#statement").val();
+        var ShippingAddress = $("#ShippingAddress").val();
+        var DeliveryAddress = $("#DeliveryAddress").val();
+        var ShippingTime = $("#ShippingTime").val();
+        var ShippingWay = $("#ShippingWay").val();
+        var TempControlWay = $("#TempControlWay").val();
+        var DeliveryTime = $("#DeliveryTime").val();
+        var DeliveryTemp = $("#DeliveryTemp").val();
+        var Attachment = $("#Attachment").val();
+        var Salesman = $("#Salesman").val();
+        var Buyer = $("#Buyer").val();
+        var Recipient = $("#Recipient").val();
+        var Condition = $("#Condition").val();
+        var Statement = $("#Statement").val();
         if(oName.length == "" ){
             layer.msg("药品名称不能为空")
             return false;
@@ -72,25 +73,26 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         $.ajax({
             url:"/orders?action=addOrders",
             data:{
+                "oId":oId,
                 "oName": oName,
-                "specification": specification,
-                "manufactor": manufactor,
-                "unit": unit,
+                "Specification": Specification,
+                "Manufactor": Manufactor,
+                "Unit": Unit,
                 "oNum": oNum,
                 "salePrice": salePrice,
-                "shippingAddress": shippingAddress,
-                "deliveryAddress": deliveryAddress,
-                "shippingTime": shippingTime,
-                "shippingWay": shippingWay,
-                "tempControlWay": tempControlWay,
-                "deliveryTime": deliveryTime,
-                "deliveryTemp": deliveryTemp,
-                "attachment": attachment,
-                "salesman": salesman,
-                "buyer": buyer,
-                "recipient": recipient,
-                "condition": condition,
-                "statement": statement
+                "ShippingAddress": ShippingAddress,
+                "DeliveryAddress": DeliveryAddress,
+                "ShippingTime": ShippingTime,
+                "ShippingWay": ShippingWay,
+                "TempControlWay": TempControlWay,
+                "DeliveryTime": DeliveryTime,
+                "DeliveryTemp": DeliveryTemp,
+                "Attachment": Attachment,
+                "Salesman": Salesman,
+                "Buyer": Buyer,
+                "Recipient": Recipient,
+                "Condition": Condition,
+                "Statement": Statement
             },
             type:"post",
             success:function(data){

@@ -1,12 +1,8 @@
 package com.dao.Impl;
 
-import com.dao.Impl.init.InitDaoImpl;
 import com.dao.OrdersDao;
 import com.pojo.Orders;
-import com.pojo.Role;
-import com.pojo.User;
 import com.util.JDBC;
-import com.util.LayuiTable;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -28,7 +24,7 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setManufactor(resultSet.getString("manufactor")); // 生产企业
                 orders.setUnit(resultSet.getString("unit")); // 单位
                 orders.setoNum(resultSet.getInt("oNum")); // 订单数量
-                orders.setSalePrice(resultSet.getDouble("salePrice")); // 采购单价
+                orders.setSalePrice(resultSet.getInt("salePrice")); // 采购单价
                 orders.setShippingAddress(resultSet.getString("shippingAddress")); // 发货地址
                 orders.setDeliveryAddress(resultSet.getString("deliveryAddress")); // 收货地址
                 orders.setShippingTime(resultSet.getString("shippingTime")); // 发货时间
@@ -65,7 +61,7 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setManufactor(resultSet.getString("manufactor")); // 生产企业
                 orders.setUnit(resultSet.getString("unit")); // 单位
                 orders.setoNum(resultSet.getInt("oNum")); // 订单数量
-                orders.setSalePrice(resultSet.getDouble("salePrice")); // 采购单价
+                orders.setSalePrice(resultSet.getInt("salePrice")); // 采购单价
                 orders.setShippingAddress(resultSet.getString("shippingAddress")); // 发货地址
                 orders.setDeliveryAddress(resultSet.getString("deliveryAddress")); // 收货地址
                 orders.setShippingTime(resultSet.getString("shippingTime")); // 发货时间
@@ -103,7 +99,7 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setManufactor(resultSet.getString("manufactor")); // 生产企业
                 orders.setUnit(resultSet.getString("unit")); // 单位
                 orders.setoNum(resultSet.getInt("oNum")); // 订单数量
-                orders.setSalePrice(resultSet.getDouble("salePrice")); // 采购单价
+                orders.setSalePrice(resultSet.getInt("salePrice")); // 采购单价
                 orders.setShippingAddress(resultSet.getString("shippingAddress")); // 发货地址
                 orders.setDeliveryAddress(resultSet.getString("deliveryAddress")); // 收货地址
                 orders.setShippingTime(resultSet.getString("shippingTime")); // 发货时间
@@ -164,7 +160,8 @@ public class OrdersDaoImpl implements OrdersDao{
 
     @Override
     public int addOrders(Orders orders) {
-        String sql = "insert into orders (oName,specification,manufactor,unit,oNum,saleprice,shippingAddress,deliveryAddress,shippingTime,shippingWay,tempControlWay,deliveryTime,deliveryTemp,attachment,salesman,buyer,recipient,condition,statement) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+        String sql = "INSERT INTO orders (oName, specification, manufactor, unit, oNum, saleprice, shippingAddress, deliveryAddress, shippingTime, shippingWay, tempControlWay, deliveryTime, deliveryTemp, attachment, salesman, buyer, recipient, `CONDITION`, statement, oId) \n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);\n";
         Object[] objects = new Object[20];
         objects[0] = orders.getoName();
         objects[1] = orders.getSpecification();
@@ -186,26 +183,24 @@ public class OrdersDaoImpl implements OrdersDao{
         objects[17] = orders.getCondition();
         objects[18] = orders.getStatement();
         objects[19] = orders.getoId();
-        int count= JDBC.update(sql,objects);
+        int count = JDBC.update(sql, objects);
         return count;
     }
 
     @Override
     public int isUname(Orders orders) {
-        String sql="select * from orders where oName=?";
+        String sql="select count(*) as count from orders where oName=?";
         Object[] objects= new Object[1];
         objects[0]=orders.getoName();
         ResultSet resultSet = JDBC.select(sql, objects);
-        int i = 0;
+        int count=0;
         try {
             while(resultSet.next()){
-                Orders orders1 = new Orders();
-                orders1.setoId(resultSet.getInt(1));
-                i = orders1.getoId();
+                count=resultSet.getInt("count");
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return i;
+        return count;
     }
 }

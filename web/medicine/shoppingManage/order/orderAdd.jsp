@@ -22,6 +22,13 @@
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
 
     <div class="layui-form-item">
+        <label class="layui-form-label">订单编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="oId" id="oId" lay-verify="required" placeholder="请输入订单编号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <label class="layui-form-label">药品名</label>
         <div class="layui-input-inline">
             <input type="text" name="oName" id="oName" lay-verify="required" placeholder="请输入药品名" autocomplete="off" class="layui-input">
@@ -31,21 +38,21 @@
     <div class="layui-form-item">
         <label class="layui-form-label">规格</label>
         <div class="layui-input-inline">
-            <input type="text" name="specification" id="specification" lay-verify="required" placeholder="请输入规格" autocomplete="off" class="layui-input">
+            <input type="text" name="Specification" id="Specification" lay-verify="required" placeholder="请输入规格" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">生产企业</label>
         <div class="layui-input-inline">
-            <input type="text" name="manufactor" id="manufactor" lay-verify="required" placeholder="请输入生产企业" autocomplete="off" class="layui-input">
+            <input type="text" name="Manufactor" id="Manufactor" lay-verify="required" placeholder="请输入生产企业" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">单位</label>
         <div class="layui-input-inline">
-            <input type="text" name="unit" id="unit" lay-verify="required" placeholder="请输入单位" autocomplete="off" class="layui-input">
+            <input type="text" name="Unit" id="Unit" lay-verify="required" placeholder="请输入单位" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -66,91 +73,91 @@
     <div class="layui-form-item">
     <label class="layui-form-label">发货地址</label>
     <div class="layui-input-inline">
-        <input type="text" name="shippingAddress" id="shippingAddress" lay-verify="required" placeholder="请输入发货地址" autocomplete="off" class="layui-input">
+        <input type="text" name="ShippingAddress" id="ShippingAddress" lay-verify="required" placeholder="请输入发货地址" autocomplete="off" class="layui-input">
     </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">收货地址</label>
         <div class="layui-input-inline">
-            <input type="text" name="deliveryAddress" id="deliveryAddress" lay-verify="required" placeholder="请输入收货地址" autocomplete="off" class="layui-input">
+            <input type="text" name="DeliveryAddress" id="DeliveryAddress" lay-verify="required" placeholder="请输入收货地址" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">发货时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="shippingTime" id="shippingTime" lay-verify="required" placeholder="请输入发货时间" autocomplete="off" class="layui-input">
+            <input type="text" name="ShippingTime" id="ShippingTime" lay-verify="required" placeholder="请输入发货时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">发货方式</label>
         <div class="layui-input-inline">
-            <input type="text" name="shippingWay" id="shippingWay" lay-verify="required" placeholder="请输入发货方式" autocomplete="off" class="layui-input">
+            <input type="text" name="ShippingWay" id="ShippingWay" lay-verify="required" placeholder="请输入发货方式" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">温控方式</label>
         <div class="layui-input-inline">
-            <input type="text" name="tempControlWay" id="tempControlWay" lay-verify="required" placeholder="请输入温控方式" autocomplete="off" class="layui-input">
+            <input type="text" name="TempControlWay" id="TempControlWay" lay-verify="required" placeholder="请输入温控方式" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">到货时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="deliveryTime" id="deliveryTime" lay-verify="required" placeholder="请输入到货时间" autocomplete="off" class="layui-input">
+            <input type="text" name="DeliveryTime" id="DeliveryTime" lay-verify="required" placeholder="请输入到货时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">到货温度</label>
         <div class="layui-input-inline">
-            <input type="text" name="deliveryTemp" id="deliveryTemp" lay-verify="required" placeholder="请输入到货温度" autocomplete="off" class="layui-input">
+            <input type="text" name="DeliveryTemp" id="DeliveryTemp" lay-verify="required" placeholder="请输入到货温度" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">关联附件</label>
         <div class="layui-input-inline">
-            <input type="text" name="attachment" id="attachment" lay-verify="required" placeholder="请输入关联附件" autocomplete="off" class="layui-input">
+            <input type="text" name="Attachment" id="Attachment" lay-verify="required" placeholder="请输入关联附件" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">供货单位业务员</label>
         <div class="layui-input-inline">
-            <input type="text" name="salesman" id="salesman" lay-verify="required" placeholder="请输入供货单位业务员" autocomplete="off" class="layui-input">
+            <input type="text" name="Salesman" id="Salesman" lay-verify="required" placeholder="请输入供货单位业务员" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">采购人</label>
         <div class="layui-input-inline">
-            <input type="text" name="buyer" id="buyer" lay-verify="required" placeholder="请输入采购人" autocomplete="off" class="layui-input">
+            <input type="text" name="Buyer" id="Buyer" lay-verify="required" placeholder="请输入采购人" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">收货人</label>
         <div class="layui-input-inline">
-            <input type="text" name="recipient" id="recipient" lay-verify="required" placeholder="请输入收货人" autocomplete="off" class="layui-input">
+            <input type="text" name="Recipient" id="Recipient" lay-verify="required" placeholder="请输入收货人" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">收货状态</label>
         <div class="layui-input-inline">
-            <input type="text" name="condition" id="condition" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
+            <input type="text" name="Condition" id="Condition" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">收货说明</label>
         <div class="layui-input-inline">
-            <input type="text" name="statement" id="statement" lay-verify="required" placeholder="请输入收货说明" autocomplete="off" class="layui-input">
+            <input type="text" name="Statement" id="Statement" lay-verify="required" placeholder="请输入收货说明" autocomplete="off" class="layui-input">
         </div>
     </div>
 

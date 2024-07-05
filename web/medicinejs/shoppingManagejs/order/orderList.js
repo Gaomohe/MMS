@@ -42,17 +42,22 @@ layui.extend({
             {field: 'condition', title:'收货状态' , width:100, align:"center"},
             {field: 'statement', title:'收货说明' , width:100, align:"center"}
         ]],
+        done:function (data){
+            console.log(data)
+        }
     });
 
     //工具栏事件
     table.on('toolbar(ordersList)', function(obj){
+        console.log(obj)
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var oId = '';
         for(i=0;i<data.length;i++){
             oId = data[i].oId;
         }
-
+        console.log(checkStatus)
+        console.log(data)
         console.log(oId)
         switch(obj.event){
             case 'delOrders':
