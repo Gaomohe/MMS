@@ -27,6 +27,7 @@ public class LogServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
+        logService.setLog("获取所有按钮","点击","日志管理");
         return "medicine/systemManage/log/logList";
     }
 

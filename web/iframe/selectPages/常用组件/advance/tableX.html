@@ -172,8 +172,7 @@
                 {field: 'nickName', title: '用户名', sort: true},
                 {field: 'sex', title: '性别', sort: true},
                 {field: 'phone', title: '手机号', sort: true},
-                {
-                    field: 'roleId', templet: function (d) {
+                {field: 'roleId', templet: function (d) {
                         var str = '';
                         for (var i = 0; i < d.roles.length; i++) {
                             str += ('<span class="layui-badge-rim">' + d.roles[i].roleName + '</span>');
@@ -185,8 +184,7 @@
                     }, title: '角色', sort: true
                 },
                 {field: 'state', templet: '#tableState', title: '状态', sort: true},
-                {
-                    field: 'createTime', templet: function (d) {
+                {field: 'createTime', templet: function (d) {
                         return util.toDateString(d.createTime);
                     }, title: '创建时间', sort: true
                 }

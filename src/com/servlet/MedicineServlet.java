@@ -2,9 +2,12 @@ package com.servlet;
 
 import com.pojo.Medicine;
 import com.pojo.Menu;
+import com.pojo.Type;
 import com.pojo.User;
 import com.service.Impl.MedicineServiceImpl;
+import com.service.Impl.TypeServiceImpl;
 import com.service.MedicineService;
+import com.service.TypeService;
 import com.util.*;
 
 import javax.servlet.annotation.WebServlet;
@@ -22,32 +25,44 @@ public class MedicineServlet extends BaseServlet {
         return MedicineServlet.class;
     }
     MedicineService medicineService = new MedicineServiceImpl();
-
+    TypeService typeService  = new TypeServiceImpl();
     //获取所有按钮
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        HttpSession session4 = request.getSession();
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        List<Type> allGoodsType = typeService.getAllGoodsType();
+        List<Type> allMType = typeService.getAllMType();
+        List<Type> allfreeType = typeService.getAllfreeType();
+        List<Type> alldosage = typeService.getAlldosage();
         session.setAttribute("menuList",menuList);
+        session1.setAttribute("type1",allGoodsType);
+        session2.setAttribute("type2",allMType);
+        session3.setAttribute("type3",allfreeType);
+        session4.setAttribute("type4",alldosage);
         return "medicine/medicineManage/medDictionary/dictionary";
     }
     //获取所有药品、、
     public LayuiTable<Medicine> getAllMedicine(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        String type = request.getParameter("type");
-        System.out.println(type);
+        String sort = request.getParameter("sort");
+        String order = request.getParameter("order");
         List<Medicine> allMedicine1 = medicineService.getAllMedicine();
         LayuiTable<Medicine> layuiTable = new LayuiTable<>();
-        if (type==null){
+        if (order==null){
             List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit);
             layuiTable.setCode(0);
             layuiTable.setCount(allMedicine1.size());
             layuiTable.setData(allMedicine);
             layuiTable.setMsg("操作成功");
         }else {
-            List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit,type);
+            List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit,order,sort);
             layuiTable.setCode(0);
             layuiTable.setCount(allMedicine1.size());
             layuiTable.setData(allMedicine);

@@ -5,6 +5,7 @@ import com.dao.LogDao;
 import com.pojo.Log;
 import com.pojo.User;
 import com.service.LogService;
+import com.util.GetTime;
 import com.util.LayuiTable;
 
 import java.sql.ResultSet;
@@ -46,4 +47,18 @@ public class LogServiceImpl implements LogService {
         }
         return layuiTable;
     }
+
+    @Override
+    public int setLog(String name, String action, String item) {
+        Log log = new Log();
+        String time = GetTime.getTime();
+        log.setTime(time);
+        log.setName(name);
+        log.setAction(action);
+        log.setItem(item);
+        int num = 0;
+        num = logDao.setLog(log);
+        return num;
+    }
+
 }

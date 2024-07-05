@@ -167,12 +167,13 @@ layui.extend({
                 console.log(counts);
                 console.log(total);
                 if (counts == total) {
-                    if (res.status) {
-                        layer.msg("添加成功", { icon: 1 });
-                        tableIns.reload();
-                    } else {
-                        layer.msg("添加失败", { icon: 2 });
-                    }
+
+                }
+                if (res.status==200) {
+                    layer.msg("添加成功", { icon: 1 });
+                    tableIns.reload();
+                } else {
+                    layer.msg("添加失败", { icon: 2 });
                 }
             }
         });

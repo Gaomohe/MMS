@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import static com.util.Vessel.logService;
 import static com.util.Vessel.menuService;
 
 @WebServlet("/role")
@@ -35,6 +36,7 @@ public class RoleServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
+        logService.setLog("获取所有按钮","点击","角色管理");
         return "/medicine/systemManage/role/roleList";
     }
     //获取所有role
