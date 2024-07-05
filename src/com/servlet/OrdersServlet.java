@@ -92,7 +92,7 @@ public class OrdersServlet extends BaseServlet {
         orders.setSalesman(request.getParameter("Salesman")); // 供货单位业务员
         orders.setBuyer(request.getParameter("Buyer")); // 采购人
         orders.setRecipient(request.getParameter("Recipient")); // 收货人
-        orders.setCondition(request.getParameter("Condition")); // 收货状态
+        orders.setOrderCondition(request.getParameter("orderCondition")); // 收货状态
         orders.setStatement(request.getParameter("Statement")); // 收货说明
         int i = ordersService.addDoOrders(orders);
         if (i>0){
@@ -117,28 +117,8 @@ public class OrdersServlet extends BaseServlet {
     }
     public ResultData selectOrdersById(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
-        int oId =Integer.parseInt(request.getParameter("oId")) ;
+        int oId =Integer.parseInt(request.getParameter("oId"));
         Orders orders = ordersService.getOrdersById(oId);
-        orders.setoId(Integer.parseInt(request.getParameter("oId")));
-        orders.setoName(request.getParameter("oName")); // 药品名
-        orders.setSpecification(request.getParameter("specification")); // 规格
-        orders.setManufactor(request.getParameter("manufactor")); // 生产企业
-        orders.setUnit(request.getParameter("unit")); // 单位
-        orders.setoNum(Integer.parseInt(request.getParameter("oNum"))); // 订单数量
-        orders.setSalePrice(Integer.parseInt(request.getParameter("salePrice"))); // 采购单价
-        orders.setShippingAddress(request.getParameter("shippingAddress")); // 发货地址
-        orders.setDeliveryAddress(request.getParameter("deliveryAddress")); // 收货地址
-        orders.setShippingTime(request.getParameter("shippingTime")); // 发货时间
-        orders.setShippingWay(request.getParameter("shippingWay")); // 发货方式
-        orders.setTempControlWay(request.getParameter("tempControlWay")); // 温控方式
-        orders.setDeliveryTime(request.getParameter("deliveryTime")); // 到货时间
-        orders.setDeliveryTemp(request.getParameter("deliveryTemp")); // 到货温度
-        orders.setAttachment(request.getParameter("attachment")); // 关联附件
-        orders.setSalesman(request.getParameter("salesman")); // 供货单位业务员
-        orders.setBuyer(request.getParameter("buyer")); // 采购人
-        orders.setRecipient(request.getParameter("recipient")); // 收货人
-        orders.setCondition(request.getParameter("condition")); // 收货状态
-        orders.setStatement(request.getParameter("statement")); // 收货说明
         if (oId>0){
             resultData.setStatus(200);
             resultData.setMsg("");
@@ -168,7 +148,7 @@ public class OrdersServlet extends BaseServlet {
         orders.setSalesman(request.getParameter("salesman")); // 供货单位业务员
         orders.setBuyer(request.getParameter("buyer")); // 采购人
         orders.setRecipient(request.getParameter("recipient")); // 收货人
-        orders.setCondition(request.getParameter("condition")); // 收货状态
+        orders.setOrderCondition(request.getParameter("orderCondition")); // 收货状态
         orders.setStatement(request.getParameter("statement")); // 收货说明
         int i = ordersService.updateDoOrders(orders);
         if (i>0){

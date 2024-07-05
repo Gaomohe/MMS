@@ -150,7 +150,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">收货状态</label>
         <div class="layui-input-inline">
-            <input type="text" name="condition" id="condition" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
+            <input type="text" name="orderCondition" id="orderCondition" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
         </div>
     </div>
 

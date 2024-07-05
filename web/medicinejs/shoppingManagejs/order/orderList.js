@@ -39,7 +39,7 @@ layui.extend({
             {field: 'salesman', title:'供货单位业务员' , width:100, align:"center"},
             {field: 'buyer', title:'采购人' , width:100, align:"center"},
             {field: 'recipient', title:'收货人' , width:100, align:"center"},
-            {field: 'condition', title:'收货状态' , width:100, align:"center"},
+            {field: 'orderCondition', title:'收货状态' , width:100, align:"center"},
             {field: 'statement', title:'收货说明' , width:100, align:"center"}
         ]],
         done:function (data){
@@ -107,7 +107,7 @@ layui.extend({
             title : "修改采购订单信息",
             type : 2,
             content : "medicine/shoppingManage/order/orderInfo.jsp",
-            area:['350px','230px'],
+            area:['550px','500px'],
             success:function(layero, index){
                 $.ajax({
                     url:"/orders?action=selectOrdersById",//根据id查询的方法
@@ -135,7 +135,7 @@ layui.extend({
                         body.find("#salesman").val(info.data.salesman); // 供货单位业务员
                         body.find("#buyer").val(info.data.buyer); // 采购人
                         body.find("#recipient").val(info.data.recipient); // 收货人
-                        body.find("#condition").val(info.data.condition); // 收货状态
+                        body.find("#orderCondition").val(info.data.orderCondition); // 收货状态
                         body.find("#statement").val(info.data.statement); // 收货说明
                     }
                 })
