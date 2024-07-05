@@ -21,18 +21,34 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
-            {field: 'mId', title: '药品编号',  align:'center'},
+            {field: 'tableCoding', title: '药品编号',  align:'center'},
             {field: 'mName', title: '药品名称',  align:'center'},
             {field: 'specification', title: '规格',  align:'center'},
             {field: 'number', title: '库存',  align:'center'},
             {field: 'purchasePrice', title: '价格',  align:'center'},
             {field: 'manufactor', title: '供应商',  align:'center'},
             {field: 'drugFrom', title: '类别',  align:'center'},
+            {field: 'productDate', title: '生产日期',  align:'center'},
             {field: 'opera', title: '操作',  align:'center',templet:function (d){
-                    return '<a href="/shopping?action=select&mId=' + d.mId + '" class="layui-btn layui-btn-xs">查询</a>';
+                    return '<a href="/shopping?action=select&mId=' + d.mId + '" class="layui-btn layui-btn-xs">详情</a>';
                 }},
 
         ]],
+    });
+
+    form.on('select(onChangeSelect)',function (data){
+        var drugFrom = data.value;
+        tableIns.reload({
+            url : '/shopping?action=getSelectedValue', // 保持URL不变，除非你需要改变数据源
+            where: { // 新的查询参数
+                drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
+            },
+            type:'static',
+            page: false
+        },'data',function (){
+            document.querySelector('select[lay-filter="onChangeSelect"]').value = drugFrom;
+            form.render('select');
+        });
     });
 
     //工具栏事件
@@ -43,49 +59,46 @@ layui.extend({
         for(i=0;i<data.length;i++){
             id = data[i].id;
         }
-
+        console.log("霓虹")
+        console.log(data)
         switch(obj.event){
             case 'time':	//修改经手人
                 laydate.render({
                     elem: '#ID-laydate-demo',
                     done:function (value){
-                        $.ajax({
-                            url:"/shopping?action=time",//根据id查询的方法
-                            type:"post",
-                            data:{value},
-                            dataType:'JSON',
-                            success:function (data){
-                                if (data.code===0){
-                                    tableIns.reload({
-                                        data:data.data
-                                    })
-                                }
-                            }
-
-                        })
+                        tableIns.reload({
+                            url : '/shopping?action=time',
+                            where: {
+                                value: value
+                            },
+                            type:'static',
+                            page: false
+                        });
                     }
                 });
                 break;
 
             case 'add':	//新增经手人
-                add(id);
+                if (data.length<1){
+                    layer.msg("请选择一行数据进行操作")
+                    return false;
+                }
+                var arr
+                for (let i = 0;i<data.length;i++){
+
+
+                }                add(id);
                 break;
             case 'submit':
-                var searchInput = document.getElementById('searchInput');
-                $.ajax({
-                    url:"/shopping?action=search",//根据id查询的方法
-                    type:"post",
-                    data:{searchInput},
-                    dataType:'JSON',
-                    success:function (data){
-                        if (data.code===0){
-                            // tableIns.reload({
-                            //     data:data.data
-                            // })
-                        }
-                    }
-
-                })
+                var searchValue = document.getElementById('searchInput').value;
+                tableIns.reload({
+                    url : '/shopping?action=search',
+                    where: { // 新的查询参数
+                        searchValue: searchValue
+                    },
+                    type:'static',
+                    page: false
+                });
                 break;
         }
     });

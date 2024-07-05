@@ -20,27 +20,17 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
-        <div class="layui-input-inline">
-            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
+    <c:forEach var="menu" items="${ooo}" varStatus="s">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
+            <div class="layui-input-inline">
+                <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
+            </div>
         </div>
-        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
-        <div class="layui-input-inline">
-            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
-        </div>
-        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
-        <div class="layui-input-inline">
-            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
-        </div>
-        <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
-        <div class="layui-input-inline">
-            <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
-        </div>
-</div>
+    </c:forEach>
 
     <br/><br/>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="width: 50%;margin: auto">
         <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="add">申请</button>
     </div>
 </form>

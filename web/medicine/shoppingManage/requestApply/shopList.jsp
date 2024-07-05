@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>申请</title>
+    <title>采购申请</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,7 +26,7 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <blockquote class="layui-elem-quote quoteBox">
-            申请
+            采购申请
         </blockquote>
         <script type="text/html" id="shoppDemo">
 <%--            按钮--%>
@@ -41,11 +41,11 @@
 
 <%--            下拉--%>
             <div class="layui-col-md2">
-                <select>
+                <select lay-filter="onChangeSelect">
                     <option value="">请选择类型</option>
                     <%--        <option value="1">AAA</option>--%>
-                    <c:forEach var="menu" items="${list}" varStatus="s">
-                        <option value="${list}">${list}</option>
+                    <c:forEach var="kindList" items="${kindList}" varStatus="s">
+                        <option value="${kindList.drugFrom}">${kindList.drugFrom}</option>
                     </c:forEach>
 
                 </select>
@@ -53,10 +53,13 @@
 <%--                搜索--%>
 <div class="layui-inline">
     <div class="layui-input-inline">
-        <input type="text" id="searchInput" placeholder="请输入搜索内容" class="layui-input">
+        <input type="text" id="searchInput" placeholder="请输入药品名称" class="layui-input">
     </div>
     <button type="button" class="layui-btn" lay-filter="doSearch" lay-submit lay-event="submit">搜索</button>
 </div>
+
+<%--申请历史记录--%>
+<button style="margin-top: 2%" type="button" class="layui-btn layui-bg-blue">历史记录</button>
 
         </script>
 
@@ -64,10 +67,6 @@
     </div>
 </div>
 
-<!-- 权限更改 -->
-<div style="height: 400px;overflow: auto;display: none" id="dtree1">
-    <ul id="dataTree3" class="dtree" data-id="0"></ul>
-</div>
 
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/shoppingManagejs/requestApply/shopList.js" charset="utf-8"></script>
