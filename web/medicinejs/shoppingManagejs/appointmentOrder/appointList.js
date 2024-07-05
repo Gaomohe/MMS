@@ -11,12 +11,13 @@ layui.extend({
 
     var counts = 0;
     var total = 0;
+    let idList = new Set();
 
     /*------------- 加载用户数据 --------------------------------*/
     var tableIns = table.render({
-        elem: '#userList',
+        elem: '#appointList',
         url : '/appoint?action=getAllAppoint',
-        toolbar: '#toolbarDemo',
+        toolbar: '#appointDemo',
         page : true,
         height: 'full-145',
         limit : 10,
@@ -29,14 +30,22 @@ layui.extend({
             {field: 'manufactor', title: '生产企业', align:'center'},
             {field: 'unit', title: '单位', minWidth:100, align:"center"},
             {field: 'department', title: '部门',  align:'center'},
-            {field: 'number', title: '数量',  align:'center'},
+            // {field: 'number', title: '采购数量',  align:'center'},
+            {field: 'applyNumber', title: '采购数量',  align:'center'},
             {field: 'purchasePrice', title: '采购价',  align:'center'},
             {field: 'code', title: '批号',  align:'center'},
             {field: 'mType', title: '药品分类',  align:'center'},
             {field: 'supplier', title: '供货单位',  align:'center'},
             {field: 'approvalNumber', title: '准批文号',  align:'center'},
             {field: 'placeOrigin', title: '产地',  align:'center'},
-            {title:'操作', width:150, templet: '#barDemo'}
+            {field: 'applyUser' ,title:'申请人', align:'center'},
+            {field: 'applyTime' ,title:'申请时间', align:'center'},
+            {field: 'pharmacist' ,title:'药师审批人', align:'center'},
+            {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
+            {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
+            {field: 'finance' ,title:'财务审批人', align:'center'},
+            {field: 'financeApprove' ,title:'财务审批', align:'center'},
+            {field: 'financeTime' ,title:'财务审批时间', align:'center'}
         ]]
     });
     /*------------- 加载用户数据 --end------------------------------*/
@@ -52,7 +61,7 @@ layui.extend({
         });
     })
 
-    table.on('toolbar(userList)',function (obj) {
+    table.on('toolbar(appointList)',function (obj) {
         var checkdata= table.checkStatus(obj.config.id)
         var files= checkdata.data;
         console.log(obj);
@@ -73,8 +82,15 @@ layui.extend({
                     files.forEach(function(file) {
                         // 假设每个file对象都有一个id属性，用于标识用户
                         total++;
-                        addAppoint(file.mId);
+                        idList.add(file.mId)
                     });
+                    console.log("aaaaaaa");
+                    console.log(idList);
+                    console.log("aaaaaaa");
+                    let idListArray = Array.from(idList);
+                    console.log(idListArray); // 输出：[1, 2]
+                    addAppoint(idListArray);
+
                 } else {
                     layer.msg("请选择要添加的预约", {icon: 2});
                 }
@@ -94,7 +110,6 @@ layui.extend({
 
     //删除
     function del(ids) {
-
         $.ajax({
             url: "/appoint?action=delAppoint",
             data: { "ids": ids },
@@ -133,8 +148,35 @@ layui.extend({
         })
     }
 
-
-
+    //新增订单
+    function addAppoint(idsList){
+        console.log("ssssssssssssssss");
+        console.log(idsList);
+        console.log("ssssssssssssssss");
+        $.ajax({
+            url: "/appoint?action=addAppoint",
+            data: { "idsList": idsList },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("res");
+                console.log(res);
+                console.log(res.status);
+                counts++;
+                console.log(counts);
+                console.log(total);
+                if (counts == total) {
+                    if (res.status) {
+                        layer.msg("添加成功", { icon: 1 });
+                        tableIns.reload();
+                    } else {
+                        layer.msg("添加失败", { icon: 2 });
+                    }
+                }
+            }
+        });
+    }
 
     //修改回显
     function  selectByIdUser(id,uname) {
@@ -149,8 +191,6 @@ layui.extend({
             content: '/user?action=selectOneUser&&id='+id,
         })
     }
-
-
 
     //修改用户
     function upAppoint(userid){
@@ -356,16 +396,7 @@ layui.extend({
         })
     }
 
-    //新增用户
-    function addAppoint(id){
-        layui.layer.open({
-            title : "添加用户",
-            type : 2,
-            data:{"id":id},
-            content : "medicine/infoManage/userManage/userAdd.jsp",
-            area:['400px','500px'],
-        })
-    }
+
 
 })
 layui.extend({

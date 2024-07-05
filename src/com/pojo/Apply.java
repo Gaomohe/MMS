@@ -1,6 +1,6 @@
 package com.pojo;
 
-public class Appointment {
+public class Apply {
     private int mId;
     private String mName;
     private String specification;
@@ -24,14 +24,6 @@ public class Appointment {
     private String financeApprove;
     private String financeTime;
 
-    public double getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
     public int getmId() {
         return mId;
     }
@@ -46,14 +38,6 @@ public class Appointment {
 
     public void setmName(String mName) {
         this.mName = mName;
-    }
-
-    public int getApplyNumber() {
-        return applyNumber;
-    }
-
-    public void setApplyNumber(int applyNumber) {
-        this.applyNumber = applyNumber;
     }
 
     public String getSpecification() {
@@ -96,6 +80,22 @@ public class Appointment {
         this.number = number;
     }
 
+    public int getApplyNumber() {
+        return applyNumber;
+    }
+
+    public void setApplyNumber(int applyNumber) {
+        this.applyNumber = applyNumber;
+    }
+
+    public double getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(double purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
     public String getCode() {
         return code;
     }
@@ -112,8 +112,6 @@ public class Appointment {
         this.mType = mType;
     }
 
-
-
     public String getSupplier() {
         return supplier;
     }
@@ -121,7 +119,6 @@ public class Appointment {
     public void setSupplier(String supplier) {
         this.supplier = supplier;
     }
-
 
     public String getApprovalNumber() {
         return approvalNumber;

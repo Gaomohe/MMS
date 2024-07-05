@@ -19,7 +19,7 @@ public class Orders {
     private String salesman; // 供货单位业务员
     private String buyer; // 采购人
     private String recipient; // 收货人
-    private String condition; // 收货状态
+    private String orderCondition; // 收货状态
     private String statement; // 收货说明
 
     public int getoId() {
@@ -166,12 +166,12 @@ public class Orders {
         this.recipient = recipient;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getOrderCondition() {
+        return orderCondition;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setOrderCondition(String orderCondition) {
+        this.orderCondition = orderCondition;
     }
 
     public String getStatement() {

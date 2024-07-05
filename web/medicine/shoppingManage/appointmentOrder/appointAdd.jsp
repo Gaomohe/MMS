@@ -4,106 +4,38 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix ="c"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>新增用户</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.5.5/css/layui.css" media="all" />
-    <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
+    <title>用户中心</title>
+    <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.5.5/css/layui.css" charset="utf-8" media="all" />
+    <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" charset="utf-8" media="all" />
+    <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.css" charset="utf-8">
+    <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css" charset="utf-8">
 </head>
 <body class="childrenBody">
-<form class="layui-form layui-form-pane" action="Javascript:void(0)">
-    <div class="layui-form-item">
-        <label class="layui-form-label">账号</label>
-        <div class="layui-input-inline">
-            <input type="text" name="id" id="id" value="${user1.id}" lay-verify="required" disabled="" placeholder="用户编号" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
-        <div class="layui-input-inline">
-            <input type="text" name="userName" value="${user1.userName}" id="userName" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
-        </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
-        <div class="layui-input-inline">
-            <input type="text" name="password" value="${user1.password}" id="password" placeholder="默认密码123456"  value="123456" autocomplete="off" class="layui-input">
-        </div>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <script type="text/html" id="appointAddDemo">
+            <c:forEach var="menu" items="${menuList}" varStatus="s">
+                ${menu.resUrl}
+            </c:forEach>
+        </script>
+        <table id="appointAddList" lay-filter="appointAddList"></table>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
     </div>
+</div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">联系方式</label>
-        <div class="layui-input-inline">
-            <input type="text" name="telNumber" value="${user1.telNumber}" id="telNumber" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">家庭住址</label>
-        <div class="layui-input-inline">
-            <input type="text" name="address" value="${user1.address}" id="address" lay-verify="required" placeholder="家庭住址" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item" pane="">
-        <label class="layui-form-label">性别</label>
-        <div class="layui-input-block">
-            <input type="radio" name="st_Sex" id="sex1"  value="男" title="男">
-            <input type="radio" name="st_Sex" id="sex2" value="女" title="女">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">年龄</label>
-        <div class="layui-input-inline">
-            <input type="text" name="age" value="${user1.age}" id="age" lay-verify="required" placeholder="年龄" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">出生日期</label>
-        <div class="layui-input-inline">
-            <input type="text" name="birthday" value="${user1.birthday}" id="birthday" lay-verify="required" placeholder="出生日期" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">创建时间</label>
-        <div class="layui-input-inline">
-            <input type="date" name="createDate" value="${user1.createDate}" id="createDate" lay-verify="required" placeholder="创建时间" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">微信</label>
-        <div class="layui-input-inline">
-            <input type="text" name="wechat" value="${user1.wechat}" id="wechat" lay-verify="required" placeholder="微信" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">角色</label>
-        <div class="layui-input-inline">
-            <select name="role1" id="role1" lay-filter="role1">
-
-            </select>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="addUser">新增用户</button>
-    </div>
-</form>
-<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
-<script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/infoManage/userManage/userAdd.js"></script>
+<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<%--<script type="text/javascript" src="../../pagejs/system/user/userList.js"></script>--%>
+<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/shoppingManagejs/appointmentOrder/appointList.js" charset="UTF-8"></script>
+<%--<script type="text/javascript" src="<%=basePath %>admin/pagejs/system/user/userList.js" charset="utf-8"></script>--%>
 </body>
 </html>

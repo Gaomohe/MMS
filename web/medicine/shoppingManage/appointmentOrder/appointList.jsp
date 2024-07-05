@@ -20,14 +20,14 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <blockquote class="layui-elem-quote quoteBox">
-
+            预购订单生成
         </blockquote>
-        <script type="text/html" id="toolbarDemo">
+        <script type="text/html" id="appointDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
             </c:forEach>
         </script>
-        <table id="userList" lay-filter="userList"></table>
+        <table id="appointList" lay-filter="appointList"></table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -35,20 +35,7 @@
         </script>
     </div>
 </div>
-<!-- 分配权限 -->
-<div style="height: 400px;overflow: auto;display: none;" id="dtree1" >
-    <ul id="dataTree3" class="dtree" data-id="0"></ul>
-</div>
 
-<!-- 分配角色 -->
-<div style="height: 400px;overflow: auto;display: none;" id="hairRole">
-    <select name="Roleid" id="RoleName" lay-filter="RoleName">
-
-    </select>
-</div>
-
-
-<%--<script type="text/javascript" src="../admin/lib/layui-v2.5.5/layui.js"></script>--%>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <%--<script type="text/javascript" src="../../pagejs/system/user/userList.js"></script>--%>
 <script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/shoppingManagejs/appointmentOrder/appointList.js" charset="UTF-8"></script>

@@ -36,7 +36,7 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setSalesman(resultSet.getString("salesman")); // 供货单位业务员
                 orders.setBuyer(resultSet.getString("buyer")); // 采购人
                 orders.setRecipient(resultSet.getString("recipient")); // 收货人
-                orders.setCondition(resultSet.getString("condition")); // 收货状态
+                orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
                 ordersList.add(orders);
             }
@@ -48,7 +48,7 @@ public class OrdersDaoImpl implements OrdersDao{
 
     @Override
     public Orders getOrdersById(int id) {
-        String sql=" select * from orders where oid=?";
+        String sql=" select * from orders where oId=?";
         Object[] objects = new Object[1];
         objects[0]=id;
         ResultSet resultSet = JDBC.select(sql, objects);
@@ -73,7 +73,7 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setSalesman(resultSet.getString("salesman")); // 供货单位业务员
                 orders.setBuyer(resultSet.getString("buyer")); // 采购人
                 orders.setRecipient(resultSet.getString("recipient")); // 收货人
-                orders.setCondition(resultSet.getString("condition")); // 收货状态
+                orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
             }
         }catch (Exception e){
@@ -111,7 +111,7 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setSalesman(resultSet.getString("salesman")); // 供货单位业务员
                 orders.setBuyer(resultSet.getString("buyer")); // 采购人
                 orders.setRecipient(resultSet.getString("recipient")); // 收货人
-                orders.setCondition(resultSet.getString("condition")); // 收货状态
+                orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
                 list.add(orders);
             }
@@ -132,7 +132,11 @@ public class OrdersDaoImpl implements OrdersDao{
 
     @Override
     public int updateOrders(Orders orders) {
-        String sql="UPDATE orders SET oName = ?,specification = ?,manufactor = ?,unit = ?,oNum = ?,saleprice = ?,shippingAddress = ?,deliveryAddress = ?,shippingTime = ?,shippingWay = ?,tempControlWay = ?,deliveryTime = ?,deliveryTemp = ?,attachment = ?,salesman = ?,buyer = ?,recipient = ?,condition = ?,statement = ? WHERE oId = ?";
+        String sql="UPDATE orders SET oName = ?,specification=?,manufactor=?,unit=?,oNum=?,saleprice=?,\n" +
+                "shippingAddress=?,deliveryAddress=?,shippingTime=?,shippingWay=?,tempControlWay=?,\n" +
+                "deliveryTime=?,deliveryTemp=?,attachment=?,salesman=?,buyer=?,\n" +
+                "recipient=?,OrderCondition=?,statement=?\n" +
+                "WHERE oId = ?";
         Object[] objects = new Object[20];
         objects[0] = orders.getoName();
         objects[1] = orders.getSpecification();
@@ -151,7 +155,7 @@ public class OrdersDaoImpl implements OrdersDao{
         objects[14] = orders.getSalesman();
         objects[15] = orders.getBuyer();
         objects[16] = orders.getRecipient();
-        objects[17] = orders.getCondition();
+        objects[17] = orders.getOrderCondition();
         objects[18] = orders.getStatement();
         objects[19] = orders.getoId();
         int count= JDBC.update(sql,objects);
@@ -180,7 +184,7 @@ public class OrdersDaoImpl implements OrdersDao{
         objects[14] = orders.getSalesman();
         objects[15] = orders.getBuyer();
         objects[16] = orders.getRecipient();
-        objects[17] = orders.getCondition();
+        objects[17] = orders.getOrderCondition();
         objects[18] = orders.getStatement();
         objects[19] = orders.getoId();
         int count = JDBC.update(sql, objects);

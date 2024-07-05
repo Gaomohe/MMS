@@ -59,7 +59,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var salesman = $("#salesman").val();
         var buyer = $("#buyer").val();
         var recipient = $("#recipient").val();
-        var condition = $("#condition").val();
+        var orderCondition = $("#orderCondition").val();
         var statement = $("#statement").val();
         if(oName.length == "" ){
             layer.msg("药品名称不能为空")
@@ -93,7 +93,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                 "salesman": salesman,
                 "buyer": buyer,
                 "recipient": recipient,
-                "condition": condition,
+                "orderCondition": orderCondition,
                 "statement": statement
             },
             type:"post",
