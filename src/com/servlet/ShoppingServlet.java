@@ -1,17 +1,25 @@
 package com.servlet;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pojo.Medicine;
 import com.pojo.Menu;
+import com.pojo.Sub_Apply;
 import com.pojo.User;
 import com.service.Impl.ShoppingServiceImpl;
 import com.util.BaseServlet;
+import com.util.GetTime;
+import com.util.ResultData;
+import com.util.init.StringDeal;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 import static com.util.Vessel.menuService;
 
@@ -46,5 +54,30 @@ public class ShoppingServlet extends BaseServlet {
     public void search(HttpServletRequest request, HttpServletResponse response){
         String searchValue = request.getParameter("searchValue");
         ToJSON.toJson(response,shoppingService.likeSelect(searchValue));
+    }
+    public ResultData<Medicine> selectById(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        return shoppingService.selectById(StringDeal.toArray(dataString));
+    }
+
+    public ResultData add(HttpServletRequest request, HttpServletResponse response){
+        ResultData resultData = null;
+        String arrKu = request.getParameter("arrKu");
+        String arrID = request.getParameter("arrID");
+        int[] intID = StringDeal.toArray(arrID);
+        int[] intKU = StringDeal.toArray(arrKu);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        for (int i = 0; i < intID.length; i++) {
+            System.out.println("用户id"+user.getId()+"时间"+GetTime.getTime());
+            Sub_Apply sub_apply = new Sub_Apply();
+            sub_apply.setMid(intID[i]);
+            sub_apply.setApplynum(intKU[i]);
+            sub_apply.setApplyuserid(user.getId());
+            sub_apply.setApplytime(GetTime.getTime());
+            resultData = shoppingService.addSub_Apply(sub_apply);
+        }
+        return resultData;
+
     }
 }

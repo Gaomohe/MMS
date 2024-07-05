@@ -30,10 +30,11 @@
         </blockquote>
         <script type="text/html" id="shoppDemo">
 <%--            按钮--%>
-            <button type="button" style="margin-left: 2%" lay-event="add" class="layui-btn layui-btn-warm"><i class="layui-icon">&#xe654;</i>采购申请</button>
+            <button style="margin-left: 2%" lay-event="add" class="layui-btn layui-btn-primary layui-border">采购申请</button>
+<%--            <button type="button" style="margin-left: 2%" lay-event="add" class="layui-btn layui-btn-warm"><i class="layui-icon">&#xe654;</i>采购申请</button>--%>
 <%--            时间--%>
             <div class="layui-inline">
-                <label class="layui-form-label">日期:</label>
+                <label class="layui-form-label"> </label>
                 <div class="layui-input-inline">
                     <input type="text" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="选择时间">
                 </div>
@@ -55,7 +56,8 @@
     <div class="layui-input-inline">
         <input type="text" id="searchInput" placeholder="请输入药品名称" class="layui-input">
     </div>
-    <button type="button" class="layui-btn" lay-filter="doSearch" lay-submit lay-event="submit">搜索</button>
+    <button lay-filter="doSearch" lay-submit lay-event="submit" class="layui-btn layui-btn-primary layui-border-green">点击搜索</button>
+<%--    <button type="button" class="layui-btn" lay-filter="doSearch" lay-submit lay-event="submit">搜索</button>--%>
 </div>
 
 <%--申请历史记录--%>

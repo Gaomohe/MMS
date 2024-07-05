@@ -17,17 +17,45 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.5.5/css/layui.css" media="all" />
     <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body class="childrenBody">
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
-    <c:forEach var="menu" items="${ooo}" varStatus="s">
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>
-            <div class="layui-input-inline">
-                <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </c:forEach>
+<%--    <c:forEach var="menu" items="${ooo}" varStatus="s">--%>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>--%>
+<%--            <div class="layui-input-inline">--%>
+<%--                <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </c:forEach>--%>
+    <table id="tableID">
+        <thead>
+        <tr>
+            <th>药品编号</th>
+            <th>药品名称</th>
+            <th>药品库存</th>
+            <th>添加数量</th>
+        </tr>
+        </thead>
+        <tbody id="table-body">
+        <!-- 动态填充数据的地方 -->
+        </tbody>
+    </table>
 
     <br/><br/>
     <div class="layui-form-item" style="width: 50%;margin: auto">

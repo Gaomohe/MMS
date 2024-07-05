@@ -1,29 +1,40 @@
-layui.use(['form', 'layedit', 'laydate'], function(){
+layui.use(['form', 'layedit', 'laydate','table'], function(){
     var form = layui.form
         ,layer = layui.layer
         ,layedit = layui.layedit
         ,laydate = layui.laydate;
 
-    $("#tijiao").click(function(){
 
-        var id = $("#id").val();
-        var name = $("#name").val();
-        var number = $("#number").val();
-        var purchasePrice = $("#purchasePrice").val();
-        if(name.length === "" ){
-            layer.msg("名称不能为空")
-            return false;
-        }
+    $("#tijiao").click(function(){
+        var arrID = new Array();
+        var arrKu = new Array();
+        var count = 0;
+        $('#table-body tr').each(function() {
+            var $row = $(this);
+            var medicineCode = parseInt($row.find('td:eq(0)').text().trim(),10);  // 第一列：药品编号
+            var addQuantity = parseInt($row.find('td:eq(3) input').val(), 10); // 第四列：添加数量，转化为整数
+
+            // 检查是否为有效数值
+            if (!isNaN(addQuantity)) {
+                arrID[count]=medicineCode;
+                arrKu[count]=addQuantity
+                count++;
+            }
+        });
+        var arrID = $.param({"arrID": arrID});
+        var arrKu = $.param({"arrKu": arrKu});
+
         $.ajax({
             url:"/shopping?action=add",
             data:{
-                id,number,name,purchasePrice
+                arrKu,arrID
             },
             type:"post",
             success:function(data){
                 var info = JSON.parse(data);
+                console.log(info)
                 if(info.status === 200){
-                    layer.msg("添加成功")
+                    layer.msg("申请成功")
                     setTimeout(function(){
                         layer.closeAll("iframe");
                         //刷新父页面

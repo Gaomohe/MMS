@@ -38,5 +38,6 @@
     <orderEntry type="library" name="mysql-connector-j-8.4.0" level="project" />
     <orderEntry type="library" name="servlet-api" level="project" />
     <orderEntry type="library" name="standard" level="project" />
+    <orderEntry type="library" name="gson-2.8.9" level="project" />
   </component>
 </module>

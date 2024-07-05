@@ -59,8 +59,6 @@ layui.extend({
         for(i=0;i<data.length;i++){
             id = data[i].id;
         }
-        console.log("霓虹")
-        console.log(data)
         switch(obj.event){
             case 'time':	//修改经手人
                 laydate.render({
@@ -83,11 +81,11 @@ layui.extend({
                     layer.msg("请选择一行数据进行操作")
                     return false;
                 }
-                var arr
+                var array = new Array();
                 for (let i = 0;i<data.length;i++){
-
-
-                }                add(id);
+                    array[i]=data[i].tableCoding;
+                }
+                add(array);
                 break;
             case 'submit':
                 var searchValue = document.getElementById('searchInput').value;
@@ -102,7 +100,8 @@ layui.extend({
                 break;
         }
     });
-    function add(id){
+    function add(array){
+        var dataString = $.param({"array": array});
         layui.layer.open({
             title : "申请",
             type : 2,
@@ -112,15 +111,21 @@ layui.extend({
                 $.ajax({
                     url:"/shopping?action=selectById",//根据id查询的方法
                     type:"post",
-                    data:{id},
+                    data:{dataString},
                     success:function(data){
-                        var info = JSON.parse(data);
-                        console.log(info);
-                        var body = layui.layer.getChildFrame('body', index);
-                        body.find("#id").val(info.data.id);
-                        body.find("#number").val(info.data.number);
-                        body.find("#name").val(info.data.name);
-                        body.find("#purchasePrice").val(info.data.purchasePrice);
+                        var info = JSON.parse(data).data;
+                        var iframe = layer.getChildFrame('body', index);
+                        var rowsHtml = '';
+                        $.each(info, function(i, item) {
+                            rowsHtml += '<tr>';
+                            rowsHtml += '<td>' + item.tableCoding + '</td>';
+                            rowsHtml += '<td>' + item.mName + '</td>';
+                            rowsHtml += '<td>' + item.number + '</td>';
+                            rowsHtml += '<td><input type="text" class="form-control" value="' + 0 + '"></td>';
+                            rowsHtml += '</tr>';
+                        });
+                        // 更新iframe窗口中的表格body
+                        $(iframe).find('#table-body').html(rowsHtml);
                     }
                 })
             }
