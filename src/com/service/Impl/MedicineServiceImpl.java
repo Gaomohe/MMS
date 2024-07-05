@@ -64,7 +64,19 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public List<Medicine> getAllMedicine(int index, int limit) {
         int page = (index-1)*limit;
+
         return medicineDao.getAllMedicine(page,limit);
+    }
+
+    @Override
+    public List<Medicine> getAllMedicine(int index, int limit, String type) {
+        int page = (index-1)*limit;
+        return medicineDao.getAllMedicine(page,limit,type);
+    }
+
+    @Override
+    public List<Medicine> getAllMedicine() {
+        return medicineDao.getAllMedicine();
     }
 
     @Override

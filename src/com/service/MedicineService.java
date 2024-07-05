@@ -21,6 +21,8 @@ public interface MedicineService {
     public int updateMedicineBasic(Medicine medicine);
     //全部查询
     public List<Medicine> getAllMedicine(int index,int limit);
+    public List<Medicine> getAllMedicine(int index,int limit,String type);
+    public List<Medicine> getAllMedicine();
     //药品回显
     public Medicine getMedicine(int tableCoding);
     //多条件查询单轮（药品名称，商品分类，药品功效，剂型）

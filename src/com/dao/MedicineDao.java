@@ -23,6 +23,8 @@ public interface MedicineDao {
     public int updateMedicineBasic(Medicine medicine);
     //全部查询
     public List<Medicine> getAllMedicine(int index,int limit);
+    public List<Medicine> getAllMedicine(int index,int limit,String type);
+    public List<Medicine> getAllMedicine();
     //全部查询
     public List<Medicine> getMedicineByMId(int mId);
     //药品回显

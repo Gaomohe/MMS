@@ -20,14 +20,14 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <blockquote class="layui-elem-quote quoteBox">
-            用户管理
+            药品字典
         </blockquote>
         <script type="text/html" id="toolbarDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
             </c:forEach>
         </script>
-        <table id="userList" lay-filter="userList"></table>
+        <table id="medicineList" lay-filter="medicineList"></table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -47,7 +47,7 @@
     </select>
 </div>
 
-<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/medicineManage/medDictionary/dictionary.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%= path %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%= path %>medicinejs/medicineManage/medDictionary/dictionary.js" charset="UTF-8"></script>
 </body>
 </html>

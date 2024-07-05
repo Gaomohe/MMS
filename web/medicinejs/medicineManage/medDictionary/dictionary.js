@@ -11,16 +11,17 @@ layui.extend({
 
 
     /*------------- 加载用户数据 --------------------------------*/
+
     var tableIns = table.render({
-        elem: '#userList',
-        url : '/user?action=getAllUser',
+        elem: '#medicineList',
+        url: '/medicine?action=getAllMedicine',
         toolbar: '#toolbarDemo',
-        page : true,
+        page: true,
         height: 'full-145',
-        limit : 10,
-        limits : [5,10,15,20,25],
-        cols : [[
-            {fixed:"left",type: "checkbox", width:50},
+        limit: 10,
+        limits: [5,10,15,20,25],
+        cols: [[
+            /*{fixed:"left",type: "checkbox", width:50},
             {field: 'id', title: '编号',  align:'center'},
             {field: 'userName', title: '登录名', minWidth:100, align:"center"},
             {field: 'sex', title: '用户性别', align:'center'},
@@ -33,13 +34,56 @@ layui.extend({
             {field: 'birthday', title: '出生日期',  align:'center'},
             {field: 'createDate', title: '创建时间',  align:'center'},
             {field: 'wechat', title: '微信',  align:'center'},
-            {title:'操作', width:150, templet: '#barDemo'}
-        ]]
+            {title:'操作', width:150, templet: '#barDemo'}*/
+            {field: 'tableCoding', title: '数据编号',minWidth:200,  align:'center'},
+            {field: 'mId', title: '药品编号',minWidth:200,align:'center'},
+            {field: 'mName', title: '药品名称', minWidth:400, align:"center"},
+            {field: 'specification', title: '规格',  minWidth:200,align:'center'},
+            {field: 'manufactor', title: '生产企业', minWidth:400, align:'center'},
+            {field: 'unit', title: '单位', minWidth:100, align:"center"},
+            {field: 'department', title: '部门', minWidth:200,  align:'center'},
+            {field: 'position', title: '货位', minWidth:200,  align:'center'},
+            {field: 'number', title: '数量', minWidth:200,  align:'center'},
+            {field: 'batchNumber', title: '批号', minWidth:200,  align:'center'},
+            {field: 'usefulLife', title: '有效期', minWidth:200,  align:'center'},
+            {field: 'purchasePrice', title: '采购价', minWidth:200,  align:'center'},
+            {field: 'salePrice', title: '销售价', minWidth:200,  align:'center'},
+            {field: 'productDate', title: '生产日期', minWidth:200,  align:'center'},
+            {field: 'profits', title: '利润金额', minWidth:200,  align:'center'},
+            {field: 'code', title: '自编码', minWidth:200,  align:'center'},
+            {field: 'goodsType', title: '商品分类', minWidth:200,  align:'center'},
+            {field: 'mType', title: '药品分类',minWidth:200, align:'center'},
+            {field: 'defined', title: '自定义类',minWidth:200,  align:'center'},
+            {field: 'supplier', title: '供货单位',minWidth:200,  align:'center'},
+            {field: 'warehousingDate', title: '入库日期',minWidth:200,  align:'center'},
+            {field: 'locationDescription', title: '货位说明',minWidth:200,  align:'center'},
+            {field: 'sign', title: '标志',minWidth:200,  align:'center'},
+            {field: 'warehousingRemarks', title: '入库备注',minWidth:200,  align:'center'},
+            {field: 'drugFrom', title: '剂型',minWidth:200,  align:'center'},
+            {field: 'handlingInformation', title: '处理情况',minWidth:200,  align:'center'},
+            {field: 'approvalNumber', title: '批准文号',minWidth:200,  align:'center'},
+            {field: 'LastCuringDate', title: '上次养护日期',minWidth:200,  align:'center'},
+            {field: 'timesStorage', title: '入库次数',minWidth:200,  align:'center'},
+            {field: 'documentNumber', title: '单据号码',minWidth:200,  align:'center'},
+            {field: 'placeOrigin', title: '产地',minWidth:200,  align:'center'},
+            {field: 'batchsNumber', title: '批次号',minWidth:200,  align:'center'},
+            {field: 'recordNumber', title: '记录号',minWidth:200,  align:'center'},
+            {title:'操作', width:200, templet: '#barDemo'}
+        ]],
+       /*parseData: function(res) {
+            console.log("原始返回数据:", res);
+            return {
+                "code": res.status === 200 ? 0 : 1, // layui 规定的状态码，0 表示成功
+                "msg": res.msg, // 提示信息
+                "count": res.data.length, // 数据总数
+                "data": res.data // 数据列表
+            };
+        },*/
     });
     /*------------- 加载用户数据 --end------------------------------*/
 
     /*-------- 搜索用户 ----------------------------*/
-    $("#doSubmit").click(function(){
+    /*$("#doSubmit").click(function(){
         var like = $("#likename").val()
         tableIns.reload({
             url:"http://rm-bp1ln5cud01u6z7893o.mysql.rds.aliyuncs.com:8723/EEDemo/Interfaces?action=allUser&uname="+like,
@@ -47,7 +91,7 @@ layui.extend({
                 curr: 1 //重新从第 1 页开始
             }
         });
-    })
+    })*/
 
     table.on('toolbar(userList)',function (obj) {
         var checkdata= table.checkStatus(obj.config.id)

@@ -231,6 +231,107 @@ public class MedicineDaoImpl implements MedicineDao {
         return medicines;
     }
 
+    @Override
+    public List<Medicine> getAllMedicine(int index, int limit, String type) {
+        String sql = "SELECT * FROM `dictionary` ORDER BY `tableCoding` ? LIMIT ?,?";
+        Object[] objects = new Object[3];
+        objects[0] = type;
+        objects[1] = index;
+        objects[2] = limit;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<Medicine> medicines = new ArrayList<Medicine>();
+        try{
+            while(resultSet.next()){
+                Medicine medicine = new Medicine();
+                medicine.setmId(resultSet.getInt(1));
+                medicine.setmName(resultSet.getString(2));
+                medicine.setSpecification(resultSet.getString(3));
+                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString(5));
+                medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));
+                medicine.setNumber(resultSet.getInt(8));
+                medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setUsefulLife(resultSet.getString(10));
+                medicine.setPurchasePrice(resultSet.getInt(11));
+                medicine.setSalePrice(resultSet.getInt(12));
+                medicine.setProductDate(resultSet.getString(13));
+                medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));
+                medicine.setGoodsType(resultSet.getString(16));
+                medicine.setmType(resultSet.getString(17));
+                medicine.setDefined(resultSet.getString(18));
+                medicine.setSupplier(resultSet.getString(19));
+                medicine.setWarehousingDate(resultSet.getString(20));
+                medicine.setLocationDescription(resultSet.getString(21));
+                medicine.setSign(resultSet.getString(22));
+                medicine.setWarehousingRemarks(resultSet.getString(23));
+                medicine.setDrugFrom(resultSet.getString(24));
+                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString(26));
+                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setTimesStorage(resultSet.getInt(28));
+                medicine.setDocumentNumber(resultSet.getString(29));
+                medicine.setPlaceOrigin(resultSet.getString(30));
+                medicine.setBatchsNumber(resultSet.getString(31));
+                medicine.setRecordNumber(resultSet.getInt(32));
+                medicine.setTableCoding(resultSet.getInt(33));
+                medicines.add(medicine);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicines;
+    }
+
+    public List<Medicine> getAllMedicine() {
+        String sql = "SELECT * FROM `dictionary`";
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
+        List<Medicine> medicines = new ArrayList<Medicine>();
+        try{
+            while(resultSet.next()){
+                Medicine medicine = new Medicine();
+                medicine.setmId(resultSet.getInt(1));
+                medicine.setmName(resultSet.getString(2));
+                medicine.setSpecification(resultSet.getString(3));
+                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString(5));
+                medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));
+                medicine.setNumber(resultSet.getInt(8));
+                medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setUsefulLife(resultSet.getString(10));
+                medicine.setPurchasePrice(resultSet.getInt(11));
+                medicine.setSalePrice(resultSet.getInt(12));
+                medicine.setProductDate(resultSet.getString(13));
+                medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));
+                medicine.setGoodsType(resultSet.getString(16));
+                medicine.setmType(resultSet.getString(17));
+                medicine.setDefined(resultSet.getString(18));
+                medicine.setSupplier(resultSet.getString(19));
+                medicine.setWarehousingDate(resultSet.getString(20));
+                medicine.setLocationDescription(resultSet.getString(21));
+                medicine.setSign(resultSet.getString(22));
+                medicine.setWarehousingRemarks(resultSet.getString(23));
+                medicine.setDrugFrom(resultSet.getString(24));
+                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString(26));
+                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setTimesStorage(resultSet.getInt(28));
+                medicine.setDocumentNumber(resultSet.getString(29));
+                medicine.setPlaceOrigin(resultSet.getString(30));
+                medicine.setBatchsNumber(resultSet.getString(31));
+                medicine.setRecordNumber(resultSet.getInt(32));
+                medicine.setTableCoding(resultSet.getInt(33));
+                medicines.add(medicine);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicines;
+    }
+
     //根据药品编码药品的数据
     @Override
     public List<Medicine> getMedicineByMId(int mId) {

@@ -5,9 +5,7 @@ import com.pojo.Menu;
 import com.pojo.User;
 import com.service.Impl.MedicineServiceImpl;
 import com.service.MedicineService;
-import com.util.BaseServlet;
-import com.util.Result;
-import com.util.ResultData;
+import com.util.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,14 +30,30 @@ public class MedicineServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        return "medicine/medicineManage/medDictionary/dictionaryList";
+        return "medicine/medicineManage/medDictionary/dictionary";
     }
     //获取所有药品、、
-    public ResultData<Medicine> getAllMedicine(HttpServletRequest request, HttpServletResponse response){
+    public LayuiTable<Medicine> getAllMedicine(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit);
-        return Result.resultData(allMedicine);
+        String type = request.getParameter("type");
+        System.out.println(type);
+        List<Medicine> allMedicine1 = medicineService.getAllMedicine();
+        LayuiTable<Medicine> layuiTable = new LayuiTable<>();
+        if (type==null){
+            List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit);
+            layuiTable.setCode(0);
+            layuiTable.setCount(allMedicine1.size());
+            layuiTable.setData(allMedicine);
+            layuiTable.setMsg("操作成功");
+        }else {
+            List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit,type);
+            layuiTable.setCode(0);
+            layuiTable.setCount(allMedicine1.size());
+            layuiTable.setData(allMedicine);
+            layuiTable.setMsg("操作成功");
+        }
+        return layuiTable;
     }
     //药品回显,,
     public String getMedicineOne(HttpServletRequest request, HttpServletResponse response){

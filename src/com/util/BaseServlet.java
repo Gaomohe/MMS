@@ -38,6 +38,12 @@ public abstract class BaseServlet extends HttpServlet {
                 writer.write(string);
                 writer.flush();
                 writer.close();
+            }else {
+                String string = JSON.toJSONString(invoke);
+                PrintWriter writer = response.getWriter();
+                writer.write(string);
+                writer.flush();
+                writer.close();
             }
 
         }catch (Exception e){
