@@ -19,7 +19,7 @@ layui.extend({
         cellMinWidth : 95,
         page : true,
         toolbar: '#financialDemo',
-        height : "full-125",
+        height : "600px",
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
@@ -65,6 +65,98 @@ layui.extend({
 
     });
 
+
+    //监听工具栏
+    treeTable.on('toolbar(financialList)', function(obj){
+        switch(obj.event){
+            case 'applyUser':
+
+                applyUser();
+                break;
+
+            case 'status':	//全部折叠
+                insTb.foldAll('#demoTreeTb');
+                break;
+
+            case 'pharmacist':	//新增权限
+                getPharmacist();
+                break;
+
+            case 'financial':	//修改权限
+                updataMenu();
+                break;
+
+            case 'search':	//删除权限
+                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
+                    delMenu();
+                    layer.close(index);
+                });
+                break;
+            case 'reload':	//删除权限
+                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
+                    delMenu();
+                    layer.close(index);
+                });
+                break;
+            case 'del':	//删除权限
+                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
+                    delMenu();
+                    layer.close(index);
+                });
+                break;
+            case 'approve':	//删除权限
+                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
+                    delMenu();
+                    layer.close(index);
+                });
+                break;
+            case 'unapprove':	//删除权限
+                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
+                    delMenu();
+                    layer.close(index);
+                });
+                break;
+            case 'download':	//删除权限
+                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
+                    delMenu();
+                    layer.close(index);
+                });
+                break;
+        };
+    });
+
+    function applyUser(){
+        $.post("/user?action=getAppUser",function(res){
+            var cs = JSON.parse(res);
+            console.log(cs);
+            body.find("#applyUser").val(cs.data.userName);
+            console.log(cs);
+        })
+    }
+
+    $.post("/user?action=getAppUser",
+        {"menuid":authorityId},
+        function(data) {
+            var info = JSON.parse(data);
+            console.log(info)
+            var body = layui.layer.getChildFrame('body', index);
+            body.find("#mid").val(info.data.resId);
+            body.find("#mname").val(info.data.name);  //权限名
+            body.find("#mfunction").val(info.data.resKey);	//请求路径
+            var select = 'dd[lay-value=' + info.data.type + ']';
+            body.find("#type2").siblings("div.layui-form-select").find('dl').find(select).click();	//菜单样式
+            body.find("#mbtn").val(info.data.resUrl);		//按钮代码
+            body.find("#icon").val(info.data.icon);		//icon图标
+            var menuid3 = info.data.resId;
+            //上级的下拉框
+            $.post("/menu?action=allMenuById", {"menuid": menuid3}, function (res) {
+                var cs = JSON.parse(res);
+                console.log(cs);
+                body.find("#fatherType2").val(cs.data.fatherName);
+                console.log(cs);
+            })
+        }
+    )
 
 
 });

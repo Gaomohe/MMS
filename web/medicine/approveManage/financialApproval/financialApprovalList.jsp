@@ -25,9 +25,6 @@
 
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <blockquote class="layui-elem-quote quoteBox">
-            采购审批
-        </blockquote>
         <script type="text/html" id="financialDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
@@ -36,72 +33,44 @@
         <table id="financialList" lay-filter="financialList"></table>
     </div>
     <div class="layuimini-main">
-        <blockquote class="layui-elem-quote layui-quote-nm">
-            采购审批
-        </blockquote>
         <script type="text/html" id="purchaseDemo">
-            <%--           组件--%>
 
-            <%--输入单据编号--%>
-            <div class="layui-inline">
-                <label style="width: auto" class="layui-form-label">申请编号:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="email" lay-verify="email" placeholder="请输入申请编号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <%--输入药品名称--%>
-            <div class="layui-inline">
-                <label style="width: auto" class="layui-form-label">药品名称:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="email" lay-verify="email" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <%--申请时间--%>
-            <div class="layui-inline">
-                <label style="width: auto" class="layui-form-label">申请时间:</label>
-                <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="ID-laydate-demo" placeholder="请选择时间">
-                </div>
-            </div>
             <hr class="layui-border-green">
-            <%--            申请人--%>
             <div class="layui-form layui-row layui-col-space16">
                 <div class="layui-col-md2">
-                    <select lay-search="">
+                    <select lay-search="" lay-event="applyUser" id="applyUser">
                         <option value="">申请人</option>
                         <option value="1">AAA</option>
-
                     </select>
                 </div>
                 <div class="layui-col-md2">
-                    <select lay-search="">
+                    <select lay-search="" lay-event="status">
                         <option value="">状态</option>
                         <option value="1">AAA</option>
                     </select>
                 </div>
                 <div class="layui-col-md2">
-                    <select lay-search="">
+                    <select lay-search="" lay-event="pharmacist">
                         <option value="">药师</option>
                         <option value="1">AAA</option>
                     </select>
                 </div>
                 <div class="layui-col-md2">
-                    <select lay-search="">
+                    <select lay-search="" lay-event="financial">
                         <option value="">财务</option>
                         <option value="1">AAA</option>
                     </select>
                 </div>
                 <div class="layui-col-md4">
-                    <button type="button" class="layui-btn layui-bg-blue">查询</button>
-                    <button class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
+                    <button type="button"  lay-event="search" class="layui-btn layui-bg-blue">查询</button>
+                    <button  lay-event="reload" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
                 </div>
             </div>
             <hr class="layui-border-green">
-            <button class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
-            <button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
-            <button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
-            <button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
+            <button  lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+            <button  lay-event="approve" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
+            <button  lay-event="unapprove" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
+            <button  lay-event="download" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
 
         </script>
 
