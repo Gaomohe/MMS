@@ -10,6 +10,7 @@ import com.util.ResultData;
 import javax.print.attribute.standard.NumberUp;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.util.Vessel.userDao;
@@ -211,5 +212,20 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return user.getUserName();
+    }
+
+    @Override
+    public List<User> getAppUser() {
+        return userDao.getAppUser();
+    }
+
+    @Override
+    public List<User> getPhaName() {
+        return userDao.getPhaName();
+    }
+
+    @Override
+    public List<User> getFinName() {
+        return userDao.getFinName();
     }
 }

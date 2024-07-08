@@ -15,7 +15,7 @@ public class ApprovalServlet extends BaseServlet {
         return ApprovalServlet.class;
     }
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
-        return "/medicine/approveSysrem/purchaseApproval/purchaseList";
+        return "medicine/approveManage/purchaseApproval/purchaseList";
     }
     public void getAll(HttpServletRequest request, HttpServletResponse response){
         ToJSON.toJson(response,null);

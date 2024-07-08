@@ -113,4 +113,22 @@ public class UserServlet extends BaseServlet {
         user.setWechat(request.getParameter("wechat"));
         return userService.addUser(user);
     }
+
+    //申请人姓名回显
+    public void getAppUser(HttpServletRequest request, HttpServletResponse response){
+        List<User> userList = userService.getAppUser();
+        ToJSON.toJson(response,userList);
+    }
+
+    //药师姓名的回显
+    public void getPhaName(HttpServletRequest request, HttpServletResponse response){
+        List<User> userList = userService.getPhaName();
+        ToJSON.toJson(response,userList);
+    }
+
+    //财务姓名的回显
+    public void getFinName(HttpServletRequest request, HttpServletResponse response){
+        List<User> userList = userService.getFinName();
+        ToJSON.toJson(response,userList);
+    }
 }

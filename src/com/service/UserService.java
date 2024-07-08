@@ -4,6 +4,8 @@ import com.pojo.User;
 import com.util.LayuiTable;
 import com.util.ResultData;
 
+import java.util.List;
+
 public interface UserService {
     //用户登录
     public int login(User user);
@@ -37,6 +39,15 @@ public interface UserService {
 
     //根据id获取名称
     public String getName(int id);
+
+    //申请人姓名回显
+    public List<User> getAppUser();
+
+    //药师姓名的回显
+    public List<User> getPhaName();
+
+    //财务姓名的回显
+    public List<User> getFinName();
 
 
 

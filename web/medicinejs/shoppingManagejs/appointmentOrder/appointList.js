@@ -24,6 +24,7 @@ layui.extend({
         limits : [5,10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
+            {field: 'applyId', title: '申请编号',  align:'center'},
             {field: 'mId', title: '字典编号',  align:'center'},
             {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
             {field: 'specification', title: '规格', align:'center'},
@@ -45,7 +46,8 @@ layui.extend({
             {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
             {field: 'finance' ,title:'财务审批人', align:'center'},
             {field: 'financeApprove' ,title:'财务审批', align:'center'},
-            {field: 'financeTime' ,title:'财务审批时间', align:'center'}
+            {field: 'financeTime' ,title:'财务审批时间', align:'center'},
+            {field: 'tableCoding' ,title:'自编码', align:'center'}
         ]]
     });
     /*------------- 加载用户数据 --end------------------------------*/
