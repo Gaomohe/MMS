@@ -1,4 +1,4 @@
-layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel', 'tableSelect'], function() {
+layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], function() {
 	var $ = layui.jquery;
 	var layer = layui.layer;
 	var element = layui.element;
@@ -6,10 +6,18 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel', 'tableSel
 	var table = layui.table;
 	var tableX = layui.tableX;
 	var layer = layui.layer;
-	var tableSelect = layui.tableSelect;
+	var form = layui.from;
+
+
+	var select1;
+	var select2;
+	var select3;
+	var select4;
+	// var arr;
+
 
 	// 前端分页
-	tableX.render({
+	var tableIns=tableX.render({
 		elem: '#xTable1',
 		url: '/medicine?action=getAllMedicine',
 		toolbar: '#toolbarDemo',
@@ -21,7 +29,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel', 'tableSel
 			[{fixed: "left",
 				type: "checkbox",
 				width: 50
-				},
+			},
 				{
 					field: 'tableCoding',
 					title: '数据编号',
@@ -252,6 +260,289 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel', 'tableSel
 		],
 		height: 390
 	});
+
+	$("#searchByQuerys").click(function () {
+		select1 = $("#select1").val();
+		select2 = $("#select2").val();
+		select3 = $("#select3").val();
+		select4 = $("#select4").val();
+		console.log(select1);
+		console.log(select2);
+		console.log(select3);
+		console.log(select4);
+		let arr = new Set();
+
+		arr.add(select1);
+		arr.add(select2);
+		arr.add(select3);
+		arr.add(select4);
+		console.log("aaaaaaaaa");
+		console.log(arr);
+		$.ajax({
+			url: '/medicine?action=getMedicineByQuery', // 后端处理数据的URL
+			type: "POST", // 或 'GET'，取决于后端接口的要求
+			data: {
+				"query":arr
+			},
+			dataType:"JSON",
+			success: function(response) {
+				// 在成功回调中处理后端返回的数据
+				// 假设后端返回的数据是一个数组，可以根据数据格式进行处理
+				var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+				renderTable(tableData); // 渲染表格数据
+			},
+			error: function(error) {
+				console.error('Error:', error);
+			}
+		});
+	});
+
+	function renderTable(data) {
+		layui.use('table', function(){
+			var table = layui.table;
+
+			table.render({
+				elem: '#xTable1',
+				data: data, // 使用从后端获取的数据渲染表格
+				cols: [ [
+					{fixed: "left",
+						type: "checkbox",
+						width: 50
+					},
+					{
+						field: 'tableCoding',
+						title: '数据编号',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'mId',
+						title: '药品编号',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'mName',
+						title: '药品名称',
+						minWidth: 400,
+						align: "center",
+					},
+					{
+						field: 'specification',
+						title: '规格',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'manufactor',
+						title: '生产企业',
+						minWidth: 400,
+						align: 'center',
+					},
+					{
+						field: 'unit',
+						title: '单位',
+						minWidth: 100,
+						align: "center",
+					},
+					{
+						field: 'department',
+						title: '部门',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'position',
+						title: '货位',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'number',
+						title: '数量',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'batchNumber',
+						title: '批号',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'usefulLife',
+						title: '有效期',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'purchasePrice',
+						title: '采购价',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'salePrice',
+						title: '销售价',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'productDate',
+						title: '生产日期',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'profits',
+						title: '利润金额',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'code',
+						title: '自编码',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'goodsType',
+						title: '商品分类',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'mType',
+						title: '药品分类',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'defined',
+						title: '自定义类',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'supplier',
+						title: '供货单位',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'warehousingDate',
+						title: '入库日期',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'locationDescription',
+						title: '货位说明',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'sign',
+						title: '标志',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'warehousingRemarks',
+						title: '入库备注',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'drugFrom',
+						title: '剂型',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'handlingInformation',
+						title: '处理情况',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'approvalNumber',
+						title: '批准文号',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'LastCuringDate',
+						title: '上次养护日期',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'timesStorage',
+						title: '入库次数',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'documentNumber',
+						title: '单据号码',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'placeOrigin',
+						title: '产地',
+						minWidth: 200,
+						align: 'center',
+					},
+					{
+						field: 'batchsNumber',
+						title: '批次号',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						field: 'recordNumber',
+						title: '记录号',
+						minWidth: 200,
+						align: 'center',
+						sort: true
+					},
+					{
+						title: '操作',
+						width: 200,
+						templet: '#barDemo',
+					}
+				]
+				],
+				page: true // 开启分页
+			});
+		});
+	}
+
+
 	setTimeout(function () {
 		table.resize('xTable1');
 	}, 200);
@@ -297,37 +588,4 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel', 'tableSel
 				break;
 		};
 	});
-});
-
-layui.use(['layer', 'form', 'admin', 'citypicker', 'formSelects', 'tableSelect', 'admin', 'QRCode', 'introJs'], function () {
-	var $ = layui.jquery;
-	var layer = layui.layer;
-	var form = layui.form;
-	var admin = layui.admin;
-	var cityPicker = layui.citypicker;
-	var formSelects = layui.formSelects;
-	var tableSelect = layui.tableSelect;
-	var QRCode = layui.QRCode;
-	var introJs = layui.introJs;
-
-	// 显示加载层
-	$('#btnShowLoading1').click(function () {
-		admin.showLoading('#divLoading', 1, '.9');
-		setTimeout(function () {
-			admin.removeLoading('#divLoading', true, true);
-		}, 2000);
-	});
-	$('#btnShowLoading2').click(function () {
-		admin.showLoading('#divLoading', 2, '.8');
-		setTimeout(function () {
-			admin.removeLoading('#divLoading', true, true);
-		}, 2000);
-	});
-	$('#btnShowLoading3').click(function () {
-		admin.showLoading('#divLoading', 3, '.8');
-		setTimeout(function () {
-			admin.removeLoading('#divLoading', true, true);
-		}, 2000);
-	});
-
 });

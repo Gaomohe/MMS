@@ -17,62 +17,53 @@
     <link rel="stylesheet" href="<%=path%>iframe/assets/module/city-picker/city-picker.css"/>
     <script src="<%=path%>iframe/assets/module/city-picker/city-picker.data.js"></script>
 </head>
+<script type="text/javascript" th:src="@{/lib/ui/xm-select/xm-select.js}" charset="utf-8"></script>
 <body>
 <div style="background-color: white;padding: 10px;margin: 10px">
     <blockquote class="layui-elem-quote quoteBox" style="margin-top: 20px;margin-bottom: 20px">
         药品字典
     </blockquote>
+    <div class="layui-form layui-row layui-col-space16">
+        <div class="layui-col-md6" style="width: 100px">
+            <select id="select1" lay-search="" lay-creatable="">
+                <option value="%" hidden=""></option>
+                <<c:forEach var="type" items="${type1}" varStatus="s">
+                <option value="${type.typename}">${type.typename}</option>
+            </c:forEach>
+            </select>
+        </div>
+        <div class="layui-col-md6" style="width: 100px">
+            <select id="select2" lay-search="" lay-creatable="">
+                <option value="%" hidden=""></option>
+                <<c:forEach var="type" items="${type2}" varStatus="s">
+                <option value="${type.typename}">${type.typename}</option>
+            </c:forEach>
+            </select>
+        </div>
+        <div class="layui-col-md6" style="width: 100px">
+            <select id="select3" lay-search="" lay-creatable="">
+                <option value="%" hidden=""></option>
+                <<c:forEach var="type" items="${type3}" varStatus="s">
+                <option value="${type.typename}">${type.typename}</option>
+            </c:forEach>
+            </select>
+        </div>
+        <div class="layui-col-md6" style="width: 100px">
+            <select id="select4" lay-search="" lay-creatable="">
+                <option value="%" hidden=""></option>
+                <<c:forEach var="type" items="${type4}" varStatus="s">
+                <option value="${type.typename}">${type.typename}</option>
+            </c:forEach>
+            </select>
+        </div>
+        <div class="layui-inline">
+            <button class="layui-btn icon-btn" id="searchByQuerys" lay-event="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
+                <i class="layui-icon">&#xe615;</i>搜索
+            </button>
+        </div>
+    </div>
     <div class="layui-tab-item layui-show">
         <div class="layui-form toolbar">
-            <div class="layui-inline">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">商品分类</label>
-                    <div class="layui-input-block xm-select-nri" style="width:245px;max-width: 60%;">
-                        <select name="city" xm-select="selDemo">
-                            <c:forEach var="type" items="${type1}" varStatus="s">
-                                <option value="${type.typename}">${type.typename}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">药品分类</label>
-                    <div class="layui-input-block xm-select-nri" style="width:245px;max-width: 60%;">
-                        <select name="city" xm-select="selDemo1">
-                            <c:forEach var="type" items="${type2}" varStatus="s">
-                                <option value="${type.typename}">${type.typename}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">自定义分类</label>
-                    <div class="layui-input-block xm-select-nri" style="width:245px;max-width: 60%;">
-                        <select name="city" xm-select="selDemo2">
-                            <c:forEach var="type" items="${type3}" varStatus="s">
-                                <option value="${type.typename}">${type.typename}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">剂型</label>
-                    <div class="layui-input-block xm-select-nri" style="width:245px;max-width: 60%;">
-                        <select name="city" xm-select="selDemo3">
-                            <c:forEach var="type" items="${type4}" varStatus="s">
-                                <option value="${type.typename}">${type.typename}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <button class="layui-btn icon-btn" lay-event="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
-                    <i class="layui-icon">&#xe615;</i>搜索
-                </button>
-            </div>
             <div class="layui-form-item text-right">
                 <script type="text/html" id="toolbarDemo">
                     <div class="layui-inline">

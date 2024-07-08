@@ -232,12 +232,9 @@ public class MedicineDaoImpl implements MedicineDao {
     }
 
     @Override
-    public List<Medicine> getAllMedicine(int index, int limit, String order, String title) {
-        String sql = "SELECT * FROM (SELECT * FROM `dictionary` LIMIT ?,? ) AS subquery ORDER BY "+title+" "+order;
-        Object[] objects = new Object[2];
-        objects[0] = index;
-        objects[1] = limit;
-        ResultSet resultSet = JDBC.select(sql,objects);
+    public List<Medicine> getAllMedicine(String order, String title) {
+        String sql = "SELECT * FROM `dictionary` ORDER BY "+title+" "+order;
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
         List<Medicine> medicines = new ArrayList<Medicine>();
         try{
             while(resultSet.next()){
@@ -437,9 +434,9 @@ public class MedicineDaoImpl implements MedicineDao {
     @Override
     public List<Medicine> getMedicineByQuery(String[] query) {
         String sql = "SELECT * FROM `dictionary` \n" +
-                "WHERE  `mName` LIKE ?\n" +
-                "AND `goodsType` LIKE ?\n" +
+                "WHERE  `goodsType` LIKE ?\n" +
                 "AND `mType` LIKE ?\n" +
+                "AND `defined` LIKE ?\n" +
                 "AND `drugFrom` LIKE ?";
         Object[] objects = new Object[4];
         objects[0] = "%"+query[0]+"%";
