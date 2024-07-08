@@ -55,15 +55,48 @@
     </div>
 </div>
 <hr class="layui-border-green">
+<%--            申请人--%>
+<div class="layui-form layui-row layui-col-space16">
+    <div class="layui-col-md2">
+        <select lay-search="">
+            <option value="">申请人</option>
+            <option value="1">AAA</option>
+
+        </select>
+    </div>
+    <div class="layui-col-md2">
+        <select lay-search="">
+            <option value="">状态</option>
+            <option value="1">AAA</option>
+        </select>
+    </div>
+    <div class="layui-col-md2">
+        <select lay-search="">
+            <option value="">药师</option>
+            <option value="1">AAA</option>
+        </select>
+    </div>
+    <div class="layui-col-md2">
+        <select lay-search="">
+            <option value="">财务</option>
+            <option value="1">AAA</option>
+        </select>
+    </div>
+    <div class="layui-col-md4">
+        <button type="button" class="layui-btn layui-bg-blue">查询</button>
+        <button class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
+    </div>
+
+
+
+</div>
 
 <hr class="layui-border-green">
-
-<button type="button" class="layui-btn layui-bg-blue">查询</button>
-<button class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
 <button class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
 <button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
+<button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
 <button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
-<%--            申请人--%>
+
 
         </script>
 
@@ -76,14 +109,15 @@
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <%--<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>--%>
 <script type="text/javascript" src="<%=basePath %>medicinejs/approveSysrem/purchaseApproval/purchaseList.js" charset="utf-8"></script>
-<script>
-    layui.use(function(){
-        var laydate = layui.laydate;
-        // 渲染
-        laydate.render({
-            elem: '#ID-laydate-demo'
-        });
-    });
-</script>
+<%--<script>--%>
+<%--    layui.use(function(){--%>
+<%--        var laydate = layui.laydate;--%>
+<%--        // 渲染--%>
+<%--        laydate.render({--%>
+<%--            elem: '#ID-laydate-demo'--%>
+<%--        });--%>
+
+<%--    });--%>
+<%--</script>--%>
 </body>
 </html>

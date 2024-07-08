@@ -8,14 +8,14 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+
     laydate.render({
         elem: '#ID-laydate-demo'
     });
-
     //表格渲染
     var tableIns = table.render({
         elem: '#purchaseList',
-        url : '/approval?action=getAll',
+        url : '/purchase?action=getAllAppoint',
         cellMinWidth : 95,
         page : true,
         toolbar: '#purchaseDemo',
@@ -23,15 +23,33 @@ layui.extend({
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
-            {type: "checkbox", fixed:"left", width:50},
-            {field: 'id', title: '药品编号',  align:'center',width:100},
-            {field: 'Name', title: '药品名称',  align:'center',width:100},
-            {field: 'Name', title: '药品名称',  align:'center',width:100},
-            {field: 'Name', title: '药品名称',  align:'center',width:100},
-            {field: 'Name', title: '药品名称',  align:'center',width:100},
-            {field: 'time', title:'申请时间' , width:150, align:"center"},
-            {field: 'status', title:'状态' , width:150, align:"center"},
+            {fixed:"left",type: "checkbox", width:50},
+            {field: 'mId', title: '字典编号',  align:'center'},
+            {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
+            {field: 'specification', title: '规格', align:'center'},
+            {field: 'manufactor', title: '生产企业', align:'center'},
+            {field: 'unit', title: '单位', minWidth:100, align:"center"},
+            {field: 'department', title: '部门',  align:'center'},
+            // {field: 'number', title: '采购数量',  align:'center'},
+            {field: 'applyNumber', title: '采购数量',  align:'center'},
+            {field: 'purchasePrice', title: '采购价',  align:'center'},
+            {field: 'code', title: '批号',  align:'center'},
+            {field: 'mType', title: '药品分类',  align:'center'},
+            {field: 'supplier', title: '供货单位',  align:'center'},
+            {field: 'approvalNumber', title: '准批文号',  align:'center'},
+            {field: 'placeOrigin', title: '产地',  align:'center'},
+            {field: 'applyUser' ,title:'申请人', align:'center'},
+            {field: 'applyTime' ,title:'申请时间', align:'center'},
+            {field: 'pharmacist' ,title:'药师审批人', align:'center'},
+            {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
+            {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
+            {field: 'finance' ,title:'财务审批人', align:'center'},
+            {field: 'financeApprove' ,title:'财务审批', align:'center'},
+            {field: 'financeTime' ,title:'财务审批时间', align:'center'}
         ]],
+        done:function (){
+
+        }
     });
     table.on('toolbar(supplierList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
