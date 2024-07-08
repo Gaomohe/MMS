@@ -108,7 +108,7 @@
 
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <%--<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>--%>
-<script type="text/javascript" src="<%=basePath %>medicinejs/approveSysrem/purchaseApproval/purchaseList.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/approveManage/purchaseApproval/purchaseList.js" charset="utf-8"></script>
 <%--<script>--%>
 <%--    layui.use(function(){--%>
 <%--        var laydate = layui.laydate;--%>

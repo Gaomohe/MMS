@@ -8,6 +8,7 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+    console.log("为什么")
     laydate.render({
         elem: '#ID-laydate-demo'
     });
