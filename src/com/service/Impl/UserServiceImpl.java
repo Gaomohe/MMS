@@ -198,4 +198,18 @@ public class UserServiceImpl implements UserService {
         }
         return resultData;
     }
+
+    @Override
+    public String getName(int id) {
+        ResultSet resultSet = userDao.getNameById(id);
+        User user = new User();
+        try{
+            while (resultSet.next()){
+                user.setUserName(resultSet.getString(2));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user.getUserName();
+    }
 }

@@ -3,9 +3,7 @@ package com.dao.Impl;
 import com.dao.AppointDao;
 import com.dao.Impl.init.InitDaoImpl;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
-import com.pojo.Appointment;
-import com.pojo.Orders;
-import com.pojo.buyOrder;
+import com.pojo.*;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
@@ -26,6 +24,12 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     public ResultSet getAppointList() {
         String sql = "select * from apply \n" +
                 "where pharmacistApprove = '已批准' and financeApprove = '已批准';";
+        /*
+        select * from dictionary
+where tableCoding in (
+    select mId from sub_apply
+    );
+        */
         Object[] obj = new Object[1];
         obj[0] = 0;
         return JDBC.select(sql, obj);
@@ -90,5 +94,35 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
             e.printStackTrace();
         }
         return appointment;
+    }
+
+    //填充apply表数据
+    @Override
+    public int insertApply(Apply apply) {
+        String sql = "insert into apply(mId,mName,specification,manufactor,unit,\n" +
+                "                  department,number,applyNumber,purchasePrice,\n" +
+                "                  code,mType,supplier,approvalNumber,placeOrigin,\n" +
+                "                  applyUser,applyTime,tableCoding)\n" +
+                "value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        Object[] objects = new Object[17];
+        objects[0] = apply.getmId();
+        objects[1] = apply.getmName();
+        objects[2] = apply.getSpecification();
+        objects[3] = apply.getManufactor();
+        objects[4] = apply.getUnit();
+        objects[5] = apply.getDepartment();
+        objects[6] = apply.getNumber();
+        objects[7] = apply.getApplyNumber();
+        objects[8] = apply.getPurchasePrice();
+        objects[9] = apply.getCode();
+        objects[10] = apply.getmType();
+        objects[11] = apply.getSupplier();
+        objects[12] = apply.getApprovalNumber();
+        objects[13] = apply.getPlaceOrigin();
+        objects[14] = apply.getApplyUser();
+        objects[15] = apply.getApplyTime();
+        objects[16] = apply.getTableCoding();
+        int update = JDBC.update(sql, objects);
+        return update;
     }
 }

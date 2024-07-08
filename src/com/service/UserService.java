@@ -35,8 +35,8 @@ public interface UserService {
     //添加--------------参数（User）
     public ResultData addUser(User user);
 
-
-
+    //根据id获取名称
+    public String getName(int id);
 
 
 

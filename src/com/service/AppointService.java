@@ -1,7 +1,9 @@
 package com.service;
 
+import com.pojo.Apply;
 import com.pojo.Appointment;
 import com.pojo.Log;
+import com.pojo.Medicine;
 import com.util.LayuiTable;
 
 import java.util.List;
@@ -15,4 +17,7 @@ public interface AppointService {
 
     //批量添加生成订单
     public int addAppoint(List<Integer> idList);
+
+    //填充apply表数据
+    public int insertApply();
 }

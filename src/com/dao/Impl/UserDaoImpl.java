@@ -55,5 +55,11 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
         return JDBC.update(sql,objects) > 0;
     }
 
-
+    @Override
+    public ResultSet getNameById(int id) {
+        String sql = "select * from user where id=?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        return JDBC.select(sql,objects);
+    }
 }

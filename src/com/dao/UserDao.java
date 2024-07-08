@@ -18,6 +18,9 @@ public interface UserDao {
     //添加--------------参数（User）
     public boolean addUser(User user);
 
+    //根据id查询用户名称
+    public ResultSet getNameById(int id);
+
 
 
 }

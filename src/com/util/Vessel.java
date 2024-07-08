@@ -22,6 +22,9 @@ public class Vessel {
     public static LogService logService = new LogServiceImpl();
 
     public static AppointService appointService = new AppointServiceImpl();
+    public static AppointDao appointDao = new AppointDaoImpl();
     public static OrdersDao ordersDao = new OrdersDaoImpl();
     public static OrdersService ordersService = new OrdersServiceImpl();
+
+    public static ShoppingService shoppingService = new ShoppingServiceImpl();
 }

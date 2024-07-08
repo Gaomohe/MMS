@@ -1,15 +1,21 @@
 package com.service.Impl;
 
 import com.dao.Impl.ShoppingDaoImpl;
+import com.mysql.cj.jdbc.result.ResultSetImpl;
+import com.pojo.Apply;
 import com.pojo.Medicine;
 import com.pojo.Sub_Apply;
 import com.service.ShoppingService;
+import com.service.UserService;
 import com.util.LayuiTable;
 import com.util.ResultData;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.util.Vessel.appointDao;
+import static com.util.Vessel.appointService;
 
 public class ShoppingServiceImpl implements ShoppingService {
     ShoppingDaoImpl shoppingDao = new ShoppingDaoImpl();
@@ -195,12 +201,85 @@ public class ShoppingServiceImpl implements ShoppingService {
             resultData.setStatus(200);
             resultData.setData("");
             resultData.setMsg("");
+            int i = appointService.insertApply();
+            System.out.println(i);
         }else {
-            resultData.setStatus(200);
+            resultData.setStatus(500);
             resultData.setData("");
             resultData.setMsg("");
 
         }
         return resultData;
+    }
+
+    @Override
+    public List<Medicine> memoryList() {
+        List<Medicine> medicineList = new ArrayList<>();
+        ResultSet resultSet = shoppingDao.memoryList();
+        try{
+            while (resultSet.next()){
+                Medicine medicine = new Medicine();
+                medicine.setmId(resultSet.getInt(1));
+                medicine.setmName(resultSet.getString(2));
+                medicine.setSpecification(resultSet.getString(3));
+                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString(5));
+                medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));
+                medicine.setNumber(resultSet.getInt(8));
+                medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setUsefulLife(resultSet.getString(10));
+                medicine.setPurchasePrice(resultSet.getDouble(11));
+                medicine.setSalePrice(resultSet.getDouble(12));
+                medicine.setProductDate(resultSet.getString(13));
+                medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));
+                medicine.setGoodsType(resultSet.getString(16));
+                medicine.setmType(resultSet.getString(17));
+                medicine.setDefined(resultSet.getString(18));
+                medicine.setSupplier(resultSet.getString(19));
+                medicine.setWarehousingDate(resultSet.getString(20));
+                medicine.setLocationDescription(resultSet.getString(21));
+                medicine.setSign(resultSet.getString(22));
+                medicine.setWarehousingRemarks(resultSet.getString(23));
+                medicine.setDrugFrom(resultSet.getString(24));
+                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString(26));
+                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setTimesStorage(resultSet.getInt(28));
+                medicine.setDocumentNumber(resultSet.getString(29));
+                medicine.setPlaceOrigin(resultSet.getString(30));
+                medicine.setBatchNumber(resultSet.getString(31));
+                medicine.setRecordNumber(resultSet.getInt(32));
+                medicine.setTableCoding(resultSet.getInt(33));
+                medicineList.add(medicine);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return medicineList;
+    }
+
+    @Override
+    public List<Apply> subApplyList() {
+        List<Apply> applyList = new ArrayList<>();
+        ResultSet resultSet = shoppingDao.subApplyList();
+        int name = 0;
+        try{
+            while (resultSet.next()){
+                Apply apply = new Apply();
+                apply.setmId(resultSet.getInt(2));
+                apply.setApplyNumber(resultSet.getInt(3));
+                apply.setApplyTime(resultSet.getString(4));
+                UserService userService = new UserServiceImpl();
+                apply.setApplyUser(userService.getName(resultSet.getInt(5)));
+                apply.setPharmacistApprove(resultSet.getString(6));
+                apply.setFinance(resultSet.getString(6));
+                applyList.add(apply);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return applyList;
     }
 }

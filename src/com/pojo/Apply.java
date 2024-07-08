@@ -23,6 +23,7 @@ public class Apply {
     private String finance;
     private String financeApprove;
     private String financeTime;
+    private int tableCoding;
 
     public int getmId() {
         return mId;
@@ -198,5 +199,13 @@ public class Apply {
 
     public void setFinanceTime(String financeTime) {
         this.financeTime = financeTime;
+    }
+
+    public int getTableCoding() {
+        return tableCoding;
+    }
+
+    public void setTableCoding(int tableCoding) {
+        this.tableCoding = tableCoding;
     }
 }

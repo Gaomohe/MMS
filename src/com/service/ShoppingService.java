@@ -1,5 +1,6 @@
 package com.service;
 
+import com.pojo.Apply;
 import com.pojo.Medicine;
 import com.pojo.Sub_Apply;
 import com.pojo.Supplier;
@@ -27,6 +28,12 @@ public interface ShoppingService {
     public ResultData<Medicine> selectById(int[] ids);
 
     public ResultData addSub_Apply(Sub_Apply sub_apply);
+
+    //生成转存表
+    public List<Medicine> memoryList();
+
+    //生成转存表2
+    public List<Apply> subApplyList();
 
 
 }

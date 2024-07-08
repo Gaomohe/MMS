@@ -22,4 +22,25 @@ public class ShoppingDaoImpl extends InitDaoImpl implements ShoppingDao {
         Object[] objects = new Object[]{sub_apply.getMid(),sub_apply.getApplynum(),sub_apply.getApplytime(),sub_apply.getApplyuserid()};
         return JDBC.update(sql,objects) > 0;
     }
+
+    @Override
+    public ResultSet memoryList() {
+        String sql = "select * from dictionary\n" +
+                "where tableCoding in (\n" +
+                "    select mId from sub_apply\n" +
+                "    where approve = ?\n" +
+                "    );";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        return JDBC.select(sql,objects);
+    }
+
+    //生成转存表2
+    @Override
+    public ResultSet subApplyList() {
+        String sql = "select * from sub_apply where approve = ?";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        return JDBC.select(sql,objects);
+    }
 }

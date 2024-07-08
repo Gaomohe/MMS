@@ -10,5 +10,9 @@ public interface ShoppingDao {
 
     public boolean addSub_Apply(Sub_Apply sub_apply);
 
+    //生成转存表
+    public ResultSet memoryList();
 
+    //生成转存表2
+    public ResultSet subApplyList();
 }
