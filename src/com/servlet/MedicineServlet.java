@@ -80,7 +80,11 @@ public class MedicineServlet extends BaseServlet {
     }
     //多条件查询药品（非多轮）
     public ResultData<Medicine> getMedicineByQuery(HttpServletRequest request, HttpServletResponse response){
-        String[] queries = request.getParameterValues("query");
+        String select1 = request.getParameter("select1");
+        String select2 = request.getParameter("select2");
+        String select3 = request.getParameter("select3");
+        String select4 = request.getParameter("select4");
+        String[] queries = {select1,select2,select3,select4};
         List<Medicine> allMedicine = medicineService.getMedicineByQuery(queries);
         return Result.resultData(allMedicine);
     }

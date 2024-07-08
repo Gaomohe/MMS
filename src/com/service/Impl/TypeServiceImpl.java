@@ -53,6 +53,26 @@ public class TypeServiceImpl implements TypeService {
         return typeDao.getAlldosage();
     }
 
+    @Override
+    public Type isAllGoodsType(String type) {
+        return typeDao.isAllGoodsType(type);
+    }
+
+    @Override
+    public Type isAllMType(String type) {
+        return typeDao.isAllMType(type);
+    }
+
+    @Override
+    public Type isAllfreeType(String type) {
+        return typeDao.isAllfreeType(type);
+    }
+
+    @Override
+    public Type isAlldosage(String type) {
+        return typeDao.isAlldosage(type);
+    }
+
     //删除
     @Override
     public int delGoodsType(String type) {

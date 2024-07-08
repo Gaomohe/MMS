@@ -4,6 +4,7 @@ import com.pojo.Type;
 import com.service.Impl.TypeServiceImpl;
 import com.service.TypeService;
 import com.util.BaseServlet;
+import com.util.LayuiTable;
 import com.util.Result;
 import com.util.ResultData;
 
@@ -21,22 +22,82 @@ public class TypeServlet extends BaseServlet {
         return TypeServlet.class;
     }
     //显示分类
-    public ResultData<Type> getGoodsType(HttpServletRequest request, HttpServletResponse response){
+    public LayuiTable<Type> getGoodsType(HttpServletRequest request, HttpServletResponse response){
         List<Type> allGoodsType = typeService.getAllGoodsType();
-        return Result.resultData(allGoodsType);
+        LayuiTable layuiTable = new LayuiTable();
+        layuiTable.setCode(0);
+        layuiTable.setData(allGoodsType);
+        layuiTable.setMsg("操作成功");
+        return layuiTable;
     }
-    public ResultData<Type> getMType(HttpServletRequest request, HttpServletResponse response){
+    public LayuiTable<Type> getMType(HttpServletRequest request, HttpServletResponse response){
         List<Type> allGoodsType = typeService.getAllMType();
-        return Result.resultData(allGoodsType);
+        LayuiTable layuiTable = new LayuiTable();
+        layuiTable.setCode(0);
+        layuiTable.setData(allGoodsType);
+        layuiTable.setMsg("操作成功");
+        return layuiTable;
     }
-    public ResultData<Type> getfreeType(HttpServletRequest request, HttpServletResponse response){
+    public LayuiTable<Type> getfreeType(HttpServletRequest request, HttpServletResponse response){
         List<Type> allGoodsType = typeService.getAllfreeType();
-        return Result.resultData(allGoodsType);
+        LayuiTable layuiTable = new LayuiTable();
+        layuiTable.setCode(0);
+        layuiTable.setData(allGoodsType);
+        layuiTable.setMsg("操作成功");
+        return layuiTable;
     }
-    public ResultData<Type> getdosage(HttpServletRequest request, HttpServletResponse response){
+    public LayuiTable<Type> getdosage(HttpServletRequest request, HttpServletResponse response){
         List<Type> allGoodsType = typeService.getAlldosage();
-        return Result.resultData(allGoodsType);
+        LayuiTable layuiTable = new LayuiTable();
+        layuiTable.setCode(0);
+        layuiTable.setData(allGoodsType);
+        layuiTable.setMsg("操作成功");
+        return layuiTable;
     }
+
+    //重名验证
+    public ResultData<Type> isGoodsType(HttpServletRequest request, HttpServletResponse response){
+        String s = request.getParameter("typename");
+        Type allGoodsType = typeService.isAllGoodsType(s);
+        int i = 0;
+        System.out.println(allGoodsType.getTypename());
+        if (allGoodsType.getTypename() != null){
+            i=1;
+        }
+        return Result.resultNameStatus(i);
+    }
+    public ResultData<Type> isMType(HttpServletRequest request, HttpServletResponse response){
+        String s = request.getParameter("typename");
+        Type allGoodsType = typeService.isAllMType(s);
+        int i = 0;
+        System.out.println(allGoodsType.getTypename());
+        if (allGoodsType.getTypename() != null){
+            i=1;
+        }
+        return Result.resultNameStatus(i);
+    }
+    public ResultData<Type> isfreeType(HttpServletRequest request, HttpServletResponse response){
+        String s = request.getParameter("typename");
+        Type allGoodsType = typeService.isAllfreeType(s);
+        int i = 0;
+        System.out.println(allGoodsType.getTypename());
+        if (allGoodsType.getTypename() != null){
+            i=1;
+        }
+        return Result.resultNameStatus(i);
+    }
+    public ResultData<Type> isdosage(HttpServletRequest request, HttpServletResponse response){
+        String s = request.getParameter("typename");
+        Type allGoodsType = typeService.isAlldosage(s);
+        int i = 0;
+        System.out.println(allGoodsType.getTypename());
+        if (allGoodsType.getTypename() != null){
+            i=1;
+        }
+        return Result.resultNameStatus(i);
+    }
+
+
 
 
     //添加分类
@@ -71,6 +132,7 @@ public class TypeServlet extends BaseServlet {
     //删除分类
     public ResultData<Type> delGoodsType(HttpServletRequest request, HttpServletResponse response){
         String type = request.getParameter("type");
+        System.out.println(type);
         int i = typeService.delGoodsType(type);
         return Result.resultStatus(i);
     }

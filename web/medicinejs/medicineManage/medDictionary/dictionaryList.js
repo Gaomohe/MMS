@@ -14,8 +14,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 	var select3;
 	var select4;
 	// var arr;
-
-
 	// 前端分页
 	var tableIns=tableX.render({
 		elem: '#xTable1',
@@ -260,29 +258,62 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 		],
 		height: 390
 	});
+	table.on('toolbar(xTable1)', function(obj){
+		var checkStatus = table.checkStatus(obj.config.id);
+		var data = checkStatus.data;
+		var roleid = '';
+		for(i=0;i<data.length;i++){
+			roleid = data[i].id;
+		}
+		switch(obj.event){
+			case 'delRole':	//删除角色
+				if(data.length != 1){
+					layer.msg("请选择一行数据进行操作")
+					return false;
+				}
+				layer.confirm('删除角色后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
+					delRole(roleid);
+					layer.close(index);
+				});
+				break;
 
+			case 'upRole':	//修改角色
+				if(data.length != 1){
+					layer.msg("请选择一行数据进行操作")
+					return false;
+				}else{
+					upRole(roleid);
+				}
+				break;
+
+			case 'addRole':	//新增角色
+				addRole();
+				break;
+
+			case 'hairMenu':	//修改角色权限
+				if(data.length == 0 || data.length > 1){
+					layer.msg("请选择一行数据进行操作")
+					return ;
+				}else{
+					hairMenu(roleid);
+				}
+				break;
+		};
+	});
+	//点击搜索查询
 	$("#searchByQuerys").click(function () {
 		select1 = $("#select1").val();
 		select2 = $("#select2").val();
 		select3 = $("#select3").val();
 		select4 = $("#select4").val();
-		console.log(select1);
-		console.log(select2);
-		console.log(select3);
-		console.log(select4);
-		let arr = new Set();
-
-		arr.add(select1);
-		arr.add(select2);
-		arr.add(select3);
-		arr.add(select4);
-		console.log("aaaaaaaaa");
-		console.log(arr);
 		$.ajax({
 			url: '/medicine?action=getMedicineByQuery', // 后端处理数据的URL
 			type: "POST", // 或 'GET'，取决于后端接口的要求
 			data: {
-				"query":arr
+				select1,
+				select2,
+				select3,
+				select4
 			},
 			dataType:"JSON",
 			success: function(response) {
@@ -296,7 +327,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 			}
 		});
 	});
-
+	//查询方法
 	function renderTable(data) {
 		layui.use('table', function(){
 			var table = layui.table;
@@ -541,51 +572,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 			});
 		});
 	}
-
-
+	//加载时间
 	setTimeout(function () {
 		table.resize('xTable1');
 	}, 200);
-	table.on('toolbar(xTable1)', function(obj){
-		var checkStatus = table.checkStatus(obj.config.id);
-		var data = checkStatus.data;
-		var roleid = '';
-		for(i=0;i<data.length;i++){
-			roleid = data[i].id;
-		}
-		switch(obj.event){
-			case 'delRole':	//删除角色
-				if(data.length != 1){
-					layer.msg("请选择一行数据进行操作")
-					return false;
-				}
-				layer.confirm('删除角色后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
-					delRole(roleid);
-					layer.close(index);
-				});
-				break;
-
-			case 'upRole':	//修改角色
-				if(data.length != 1){
-					layer.msg("请选择一行数据进行操作")
-					return false;
-				}else{
-					upRole(roleid);
-				}
-				break;
-
-			case 'addRole':	//新增角色
-				addRole();
-				break;
-
-			case 'hairMenu':	//修改角色权限
-				if(data.length == 0 || data.length > 1){
-					layer.msg("请选择一行数据进行操作")
-					return ;
-				}else{
-					hairMenu(roleid);
-				}
-				break;
-		};
-	});
 });

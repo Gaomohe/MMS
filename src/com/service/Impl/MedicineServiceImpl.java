@@ -71,7 +71,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public List<Medicine> getAllMedicine(int index, int limit, String type, String title) {
         int page = (index-1)*limit;
-        return medicineDao.getAllMedicine(type,title);
+        return medicineDao.getAllMedicine(page,limit,type,title);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public List<Medicine> getMedicineByQuery(String[] query) {
         int i = 0;
-        String[] condition = new String[4];
+        String[] condition = new String[query.length];
         for (String s:query){
             if (s.equals(" ")){
                 condition[i] = "%";

@@ -23,6 +23,15 @@ public interface TypeService {
     //查询剂型
     public List<Type> getAlldosage();
 
+    //重名验证
+    public Type isAllGoodsType(String type);
+    //查询药品类
+    public Type isAllMType(String type);
+    //查询自定义类
+    public Type isAllfreeType(String type);
+    //查询剂型
+    public Type isAlldosage(String type);
+
     //删除商品类
     public int delGoodsType(String type);
     //删除药品类

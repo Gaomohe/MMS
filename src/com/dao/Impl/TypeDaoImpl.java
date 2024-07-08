@@ -119,6 +119,75 @@ public class TypeDaoImpl implements TypeDao {
         return list;
     }
 
+    //重名验证
+    @Override
+    public Type isAllGoodsType(String type) {
+        String sql = "SELECT * FROM `goodscategory` WHERE typeName=?";
+        Type type1 = new Type();
+        Object[] objects = new Object[1];
+        objects[0] = type;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        try{
+            while (resultSet.next()){
+                type1.setTypename(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return type1;
+    }
+
+    @Override
+    public Type isAllMType(String type) {
+        String sql = "SELECT * FROM `drugclassification` WHERE typeName=?";
+        Type type1 = new Type();
+        Object[] objects = new Object[1];
+        objects[0] = type;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        try{
+            while (resultSet.next()){
+                type1.setTypename(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return type1;
+    }
+
+    @Override
+    public Type isAllfreeType(String type) {
+        String sql = "SELECT * FROM `customclassification` WHERE typeName=?";
+        Type type1 = new Type();
+        Object[] objects = new Object[1];
+        objects[0] = type;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        try{
+            while (resultSet.next()){
+                type1.setTypename(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return type1;
+    }
+
+    @Override
+    public Type isAlldosage(String type) {
+        String sql = "SELECT * FROM `dosageform` WHERE typeName=?";
+        Type type1 = new Type();
+        Object[] objects = new Object[1];
+        objects[0] = type;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        try{
+            while (resultSet.next()){
+                type1.setTypename(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return type1;
+    }
+
     //删除分类
     @Override
     public int delGoodsType(String type) {
