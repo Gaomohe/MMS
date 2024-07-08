@@ -57,6 +57,7 @@ public class AppointServiceImpl implements AppointService {
                 appointment.setFinance(resultSet.getString(21));
                 appointment.setFinanceApprove(resultSet.getString(22));
                 appointment.setFinanceTime(resultSet.getString(23));
+                appointment.setTableCoding(resultSet.getInt(24));
                 appointList.add(appointment);
             }
             layuiTable.setCode(0);
