@@ -23,6 +23,7 @@ public class Appointment {
     private String finance;
     private String financeApprove;
     private String financeTime;
+    private int tableCoding;
 
     public double getPurchasePrice() {
         return purchasePrice;
@@ -201,5 +202,13 @@ public class Appointment {
 
     public void setFinanceTime(String financeTime) {
         this.financeTime = financeTime;
+    }
+
+    public int getTableCoding() {
+        return tableCoding;
+    }
+
+    public void setTableCoding(int tableCoding) {
+        this.tableCoding = tableCoding;
     }
 }

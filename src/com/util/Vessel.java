@@ -27,4 +27,7 @@ public class Vessel {
     public static OrdersService ordersService = new OrdersServiceImpl();
 
     public static ShoppingService shoppingService = new ShoppingServiceImpl();
+
+    public static StockInFormDao stockInFormDao = new StockInFormDaoImpl();
+    public static StockInFormService stockInFormService = new StockInFormServiceImpl();
 }
