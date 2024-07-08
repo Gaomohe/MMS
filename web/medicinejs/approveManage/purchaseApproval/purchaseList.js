@@ -8,10 +8,10 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
-
     laydate.render({
         elem: '#ID-laydate-demo'
     });
+
     //表格渲染
     var tableIns = table.render({
         elem: '#purchaseList',
@@ -51,6 +51,7 @@ layui.extend({
 
         }
     });
+
     table.on('toolbar(supplierList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
