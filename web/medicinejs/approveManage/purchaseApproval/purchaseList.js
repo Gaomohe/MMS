@@ -8,11 +8,6 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
-    console.log("为什么")
-    laydate.render({
-        elem: '#ID-laydate-demo'
-    });
-
     //表格渲染
     var tableIns = table.render({
         elem: '#purchaseList',
@@ -53,18 +48,67 @@ layui.extend({
         }
     });
 
-    table.on('toolbar(supplierList)', function(obj){
+    table.on('toolbar(purchaseList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
-        var supplierId = '';
+        var purchId = '';
         for(i=0;i<data.length;i++){
-            supplierId = data[i].sid;//这里得和上面的field里的id名对应
+            purchId = data[i].sid;//这里得和上面的field里的id名对应
         }
         switch(obj.event){
+            case 'time':
+                laydate.render({
+                    elem: '#ID-laydate-demo',
+                });
+                break;
+            case 'query':
+                //查询
+                query();
+                break;
+            case 'reset':
+                //重置
+                reset();
+                break;
+            case 'del':
+                //删除
+                break;
+            case 'audit':
+                //审核
+                break;
+            case 'noaudit':
+                //反审核
+                break;
+            case 'export':
+                //导出
+                break;
 
         }
 
     });
+    function query(){
+        var idValue = document.querySelector('input[name="id"]').value
+        var nameValue = document.querySelector('input[name="zname"]').value
+        var timeValue = document.querySelector('input[name="time"]').value
+
+        var applyuser = document.getElementById('applyuser').value;
+        var state = document.getElementById('state').value;
+        var macuser = document.getElementById('macuser').value;
+        var cw = document.getElementById('cw').value;
+        tableIns.reload({
+            url : '/approval?action=search',
+            where: { // 新的查询参数
+                idValue,nameValue,timeValue,applyuser,state,macuser,cw
+            },
+            type:'static',
+            page: false
+        });
+
+    }
+    function reset(){
+        // document.querySelector('input[name="id"]').value='';
+        window.location.reload()
+
+    }
 
 
 

@@ -4,6 +4,7 @@ import com.pojo.User;
 import com.util.ResultData;
 
 import java.sql.ResultSet;
+import java.util.List;
 
 public interface UserDao {
     //用户登录
@@ -21,6 +22,12 @@ public interface UserDao {
     //根据id查询用户名称
     public ResultSet getNameById(int id);
 
+    //申请人姓名回显
+    public List<User> getAppUser();
 
+    //药师姓名的回显
+    public List<User> getPhaName();
 
+    //财务姓名的回显
+    public List<User> getFinName();
 }

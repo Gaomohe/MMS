@@ -36,7 +36,7 @@
 <div class="layui-inline">
     <label style="width: auto" class="layui-form-label">申请编号:</label>
     <div class="layui-input-inline">
-        <input type="text" name="email" lay-verify="email" placeholder="请输入申请编号" autocomplete="off" class="layui-input">
+        <input type="text" name="id" lay-verify="id" placeholder="请输入申请编号" autocomplete="off" class="layui-input">
     </div>
 </div>
 
@@ -44,47 +44,54 @@
 <div class="layui-inline">
     <label style="width: auto" class="layui-form-label">药品名称:</label>
     <div class="layui-input-inline">
-        <input type="text" name="email" lay-verify="email" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
+        <input type="text" name="zname" lay-verify="zname" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
     </div>
 </div>
 <%--申请时间--%>
 <div class="layui-inline">
     <label style="width: auto" class="layui-form-label">申请时间:</label>
     <div class="layui-input-inline">
-        <input type="text" class="layui-input" id="ID-laydate-demo" placeholder="请选择时间">
+        <input type="text" name="time" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="请选择时间日期">
     </div>
 </div>
 <hr class="layui-border-green">
 <%--            申请人--%>
 <div class="layui-form layui-row layui-col-space16">
     <div class="layui-col-md2">
-        <select lay-search="">
+        <select id="applyuser">
             <option value="">申请人</option>
-            <option value="1">AAA</option>
-
+            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
+                <option value="${aaaa}">${aaaa}</option>
+            </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
-        <select lay-search="">
+        <select id="state">
             <option value="">状态</option>
-            <option value="1">AAA</option>
+            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
+                <option value="${aaaa}">${aaaa}</option>
+            </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
-        <select lay-search="">
+        <select id="macuser">
             <option value="">药师</option>
-            <option value="1">AAA</option>
+            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
+                <option value="${aaaa}">${aaaa}</option>
+            </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
-        <select lay-search="">
+        <select id="cw">
             <option value="">财务</option>
-            <option value="1">AAA</option>
+            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
+                <option value="${aaaa}">${aaaa}</option>
+            </c:forEach>
         </select>
     </div>
     <div class="layui-col-md4">
-        <button type="button" class="layui-btn layui-bg-blue">查询</button>
-        <button class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
+        <button type="button" lay-event="query" class="layui-btn layui-bg-blue">查询</button>
+        <button lay-event="reset" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
     </div>
 
 
@@ -92,10 +99,10 @@
 </div>
 
 <hr class="layui-border-green">
-<button class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
-<button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
-<button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
-<button class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
+<button lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+<button lay-event="audit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
+<button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
+<button lay-event="export" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
 
 
         </script>

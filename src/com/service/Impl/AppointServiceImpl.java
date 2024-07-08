@@ -119,6 +119,7 @@ public class AppointServiceImpl implements AppointService {
                     apply.setSupplier(medicine.getSupplier());
                     apply.setApprovalNumber(medicine.getApprovalNumber());
                     apply.setPlaceOrigin(medicine.getPlaceOrigin());
+                    apply.setTableCoding(medicine.getTableCoding());
                     i = appointDao.insertApply(apply);
                 }
             }

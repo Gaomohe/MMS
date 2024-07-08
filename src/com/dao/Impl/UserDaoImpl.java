@@ -7,6 +7,7 @@ import com.util.JDBC;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -61,5 +62,76 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
         Object[] objects = new Object[1];
         objects[0] = id;
         return JDBC.select(sql,objects);
+    }
+
+    //申请人姓名回显
+    @Override
+    public List<User> getAppUser() {
+        String sql = "select * from user where id > ?";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<User> userList = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt(1));
+                user.setUserName(resultSet.getString(2));
+                userList.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    //药师姓名的回显
+    @Override
+    public List<User> getPhaName() {
+        String sql = "select * from user\n" +
+                "where id in (\n" +
+                "    select userId from user_role\n" +
+                "    where roleId = 3\n" +
+                "    );";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<User> userList = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt(1));
+                user.setUserName(resultSet.getString(2));
+                userList.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    //财务姓名的回显
+    @Override
+    public List<User> getFinName() {
+        String sql = "select * from user\n" +
+                "where id in (\n" +
+                "    select userId from user_role\n" +
+                "    where roleId = ?\n" +
+                "    );";
+        Object[] objects = new Object[1];
+        objects[0] = 4;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<User> userList = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt(1));
+                user.setUserName(resultSet.getString(2));
+                userList.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return userList;
     }
 }
