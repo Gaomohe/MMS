@@ -40,7 +40,7 @@ public class FinancialServlet extends BaseServlet {
         int limit = Integer.parseInt(limitStr);
         int page = Integer.parseInt(pageStr);
         String applyCode = request.getParameter("applyCode");
-        int applyId =0;
+        int applyId = 0;
         if (applyCode != null && !applyCode.trim().isEmpty()) {
             applyId = Integer.parseInt(applyCode);
         }
@@ -53,7 +53,10 @@ public class FinancialServlet extends BaseServlet {
         String finName = request.getParameter("finName");
 
         Apply apply = new Apply();
-        apply.setApplyId(applyId);
+        if (applyId > 0){
+            apply.setApplyId(applyId);
+        }
+        System.out.println(apply.getApplyId());
         apply.setmName(mName != null ? mName : "");
         apply.setApplyTime(applyTime != null ? applyTime : "");
         apply.setFinanceApprove(status != null ? status : "");
