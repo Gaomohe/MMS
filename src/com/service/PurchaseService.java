@@ -1,7 +1,10 @@
 package com.service;
 
 import com.pojo.Appointment;
+import com.pojo.User;
 import com.util.LayuiTable;
+
+import java.util.List;
 
 public interface PurchaseService {
     //获取全部未批准

@@ -46,4 +46,20 @@ public class InitDaoImpl {
         String sql = "select distinct "+columnName+" from "+tableName;
         return JDBC.select(sql,new Object[1]);
     }
+
+    //搜索---------------------参数(列名数组,搜索值数组，表名)
+    public ResultSet search(String[] keys,String[] values,String table){
+        StringBuilder sqlbuild = new StringBuilder("select * from " + table + " where ");
+        for (int i = 0; i < keys.length-1; i++) {
+            sqlbuild.append(keys[i]).append(" like ? and ");
+        }
+        sqlbuild.append(keys[keys.length-1]).append(" like ?");
+        Object[] objects = new Object[values.length];
+        for (int i = 0; i < values.length; i++) {
+            objects[i]="%"+values[0]+"%";
+        }
+        String sql = sqlbuild.toString();
+        return JDBC.select(sql, objects);
+
+    }
 }

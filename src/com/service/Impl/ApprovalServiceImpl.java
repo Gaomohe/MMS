@@ -3,7 +3,9 @@ package com.service.Impl;
 import com.dao.Impl.ApprovalDaoImpl;
 import com.pojo.Apply;
 import com.pojo.Appointment;
+import com.pojo.User;
 import com.service.ApprovalService;
+import com.util.LayuiTable;
 import com.util.ResultData;
 
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.util.List;
 
 public class ApprovalServiceImpl implements ApprovalService {
     ApprovalDaoImpl approvalDao = new ApprovalDaoImpl();
+    LayuiTable<Appointment> appointmentLayuiTable = new LayuiTable<>();
     ResultData<List<Appointment>> appointmentResultData = new ResultData<>();
     @Override
     public ResultData<List<Appointment>> getAuditId(int[] id) {
@@ -59,5 +62,28 @@ public class ApprovalServiceImpl implements ApprovalService {
                 }
 
         return appointmentResultData;
+    }
+
+    @Override
+    public List<User> getApplyUser() {
+        List<User> userList = new ArrayList<>();
+        ResultSet kind = approvalDao.getKind("applyUser", "apply");
+        try {
+            while (kind.next()){
+                User user = new User();
+                user.setUserName(kind.getString("applyUser"));
+                userList.add(user);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    @Override
+    public LayuiTable<Appointment> search(String[] keys, String[] values) {
+
+        return appointmentLayuiTable;
     }
 }

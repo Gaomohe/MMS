@@ -15,7 +15,7 @@ layui.extend({
         cellMinWidth : 95,
         page : true,
         toolbar: '#purchaseDemo',
-        height : "full-125",
+        height : "full-25",
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
@@ -147,7 +147,7 @@ layui.extend({
             title : "审批",
             type : 2,
             content : "medicine/approveManage/purchaseApproval/audit.jsp",
-            area:['800px','500px'],
+            area:['900px','500px'],
             success:function (layero, index){
                 $.ajax({
                     url:"/approval?action=getAuditId",//根据id将状态改成“以审批”
@@ -155,18 +155,20 @@ layui.extend({
                     data:{dataString},
                     success:function(data){
                         var info = JSON.parse(data).data;
-                        console.log("审批")
-
                         var iframe = layer.getChildFrame('body', index);
                         var rowsHtml = '';
-                        console.log(info)
+                        $(document).ready(function(){
+                            form.render('checkbox');
+                        });
                         $.each(info, function(i, item) {
-                            console.log(item)
                             rowsHtml += '<tr>';
-                            rowsHtml += '<td>' +  '</td>';
+                            rowsHtml += '<td><input type="checkbox" id="'+i+'" name="'+item.mName+'" value="'+item.applyId+'"></td>';
                             rowsHtml += '<td>' + item.applyId + '</td>';
                             rowsHtml += '<td>' + item.mName + '</td>';
                             rowsHtml += '<td>' + item.number + '</td>';
+                            rowsHtml += '<td>功效</td>';
+                            rowsHtml += '<td>规格</td>';
+                            rowsHtml += '<td>状态</td>';
                             rowsHtml += '<td>' + item.applyNumber + '</td>';
                             rowsHtml += '</tr>';
                         });
@@ -180,6 +182,7 @@ layui.extend({
 
     }
     function query(){
+        console.log("hello")
         var idValue = document.querySelector('input[name="id"]').value
         var nameValue = document.querySelector('input[name="zname"]').value
         var timeValue = document.querySelector('input[name="time"]').value
@@ -188,11 +191,17 @@ layui.extend({
         var state = document.getElementById('state').value;
         var macuser = document.getElementById('macuser').value;
         var cw = document.getElementById('cw').value;
+        var array = {"idValue":idValue,
+            "nameValue":nameValue,
+            "timeValue":timeValue,
+            "applyuser":applyuser,
+            "state":state,
+            "macuser":macuser,
+            "cw":cw
+        };
         tableIns.reload({
             url : '/approval?action=search',
-            where: { // 新的查询参数
-                idValue,nameValue,timeValue,applyuser,state,macuser,cw
-            },
+            where: array,
             type:'static',
             page: false
         });
