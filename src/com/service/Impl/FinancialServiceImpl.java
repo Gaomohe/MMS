@@ -1,16 +1,15 @@
 package com.service.Impl;
 
-import com.dao.Impl.FinancialDaoImpl;
 import com.pojo.Apply;
 import com.service.FinancialService;
 import com.util.LayuiTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.util.Vessel.financialDao;
 
 public class FinancialServiceImpl implements FinancialService {
-    FinancialDaoImpl financialDaoImpl = new FinancialDaoImpl();
-    /*
     @Override
     public LayuiTable<Apply> getAppointList(int page, int limit, Apply apply) {
         List<Apply> applyAll = new ArrayList<>();
@@ -24,18 +23,6 @@ public class FinancialServiceImpl implements FinancialService {
         layuiTable.setCode(0);
         layuiTable.setCount(applyAll.size());
         layuiTable.setData(applyAll);
-        return layuiTable;
-    }
-    * */
-
-    @Override
-    public LayuiTable<Apply> getAppointList(int page, int limit, Apply apply) {
-//        List<Apply> applyAll = financialDaoImpl.search();
-        LayuiTable<Apply> layuiTable = new LayuiTable<>();
-        layuiTable.setMsg("");
-        layuiTable.setCode(0);
-//        layuiTable.setCount(applyAll.size());
-//        layuiTable.setData(applyAll);
         return layuiTable;
     }
 }
