@@ -91,10 +91,10 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
         String sql = "select * from user\n" +
                 "where id in (\n" +
                 "    select userId from user_role\n" +
-                "    where roleId = 3\n" +
+                "    where roleId = ?\n" +
                 "    );";
         Object[] objects = new Object[1];
-        objects[0] = 0;
+        objects[0] = 3;
         ResultSet resultSet = JDBC.select(sql,objects);
         List<User> userList = new ArrayList<>();
         try{

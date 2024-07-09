@@ -9,10 +9,18 @@ layui.extend({
         table = layui.table,
         dtree = layui.dtree;  // 只在这里加载 dtree
 
-    laydate.render({
-        elem: '#financialList'
+    $(document).ready(function(){
+        laydate.render({
+            elem: '#time'
+        });
     });
-
+    var applyCode;//申请编号
+    var mName;//药品名称
+    var applyTime;//申请时间
+    var status;//状态
+    var applyName;//申请人
+    var phaName;//药师
+    var finName;//财务
     //表格渲染
     var tableIns = table.render({
         elem: '#financialList',
@@ -53,7 +61,37 @@ layui.extend({
 
         }
     });
+    //申请编号
+    document.querySelector('input[name="code"]').addEventListener('input', function(e){
+        var codeValue = e.target.value; // 获取输入框的当前值
+        console.log("实时输入申请编号：" + codeValue);
+        applyCode = codeValue;
+    });
 
+    //药品名称
+    document.querySelector('input[name="mName"]').addEventListener('input', function(e){
+        var codeValue = e.target.value; // 获取输入框的当前值
+        console.log("药品名称：" + codeValue);
+        mName = codeValue;
+    });
+
+    //申请时间
+    laydate.render({
+        elem: '#time',
+        type: 'date',
+        done: function(value, date, endDate){
+            // 这里的 value 就是用户选择的时间值
+            console.log('用户选择的时间：', value);
+            applyTime=value;
+        }
+    });
+    /*document.getElementById('time').addEventListener('input', function(e){
+        // 注意：如果用户是通过 laydate 选择的时间，这个事件不会触发。
+        var timeValue = e.target.value;
+        console.log('输入框中的时间值：', timeValue);
+    });*/
+
+    //申请人选择下拉框
     $.post("/user?action=getAppUser",
         function(res) {
             console.log(res);
@@ -70,9 +108,35 @@ layui.extend({
             } catch (e) {
                 console.error("Error parsing JSON:", e);
             }
+            form.on('select(applyUser)', function(data){
+                var selectedValue = data.value; // 获取被选中的药师ID
+                var selectedName = "";
+
+                $.each(cs, function(index, item) {
+                    console.log(index);
+                    console.log(item);
+                    console.log(item.id);
+                    if (item.id == selectedValue) {
+                        selectedName = item.userName; // 找到对应的药师名字
+                        return false; // 找到后退出循环
+                    }
+                });
+                console.log("申请人：" + selectedName);
+                applyName = selectedName;
+            });
         }
     )
 
+    //状态选择下拉框
+    form.on('select(status)', function(data){
+        var selectedValue = data.value; // 获取被选中的状态码
+        var selectedText = data.elem.options[data.elem.selectedIndex].text; // 获取被选中的状态文本
+        console.log("被选中的状态码是：" + selectedValue);
+        console.log("被选中的状态是：" + selectedText);
+        status = selectedText;
+    });
+
+    //药师选择下拉框
     $.post("/user?action=getPhaName",
         function(res) {
             console.log(res);
@@ -89,9 +153,26 @@ layui.extend({
             } catch (e) {
                 console.error("Error parsing JSON:", e);
             }
+            form.on('select(pharmacist)', function(data){
+                var selectedValue = data.value; // 获取被选中的药师ID
+                var selectedName = "";
+
+                $.each(cs, function(index, item) {
+                    console.log(index);
+                    console.log(item);
+                    console.log(item.id);
+                    if (item.id == selectedValue) {
+                        selectedName = item.userName; // 找到对应的药师名字
+                        return false; // 找到后退出循环
+                    }
+                });
+                console.log("被选中的药师名字是：" + selectedName);
+                phaName = selectedName;
+            });
         }
     )
 
+    //财务选择下拉框
     $.post("/user?action=getFinName",
         function(res) {
             console.log(res);
@@ -104,6 +185,22 @@ layui.extend({
             });
             dom.html(html);
             layui.form.render("select") // 重新渲染下拉框
+            form.on('select(financial)', function(data){
+                var selectedValue = data.value; // 获取被选中的药师ID
+                var selectedName = "";
+
+                $.each(cs, function(index, item) {
+                    console.log(index);
+                    console.log(item);
+                    console.log(item.id);
+                    if (item.id == selectedValue) {
+                        selectedName = item.userName; // 找到对应的药师名字
+                        return false; // 找到后退出循环
+                    }
+                });
+                console.log("被选中的药师名字是：" + selectedName);
+                finName = selectedName;
+            })
         }
     )
 
