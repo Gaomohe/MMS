@@ -30,4 +30,8 @@ public class Vessel {
 
     public static StockInFormDao stockInFormDao = new StockInFormDaoImpl();
     public static StockInFormService stockInFormService = new StockInFormServiceImpl();
+    public static StockOutFormDao stockOutFormDao = new StockOutFormDaoImpl();
+
+    public static StockOutFormService stockOutFormService = new StockOutFormServiceImpl();
+
 }
