@@ -1,6 +1,7 @@
 package com.pojo;
 
 public class Apply {
+    private int applyId;
     private int mId;
     private String mName;
     private String specification;
@@ -24,6 +25,14 @@ public class Apply {
     private String financeApprove;
     private String financeTime;
     private int tableCoding;
+
+    public int getApplyId() {
+        return applyId;
+    }
+
+    public void setApplyId(int applyId) {
+        this.applyId = applyId;
+    }
 
     public int getmId() {
         return mId;

@@ -17,6 +17,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.5.5/css/layui.css" media="all" />
+  <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.9.13/layui/css/layui.css" media="all" />
   <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
   <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.css">
   <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
@@ -26,53 +27,70 @@
 <div class="layuimini-container">
   <div class="layuimini-main">
     <blockquote class="layui-elem-quote quoteBox">
-      药品入库单列表
+      药品出库单列表
     </blockquote>
-    <script type="text/html" id="stockInFormDemo">
-      <%--出库单号--%>
-      <div class="layui-inline">
-        <label style="width: auto" class="layui-form-label">出库单号:</label>
-        <div class="layui-input-inline">
-          <input type="text" name="rId" lay-verify="rId" placeholder="请输入出库单号" autocomplete="off" class="layui-input">
-        </div>
+
+    <div class="layui-inline">
+      <label style="width: auto" class="layui-form-label">出库单号:</label>
+      <div class="layui-input-inline">
+        <input type="text" name="rId" lay-verify="rId" placeholder="请输入出库单号" autocomplete="off" class="layui-input">
       </div>
-      <%--药品信息--%>
-      <%--            可通过药品名称查询有哪些药品是入库的--%>
-      <div class="layui-inline">
-        <label style="width: auto" class="layui-form-label">药品信息:</label>
-        <div class="layui-input-inline">
-          <input type="text" name="rName" lay-verify="rName" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
-        </div>
+    </div>
+    <%--药品信息--%>
+    <%--可通过药品名称查询有哪些药品是入库的--%>
+    <div class="layui-inline">
+      <label style="width: auto" class="layui-form-label">药品信息:</label>
+      <div class="layui-input-inline">
+        <input type="text" name="rName" lay-verify="rName" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
       </div>
-      <%--            可根据入库日期查询药品入库单信息--%>
-      <div style="position:relative;top: 1%;left: 10%">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <label class="layui-form-label">出库日期</label>
-            <div class="layui-inline" id="ID-laydate-rangeLinked">
-              <div class="layui-input-inline">
-                <input type="text" autocomplete="off" id="ID-laydate-start-date-1" class="layui-input" placeholder="开始日期">
-              </div>
-              <div class="layui-form-mid">-</div>
-              <div class="layui-input-inline">
-                <input type="text" autocomplete="off" id="ID-laydate-end-date-1" class="layui-input" placeholder="结束日期">
-              </div>
-            </div>
+    </div>
+
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label">出库日期:</label>
+        <div class="layui-inline" id="ID-laydate-rangeLinked">
+          <div class="layui-input-inline" style="">
+            <input type="text" autocomplete="off" id="ID-laydate-start-date-1" class="layui-input" placeholder="开始日期">
           </div>
-          <button type="button" class="layui-btn layui-bg-blue">查询</button>
-          <button class="layui-btn layui-btn-primary layui-border">重置</button>
+          <div class="layui-form-mid">-</div>
+          <div class="layui-input-inline">
+            <input type="text" autocomplete="off" id="ID-laydate-end-date-1" class="layui-input" placeholder="结束日期">
+          </div>
         </div>
+        <button type="button" class="layui-btn layui-bg-blue">查询</button>
+        <button class="layui-btn layui-btn-primary layui-border">重置</button>
       </div>
+    </div>
+
+    <%--可根据入库日期查询药品入库单信息--%>
 
 
+
+    <script type="text/html" id="stockOutFormDemo">
       <c:forEach var="menu" items="${menuList}" varStatus="s">
         ${menu.resUrl}
       </c:forEach>
     </script>
 
-    <table id="stockInFormList" lay-filter="stockInFormList"></table>
+    <table id="stockOutFormList" lay-filter="stockOutFormList"></table>
   </div>
 </div>
+
+<!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+<script src="//unpkg.com/layui@2.9.13/dist/layui.js"></script>
+<script>
+  layui.use(function () {
+    var laydate = layui.laydate;
+
+    // 日期范围 - 左右面板联动选择模式
+    laydate.render({
+      elem: '#ID-laydate-rangeLinked',
+      range: ['#ID-laydate-start-date-1', '#ID-laydate-end-date-1'],
+      rangeLinked: true // 开启日期范围选择时的区间联动标注模式 ---  2.8+ 新增
+    });
+
+  });
+</script>
 
 <!-- 权限更改 -->
 <div style="height: 400px;overflow: auto;display: none" id="dtree1">
@@ -80,6 +98,7 @@
 </div>
 
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockInForm/stockInFormList.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockOutForm/stockOutFormList.js" charset="utf-8"></script>
 </body>
 </html>

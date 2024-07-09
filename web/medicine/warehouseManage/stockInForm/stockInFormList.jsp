@@ -27,6 +27,10 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
 
+        <blockquote class="layui-elem-quote quoteBox">
+            药品入库单列表
+        </blockquote>
+
         <div class="layui-inline">
             <label style="width: auto" class="layui-form-label">入库单号:</label>
             <div class="layui-input-inline">
@@ -97,7 +101,7 @@
             <ul id="dataTree3" class="dtree" data-id="0"></ul>
         </div>
 
-        <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockInForm/stockInFormList.js" charset="utf-8"></script>
 </body>
