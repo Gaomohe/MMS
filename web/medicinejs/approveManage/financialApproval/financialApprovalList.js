@@ -21,6 +21,8 @@ layui.extend({
     var applyName;//申请人
     var phaName;//药师
     var finName;//财务
+
+    let arrayList = new Set();
     //表格渲染
     var tableIns = table.render({
         elem: '#financialList',
@@ -50,10 +52,10 @@ layui.extend({
             {field: 'placeOrigin', title: '产地',  align:'center'},
             {field: 'applyUser' ,title:'申请人', align:'center'},
             {field: 'applyTime' ,title:'申请时间', align:'center'},
-            {field: 'pharmacist' ,title:'药师审批人', align:'center'},
+            {field: 'pharmacist' ,title:'药师', align:'center'},
             {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
             {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
-            {field: 'finance' ,title:'财务审批人', align:'center'},
+            {field: 'finance' ,title:'财务', align:'center'},
             {field: 'financeApprove' ,title:'财务审批', align:'center'},
             {field: 'financeTime' ,title:'财务审批时间', align:'center'}
         ]],
@@ -203,6 +205,87 @@ layui.extend({
             })
         }
     )
+
+    table.on('toolbar(financialList)', function(obj) {
+        console.log("sasasasasa");
+        var checkStatus = table.checkStatus(obj.config.id);
+        var data = checkStatus.data;
+        var applyIds = []; // 用来存储所有选中行的 applyId
+
+        for (let i = 0; i < data.length; i++) {
+            applyIds.push(data[i].applyId); // 将每个选中行的 applyId 添加到数组中
+        }
+        // 根据点击的按钮事件执行相应的操作
+        switch (obj.event) {
+            case 'search':
+                search(applyIds); // 将 applyIds 数组作为参数传递给 search 函数
+                break;
+            // 可以添加更多 case 来处理其他按钮点击事件
+        }
+    });
+
+
+    /*var data={
+        "applyCode":applyCode,
+        "mName":mName,
+        "applyTime":applyTime,
+        "status":status,
+        "applyName":applyName,
+        "phaName":phaName,
+        "finName":finName
+    }*/
+
+    arrayList.add(applyCode);
+    arrayList.add(mName);
+    arrayList.add(applyTime);
+    arrayList.add(status);
+    arrayList.add(applyName);
+    arrayList.add(phaName);
+    arrayList.add(finName);
+    /*laydate.render({
+                elem: '#financialList',
+                done:function(value){
+                    tableIns.reload({
+                        url:"/financial?action=Search",
+                        where : {
+                            "applyCode":applyCode,
+                            "mName":mName,
+                            "applyTime":applyTime,
+                            "status":status,
+                            "applyName":applyName,
+                            "phaName":phaName,
+                            "finName":finName
+                        },
+                        type : 'static',
+                        page : true,
+                        limit : 20,
+                        limits : [10,15,20,25]
+                    })
+                }
+            })*/
+    //查询
+    function search(){
+        $.ajax({
+            url:"/financial?action=Search",//根据id查询的方法
+            type:"post",
+            data:{
+                "applyCode":applyCode,
+                "mName":mName,
+                "applyTime":applyTime,
+                "status":status,
+                "applyName":applyName,
+                "phaName":phaName,
+                "finName":finName,
+                limit : 20,
+                limits : [10,15,20,25],
+                page: 1
+            },
+
+            success:function(res){
+                tableIns.reload();
+            }
+        })
+    }
 
 
 });

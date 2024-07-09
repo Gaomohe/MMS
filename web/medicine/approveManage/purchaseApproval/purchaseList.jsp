@@ -60,32 +60,31 @@
     <div class="layui-col-md2">
         <select id="applyuser">
             <option value="">申请人</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
+            <c:forEach var="applyUser" items="${applyUser}" varStatus="s">
+                <option value="${applyUser.userName}">${applyUser.userName}</option>
             </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
         <select id="state">
             <option value="">状态</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
-            </c:forEach>
+                <option value="未审批">未审批</option>
+                <option value="已审批">已审批</option>
         </select>
     </div>
     <div class="layui-col-md2">
         <select id="macuser">
             <option value="">药师</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
+            <c:forEach var="phaName" items="${phaName}" varStatus="s">
+                <option value="${phaName.userName}">${phaName.userName}</option>
             </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
         <select id="cw">
             <option value="">财务</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
+            <c:forEach var="finName" items="${finName}" varStatus="s">
+                <option value="${finName.userName}">${finName.userName}</option>
             </c:forEach>
         </select>
     </div>

@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.dao.PurchaseDao;
+import com.pojo.Apply;
 import com.service.Impl.PurchaseServiceImpl;
 import com.service.PurchaseService;
 import com.util.BaseServlet;
@@ -26,4 +27,6 @@ public class PurchaseServlet extends BaseServlet {
         page = (page-1)*limit;
         ToJSON.toJson(response,purchaseService.getAppointList(page,limit));
     }
+
+
 }
