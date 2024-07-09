@@ -56,9 +56,11 @@ layui.extend({
         for(i=0;i<data.length;i++){
             purchId = data[i].applyId;//这里得和上面的field里的id名对应
         }
-        var array = new Array();
+        var array = [];
+        var state = [];
         for (let i = 0;i<data.length;i++){
-            array[i]=data[i].applyId
+            array[i]=data[i].applyId;
+            state[i]=data[i].pharmacistApprove
         }
         switch(obj.event){
             case 'time':
@@ -80,7 +82,7 @@ layui.extend({
                 break;
             case 'audit':
                 //审核
-                audit(array);
+                audit(array,state);
                 break;
             case 'noaudit':
                 //反审核
@@ -137,7 +139,13 @@ layui.extend({
             layer.msg('未清除');
         });
     }
-    function audit(array){
+    function audit(array,state){
+        for (let i = 0; i < state.length; i++) {
+            if (state[i]==="已审阅通过" || state[i]==="已审阅未通过"){
+                layer.alert("单据"+array[i]+"已审阅,请取消！");
+                return ;
+            }
+        }
         if (array.length===0){
             layer.msg("请选择一条记录");
             return ;
@@ -166,9 +174,9 @@ layui.extend({
                             rowsHtml += '<td>' + item.applyId + '</td>';
                             rowsHtml += '<td>' + item.mName + '</td>';
                             rowsHtml += '<td>' + item.number + '</td>';
-                            rowsHtml += '<td>功效</td>';
-                            rowsHtml += '<td>规格</td>';
-                            rowsHtml += '<td>状态</td>';
+                            rowsHtml += '<td>'+item.mType+'</td>';
+                            rowsHtml += '<td>'+item.specification+"/"+item.unit+'</td>';
+                            rowsHtml += '<td>'+item.pharmacistApprove+'</td>';
                             rowsHtml += '<td>' + item.applyNumber + '</td>';
                             rowsHtml += '</tr>';
                         });
@@ -181,8 +189,8 @@ layui.extend({
         })
 
     }
+
     function query(){
-        console.log("hello")
         var idValue = document.querySelector('input[name="id"]').value
         var nameValue = document.querySelector('input[name="zname"]').value
         var timeValue = document.querySelector('input[name="time"]').value
@@ -203,7 +211,9 @@ layui.extend({
             url : '/approval?action=search',
             where: array,
             type:'static',
-            page: false
+            page: false,
+            done:function (date){
+            }
         });
 
     }
@@ -223,7 +233,8 @@ layui.extend({
             type:"post",
             data:{dataString},
             success:function(data){
-                if (data.status===200){
+                var parse = JSON.parse(data);
+                if (parse.status===200){
                     layer.msg("删除成功", { icon: 1 });
                     tableIns.reload()
                 }else {

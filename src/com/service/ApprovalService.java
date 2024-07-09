@@ -15,4 +15,10 @@ public interface ApprovalService {
     public List<User> getApplyUser();
 
     public LayuiTable<Appointment> search(String[] keys,String[] values);
+
+    public ResultData<Integer> del(int[] ints);
+
+    public ResultData<Integer> isok(int[] ints);
+
+    public ResultData<Integer> nook(int[] ints);
 }

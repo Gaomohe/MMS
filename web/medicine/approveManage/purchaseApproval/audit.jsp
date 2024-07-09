@@ -54,7 +54,7 @@
             <th>单据编号</th>
             <th>药品名称</th>
             <th>药品库存</th>
-            <th>功效</th>
+            <th>种类</th>
             <th>规格</th>
             <th>状态</th>
             <th>申请数量</th>
@@ -89,8 +89,8 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="submit" id="tijao" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+            <button type="reset" id="cz" class="layui-btn layui-btn-primary">重置</button>
             <button type="reset" id="out_1" class="layui-btn layui-btn-primary">取消</button>
         </div>
     </div>
