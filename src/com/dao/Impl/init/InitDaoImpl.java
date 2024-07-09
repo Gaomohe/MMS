@@ -60,6 +60,6 @@ public class InitDaoImpl {
         }
         String sql = sqlbuild.toString();
         return JDBC.select(sql, objects);
-
     }
+
 }
