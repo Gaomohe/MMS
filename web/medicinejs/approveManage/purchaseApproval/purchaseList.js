@@ -11,15 +11,16 @@ layui.extend({
     //表格渲染
     var tableIns = table.render({
         elem: '#purchaseList',
-        url : '/purchase?action=getAllAppoint',
+        url : '/appoint?action=getAllAppoint',
         cellMinWidth : 95,
         page : true,
         toolbar: '#purchaseDemo',
-        height : "full-125",
+        height : "full-25",
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
+            {field: 'applyId', title: '申请编号',  align:'center'},
             {field: 'mId', title: '字典编号',  align:'center'},
             {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
             {field: 'specification', title: '规格', align:'center'},
@@ -41,10 +42,10 @@ layui.extend({
             {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
             {field: 'finance' ,title:'财务审批人', align:'center'},
             {field: 'financeApprove' ,title:'财务审批', align:'center'},
-            {field: 'financeTime' ,title:'财务审批时间', align:'center'}
+            {field: 'financeTime' ,title:'财务审批时间', align:'center'},
+            {field: 'tableCoding' ,title:'自编码', align:'center'}
         ]],
-        done:function (){
-
+        done:function (data){
         }
     });
 
@@ -53,7 +54,11 @@ layui.extend({
         var data = checkStatus.data;
         var purchId = '';
         for(i=0;i<data.length;i++){
-            purchId = data[i].sid;//这里得和上面的field里的id名对应
+            purchId = data[i].applyId;//这里得和上面的field里的id名对应
+        }
+        var array = new Array();
+        for (let i = 0;i<data.length;i++){
+            array[i]=data[i].applyId
         }
         switch(obj.event){
             case 'time':
@@ -71,21 +76,113 @@ layui.extend({
                 break;
             case 'del':
                 //删除
+                del(array);
                 break;
             case 'audit':
                 //审核
+                audit(array);
                 break;
             case 'noaudit':
                 //反审核
+                noaudit(array);
                 break;
             case 'export':
                 //导出
+                break;
+            case 'delOK':
+                delOK();
                 break;
 
         }
 
     });
+    function noaudit(array){
+        if (purchId.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
+        var dataString = $.param({"purchId": purchId});
+        $.ajax({
+            url:"/approval?action=noaudit",//根据id查询的方法
+            type:"post",
+            data:{dataString},
+            success:function(data){
+                if (data.status===200){
+                    layer.msg("已撤销", { icon: 1 });
+                    tableIns.reload()
+                }else {
+                    layer.msg("出错了", { icon: 2 });
+                }
+            }
+        })
+    }
+    function delOK(){
+        layer.confirm('是否清除所有已审核的记录？', {icon: 3}, function(){
+            $.ajax({
+                url:"/approval?action=delOK",//根据id查询的方法
+                type:"post",
+                data:{},
+                success:function(data){
+                    if (data.status===200){
+                        layer.msg('已清除', {icon: 1});
+                        tableIns.reload()
+                    }else {
+                        layer.msg("出错了", { icon: 2 });
+                    }
+                }
+            })
+
+            tableIns.reload()
+        }, function(){
+            layer.msg('未清除');
+        });
+    }
+    function audit(array){
+        if (array.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
+        var dataString = $.param({"array": array});
+        layui.layer.open({
+            title : "审批",
+            type : 2,
+            content : "medicine/approveManage/purchaseApproval/audit.jsp",
+            area:['900px','500px'],
+            success:function (layero, index){
+                $.ajax({
+                    url:"/approval?action=getAuditId",//根据id将状态改成“以审批”
+                    type:"post",
+                    data:{dataString},
+                    success:function(data){
+                        var info = JSON.parse(data).data;
+                        var iframe = layer.getChildFrame('body', index);
+                        var rowsHtml = '';
+                        $(document).ready(function(){
+                            form.render('checkbox');
+                        });
+                        $.each(info, function(i, item) {
+                            rowsHtml += '<tr>';
+                            rowsHtml += '<td><input type="checkbox" id="'+i+'" name="'+item.mName+'" value="'+item.applyId+'"></td>';
+                            rowsHtml += '<td>' + item.applyId + '</td>';
+                            rowsHtml += '<td>' + item.mName + '</td>';
+                            rowsHtml += '<td>' + item.number + '</td>';
+                            rowsHtml += '<td>功效</td>';
+                            rowsHtml += '<td>规格</td>';
+                            rowsHtml += '<td>状态</td>';
+                            rowsHtml += '<td>' + item.applyNumber + '</td>';
+                            rowsHtml += '</tr>';
+                        });
+                        // 更新iframe窗口中的表格body
+                        $(iframe).find('#table-body').html(rowsHtml);
+
+                    }
+                })
+            }
+        })
+
+    }
     function query(){
+        console.log("hello")
         var idValue = document.querySelector('input[name="id"]').value
         var nameValue = document.querySelector('input[name="zname"]').value
         var timeValue = document.querySelector('input[name="time"]').value
@@ -94,11 +191,17 @@ layui.extend({
         var state = document.getElementById('state').value;
         var macuser = document.getElementById('macuser').value;
         var cw = document.getElementById('cw').value;
+        var array = {"idValue":idValue,
+            "nameValue":nameValue,
+            "timeValue":timeValue,
+            "applyuser":applyuser,
+            "state":state,
+            "macuser":macuser,
+            "cw":cw
+        };
         tableIns.reload({
             url : '/approval?action=search',
-            where: { // 新的查询参数
-                idValue,nameValue,timeValue,applyuser,state,macuser,cw
-            },
+            where: array,
             type:'static',
             page: false
         });
@@ -108,6 +211,26 @@ layui.extend({
         // document.querySelector('input[name="id"]').value='';
         window.location.reload()
 
+    }
+    function del(purchId){
+        if (purchId.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
+        var dataString = $.param({"purchId": purchId});
+        $.ajax({
+            url:"/approval?action=del",//根据id查询的方法
+            type:"post",
+            data:{dataString},
+            success:function(data){
+                if (data.status===200){
+                    layer.msg("删除成功", { icon: 1 });
+                    tableIns.reload()
+                }else {
+                    layer.msg("删除失败", { icon: 2 });
+                }
+            }
+        })
     }
 
 

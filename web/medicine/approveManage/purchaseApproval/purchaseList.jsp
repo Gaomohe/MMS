@@ -26,9 +26,9 @@
 
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <blockquote class="layui-elem-quote layui-quote-nm">
-            采购审批
-        </blockquote>
+<%--        <blockquote class="layui-elem-quote layui-quote-nm">--%>
+<%--            采购审批--%>
+<%--        </blockquote>--%>
         <script type="text/html" id="purchaseDemo">
 <%--           组件--%>
 
@@ -60,32 +60,31 @@
     <div class="layui-col-md2">
         <select id="applyuser">
             <option value="">申请人</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
+            <c:forEach var="applyUser" items="${applyUser}" varStatus="s">
+                <option value="${applyUser.userName}">${applyUser.userName}</option>
             </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
         <select id="state">
             <option value="">状态</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
-            </c:forEach>
+                <option value="未审批">未审批</option>
+                <option value="已审批">已审批</option>
         </select>
     </div>
     <div class="layui-col-md2">
         <select id="macuser">
             <option value="">药师</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
+            <c:forEach var="phaName" items="${phaName}" varStatus="s">
+                <option value="${phaName.userName}">${phaName.userName}</option>
             </c:forEach>
         </select>
     </div>
     <div class="layui-col-md2">
         <select id="cw">
             <option value="">财务</option>
-            <c:forEach var="aaaa" items="${aaaa}" varStatus="s">
-                <option value="${aaaa}">${aaaa}</option>
+            <c:forEach var="finName" items="${finName}" varStatus="s">
+                <option value="${finName.userName}">${finName.userName}</option>
             </c:forEach>
         </select>
     </div>
@@ -100,6 +99,7 @@
 
 <hr class="layui-border-green">
 <button lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+<button lay-event="delOK" type="button" class="layui-btn layui-bg-red">清除已审核</button>
 <button lay-event="audit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
 <button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
 <button lay-event="export" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>

@@ -6,7 +6,7 @@ public class StockOutForm {
     private String oDate;//出库日期
     private String oManufactor;//往来单位
     private String oType;//出库类型
-    private String oNum;//出库明细数
+    private int oNum;//出库明细数
     private int oSalePrice;//销售金额
     private int oAmount;//出库总金额
     private int oCost;//成本金额
@@ -55,11 +55,11 @@ public class StockOutForm {
         this.oType = oType;
     }
 
-    public String getoNum() {
+    public int getoNum() {
         return oNum;
     }
 
-    public void setoNum(String oNum) {
+    public void setoNum(int oNum) {
         this.oNum = oNum;
     }
 
