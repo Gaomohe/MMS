@@ -1,7 +1,6 @@
 package com.dao.Impl;
 
 import com.dao.FinancialDao;
-import com.dao.Impl.init.InitDaoImpl;
 import com.pojo.Apply;
 import com.util.JDBC;
 
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FinancialDaoImpl extends InitDaoImpl implements FinancialDao {
+public class FinancialDaoImpl implements FinancialDao {
     @Override
     public List<Apply> getPurchaseList(Apply apply) {
         String sql = "SELECT * FROM apply\n" +
