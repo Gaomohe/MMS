@@ -43,14 +43,33 @@ public class ApprovalServlet extends BaseServlet {
     }
     public void search(HttpServletRequest request, HttpServletResponse response){
         String idValue = request.getParameter("idValue");
-        int id = 0;
         String nameValue = request.getParameter("nameValue");
         String timeValue = request.getParameter("timeValue");
         String applyuser = request.getParameter("applyuser");
         String state = request.getParameter("state");
         String macuser = request.getParameter("macuser");
         String cw = request.getParameter("cw");
-        if (!idValue.equals("")){
-            id=Integer.parseInt(idValue);
-        }
-    }}
+        String[] values = {idValue,nameValue,timeValue,applyuser,state,macuser,cw};
+        String[] keys = {"applyId","mName","applyTime","applyUser","pharmacistApprove","pharmacist","finance"};
+        ToJSON.toJson(response,approvalService.search(keys,values));
+    }
+    public ResultData<Integer> del(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        int[] ints = StringDeal.toArray(dataString);
+        return approvalService.del(ints);
+    }
+
+    public ResultData<Integer> isok(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        int[] ints = StringDeal.toArray(dataString);
+        return approvalService.isok(ints);
+    }
+    public ResultData<Integer> submit(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        String textareaValue = request.getParameter("textareaValue");
+        int[] ints = StringDeal.toArray(dataString);
+        return approvalService.nook(ints);
+
+    }
+
+}
