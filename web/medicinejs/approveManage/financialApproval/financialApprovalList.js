@@ -1,15 +1,16 @@
 layui.extend({
-    dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','upload','dtree'],function(){
+    dtree: '/admin/js/lay-module/layui_ext/dtree/dtree'  // 使用正确的相对路径或绝对路径
+}).use(['form', 'layer', 'laydate', 'table', 'upload', 'dtree'], function() {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         laydate = layui.laydate,
         upload = layui.upload,
-        table = layui.table;
-    var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+        table = layui.table,
+        dtree = layui.dtree;  // 只在这里加载 dtree
+
     laydate.render({
-        elem: '#ID-laydate-demo'
+        elem: '#financialList'
     });
 
     //表格渲染
@@ -24,6 +25,7 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
+            {field: 'applyId', title: '申请编号',  align:'center'},
             {field: 'mId', title: '字典编号',  align:'center'},
             {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
             {field: 'specification', title: '规格', align:'center'},
@@ -52,109 +54,56 @@ layui.extend({
         }
     });
 
-    table.on('toolbar(supplierList)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id);
-        var data = checkStatus.data;
-        var supplierId = '';
-        for(i=0;i<data.length;i++){
-            supplierId = data[i].sid;//这里得和上面的field里的id名对应
-        }
-        switch(obj.event){
-
-        }
-
-    });
-
-
-    //监听工具栏
-    treeTable.on('toolbar(financialList)', function(obj){
-        switch(obj.event){
-            case 'applyUser':
-
-                applyUser();
-                break;
-
-            case 'status':	//全部折叠
-                insTb.foldAll('#demoTreeTb');
-                break;
-
-            case 'pharmacist':	//新增权限
-                getPharmacist();
-                break;
-
-            case 'financial':	//修改权限
-                updataMenu();
-                break;
-
-            case 'search':	//删除权限
-                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
-                    delMenu();
-                    layer.close(index);
-                });
-                break;
-            case 'reload':	//删除权限
-                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
-                    delMenu();
-                    layer.close(index);
-                });
-                break;
-            case 'del':	//删除权限
-                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
-                    delMenu();
-                    layer.close(index);
-                });
-                break;
-            case 'approve':	//删除权限
-                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
-                    delMenu();
-                    layer.close(index);
-                });
-                break;
-            case 'unapprove':	//删除权限
-                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
-                    delMenu();
-                    layer.close(index);
-                });
-                break;
-            case 'download':	//删除权限
-                layer.confirm('确定删除此权限吗?', {icon: 3, title:'提示'}, function(index){
-                    delMenu();
-                    layer.close(index);
-                });
-                break;
-        };
-    });
-
-    function applyUser(){
-        $.post("/user?action=getAppUser",function(res){
-            var cs = JSON.parse(res);
-            console.log(cs);
-            body.find("#applyUser").val(cs.data.userName);
-            console.log(cs);
-        })
-    }
-
     $.post("/user?action=getAppUser",
-        {"menuid":authorityId},
-        function(data) {
-            var info = JSON.parse(data);
-            console.log(info)
-            var body = layui.layer.getChildFrame('body', index);
-            body.find("#mid").val(info.data.resId);
-            body.find("#mname").val(info.data.name);  //权限名
-            body.find("#mfunction").val(info.data.resKey);	//请求路径
-            var select = 'dd[lay-value=' + info.data.type + ']';
-            body.find("#type2").siblings("div.layui-form-select").find('dl').find(select).click();	//菜单样式
-            body.find("#mbtn").val(info.data.resUrl);		//按钮代码
-            body.find("#icon").val(info.data.icon);		//icon图标
-            var menuid3 = info.data.resId;
-            //上级的下拉框
-            $.post("/menu?action=allMenuById", {"menuid": menuid3}, function (res) {
+        function(res) {
+            console.log(res);
+            try {
                 var cs = JSON.parse(res);
-                console.log(cs);
-                body.find("#fatherType2").val(cs.data.fatherName);
-                console.log(cs);
-            })
+                var dom = $("#applyUser");
+                dom.empty(); // 清空现有的选项
+                var html = '<option value="0">申请人</option>';
+                $.each(cs, function(index, item) {
+                    html += '<option value="' + item.id + '">' + item.userName + '</option>';
+                });
+                dom.html(html);
+                layui.form.render("select") // 重新渲染下拉框
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        }
+    )
+
+    $.post("/user?action=getPhaName",
+        function(res) {
+            console.log(res);
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#pharmacist");
+                dom.empty(); // 清空现有的选项
+                var html = '<option value="0">药师</option>';
+                $.each(cs, function(index, item) {
+                    html += '<option value="' + item.id + '">' + item.userName + '</option>';
+                });
+                dom.html(html);
+                layui.form.render("select") // 重新渲染下拉框
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        }
+    )
+
+    $.post("/user?action=getFinName",
+        function(res) {
+            console.log(res);
+            var cs = JSON.parse(res);
+            var dom = $("#financial");
+            dom.empty(); // 清空现有的选项
+            var html = '<option value="0">财务</option>';
+            $.each(cs, function(index, item) {
+                html += '<option value="' + item.id + '">' + item.userName + '</option>';
+            });
+            dom.html(html);
+            layui.form.render("select") // 重新渲染下拉框
         }
     )
 

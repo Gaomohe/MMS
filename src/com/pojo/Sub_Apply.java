@@ -7,6 +7,15 @@ public class Sub_Apply {
     private int applynum;
     private String applytime;
     private int applyuserid;
+    private int approve;
+
+    public int getApprove() {
+        return approve;
+    }
+
+    public void setApprove(int approve) {
+        this.approve = approve;
+    }
 
     public int getApplyid() {
         return applyid;
