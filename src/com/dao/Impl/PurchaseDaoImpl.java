@@ -2,9 +2,13 @@ package com.dao.Impl;
 
 import com.dao.Impl.init.InitDaoImpl;
 import com.dao.PurchaseDao;
+import com.pojo.Apply;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
     @Override
@@ -15,4 +19,6 @@ public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
         obj[0] = 0;
         return JDBC.select(sql, obj);
     }
+
+
 }

@@ -50,8 +50,9 @@
                     </div>
                     <div class="layui-col-md2">
                         <select lay-search="" lay-event="status">
-                            <option value="">状态</option>
-                            <option value="1">AAA</option>
+                            <option value="0" selected>状态</option>
+                            <option value="1">未审批</option>
+                            <option value="2">已审批</option>
                         </select>
                     </div>
                     <div class="layui-col-md2">
