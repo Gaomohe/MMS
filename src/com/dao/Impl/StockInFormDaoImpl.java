@@ -161,24 +161,11 @@ public class StockInFormDaoImpl implements StockInFormDao {
     //根据入库单号，药品名称，入库日期区间查询
     @Override
     public List<StockInForm> getStockInFormByQuery(String sql) {
-//        StringBuffer stringBuffer = new StringBuffer();
-//        stringBuffer.append(sql);
-//        if (stringBuffer!=null){
-//            if (stockInFormObj.getrId()!=0){
-//                stringBuffer.append(" AND rId=?");
-//            }
-//
-//        }
-
-
-
-
-
         ResultSet resultSet = JDBC.select(sql, new Objects[1]);
         List<StockInForm> stockInFormList = new ArrayList<StockInForm>();
-        StockInForm stockInForm = new StockInForm();
         try {
             while (resultSet.next()){
+                StockInForm stockInForm = new StockInForm();
                 stockInForm.setrId(resultSet.getInt(1));
                 System.out.println(resultSet.getInt(1));
                 stockInForm.setrName(resultSet.getString(2));

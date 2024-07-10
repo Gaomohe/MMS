@@ -93,11 +93,6 @@ public class StockInFormServlet extends BaseServlet {
 
         String[] queries = {rId,rName,stockInTime};
         List<StockInForm> stockInFormByQuery = stockInFormService.getStockInFormByQuery(queries);
-        System.out.println(stockInFormByQuery.get(0).getrId());
-        System.out.println(stockInFormByQuery.get(1).getrId());
-        System.out.println(stockInFormByQuery.get(2).getrId());
-        System.out.println(stockInFormByQuery.get(3).getrId());
-
         ToJSON.toJson(response,stockInFormByQuery);
 
     }
