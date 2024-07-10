@@ -2,6 +2,7 @@ package com.service;
 
 import com.pojo.Apply;
 import com.pojo.Appointment;
+import com.pojo.Sub_Apply;
 import com.pojo.User;
 import com.util.LayuiTable;
 import com.util.ResultData;
@@ -20,5 +21,7 @@ public interface ApprovalService {
 
     public ResultData<Integer> isok(int[] ints,String userName);
 
-    public ResultData<Integer> nook(int[] ints);
+    public ResultData<Integer> nook(int[] ints,String userName);
+
+    public ResultData<List<Apply>> getHistory();
 }

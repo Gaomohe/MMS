@@ -1,6 +1,7 @@
 package com.dao.Impl.init;
 
 import com.util.JDBC;
+import com.util.init.StringDeal;
 
 import java.sql.ResultSet;
 
@@ -60,6 +61,11 @@ public class InitDaoImpl {
         }
         String sql = sqlbuild.toString();
         return JDBC.select(sql, objects);
+    }
+
+    public ResultSet getAllDesc(String colum,String tablname){
+        String sql="select * from "+tablname+" order by "+colum+" desc ";
+        return JDBC.select(sql,new Object[1]);
     }
 
 }

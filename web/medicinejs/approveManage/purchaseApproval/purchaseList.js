@@ -48,6 +48,11 @@ layui.extend({
         done:function (data){
         }
     });
+    $(document).ready(function (){
+        laydate.render({
+            elem: '#ID-laydate-demo',
+        });
+    })
 
     table.on('toolbar(purchaseList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
@@ -86,7 +91,7 @@ layui.extend({
                 break;
             case 'noaudit':
                 //反审核
-                noaudit(array);
+                // noaudit(array,state);
                 break;
             case 'export':
                 //导出
@@ -98,7 +103,13 @@ layui.extend({
         }
 
     });
-    function noaudit(array){
+    function noaudit(array,state){
+        for (let i = 0; i < state.length; i++) {
+            if (state[i]==="未审阅"){
+                layer.alert("单据"+array[i]+"未审阅！不允许撤销！");
+                return ;
+            }
+        }
         if (purchId.length===0){
             layer.msg("请选择一条记录");
             return ;

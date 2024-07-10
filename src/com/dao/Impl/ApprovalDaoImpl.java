@@ -10,16 +10,16 @@ import java.sql.ResultSet;
 public class ApprovalDaoImpl extends InitDaoImpl implements ApprovalDao {
 
     @Override
-    public boolean isok(int id) {
-        String sql = "update apply set pharmacistApprove='已审阅通过',pharmacistTime= NOW() where applyId=?";
-        Object[] objects = new Object[]{id};
+    public boolean isok(int id,String userName) {
+        String sql = "update apply set pharmacistApprove='已审阅通过',pharmacistTime= NOW(),pharmacist = ? where applyId=? ";
+        Object[] objects = new Object[]{userName,id};
         return JDBC.update(sql,objects) > 0;
     }
 
     @Override
-    public boolean nook(int id) {
-        String sql = "update apply set pharmacistApprove='已审阅未通过' where applyId=?";
-        Object[] objects = new Object[]{id};
+    public boolean nook(int id,String userName) {
+        String sql = "update apply set pharmacistApprove='已审阅未通过' ,pharmacistTime= NOW(),pharmacist = ? where applyId=?";
+        Object[] objects = new Object[]{userName,id};
         return JDBC.update(sql,objects) > 0;
     }
 }

@@ -54,9 +54,6 @@
             </div>
         </blockquote>
         <script type="text/html" id="shoppDemo">
-
-<%--            <button type="button" style="margin-left: 2%" lay-event="add" class="layui-btn layui-btn-warm"><i class="layui-icon">&#xe654;</i>采购申请</button>--%>
-<%--            时间--%>
             <div class="layui-inline">
                 <%--            按钮--%>
 <%--                <label class="layui-form-label">选择时间:</label>--%>
@@ -64,6 +61,7 @@
                     <input type="text" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="选择时间">
                 </div>
             </div>
+
 <div class="layui-inline">
     <div class="layui-input-inline">
         <input type="text" id="searchInput" placeholder="请输入药品名称" class="layui-input">
@@ -71,7 +69,7 @@
 </div>
 <button lay-filter="doSearch" lay-submit lay-event="submit" class="layui-btn layui-btn-primary layui-border-green">点击搜索</button>
 <button lay-event="add" type="button" class="layui-btn layui-bg-blue">采购申请</button>
-<button type="button" class="layui-btn">历史记录</button>
+<button lay-event="history" type="button" class="layui-btn">历史记录</button>
 <button lay-event="prescriptionDrug" type="button" class="layui-btn layui-bg-red">处方药</button>
             <hr>
 <%--            下拉--%>
@@ -101,9 +99,8 @@
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/shoppingManagejs/requestApply/shopList.js" charset="utf-8"></script>
 <script>
-    layui.use('carousel', function(){
+    layui.use(['carousel','laydate'], function(){
         var carousel = layui.carousel;
-        // 测试轮播
         carousel.render({
             elem: '#test1'
             ,width: '100%' // 设置容器宽度

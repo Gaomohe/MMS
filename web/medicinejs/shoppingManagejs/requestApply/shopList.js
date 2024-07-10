@@ -8,7 +8,6 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
-
     //表格渲染
     var tableIns = table.render({
         elem: '#shoppList',
@@ -37,10 +36,37 @@ layui.extend({
                 }},
 
         ]],
-        done:function (data){
+        done:function (){
+
         }
     });
+    // $(document).ready(function (){
+    //     initDatepicker();
+    // })
 
+    var initDatepicker=function (){
+        laydate.render({
+            elem: '#ID-laydate-demo',
+            trigger: 'click', // 鼠标点击触发
+            done: function(value, date, endDate){
+                tableIns.reload({
+                    url : '/shopping?action=time',
+                    where: {
+                        value: value
+                    },
+                    type:'static',
+                    page: false,
+                    done:function (){
+                        document.getElementById('ID-laydate-demo').value = value;
+                        setTimeout(function(){
+                            initDatepicker();
+                        }, 300); // 延迟时间根据实际情况调整
+                    }
+                });
+            }
+        });
+    }
+    initDatepicker();
     form.on('select(onChangeSelect)',function (data){
         var drugFrom = data.value;
         tableIns.reload({
@@ -51,6 +77,7 @@ layui.extend({
             type:'static',
             page: false,
             done:function (){
+
             }
         });
     });
@@ -64,25 +91,6 @@ layui.extend({
             id = data[i].id;
         }
         switch(obj.event){
-            case 'time':	//修改经手人
-                laydate.render({
-                    elem: '#ID-laydate-demo',
-                    done:function (value){
-                        tableIns.reload({
-                            url : '/shopping?action=time',
-                            where: {
-                                value: value
-                            },
-                            type:'static',
-                            page: false,
-                            done:function (){
-                                document.getElementById('ID-laydate-demo').value = value;
-                            }
-                        });
-                    }
-                });
-                break;
-
             case 'add':	//新增经手人
                 if (data.length<1){
                     layer.msg("请选择一行数据进行操作")
@@ -130,6 +138,39 @@ layui.extend({
 
                     }
                 });
+                break;
+            case 'history':
+                layui.layer.open({
+                    title : "历史记录",
+                    type : 2,
+                    content : "medicine/shoppingManage/requestApply/history.jsp",
+                    area:['600px','500px'],
+                    success:function(layero, index){
+                        $.ajax({
+                            url:"/approval?action=getHistory",//湖区历史记录
+                            type:"post",
+                            data:{},
+                            success:function(data){
+                                var parse = JSON.parse(data).data;
+                                var iframe = layer.getChildFrame('body', index);
+                                var html = '';
+                                for (let i = 0; i < 20; i++) {
+                                    html+= ' <div class="layui-timeline-item">\n' +
+                                        '        <i class="layui-icon layui-timeline-axis layui-icon-circle"></i>\n' +
+                                        '        <div class="layui-timeline-content layui-text">\n' +
+                                        '            <div class="layui-timeline-title">申请时间:'+parse[i].applyTime+'----申请药品:'+parse[i].mName+'----状态:'+parse[i].pharmacistApprove+'</div>\n' +
+                                        '        </div>\n' +
+                                        '    </div>';
+
+                                }
+                                $(iframe).find('.layui-timeline').html(html);
+
+                            }
+                        })
+                    }
+                });
+                break;
+            default:
                 break;
         }
     });

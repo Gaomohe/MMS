@@ -3,6 +3,7 @@ package com.service.Impl;
 import com.dao.Impl.ApprovalDaoImpl;
 import com.pojo.Apply;
 import com.pojo.Appointment;
+import com.pojo.Sub_Apply;
 import com.pojo.User;
 import com.service.ApprovalService;
 import com.util.LayuiTable;
@@ -166,7 +167,7 @@ public class ApprovalServiceImpl implements ApprovalService {
     public ResultData<Integer> isok(int[] ints,String userName) {
         try {
             for (int anInt : ints) {
-                if (approvalDao.isok(anInt)) {
+                if (approvalDao.isok(anInt,userName)) {
                     integerResultData.setData(1);
                     integerResultData.setStatus(200);
                 }else {
@@ -183,10 +184,10 @@ public class ApprovalServiceImpl implements ApprovalService {
     }
 
     @Override
-    public ResultData<Integer> nook(int[] ints) {
+    public ResultData<Integer> nook(int[] ints,String userName) {
         try {
             for (int anInt : ints) {
-                if (approvalDao.nook(anInt)) {
+                if (approvalDao.nook(anInt,userName)) {
                     integerResultData.setData(1);
                     integerResultData.setStatus(200);
                 }else {
@@ -200,5 +201,34 @@ public class ApprovalServiceImpl implements ApprovalService {
             e.printStackTrace();
         }
         return integerResultData;
+    }
+
+    @Override
+    public ResultData<List<Apply>> getHistory() {
+        ResultData<List<Apply>> sub_applyResultData = new ResultData<>();
+        ResultSet allDesc = approvalDao.getAllDesc("applyId", "apply");
+
+        List<Apply> list = new ArrayList<>();
+        try {
+            while (allDesc.next()){
+                Apply ap = new Apply();
+                ap.setApplyId(allDesc.getInt(1));
+                ap.setmId(allDesc.getInt(2));
+                ap.setApplyNumber(allDesc.getInt("applyNumber"));
+                ap.setPharmacistApprove(allDesc.getString("pharmacistApprove"));
+                ap.setApplyTime(allDesc.getString("applyTime"));
+                ap.setmName(allDesc.getString(3));
+
+                list.add(ap);
+            }
+
+
+            sub_applyResultData.setData(list);
+            sub_applyResultData.setMsg("");
+            sub_applyResultData.setStatus(200);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return sub_applyResultData;
     }
 }

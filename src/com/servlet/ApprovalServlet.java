@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.pojo.Apply;
 import com.pojo.Appointment;
+import com.pojo.Sub_Apply;
 import com.pojo.User;
 import com.service.Impl.ApprovalServiceImpl;
 import com.service.Impl.UserServiceImpl;
@@ -70,9 +71,20 @@ public class ApprovalServlet extends BaseServlet {
     public ResultData<Integer> submit(HttpServletRequest request, HttpServletResponse response){
         String dataString = request.getParameter("dataString");
         String textareaValue = request.getParameter("textareaValue");
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String userName = userService.getUserName(user.getId());
         int[] ints = StringDeal.toArray(dataString);
-        return approvalService.nook(ints);
+        return approvalService.nook(ints,userName);
 
+    }
+    public ResultData<Integer> noaudit(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        int[] ints = StringDeal.toArray(dataString);
+        return null;
+    }
+    public ResultData<List<Apply>> getHistory(HttpServletRequest request, HttpServletResponse response){
+        return approvalService.getHistory();
     }
 
 }
