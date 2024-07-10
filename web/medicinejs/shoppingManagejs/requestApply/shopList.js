@@ -1,6 +1,6 @@
 layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','upload','dtree'],function(){
+}).use(['form','layer','laydate','table','upload','dtree','element', 'jquery'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
@@ -28,12 +28,19 @@ layui.extend({
             {field: 'purchasePrice', title: '价格',  align:'center'},
             {field: 'manufactor', title: '供应商',  align:'center'},
             {field: 'drugFrom', title: '类别',  align:'center'},
+            {field: 'goodsType', title: '种类',  align:'center'},
             {field: 'productDate', title: '生产日期',  align:'center'},
+            {field: 'approvalNumber', title: '注册批号',  align:'center'},
+            {field: 'documentNumber', title: '商品编号',  align:'center'},
             {field: 'opera', title: '操作',  align:'center',templet:function (d){
                     return '<a href="/shopping?action=select&mId=' + d.mId + '" class="layui-btn layui-btn-xs">详情</a>';
                 }},
 
         ]],
+        done:function (data){
+            console.log("测试")
+            console.log(data)
+        }
     });
 
     form.on('select(onChangeSelect)',function (data){

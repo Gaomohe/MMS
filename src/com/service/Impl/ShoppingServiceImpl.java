@@ -43,6 +43,12 @@ public class ShoppingServiceImpl implements ShoppingService {
                 medicine.setPurchasePrice(dictionary.getDouble("purchasePrice"));
                 medicine.setProductDate(dictionary.getString("productDate"));
                 medicine.setDrugFrom(dictionary.getString("drugFrom"));
+                medicine.setGoodsType(dictionary.getString("goodsType"));
+                medicine.setSupplier(dictionary.getString("supplier"));
+                medicine.setApprovalNumber(dictionary.getString("approvalNumber"));
+                medicine.setDocumentNumber(dictionary.getString("documentNumber"));
+                medicine.setRecordNumber(dictionary.getInt("recordNumber"));
+                medicine.setBatchsNumber(dictionary.getString("batchsNumber"));
                 medicineList.add(medicine);
             }
             layuiTable.setData(medicineList);
