@@ -98,8 +98,6 @@ public class TypeServlet extends BaseServlet {
     }
 
 
-
-
     //添加分类
     public ResultData<Type> addGoodsType(HttpServletRequest request, HttpServletResponse response){
         String s = request.getParameter("type");

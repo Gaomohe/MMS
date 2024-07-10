@@ -47,6 +47,26 @@ public class MedicineServlet extends BaseServlet {
         session4.setAttribute("type4",alldosage);
         return "medicine/medicineManage/medDictionary/dictionary";
     }
+    public String getMenuBtn2(HttpServletRequest request, HttpServletResponse response){
+        int resId = Integer.parseInt(request.getParameter("resId"));
+        HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        HttpSession session4 = request.getSession();
+        User user = (User)session.getAttribute("user");
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        List<Type> allGoodsType = typeService.getAllGoodsType();
+        List<Type> allMType = typeService.getAllMType();
+        List<Type> allfreeType = typeService.getAllfreeType();
+        List<Type> alldosage = typeService.getAlldosage();
+        session.setAttribute("menuList",menuList);
+        session1.setAttribute("type1",allGoodsType);
+        session2.setAttribute("type2",allMType);
+        session3.setAttribute("type3",allfreeType);
+        session4.setAttribute("type4",alldosage);
+        return "medicine/medicineManage/medPrice/priceList";
+    }
     //获取所有药品、、
     public LayuiTable<Medicine> getAllMedicine(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
@@ -76,7 +96,7 @@ public class MedicineServlet extends BaseServlet {
         Medicine medicine = medicineService.getMedicine(tableCoding);
         HttpSession session = request.getSession();
         session.setAttribute("medicine",medicine);
-        return "回显页面";
+        return "medicine/medicineManage/medDictionary/dictionaryInfo";
     }
     //多条件查询药品（非多轮）
     public ResultData<Medicine> getMedicineByQuery(HttpServletRequest request, HttpServletResponse response){
@@ -155,10 +175,10 @@ public class MedicineServlet extends BaseServlet {
     }
     //修改药品价格,,
     public ResultData<Medicine> updateMedicinePrice(HttpServletRequest request, HttpServletResponse response){
-        int mid = Integer.parseInt(request.getParameter("mid"));
-        Double price = Double.parseDouble(request.getParameter("salePrice"));
+        int mid = Integer.parseInt(request.getParameter("tableCoding"));
+        Double price = Double.parseDouble(request.getParameter("price"));
         Medicine medicine = new Medicine();
-        medicine.setmId(mid);
+        medicine.setTableCoding(mid);
         medicine.setSalePrice(price);
         int i = medicineService.updateMedicinePrice(medicine);
         return Result.resultStatus(i);
@@ -197,8 +217,8 @@ public class MedicineServlet extends BaseServlet {
         medicine.setNumber(Integer.parseInt(request.getParameter("number")));
         medicine.setBatchNumber(request.getParameter("batchNumber"));
         medicine.setUsefulLife(request.getParameter("usefulLife"));
-        medicine.setPurchasePrice(Integer.parseInt(request.getParameter("purchasePrice")));
-        medicine.setSalePrice(Integer.parseInt(request.getParameter("salePrice")));
+        medicine.setPurchasePrice(Double.parseDouble(request.getParameter("purchasePrice")));
+        medicine.setSalePrice(Double.parseDouble(request.getParameter("salePrice")));
         medicine.setProductDate(request.getParameter("productDate"));
         medicine.setProfits(request.getParameter("profits"));
         medicine.setCode(request.getParameter("code"));

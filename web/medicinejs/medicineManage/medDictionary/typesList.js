@@ -12,7 +12,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX'], function () {
         elem: '#getType1',
         url: '/type?action=getGoodsType',
         page: false,
-        height:400,
+        height:600,
         toolbar:"#btn1",
         cols: [[
             {fixed: "left",
@@ -37,7 +37,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX'], function () {
         url: '/type?action=getMType',
         page: false,
         toolbar:"#btn2",
-        height:400,
+        height:600,
         cols: [[
             {fixed: "left",
                 type: "checkbox",
@@ -61,7 +61,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX'], function () {
         url: '/type?action=getfreeType',
         page: false,
         toolbar:"#btn3",
-        height:400,
+        height:600,
         cols: [[
             {fixed: "left",
                 type: "checkbox",
@@ -85,7 +85,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX'], function () {
         url: '/type?action=getdosage',
         page: false,
         toolbar:"#btn4",
-        height:400,
+        height:600,
         cols: [[
             {fixed: "left",
                 type: "checkbox",

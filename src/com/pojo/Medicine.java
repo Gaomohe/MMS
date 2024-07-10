@@ -27,7 +27,7 @@ public class Medicine {
     private String drugFrom;
     private String handlingInformation;
     private String approvalNumber;
-    private String LastCuringDate;
+    private String ManageTime;
     private int timesStorage;
     private String documentNumber;
     private String placeOrigin;
@@ -244,11 +244,11 @@ public class Medicine {
     }
 
     public String getLastCuringDate() {
-        return LastCuringDate;
+        return ManageTime;
     }
 
     public void setLastCuringDate(String lastCuringDate) {
-        LastCuringDate = lastCuringDate;
+        ManageTime = lastCuringDate;
     }
 
     public int getTimesStorage() {

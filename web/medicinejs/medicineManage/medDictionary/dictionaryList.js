@@ -20,8 +20,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 		url: '/medicine?action=getAllMedicine',
 		toolbar: '#toolbarDemo',
 		page: true,
-		height: 'full-145',
-		limit: 10,
+		height: 600,
+		limit: 15,
 		limits: [5,10,15,20,25],
 		cols: [
 			[{fixed: "left",
@@ -256,48 +256,37 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 				}
 			]
 		],
-		height: 390
 	});
 	table.on('toolbar(xTable1)', function(obj){
 		var checkStatus = table.checkStatus(obj.config.id);
 		var data = checkStatus.data;
-		var roleid = '';
+		console.log(data)
+		var tableCoding = '';
 		for(i=0;i<data.length;i++){
-			roleid = data[i].id;
+			tableCoding = data[i].tableCoding;
 		}
 		switch(obj.event){
-			case 'delRole':	//删除角色
+			case 'delFunc':	//删除药品
 				if(data.length != 1){
 					layer.msg("请选择一行数据进行操作")
 					return false;
 				}
-				layer.confirm('删除角色后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
-					delRole(roleid);
-					layer.close(index);
-				});
+				delFunc(tableCoding);
 				break;
 
-			case 'upRole':	//修改角色
+			case 'upFunc':	//修改药品
 				if(data.length != 1){
 					layer.msg("请选择一行数据进行操作")
 					return false;
 				}else{
-					upRole(roleid);
+					upFunc(tableCoding);
 				}
 				break;
 
-			case 'addRole':	//新增角色
-				addRole();
+			case 'addFunc':	//删除药品
+				addfunc();
 				break;
 
-			case 'hairMenu':	//修改角色权限
-				if(data.length == 0 || data.length > 1){
-					layer.msg("请选择一行数据进行操作")
-					return ;
-				}else{
-					hairMenu(roleid);
-				}
-				break;
 		};
 	});
 	//点击搜索查询
@@ -576,4 +565,37 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 	setTimeout(function () {
 		table.resize('xTable1');
 	}, 200);
+
+	function delFunc(tableCoding){
+		$.ajax({
+			url:"/medicine?action=delMedicine",
+			type:"post",
+			data:{"tableCoding":tableCoding},
+			success:function(data){
+				var info = JSON.parse(data);
+				if(info.status == 200){
+					console.log(info.status)
+					layer.msg("删除成功");
+					location.reload();
+				}
+			}
+		})
+	}
+	function upFunc(tableCoding){
+		layui.layer.open({
+			title : "修改药品",
+			type : 2,
+			content : "/medicine?action=getMedicineOne&tableCoding="+tableCoding,
+			area:['600px','600px'],
+		});
+	}
+	function addfunc(){
+		layui.layer.open({
+			title : "新增药品",
+			type : 2,
+			content : "medicine/medicineManage/medDictionary/dictionaryAdd.jsp",
+			area:['600px','600px'],
+		});
+	}
+
 });

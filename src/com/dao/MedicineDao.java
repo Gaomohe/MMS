@@ -30,7 +30,7 @@ public interface MedicineDao {
     //药品回显
     public Medicine getMedicine(int tableCoding);
     //多条件查询（药品名称，商品分类，药品功效，剂型）
-    public List<Medicine> getMedicineByQuery(String[] query);
+    public List<Medicine> getMedicineByQuery(String sql);
     public int addDic_Num(Medicine medicine,int patientId,int number);
     public DicNum getDic_Num(int tableCoding, int patirntId);
     public int getDic_Num(int tableCoding);

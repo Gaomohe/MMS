@@ -90,10 +90,10 @@ public class MedicineDaoImpl implements MedicineDao {
     //更新药品售价
     @Override
     public int updateMedicinePrice(Medicine medicine) {
-        String sql="UPDATE `dictionary` SET `salePrice` = ? WHERE `mId`=?";
+        String sql="UPDATE `dictionary` SET `salePrice` = ? WHERE `tableCoding`=?";
         Object[]  objects= new Object[2];
         objects[0] = medicine.getSalePrice();
-        objects[1] = medicine.getmId();
+        objects[1] = medicine.getTableCoding();
         int count= JDBC.update(sql,objects);
         return count;
     }
@@ -433,20 +433,11 @@ public class MedicineDaoImpl implements MedicineDao {
         return medicine;
     }
 
-    //根据药品名称，商品类型，药品功效，剂型查找药品
+    //根据商品类型，药品功效，剂型查找药品
     @Override
-    public List<Medicine> getMedicineByQuery(String[] query) {
-        String sql = "SELECT * FROM `dictionary` \n" +
-                "WHERE  `goodsType` LIKE ?\n" +
-                "AND `mType` LIKE ?\n" +
-                "AND `defined` LIKE ?\n" +
-                "AND `drugFrom` LIKE ?";
-        Object[] objects = new Object[4];
-        objects[0] = "%"+query[0]+"%";
-        objects[1] = "%"+query[1]+"%";
-        objects[2] = "%"+query[2]+"%";
-        objects[3] = "%"+query[3]+"%";
-        ResultSet resultSet = JDBC.select(sql,objects);
+    public List<Medicine> getMedicineByQuery(String sql) {
+
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
         List<Medicine> medicines = new ArrayList<Medicine>();
         try{
             while(resultSet.next()){

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.util.SQLtoString.getSQL;
+
 public class MedicineServiceImpl implements MedicineService {
 
     MedicineDao medicineDao = new MedicineDaoImpl();
@@ -89,18 +91,10 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public List<Medicine> getMedicineByQuery(String[] query) {
         int i = 0;
-        String[] condition = new String[query.length];
-        for (String s:query){
-            if (s.equals(" ")){
-                condition[i] = "%";
-            }else {
-                condition[i] = s;
-                System.out.println(s);
-            }
-            i++;
-        }
-        List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(condition);
-        return medicineDao.getMedicineByQuery(condition);
+        String[] keys = {"goodsType","mType","defined","drugFrom"};//这里是键
+        Object[] values = {query[0],query[1],query[2],query[3]};//这里是值
+        String dictionary = getSQL(keys, values, "dictionary");//apply是表名
+        return medicineDao.getMedicineByQuery(dictionary);
     }
 
     //多条件查询（多轮）
@@ -130,13 +124,13 @@ public class MedicineServiceImpl implements MedicineService {
             }else {
                 codition[3] = "%";
             }
-            List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(codition);
-            for (Medicine medicine:medicineByQuery){
+            /*List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(codition);*/
+            /*for (Medicine medicine:medicineByQuery){
                 list.add(medicine);
             }
-            i++;
+            i++;*/
         }
-        return list;
+        return null;
     }
 
     //可用于价格修改时药品的回显

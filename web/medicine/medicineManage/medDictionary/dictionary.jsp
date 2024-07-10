@@ -34,10 +34,11 @@
                 </ul>
                 <div class="layui-tab-content" style="padding-left: 0;padding-right: 0;">
                     <div class="layui-tab-item layui-show">
+                        <%--搜索块--%>
                         <div class="layui-form layui-row layui-col-space16">
                             <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                 <select id="select1" lay-search="" lay-creatable="">
-                                    <option value="%" hidden=""></option>
+                                    <option value="" hidden=""></option>
                                     <<c:forEach var="type" items="${type1}" varStatus="s">
                                     <option value="${type.typename}">${type.typename}</option>
                                 </c:forEach>
@@ -45,7 +46,7 @@
                             </div>
                             <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                 <select id="select2" lay-search="" lay-creatable="">
-                                    <option value="%" hidden=""></option>
+                                    <option value="" hidden=""></option>
                                     <<c:forEach var="type" items="${type2}" varStatus="s">
                                     <option value="${type.typename}">${type.typename}</option>
                                 </c:forEach>
@@ -53,7 +54,7 @@
                             </div>
                             <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                 <select id="select3" lay-search="" lay-creatable="">
-                                    <option value="%" hidden=""></option>
+                                    <option value="" hidden=""></option>
                                     <<c:forEach var="type" items="${type3}" varStatus="s">
                                     <option value="${type.typename}">${type.typename}</option>
                                 </c:forEach>
@@ -61,18 +62,19 @@
                             </div>
                             <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                 <select id="select4" lay-search="" lay-creatable="">
-                                    <option value="%" hidden=""></option>
+                                    <option value="" hidden=""></option>
                                     <<c:forEach var="type" items="${type4}" varStatus="s">
                                     <option value="${type.typename}">${type.typename}</option>
                                 </c:forEach>
                                 </select>
                             </div>
                             <div class="layui-inline">
-                                <button class="layui-btn icon-btn" id="searchByQuerys" lay-event="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
+                                <button class="layui-btn icon-btn" id="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
                                     <i class="layui-icon">&#xe615;</i>搜索
                                 </button>
                             </div>
                         </div>
+                            <%--搜索结束--%>
                         <div class="layui-form toolbar">
                             <div class="layui-form-item text-right">
                                 <script type="text/html" id="toolbarDemo">
@@ -86,12 +88,10 @@
                             </div>
                         </div>
                         <table id="xTable1" lay-filter="xTable1"></table>
-                        <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                        </script>
                     </div>
 
+
+                    <%--第二页--%>
                 <div class="layui-tab-item">
                     <div id="xTable2">
 
@@ -150,7 +150,6 @@
                             </div>
 
                             <div class="layui-col-md3">
-
                                 <div class="layui-tab-item layui-show">
                                     <div class="layui-form toolbar">
                                         <div class="layui-form-item text-right">
@@ -172,7 +171,7 @@
 
                     </div>
                 </div>
-
+                    <%--第三页--%>
                 <div class="layui-tab-item ">
                     <table id="xTable3" lay-filter="xTable3"></table>
                 </div>
@@ -186,5 +185,4 @@
 <script type="text/javascript" src="<%=path%>iframe/assets/js/common.js"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/dictionaryList.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/typesList.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/dictionaryList.js" charset="UTF-8"></script>
 </html>
