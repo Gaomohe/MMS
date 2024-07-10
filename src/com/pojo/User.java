@@ -109,4 +109,6 @@ public class User {
     public void setWechat(String wechat) {
         this.wechat = wechat;
     }
+
+
 }

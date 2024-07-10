@@ -18,7 +18,7 @@ public interface ApprovalService {
 
     public ResultData<Integer> del(int[] ints);
 
-    public ResultData<Integer> isok(int[] ints);
+    public ResultData<Integer> isok(int[] ints,String userName);
 
     public ResultData<Integer> nook(int[] ints);
 }

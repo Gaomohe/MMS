@@ -228,4 +228,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getFinName() {
         return userDao.getFinName();
     }
+
+    @Override
+    public String getUserName(int id) {
+        return userDao.getUserName(id);
+    }
 }

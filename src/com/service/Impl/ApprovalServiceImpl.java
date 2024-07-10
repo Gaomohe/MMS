@@ -163,7 +163,7 @@ public class ApprovalServiceImpl implements ApprovalService {
     }
 
     @Override
-    public ResultData<Integer> isok(int[] ints) {
+    public ResultData<Integer> isok(int[] ints,String userName) {
         try {
             for (int anInt : ints) {
                 if (approvalDao.isok(anInt)) {

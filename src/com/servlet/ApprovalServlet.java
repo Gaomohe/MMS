@@ -61,8 +61,11 @@ public class ApprovalServlet extends BaseServlet {
 
     public ResultData<Integer> isok(HttpServletRequest request, HttpServletResponse response){
         String dataString = request.getParameter("dataString");
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String userName = userService.getUserName(user.getId());
         int[] ints = StringDeal.toArray(dataString);
-        return approvalService.isok(ints);
+        return approvalService.isok(ints,userName);
     }
     public ResultData<Integer> submit(HttpServletRequest request, HttpServletResponse response){
         String dataString = request.getParameter("dataString");

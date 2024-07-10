@@ -49,7 +49,7 @@ public interface UserService {
     //财务姓名的回显
     public List<User> getFinName();
 
-
+    public String getUserName(int id);
 
 
 }

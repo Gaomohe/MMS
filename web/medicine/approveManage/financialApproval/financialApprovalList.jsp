@@ -25,16 +25,14 @@
 <div class="layui-form">
     <div class="layuimini-container">
         <div class="layuimini-main">
-            <blockquote class="layui-elem-quote quoteBox">
-                <script type="text/html" id="financialDemo">
-                    <c:forEach var="menu" items="${menuList}" varStatus="s">
-                        ${menu.resUrl}
-                    </c:forEach>
-                </script>
-            </blockquote>
+            <script type="text/html" id="financialDemo">
+                <c:forEach var="menu" items="${menuList}" varStatus="s">
+                    ${menu.resUrl}
+                </c:forEach>
+            </script>
             <table id="financialList" lay-filter="financialList"></table>
         </div>
-        <div class="layuimini-main">
+        <%--<div class="layuimini-main">
             <script type="text/html" id="purchaseDemo">
 
                 <hr class="layui-border-green">
@@ -80,7 +78,7 @@
             </script>
 
             <table id="purchaseList" lay-filter="purchaseList"></table>
-        </div>
+        </div>--%>
     </div>
 </div>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
