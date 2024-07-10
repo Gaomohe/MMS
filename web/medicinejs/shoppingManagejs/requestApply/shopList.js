@@ -38,8 +38,6 @@ layui.extend({
 
         ]],
         done:function (data){
-            console.log("测试")
-            console.log(data)
         }
     });
 
@@ -51,10 +49,9 @@ layui.extend({
                 drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
             },
             type:'static',
-            page: false
-        },'data',function (){
-            document.querySelector('select[lay-filter="onChangeSelect"]').value = drugFrom;
-            form.render('select');
+            page: false,
+            done:function (){
+            }
         });
     });
 
@@ -77,7 +74,10 @@ layui.extend({
                                 value: value
                             },
                             type:'static',
-                            page: false
+                            page: false,
+                            done:function (){
+                                document.getElementById('ID-laydate-demo').value = value;
+                            }
                         });
                     }
                 });
@@ -102,7 +102,33 @@ layui.extend({
                         searchValue: searchValue
                     },
                     type:'static',
-                    page: false
+                    page: false,
+                    done:function (){
+                        // 数据加载完成后，重新设置搜索框的值
+                        document.getElementById('searchInput').value = searchValue;
+                    }
+                });
+
+                break;
+            case 'prescriptionDrug':
+                //处方药
+                tableIns.reload({
+                    url : '/shopping?action=prescriptionDrug',
+                    where: { // 新的查询参数
+                    },
+                    type:'static',
+                    page: false,
+                });
+                break;
+            case 'explain':
+                layui.layer.open({
+                    title : "申请说明",
+                    type : 2,
+                    content : "medicine/shoppingManage/requestApply/explain.jsp",
+                    area:['600px','500px'],
+                    success:function(layero, index){
+
+                    }
                 });
                 break;
         }

@@ -80,4 +80,7 @@ public class ShoppingServlet extends BaseServlet {
         return resultData;
 
     }
+    public void prescriptionDrug(HttpServletRequest request, HttpServletResponse response){
+        ToJSON.toJson(response,shoppingService.prescriptionDrug());
+    }
 }
