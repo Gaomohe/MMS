@@ -9,6 +9,6 @@ public interface LogService {
     public LayuiTable<Log> getLogList(int page, int limit);
 
     //日志记录
-    public int setLog(String name,String action,String item);
+    public int setLog(String name,String action,String item,String operate);
 
 }

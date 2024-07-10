@@ -32,6 +32,7 @@
             </script>
             <table id="outpatientList" lay-filter="outpatientList"></table>
         </div>
+        <table id="outpatientList2" lay-filter="outpatientList2"></table>
     </div>
 </div>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>

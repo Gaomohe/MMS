@@ -6,6 +6,7 @@ public class Log {
     private String name;
     private String action;
     private String item;
+    private String operate;
 
     public int getLogId() {
         return logId;
@@ -45,5 +46,13 @@ public class Log {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public String getOperate() {
+        return operate;
+    }
+
+    public void setOperate(String operate) {
+        this.operate = operate;
     }
 }

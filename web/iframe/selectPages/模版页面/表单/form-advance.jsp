@@ -174,7 +174,6 @@ String path = request.getContextPath();
 
             </div>
         </div>
-
         <div class="layui-card">
             <div class="layui-card-header">选择成员</div>
             <div class="layui-card-body">
@@ -247,7 +246,6 @@ String path = request.getContextPath();
             layer.msg(JSON.stringify(data.field));
             return false;
         });
-
     });
 </script>
 </body>

@@ -254,15 +254,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX'], function () {
         }
     });*/
 
-    // 导出数据包含templet
-    $('#btnExport3').click(function () {
-        tableX.exportData({
-            cols: insTb3.config.cols,
-            data: table.cache.xTable3,
-            fileName: '用户表'
-        });
-    });
-
     // 切换Tab重置表格尺寸
     element.on('tab(tableXTab)', function (data) {
         var tableIds = ['xTable1', 'xTable2', 'xTable3'];

@@ -33,9 +33,10 @@ public class FinancialServlet extends BaseServlet {
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        logService.setLog("打开页面","打开","财务审批");
+        logService.setLog(name,"打开","财务审批","获取所有按钮");
         return "medicine/approveManage/financialApproval/financialApprovalList";
     }
 

@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.util.Vessel.logService;
-import static com.util.Vessel.menuService;
+import static com.util.Vessel.*;
 
 @WebServlet("/patient")
 public class outpatientServlet extends BaseServlet {
@@ -25,9 +24,23 @@ public class outpatientServlet extends BaseServlet {
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        logService.setLog("获取所有按钮","点击","门诊管理");
+        logService.setLog(name,"点击","门诊管理","获取所有按钮");
         return "medicine/outpatientManager/outpatient/outpatientList";
     }
+
+    //获取所有按钮
+    public String getMenuBtn1(HttpServletRequest request, HttpServletResponse response){
+        int resId = Integer.parseInt(request.getParameter("resId"));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("menuList",menuList);
+        logService.setLog(name,"点击","开处方","获取所有按钮");
+        return "medicine/outpatientManager/outpatient/medicineList";
+    }
+
 }

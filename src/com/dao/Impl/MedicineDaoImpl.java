@@ -1,5 +1,6 @@
 package com.dao.Impl;
 
+import com.dao.Impl.init.InitDaoImpl;
 import com.dao.MedicineDao;
 import com.pojo.DicNum;
 import com.pojo.Medicine;
@@ -123,7 +124,7 @@ public class MedicineDaoImpl implements MedicineDao {
     public int updateMedicineNumber(Medicine medicine) {
         String sql="UPDATE `dictionary` SET `Number` = ? WHERE `tableCoding`=?";
         Object[]  objects= new Object[2];
-        objects[0] = medicine.getLastCuringDate();
+        objects[0] = medicine.getNumber();
         objects[1] = medicine.getTableCoding();
         int count= JDBC.update(sql,objects);
         return count;
@@ -433,10 +434,60 @@ public class MedicineDaoImpl implements MedicineDao {
         return medicine;
     }
 
+    @Override
+    public List<Medicine> getMedicine(String mName) {
+        String sql = "SELECT * FROM `dictionary` WHERE `mName` LIKE ?";
+        Object[] objects = new Object[1];
+        objects[0] = "%"+mName+"%";
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<Medicine> medicines = new ArrayList<Medicine>();
+        try{
+            while(resultSet.next()){
+                Medicine medicine = new Medicine();
+                medicine.setmId(resultSet.getInt(1));
+                medicine.setmName(resultSet.getString(2));
+                medicine.setSpecification(resultSet.getString(3));
+                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString(5));
+                medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));
+                medicine.setNumber(resultSet.getInt(8));
+                medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setUsefulLife(resultSet.getString(10));
+                medicine.setPurchasePrice(resultSet.getInt(11));
+                medicine.setSalePrice(resultSet.getInt(12));
+                medicine.setProductDate(resultSet.getString(13));
+                medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));
+                medicine.setGoodsType(resultSet.getString(16));
+                medicine.setmType(resultSet.getString(17));
+                medicine.setDefined(resultSet.getString(18));
+                medicine.setSupplier(resultSet.getString(19));
+                medicine.setWarehousingDate(resultSet.getString(20));
+                medicine.setLocationDescription(resultSet.getString(21));
+                medicine.setSign(resultSet.getString(22));
+                medicine.setWarehousingRemarks(resultSet.getString(23));
+                medicine.setDrugFrom(resultSet.getString(24));
+                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString(26));
+                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setTimesStorage(resultSet.getInt(28));
+                medicine.setDocumentNumber(resultSet.getString(29));
+                medicine.setPlaceOrigin(resultSet.getString(30));
+                medicine.setBatchsNumber(resultSet.getString(31));
+                medicine.setRecordNumber(resultSet.getInt(32));
+                medicine.setTableCoding(resultSet.getInt(33));
+                medicines.add(medicine);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicines;
+    }
+
     //根据商品类型，药品功效，剂型查找药品
     @Override
     public List<Medicine> getMedicineByQuery(String sql) {
-
         ResultSet resultSet = JDBC.select(sql,new Object[1]);
         List<Medicine> medicines = new ArrayList<Medicine>();
         try{
@@ -496,19 +547,19 @@ public class MedicineDaoImpl implements MedicineDao {
     }
 
     @Override
-    public DicNum getDic_Num(int tableCoding, int patirntId) {
+    public DicNum getDic_Num(int tableCoding, int patientId) {
         String sql = "SELECT * FROM `dic_num` WHERE `tableCoding`= ? AND `patientId`=?";
         Object[] objects = new Object[2];
         objects[0] = tableCoding;
-        objects[1] = patirntId;
-        ResultSet resultSet = JDBC.select(sql,objects);
+        objects[1] = patientId;
+        ResultSet resultSet = JDBC.select(sql, objects);
         DicNum dicNum = new DicNum();
         try{
             while(resultSet.next()){
-                dicNum.setTableCoding(resultSet.getInt(1));
-                dicNum.setNumber(resultSet.getInt(2));
-                dicNum.setStatue(resultSet.getString(3));
-                dicNum.setPatientId(resultSet.getInt(4));
+                dicNum.setTableCoding(resultSet.getInt(2));
+                dicNum.setNumber(resultSet.getInt(3));
+                dicNum.setStatue(resultSet.getString(4));
+                dicNum.setPatientId(resultSet.getInt(5));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -517,30 +568,45 @@ public class MedicineDaoImpl implements MedicineDao {
     }
 
     @Override
-    public int getDic_Num(int tableCoding) {
-        String sql = "SELECT SUM(number) FROM `dic_num` WHERE `tableCoding`= ? AND `statue`='未付款'";
-        Object[] objects = new Object[1];
-        objects[0] = tableCoding;
-        ResultSet resultSet = JDBC.select(sql,objects);
-        int i = 0;
+    public List<DicNum> getDic_Num() {
+        String sql = "SELECT * FROM `dic_num` WHERE `statue`='未付款'";
+        List<DicNum> list = new ArrayList<>();
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
         try{
             while(resultSet.next()){
-                i=resultSet.getInt(1);
+                DicNum dicNum = new DicNum();
+                dicNum.setId(resultSet.getInt(1));
+                dicNum.setTableCoding(resultSet.getInt(2));
+                dicNum.setNumber(resultSet.getInt(3));
+                dicNum.setStatue(resultSet.getString(4));
+                dicNum.setPatientId(resultSet.getInt(5));
+                dicNum.setTime(resultSet.getString(6));
+                list.add(dicNum);
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-        return i;
+        return list;
     }
 
     @Override
     public int updateDic_Num(DicNum dicNum) {
-        String sql="UPDATE `dic_num` SET `statue`=? WHERE `tableCoding`=?,`patientId`=?";
+        String sql="UPDATE `dic_num` SET `statue`=? WHERE `tableCoding`=? AND `patientId`=?";
         Object[] objects= new Object[3];
         objects[0] = dicNum.getStatue();
         objects[1] = dicNum.getTableCoding();
-        objects[2] = dicNum.getTableCoding();
+        objects[2] = dicNum.getPatientId();
         int count= JDBC.update(sql,objects);
         return count;
+    }
+
+    @Override
+    public int delDic_Num(int id) {
+        InitDaoImpl initDao = new InitDaoImpl();
+        boolean b = initDao.delOne(id, "id", "dic_num");
+        if (b){
+            return 1;
+        }
+        return 0;
     }
 }

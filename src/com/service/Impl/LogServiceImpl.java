@@ -34,6 +34,7 @@ public class LogServiceImpl implements LogService {
                 log.setName(logSet.getString(3));
                 log.setAction(logSet.getString(4));
                 log.setItem(logSet.getString(5));
+                log.setOperate(logSet.getString(6));
                 logList.add(log);
             }
             layuiTable.setCode(0);
@@ -49,13 +50,14 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public int setLog(String name, String action, String item) {
+    public int setLog(String name, String action, String item,String operate) {
         Log log = new Log();
         String time = GetTime.getTime();
         log.setTime(time);
         log.setName(name);
         log.setAction(action);
         log.setItem(item);
+        log.setOperate(operate);
         int num = 0;
         num = logDao.setLog(log);
         return num;

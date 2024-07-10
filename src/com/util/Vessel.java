@@ -38,4 +38,5 @@ public class Vessel {
     public static FinancialDao financialDao = new FinancialDaoImpl();
     public static FinancialService financialService = new FinancialServiceImpl();
 
+
 }

@@ -25,9 +25,10 @@ public class LogServlet extends BaseServlet {
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        logService.setLog("获取所有按钮","点击","日志管理");
+        logService.setLog(name,"点击","日志管理","获取所有按钮");
         return "medicine/systemManage/log/logList";
     }
 

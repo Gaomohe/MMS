@@ -145,9 +145,24 @@ layui.extend({
                         layer.msg("未选择", {icon: 2});
                     }
                     break;
+                case 'download':
+                    console.log("--------------------");
+                    downloads();
+                    break;
             }
         });
     });
+
+    // 导出excel
+    function downloads() {
+        var checkRows = table.checkStatus('financialList');
+        console.log(checkRows);
+        if (checkRows.data.length === 0) {
+            layer.msg('请选择要导出的数据', {icon: 2});
+        } else {
+            table.exportFile(tableMain.config.id,checkRows.data, 'selected_data.xls');
+        }
+    }
 
     function getCode(){
         // 申请编号

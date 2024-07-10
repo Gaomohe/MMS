@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>系统日志</title>
+    <title>门诊</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,24 +22,21 @@
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
-
-<div class="layuimini-container">
-    <div class="layuimini-main">
-        <script type="text/html" id="logDemo">
-            <c:forEach var="menu" items="${menuList}" varStatus="s">
-                ${menu.resUrl}
-            </c:forEach>
-        </script>
-        <table id="logList" lay-filter="logList"></table>
+<div class="layui-form">
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <script type="text/html" id="outpatientDemo">
+                <c:forEach var="menu" items="${menuList}" varStatus="s">
+                    ${menu.resUrl}
+                </c:forEach>
+            </script>
+            <table id="outpatientList" lay-filter="outpatientList"></table>
+        </div>
+        <table id="outpatientList2" lay-filter="outpatientList2"></table>
     </div>
 </div>
-
-<!-- 权限更改 -->
-<div style="height: 400px;overflow: auto;display: none" id="dtree1">
-    <ul id="dataTree3" class="dtree" data-id="0"></ul>
-</div>
-
-<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/systemManage/log/logList.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
+<script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/outpatientManager/outpatient/medicineList.js" charset="utf-8"></script>
 </body>
 </html>

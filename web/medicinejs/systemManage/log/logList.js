@@ -11,26 +11,27 @@ layui.extend({
 
     //表格渲染
     var tableIns = table.render({
-        elem: '#newsList',
+        elem: '#logList',
         url : '/log?action=getLogList',
         cellMinWidth : 95,
         page : true,
-        toolbar: '#roleDemo',
-        height : "full-125",
+        toolbar: '#logDemo',
+        height : "600px",
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'logId', title: '编号',  align:'center',width:100},
-            {field: 'time', title: '时间',  align:'center',width:100},
-            {field: 'name', title: '用户名', width:150, align:"center"},
-            {field: 'action', title:'动作' , width:150, align:"center"},
-            {field: 'item', title:'事务' , width:150, align:"center"}
+            {field: 'logId', title: '编号',  align:'center',width:150},
+            {field: 'time', title: '时间',  align:'center',width:250},
+            {field: 'name', title: '操作用户', width:200, align:"center"},
+            {field: 'action', title:'动作' , width:200, align:"center"},
+            {field: 'item', title:'事务' , width:200, align:"center"},
+            {field: 'operate', title:'操作' , width:200, align:"center"}
         ]]
     });
 
     //工具栏事件
-    table.on('toolbar(newsList)', function(obj){
+    table.on('toolbar(logList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var roleid = '';
@@ -48,7 +49,6 @@ layui.extend({
                     layer.close(index);
                 });
                 break;
-
             case 'upRole':	//修改角色
                 if(data.length != 1){
                     layer.msg("请选择一行数据进行操作")

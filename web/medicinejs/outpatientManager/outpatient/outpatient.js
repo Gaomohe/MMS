@@ -33,7 +33,7 @@ layui.extend({
             height: "600px",
             limit: 20,
             limits: [10, 15, 20, 25],
-            cols: [
+            /*cols: [
                 [{fixed: "left",
                     type: "checkbox",
                     width: 50
@@ -265,8 +265,8 @@ layui.extend({
                         templet: '#barDemo',
                     }
                 ]
-            ],
-            /*cols: [[
+            ],*/
+            cols: [[
                 {fixed:"left",type: "checkbox", width:50},
                 {field: 'pId', title: '患者卡号',  align:'center'},
                 {field: 'dId', title: '医生编号',  align:'center'},
@@ -281,7 +281,7 @@ layui.extend({
                 {field: 'allergy', title: '过敏史',  align:'center'},
                 {field: 'doctorAdvice', title: '医嘱',  align:'center'},
                 {field: 'dName', title: '医生姓名',  align:'center'},
-            ]],*/
+            ]],
         });
         tableMain = tableIns;
         // 初始化下拉框
@@ -294,12 +294,6 @@ layui.extend({
         getStatus();
 
         table.on('toolbar(outpatientList)', function(obj) {
-            /*var checkStatus = table.checkStatus(obj.config.id);
-            var data = checkStatus.data;
-            var applyIds = []; // 用来存储所有选中行的 applyId
-            for (let i = 0; i < data.length; i++) {
-                applyIds.push(data[i].applyId); // 将每个选中行的 applyId 添加到数组中
-            }*/
             var checkdata= table.checkStatus(obj.config.id)
             var files= checkdata.data;
             console.log(files);
@@ -366,6 +360,9 @@ layui.extend({
                     } else {
                         layer.msg("未选择", {icon: 2});
                     }
+                    break;
+                case 'addPatient':
+                    addPatient();
                     break;
             }
         });
@@ -490,143 +487,6 @@ layui.extend({
         getStatus();
     }
 
-    function winReload(){
-        location.reload();
-    }
-
-    function delApply(ids){
-        $.ajax({
-            url: "/financial?action=delApply",
-            data: { "ids": ids },
-            type: "post",
-            dataType: "json",
-            traditional: true,
-            success: function(res) {
-                console.log("res");
-                console.log(res);
-                console.log(res.status);
-                counts++;
-                console.log(counts);
-                console.log(total);
-                if (counts == total) {
-                    if (res.status) {
-                        layer.msg("删除成功", { icon: 1 });
-                        location.reload();
-                    } else {
-                        layer.msg("删除失败", { icon: 2 });
-                    }
-                }
-            }
-        });
-    }
-    function setUnApprove(id){
-        $.ajax({
-            url: "/financial?action=setUnApprove",
-            data: { "id": id },
-            type: "post",
-            dataType: "json",
-            traditional: true,
-            success: function(res) {
-                console.log("res");
-                console.log(res);
-                console.log(res.status);
-                counts++;
-                console.log(counts);
-                console.log(total);
-                if (counts == total) {
-                    if (res.status) {
-                        layer.msg("审核成功", { icon: 1 });
-                        location.reload();
-                    } else {
-                        layer.msg("审核失败", { icon: 2 });
-                    }
-                }
-            }
-        });
-    }
-
-    function setApprove(id){
-        $.ajax({
-            url: "/financial?action=setApply",
-            data: { "id": id },
-            type: "post",
-            dataType: "json",
-            traditional: true,
-            success: function(res) {
-                console.log("res");
-                console.log(res);
-                console.log(res.status);
-                counts++;
-                console.log(counts);
-                console.log(total);
-                if (counts == total) {
-                    if (res.status) {
-                        layer.msg("审核成功", { icon: 1 });
-                        location.reload();
-                    } else {
-                        layer.msg("审核失败", { icon: 2 });
-                    }
-                }
-            }
-        });
-    }
-
-    function approve(array,state){
-        for (let i = 0; i < state.length; i++) {
-            if (state[i]==="已审阅通过" || state[i]==="已审阅未通过"){
-                layer.alert("单据"+array[i]+"已审阅,请取消！");
-                return ;
-            }
-        }
-        if (array.length===0){
-            layer.msg("请选择一条记录");
-            return ;
-        }
-        var dataString = $.param({"array": array});
-        console.log("-------------------------------");
-        console.log(array);
-        console.log(state);
-        console.log(dataString);
-        layui.layer.open({
-            title : "审批",
-            type : 2,
-            content : "medicine/approveManage/financialApproval/financialApprovalInfo.jsp",
-            area:['900px','500px'],
-            success:function (layero, index){
-                $.ajax({
-                    url:"/financial?action=getApproveById",//根据id将状态改成“已审批”
-                    type:"post",
-                    data:{dataString},
-                    success:function(data){
-                        var info = JSON.parse(data).data;
-                        console.log("**************")
-                        console.log(info);
-                        var iframe = layer.getChildFrame('body', index);
-                        var rowsHtml = '';
-                        $(document).ready(function(){
-                            form.render('checkbox');
-                        });
-                        $.each(info, function(i, item) {
-                            rowsHtml += '<tr>';
-                            rowsHtml += '<td><input type="checkbox" id="'+i+'" name="'+item.mName+'" value="'+item.applyId+'"></td>';
-                            rowsHtml += '<td>' + item.applyId + '</td>';
-                            rowsHtml += '<td>' + item.mName + '</td>';
-                            rowsHtml += '<td>' + item.number + '</td>';
-                            rowsHtml += '<td>'+item.mType+'</td>';
-                            rowsHtml += '<td>'+item.specification+"/"+item.unit+'</td>';
-                            rowsHtml += '<td>'+item.financeApprove+'</td>';
-                            rowsHtml += '<td>' + item.applyNumber + '</td>';
-                            rowsHtml += '<td>' + item.purchasePrice + '</td>>'
-                            rowsHtml += '</tr>';
-                        });
-                        // 更新iframe窗口中的表格body
-                        $(iframe).find('#table-body').html(rowsHtml);
-
-                    }
-                })
-            }
-        })
-    }
 });
 
 

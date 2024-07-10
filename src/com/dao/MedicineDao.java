@@ -29,10 +29,18 @@ public interface MedicineDao {
     public List<Medicine> getMedicineByMId(int mId);
     //药品回显
     public Medicine getMedicine(int tableCoding);
+    //通过名称模糊查询
+    public List<Medicine> getMedicine(String mName);
     //多条件查询（药品名称，商品分类，药品功效，剂型）
     public List<Medicine> getMedicineByQuery(String sql);
+    //库存维护表新增
     public int addDic_Num(Medicine medicine,int patientId,int number);
+    //库存数据获得
     public DicNum getDic_Num(int tableCoding, int patirntId);
-    public int getDic_Num(int tableCoding);
+    //获得所有维护表数据
+    public List<DicNum> getDic_Num();
+    //更新维护表付款状态
     public int updateDic_Num(DicNum dicNum);
+    //回滚后删除维护表信息
+    public int delDic_Num(int id);
 }
