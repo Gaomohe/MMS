@@ -2,8 +2,6 @@ package com.util;
 
 import com.dao.*;
 import com.dao.Impl.*;
-import com.pojo.Log;
-import com.pojo.User;
 import com.service.*;
 import com.service.Impl.*;
 
@@ -13,8 +11,8 @@ public class Vessel {
     public static MenuDao menuDao = new MenuDaoImpl();
     public static MenuService menuService = new MenuServiceImpl();
 
-    public static WarehouseDao warehouseDao = new WarehouseDaoImpl();
-    public static WarehouseService warehouseService = new WarehouseServiceImpl();
+    public static StockAllDao stockAllDao = new StockAllDaoImpl();
+    public static StockAllService stockAllService = new StockAllServiceImpl();
     public static RoleDao roleDao = new RoleDaoImpl();
     public static RoleService roleService = new RoleServiceImpl();
 

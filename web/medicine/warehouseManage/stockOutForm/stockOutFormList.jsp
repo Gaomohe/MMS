@@ -45,7 +45,8 @@
       </div>
     </div>
 
-    <div class="layui-form-item">
+<%--    <div class="layui-form-item">--%>
+<%--    这个layui-form-item是独占一行的意思--%>
       <div class="layui-inline">
         <label class="layui-form-label">出库日期:</label>
         <div class="layui-inline" id="ID-laydate-rangeLinked">
@@ -60,7 +61,7 @@
         <button type="button" class="layui-btn layui-bg-blue">查询</button>
         <button class="layui-btn layui-btn-primary layui-border">重置</button>
       </div>
-    </div>
+<%--    </div>--%>
 
     <%--可根据入库日期查询药品入库单信息--%>
 

@@ -11,28 +11,48 @@ layui.extend({
 
     //表格渲染
     var tableIns = table.render({
-        elem: '#stockInFormList',
-        url : '/StockInForm?action=selectStockInForm',
+        elem: '#stockAllFormList',
+        url : '/StockAllForm?action=selectStockAllForm',
         cellMinWidth : 95,
         page : true,
-        toolbar: '#stockInFormDemo',
+        toolbar: '#stockAllFormDemo',
         height : "full-125",
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'rId', title: '入库单号',  align:'center',width:100},
-            {field: 'rName', title: '入库药品',  align:'center',width:100},
-            {field: 'standard', title: '规格', width:100, align:"center"},
+            {field: 'mId', title: '药品编号',  align:'center',width:100},
+            {field: 'mName', title: '药品名称',  align:'center',width:100},
+            {field: 'specification', title: '规格', width:100, align:"center"},
             {field: 'manufactor', title:'生产厂家' , width:100, align:"center"},
             {field: 'unit', title:'单位' , width:100, align:"center"},
-            {field: 'rNum', title:'入库药品数量' , width:100, align:"center"},
-            {field: 'cost', title:'成本' , width:100, align:"center"},
-            {field: 'salePrice', title:'销售价' , width:100, align:"center"},
-            {field: 'batchNumber', title:'批号' , width:100, align:"center"},
-            {field: 'productDate', title:'生产日期' , width:100, align:"center"},
-            {field: 'expiration', title:'有效期至' , width:100, align:"center"},
             {field: 'department', title:'部门' , width:100, align:"center"},
+            {field: 'position', title:'货位' , width:100, align:"center"},
+            {field: 'number', title:'数量' , width:100, align:"center"},
+            {field: 'batchNumber', title:'批号' , width:100, align:"center"},
+            {field: 'usefulLife', title:'有效期' , width:100, align:"center"},
+            {field: 'purchasePrice', title:'采购价' , width:100, align:"center"},
+            {field: 'salePrice', title:'销售价' , width:100, align:"center"},
+            {field: 'productDate', title:'生产日期' , width:100, align:"center"},
+            {field: 'profits', title:'利润金额' , width:100, align:"center"},
+            {field: 'code', title:'自编码' , width:100, align:"center"},
+            {field: 'goodsType', title:'商品分类' , width:100, align:"center"},
+            {field: 'mType', title:'药品分类' , width:100, align:"center"},
+            {field: 'defined', title:'自定义类' , width:100, align:"center"},
+            {field: 'supplier', title:'供货商' , width:100, align:"center"},
+            {field: 'warehousingDate', title:'入库日期' , width:100, align:"center"},
+            {field: 'locationDescription', title:'货位说明' , width:100, align:"center"},
+            {field: 'sign', title:'标志' , width:100, align:"center"},
+            {field: 'warehousingRemarks', title:'入库备注' , width:100, align:"center"},
+            {field: 'drugFrom', title:'剂型' , width:100, align:"center"},
+            {field: 'handlingInformation', title:'处理情况' , width:100, align:"center"},
+            {field: 'approvalNumber', title:'批准文号' , width:100, align:"center"},
+            {field: 'LastCuringDate', title:'上次养护日期' , width:100, align:"center"},
+            {field: 'timesStorage', title:'入库次数' , width:100, align:"center"},
+            {field: 'documentNumber', title:'单据号码' , width:100, align:"center"},
+            {field: 'placeOrigin', title:'产地' , width:100, align:"center"},
+            {field: 'batchsNumber', title:'批次号' , width:100, align:"center"},
+            {field: 'recordNumber', title:'记录号' , width:100, align:"center"},
 
         ]],
         done:function (data){
@@ -41,23 +61,23 @@ layui.extend({
     });
 
     //工具栏事件
-    table.on('toolbar(stockInFormList)', function(obj){
+    table.on('toolbar(stockAllFormList)', function(obj){
         console.log(obj)
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
-        var rId = '';
+        var mId = '';
         for(i=0;i<data.length;i++){
-            rId = data[i].rId;
+            mId = data[i].mId;
         }
-        console.log(rId)
+        console.log(mId)
         switch(obj.event){
-            case 'delStockInForm':
+            case 'delStockAllForm':
                 if(data.length != 1){
                     layer.msg("请选择一行数据进行操作")
                     return false;
                 }
                 layer.confirm('确定删除此入库单吗?', {icon: 3, title:'提示'}, function(index){
-                    delStockInForm(rId);
+                    delStockAllForm(mId);
                     layer.close(index);
                 });
                 break;
@@ -67,34 +87,34 @@ layui.extend({
                     layer.msg("请选择一行数据进行操作")
                     return false;
                 }else{
-                    updateStockInForm(rId);
+                    updateStockAllForm(rId);
                 }
                 break;
 
-            case 'addStockInForm':
-                addStockInForm();
+            case 'addStockAllForm':
+                addStockAllForm();
                 break;
 
         };
     });
 
-    function delStockInForm(rId){
+    function delStockAllForm(mId){
         $.ajax({
-            url:"/StockInForm?action=delStockInForm",
+            url:"/StockAllForm?action=delStockAllForm",
             type:"post",
-            data:{"rId":rId},
+            data:{"mId":mId},
             success:function(data){
                 console.log(data)
                 var info = JSON.parse(data);
                 if(info.status == 200){
                     layer.msg("删除成功");
-                    tableIns.reload("#stockInFormList");
+                    tableIns.reload("#stockAllFormList");
                 }
             }
         })
     }
 
-    function updateStockInForm(rId){
+    function updateStockAllForm(rId){
         layui.layer.open({
             title : "修改入库单信息",
             type : 2,
@@ -125,33 +145,13 @@ layui.extend({
             }
         });
     }
-    function addStockInForm(){
-        layer.open({
-            type: 2,
+    function addStockAllForm(){
+        layui.layer.open({
+            title : "新增入库单",
+            type : 2,
             content : "medicine/warehouseManage/stockInForm/stockInFormAdd.jsp",
-            area: ['1000px', '520px'],
-            fixed: false, // 不固定
-            maxmin: true,
-            shadeClose: true,
-            btn: ['保存并审核', '取消'],
-            btnAlign: 'c',
-            yes: function (index, layero) {
-                // 获取 iframe 的窗口对象
-                var iframeWin = window[layero.find('iframe')[0]['name']];
-                var elemMark = iframeWin.$('#mark'); // 获得 iframe 中某个输入框元素
-                var value = elemMark.val();
-
-                if ($.trim(value) === '') return elemMark.focus();
-                // 显示获得的值
-                layer.msg('获得 iframe 中的输入框标记值：' + value);
-            }
-        })
-        // layui.layer.open({
-        //     title : "新增入库单",
-        //     type : 2,
-        //     content : "medicine/warehouseManage/stockInForm/stockInFormAdd.jsp",
-        //     area:['400px','500px'],
-        // });
+            area:['400px','500px'],
+        });
     }
 
 })

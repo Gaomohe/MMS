@@ -28,7 +28,7 @@
     <div class="layuimini-main">
 
         <blockquote class="layui-elem-quote quoteBox">
-            药品入库单列表
+            药品库存列表
         </blockquote>
 
         <div class="layui-inline">
@@ -63,25 +63,45 @@
                 </div>
 
 
-        <script type="text/html" id="stockInFormDemo" src="//unpkg.com/layui@2.9.13/dist/layui.js">
+
+
+
+
+        <script type="text/html" id="stockAllFormDemo" src="//unpkg.com/layui@2.9.13/dist/layui.js">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
             </c:forEach>
         </script>
 
-        <table id="stockInFormList" lay-filter="stockInFormList"></table>
+        <table id="stockAllFormList" lay-filter="stockAllFormList"></table>
     </div>
 </div>
 
 
+<!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+<script src="//unpkg.com/layui@2.9.13/dist/layui.js"></script>
+<script>
+    layui.use(function () {
+        var laydate = layui.laydate;
 
-        <!-- 权限更改 -->
+        // 日期范围 - 左右面板联动选择模式
+        laydate.render({
+            elem: '#ID-laydate-rangeLinked',
+            range: ['#ID-laydate-start-date-1', '#ID-laydate-end-date-1'],
+            rangeLinked: true // 开启日期范围选择时的区间联动标注模式 ---  2.8+ 新增
+        });
+
+    });
+</script>
+
+
+<!-- 权限更改 -->
 <div style="height: 400px;overflow: auto;display: none" id="dtree1">
     <ul id="dataTree3" class="dtree" data-id="0"></ul>
 </div>
 
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockInForm/stockInFormList.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockAllForm/stockAllFormList.js" charset="utf-8"></script>
 </body>
 </html>

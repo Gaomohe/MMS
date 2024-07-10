@@ -2,7 +2,6 @@ package com.service;
 
 import com.pojo.Menu;
 import com.pojo.Role;
-import com.pojo.Warehouse;
 import com.util.Dtree;
 import com.util.LayuiTable;
 
