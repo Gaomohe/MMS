@@ -163,12 +163,15 @@ layui.extend({
                     data:{dataString},
                     success:function(data){
                         var info = JSON.parse(data).data;
+                        console.log("**************")
+                        console.log(info);
                         var iframe = layer.getChildFrame('body', index);
                         var rowsHtml = '';
                         $(document).ready(function(){
                             form.render('checkbox');
                         });
                         $.each(info, function(i, item) {
+
                             rowsHtml += '<tr>';
                             rowsHtml += '<td><input type="checkbox" id="'+i+'" name="'+item.mName+'" value="'+item.applyId+'"></td>';
                             rowsHtml += '<td>' + item.applyId + '</td>';

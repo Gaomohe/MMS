@@ -25,14 +25,13 @@
 <div class="layui-form">
     <div class="layuimini-container">
         <div class="layuimini-main">
-            <script type="text/html" id="financialDemo">
-
-
-
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
-                    ${menu.resUrl}
-                </c:forEach>
-            </script>
+            <blockquote class="layui-elem-quote quoteBox">
+                <script type="text/html" id="financialDemo">
+                    <c:forEach var="menu" items="${menuList}" varStatus="s">
+                        ${menu.resUrl}
+                    </c:forEach>
+                </script>
+            </blockquote>
             <table id="financialList" lay-filter="financialList"></table>
         </div>
         <div class="layuimini-main">
@@ -51,8 +50,8 @@
                     <div class="layui-col-md2">
                         <select lay-search="" lay-event="status">
                             <option value="0" selected>状态</option>
-                            <option value="1">未审批</option>
-                            <option value="2">已审批</option>
+                            <option value="1">未审阅</option>
+                            <option value="2">已审阅</option>
                         </select>
                     </div>
                     <div class="layui-col-md2">

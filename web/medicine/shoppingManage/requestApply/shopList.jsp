@@ -72,13 +72,13 @@
 <button lay-filter="doSearch" lay-submit lay-event="submit" class="layui-btn layui-btn-primary layui-border-green">点击搜索</button>
 <button lay-event="add" type="button" class="layui-btn layui-bg-blue">采购申请</button>
 <button type="button" class="layui-btn">历史记录</button>
-<button type="button" class="layui-btn layui-bg-red">处方药</button>
+<button lay-event="prescriptionDrug" type="button" class="layui-btn layui-bg-red">处方药</button>
             <hr>
 <%--            下拉--%>
 <div class="layui-form layui-row layui-col-space16">
             <div class="layui-col-md2">
-                <select lay-filter="onChangeSelect">
-                    <option value="">请选择类型</option>
+                <select lay-filter="onChangeSelect" id="onChangeSelect">
+                    <option id="onChangeSelectValue" value="">请选择类型</option>
                     <c:forEach var="kindList" items="${kindList}" varStatus="s">
                         <option value="${kindList.drugFrom}">${kindList.drugFrom}</option>
                     </c:forEach>
@@ -86,7 +86,7 @@
                 </select>
             </div>
     <div class="layui-col-md8">
-        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">说明</button>
+        <button lay-event="explain" type="button" class="layui-btn layui-btn-primary layui-btn-radius">说明</button>
     </div>
 </div>
 

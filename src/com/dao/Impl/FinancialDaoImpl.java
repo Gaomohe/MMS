@@ -51,4 +51,39 @@ public class FinancialDaoImpl implements FinancialDao {
         }
         return list;
     }
+
+    @Override
+    public int delApply(int id) {
+        String sql = "delete from apply where applyId=?";
+        Object[] obj = new Object[1];
+        obj[0] = id;
+        int update = JDBC.update(sql, obj);
+        return update;
+    }
+
+    //财务审核
+    @Override
+    public int setApply(Apply apply) {
+        String sql = "UPDATE apply\n" +
+                "SET financeApprove = '已审阅通过',financeTime = ?\n" +
+                "WHERE applyId = ?;";
+        Object[] obj = new Object[2];
+        obj[1] = apply.getApplyId();
+        obj[0] = apply.getFinanceTime();
+        int update = JDBC.update(sql, obj);
+        return update;
+    }
+
+    //财务反审核
+    @Override
+    public int setUnApprove(Apply apply) {
+        String sql = "UPDATE apply\n" +
+                "SET financeApprove = '已审阅未通过',financeTime = ?\n" +
+                "WHERE applyId = ?;";
+        Object[] obj = new Object[2];
+        obj[1] = apply.getApplyId();
+        obj[0] = apply.getFinanceTime();
+        int update = JDBC.update(sql, obj);
+        return update;
+    }
 }

@@ -2,6 +2,7 @@ package com.service.Impl;
 
 import com.pojo.Apply;
 import com.service.FinancialService;
+import com.util.GetTime;
 import com.util.LayuiTable;
 import com.util.SQLtoString;
 
@@ -30,5 +31,31 @@ public class FinancialServiceImpl implements FinancialService {
         layuiTable.setCount(applyAll.size());
         layuiTable.setData(applyAll);
         return layuiTable;
+    }
+
+    //删除申请
+    @Override
+    public int delApply(int id) {
+        return financialDao.delApply(id);
+    }
+
+    //财务审核
+    @Override
+    public int setApply(int id) {
+        int i = 0;
+        Apply apply = new Apply();
+        apply.setApplyId(id);
+        apply.setFinanceTime(GetTime.getTime());
+        return financialDao.setApply(apply);
+    }
+
+    //财务反审核
+    @Override
+    public int setUnApprove(int id) {
+        int i = 0;
+        Apply apply = new Apply();
+        apply.setApplyId(id);
+        apply.setFinanceTime(GetTime.getTime());
+        return financialDao.setUnApprove(apply);
     }
 }

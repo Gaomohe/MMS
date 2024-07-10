@@ -288,4 +288,41 @@ public class ShoppingServiceImpl implements ShoppingService {
         }
         return applyList;
     }
+
+    @Override
+    public LayuiTable<Medicine> prescriptionDrug() {
+        ResultSet dictionary = shoppingDao.getOne("处方药", "goodsType", "dictionary");
+        int count = 0;
+        List<Medicine> medicineList = new ArrayList<>();
+
+        try {
+            while (dictionary.next()){
+                Medicine medicine = new Medicine();
+                medicine.setTableCoding(dictionary.getInt("tableCoding"));
+                medicine.setmName(dictionary.getString(2));
+                medicine.setSpecification(dictionary.getString(3));
+                medicine.setManufactor(dictionary.getString(4));
+                medicine.setNumber(dictionary.getInt("number"));
+                medicine.setPurchasePrice(dictionary.getDouble("purchasePrice"));
+                medicine.setProductDate(dictionary.getString("productDate"));
+                medicine.setDrugFrom(dictionary.getString("drugFrom"));
+                medicine.setGoodsType(dictionary.getString("goodsType"));
+                medicine.setSupplier(dictionary.getString("supplier"));
+                medicine.setApprovalNumber(dictionary.getString("approvalNumber"));
+                medicine.setDocumentNumber(dictionary.getString("documentNumber"));
+                medicine.setRecordNumber(dictionary.getInt("recordNumber"));
+                medicine.setBatchsNumber(dictionary.getString("batchsNumber"));
+                count++;
+                medicineList.add(medicine);
+            }
+            layuiTable.setData(medicineList);
+            layuiTable.setMsg("");
+            layuiTable.setCount(count);
+            layuiTable.setCode(0);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return layuiTable;
+    }
 }

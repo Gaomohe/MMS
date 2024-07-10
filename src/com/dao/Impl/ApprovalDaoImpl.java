@@ -11,7 +11,7 @@ public class ApprovalDaoImpl extends InitDaoImpl implements ApprovalDao {
 
     @Override
     public boolean isok(int id) {
-        String sql = "update apply set pharmacistApprove='已审阅通过' where applyId=?";
+        String sql = "update apply set pharmacistApprove='已审阅通过',pharmacistTime= NOW() where applyId=?";
         Object[] objects = new Object[]{id};
         return JDBC.update(sql,objects) > 0;
     }

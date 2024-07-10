@@ -1,10 +1,15 @@
 package com.servlet;
 
 import com.pojo.Apply;
+import com.pojo.Appointment;
 import com.pojo.Menu;
 import com.pojo.User;
+import com.service.Impl.ApprovalServiceImpl;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
+import com.util.Result;
+import com.util.ResultData;
+import com.util.init.StringDeal;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +22,7 @@ import static com.util.Vessel.*;
 
 @WebServlet("/financial")
 public class FinancialServlet extends BaseServlet {
+    ApprovalServiceImpl approvalService = new ApprovalServiceImpl();
     @Override
     public Class getServlet() {
         return FinancialServlet.class;
@@ -67,5 +73,40 @@ public class FinancialServlet extends BaseServlet {
         page = (page-1)*limit;
         ToJSON.toJson(response,financialService.getAppointList(limit, page, apply));
         System.out.println("ssssssssss");
+    }
+
+    //删除申请
+    public ResultData delApply(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("ids"));
+        int i = financialService.delApply(id);
+        ResultData resultData = new ResultData();
+        resultData = Result.resultStatus(i);
+        return resultData;
+    }
+
+    //获取批准全部信息
+    public ResultData<List<Appointment>> getApproveById(HttpServletRequest request, HttpServletResponse response){
+        int[] dataStrings = StringDeal.toArray(request.getParameter("dataString"));
+        ResultData<List<Appointment>> resultData = new ResultData();
+        resultData = approvalService.getAuditId(dataStrings);
+        return resultData;
+    }
+
+    //财务审核
+    public ResultData setApply(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        ResultData resultData = new ResultData();
+        int i = financialService.setApply(id);
+        resultData = Result.resultStatus(i);
+        return resultData;
+    }
+
+    //财务反审核
+    public ResultData setUnApprove(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        ResultData resultData = new ResultData();
+        int i = financialService.setApply(id);
+        resultData = Result.resultStatus(i);
+        return resultData;
     }
 }

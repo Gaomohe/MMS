@@ -8,5 +8,13 @@ public interface FinancialDao {
     //条件获取所有为审批
     public List<Apply> getPurchaseList(String sql);
 
+    //删除申请
+    public int delApply(int id);
+
+    //财务审核
+    public int setApply(Apply apply);
+
+    //财务反审核
+    public int setUnApprove(Apply apply);
 
 }
