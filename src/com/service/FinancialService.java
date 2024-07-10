@@ -1,6 +1,7 @@
 package com.service;
 
 import com.pojo.Apply;
+import com.pojo.User;
 import com.util.LayuiTable;
 
 public interface FinancialService {
@@ -11,9 +12,9 @@ public interface FinancialService {
     public int delApply(int id);
 
     //财务审核
-    public int setApply(int id);
+    public int setApply(int id, User user);
 
     //财务反审核
-    public int setUnApprove(int id);
+    public int setUnApprove(int id, User user);
 
 }

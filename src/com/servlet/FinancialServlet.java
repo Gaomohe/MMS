@@ -96,7 +96,9 @@ public class FinancialServlet extends BaseServlet {
     public ResultData setApply(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
         ResultData resultData = new ResultData();
-        int i = financialService.setApply(id);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int i = financialService.setApply(id,user);
         resultData = Result.resultStatus(i);
         return resultData;
     }
@@ -105,7 +107,9 @@ public class FinancialServlet extends BaseServlet {
     public ResultData setUnApprove(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
         ResultData resultData = new ResultData();
-        int i = financialService.setApply(id);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int i = financialService.setUnApprove(id,user);
         resultData = Result.resultStatus(i);
         return resultData;
     }

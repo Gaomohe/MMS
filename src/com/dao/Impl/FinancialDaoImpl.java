@@ -65,11 +65,12 @@ public class FinancialDaoImpl implements FinancialDao {
     @Override
     public int setApply(Apply apply) {
         String sql = "UPDATE apply\n" +
-                "SET financeApprove = '已审阅通过',financeTime = ?\n" +
+                "SET financeApprove = '已审阅通过',financeTime = ?,finance=?\n" +
                 "WHERE applyId = ?;";
-        Object[] obj = new Object[2];
-        obj[1] = apply.getApplyId();
+        Object[] obj = new Object[3];
         obj[0] = apply.getFinanceTime();
+        obj[1] = apply.getApplyUser();
+        obj[2] = apply.getApplyId();
         int update = JDBC.update(sql, obj);
         return update;
     }
@@ -78,11 +79,12 @@ public class FinancialDaoImpl implements FinancialDao {
     @Override
     public int setUnApprove(Apply apply) {
         String sql = "UPDATE apply\n" +
-                "SET financeApprove = '已审阅未通过',financeTime = ?\n" +
+                "SET financeApprove = '已审阅未通过',financeTime = ?,finance=?\n" +
                 "WHERE applyId = ?;";
-        Object[] obj = new Object[2];
-        obj[1] = apply.getApplyId();
+        Object[] obj = new Object[3];
         obj[0] = apply.getFinanceTime();
+        obj[1] = apply.getApplyUser();
+        obj[2] = apply.getApplyId();
         int update = JDBC.update(sql, obj);
         return update;
     }

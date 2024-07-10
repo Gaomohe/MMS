@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 import com.pojo.Apply;
+import com.pojo.User;
 import com.service.FinancialService;
 import com.util.GetTime;
 import com.util.LayuiTable;
@@ -9,7 +10,7 @@ import com.util.SQLtoString;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.util.Vessel.financialDao;
+import static com.util.Vessel.*;
 
 public class FinancialServiceImpl implements FinancialService {
     @Override
@@ -41,21 +42,25 @@ public class FinancialServiceImpl implements FinancialService {
 
     //财务审核
     @Override
-    public int setApply(int id) {
+    public int setApply(int id, User user) {
         int i = 0;
         Apply apply = new Apply();
         apply.setApplyId(id);
         apply.setFinanceTime(GetTime.getTime());
+        String userName = userDao.getUserName(user.getId());
+        apply.setApplyUser(userName);
         return financialDao.setApply(apply);
     }
 
     //财务反审核
     @Override
-    public int setUnApprove(int id) {
+    public int setUnApprove(int id, User user) {
         int i = 0;
         Apply apply = new Apply();
         apply.setApplyId(id);
         apply.setFinanceTime(GetTime.getTime());
+        String userName = userDao.getUserName(user.getId());
+        apply.setApplyUser(userName);
         return financialDao.setUnApprove(apply);
     }
 }

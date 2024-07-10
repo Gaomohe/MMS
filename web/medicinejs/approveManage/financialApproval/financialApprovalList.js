@@ -259,6 +259,13 @@ layui.extend({
             },
             page: { curr: 1 }
         });
+        renderApplyUser();
+        renderPharmacist();
+        renderFinancial();
+        getCode();
+        getmName();
+        getTime();
+        getStatus();
     }
 
     function winReload(){

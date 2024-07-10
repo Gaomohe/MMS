@@ -134,4 +134,21 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
         }
         return userList;
     }
+
+    @Override
+    public String getUserName(int id) {
+        String sql = "select userName from user where id=?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        String name = "";
+        try{
+            while (resultSet.next()){
+                name = resultSet.getString("userName");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return name;
+    }
 }
