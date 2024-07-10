@@ -25,6 +25,8 @@ public interface MedicineService {
     public List<Medicine> getAllMedicine();
     //药品回显
     public Medicine getMedicine(int tableCoding);
+    //根据名字模糊查询药品
+    public List<Medicine> getMedicine(String mName);
     //多条件查询单轮（药品名称，商品分类，药品功效，剂型）
     public List<Medicine> getMedicineByQuery(String[] query);
     //多条件查询多轮（药品名称，商品分类，药品功效，剂型）
@@ -37,4 +39,6 @@ public interface MedicineService {
     public int updateDic_Num(int tableCoding,int patirntId);
     //药品库存数量修改
     public int updateMedicineNumber(Medicine medicine,int num,int patientId);
+    //实现库存回滚
+    public int rollBack();
 }

@@ -98,6 +98,11 @@ public class MedicineServlet extends BaseServlet {
         session.setAttribute("medicine",medicine);
         return "medicine/medicineManage/medDictionary/dictionaryInfo";
     }
+    public ResultData<Medicine> getMedicineByName(HttpServletRequest request, HttpServletResponse response){
+        String mName = request.getParameter("mName");
+        List<Medicine> medicine = medicineService.getMedicine(mName);
+        return Result.resultData(medicine);
+    }
     //多条件查询药品（非多轮）
     public ResultData<Medicine> getMedicineByQuery(HttpServletRequest request, HttpServletResponse response){
         String select1 = request.getParameter("select1");
@@ -199,11 +204,6 @@ public class MedicineServlet extends BaseServlet {
         int i = medicineService.updateMedicineWarehousingDate(medicine);
         return Result.resultStatus(i);
     }
-    //修改库存药品数量
-    /*public ResultData<Medicine> updateMedicineNumber(HttpServletRequest request, HttpServletResponse response){
-
-        return Result.resultStatus(i);
-    }*/
     //药品基本信息修改,,
     public ResultData<Medicine> updateMedicineBasic(HttpServletRequest request, HttpServletResponse response){
         Medicine medicine = new Medicine();
@@ -243,4 +243,28 @@ public class MedicineServlet extends BaseServlet {
         int i = medicineService.updateMedicineBasic(medicine);
         return Result.resultStatus(i);
     }
+
+    //库存锁定
+    public ResultData<Medicine> updateMedicineNumber(HttpServletRequest request, HttpServletResponse response){
+        int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
+        int num = Integer.parseInt(request.getParameter("num"));//开药的数量
+        int patientId = Integer.parseInt(request.getParameter("patient"));//患者ID
+        Medicine medicine = new Medicine();
+        medicine.setTableCoding(tableCoding);
+        int i = medicineService.updateMedicineNumber(medicine, num, patientId);
+        return Result.resultStatus(i);
+    }
+
+    //库存回滚
+    public ResultData<Medicine> rollBack(HttpServletRequest request,HttpServletResponse response){
+        int i = medicineService.rollBack();
+        return Result.resultStatus(i);
+    }
+    public ResultData<Medicine> updateDic_Num(HttpServletRequest request,HttpServletResponse response){
+        int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
+        int patientId = Integer.parseInt(request.getParameter("patientId"));//患者ID
+        int i = medicineService.updateDic_Num(tableCoding,patientId);
+        return Result.resultStatus(i);
+    }
+
 }

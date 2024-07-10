@@ -273,7 +273,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 				}
 				delFunc(tableCoding);
 				break;
-
 			case 'upFunc':	//修改药品
 				if(data.length != 1){
 					layer.msg("请选择一行数据进行操作")
@@ -286,7 +285,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 			case 'addFunc':	//删除药品
 				addfunc();
 				break;
-
 		};
 	});
 	//点击搜索查询
@@ -320,10 +318,14 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 	function renderTable(data) {
 		layui.use('table', function(){
 			var table = layui.table;
-
-			table.render({
+			var tableIns=table.render({
 				elem: '#xTable1',
 				data: data, // 使用从后端获取的数据渲染表格
+				toolbar: '#toolbarDemo',
+				page: true,
+				height: 600,
+				limit: 15,
+				limits: [5,10,15,20,25],
 				cols: [ [
 					{fixed: "left",
 						type: "checkbox",
@@ -557,9 +559,99 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 					}
 				]
 				],
-				page: true // 开启分页
+
+			});
+			//重新绑定工具栏
+			table.on('toolbar(xTable1)', function(obj){
+				var checkStatus = table.checkStatus(obj.config.id);
+				var data = checkStatus.data;
+				console.log(data)
+				var tableCoding = '';
+				for(i=0;i<data.length;i++){
+					tableCoding = data[i].tableCoding;
+				}
+				switch(obj.event){
+					case 'delFunc':	//删除药品
+						if(data.length != 1){
+							layer.msg("请选择一行数据进行操作")
+							return false;
+						}
+						delFunc(tableCoding);
+						break;
+
+					case 'upFunc':	//修改药品
+						if(data.length != 1){
+							layer.msg("请选择一行数据进行操作")
+							return false;
+						}else{
+							upFunc(tableCoding);
+						}
+						break;
+
+					case 'addFunc':	//删除药品
+						addfunc();
+						break;
+				};
+			});
+
+			$('#btnExportTbAdv').click(function () {
+				var checkRows = table.checkStatus('xTable1');
+				if (checkRows.data.length == 0) {
+					layer.msg('请选择要导出的数据', {icon: 2});
+				} else {
+					table.exportFile(tableIns.config.id, checkRows.data, 'xls');
+				}
+			});
+			//重新绑定搜索回车
+			$('#search').off('keypress').on('keypress', function(event) {
+				if (event.which === 13) {
+					var search = $('#search').val();
+					$.ajax({
+						url: '/medicine?action=getMedicineByName',
+						type: "POST",
+						data: {
+							mName: search,
+						},
+						dataType: "JSON",
+						success: function(response) {
+							var tableData = response.data;
+							renderTable(tableData);
+						},
+						error: function(error) {
+							console.error('Error:', error);
+						}
+					});
+				}
+			});
+			//重新绑定搜索按条件
+			$("#searchByQuerys").click(function () {
+				select1 = $("#select1").val();
+				select2 = $("#select2").val();
+				select3 = $("#select3").val();
+				select4 = $("#select4").val();
+				$.ajax({
+					url: '/medicine?action=getMedicineByQuery', // 后端处理数据的URL
+					type: "POST", // 或 'GET'，取决于后端接口的要求
+					data: {
+						select1,
+						select2,
+						select3,
+						select4
+					},
+					dataType:"JSON",
+					success: function(response) {
+						// 在成功回调中处理后端返回的数据
+						// 假设后端返回的数据是一个数组，可以根据数据格式进行处理
+						var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+						renderTable(tableData); // 渲染表格数据
+					},
+					error: function(error) {
+						console.error('Error:', error);
+					}
+				});
 			});
 		});
+
 	}
 	//加载时间
 	setTimeout(function () {
@@ -598,4 +690,35 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 		});
 	}
 
+	$('#btnExportTbAdv').click(function () {
+		var checkRows = table.checkStatus('xTable1');
+		if (checkRows.data.length == 0) {
+			layer.msg('请选择要导出的数据', {icon: 2});
+		} else {
+			table.exportFile(tableIns.config.id, checkRows.data, 'xls');
+		}
+	});
+
+
+	//回车搜索
+	$('#search').on('keypress', function(event) {
+		if (event.which === 13) {
+			var search = $('#search').val();
+			$.ajax({
+				url: '/medicine?action=getMedicineByName',
+				type: "POST",
+				data: {
+					mName: search,
+				},
+				dataType: "JSON",
+				success: function(response) {
+					var tableData = response.data;
+					renderTable(tableData);
+				},
+				error: function(error) {
+					console.error('Error:', error);
+				}
+			});
+		}
+	});
 });

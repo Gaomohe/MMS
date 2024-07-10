@@ -87,6 +87,11 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineDao.getMedicine(tableCoding);
     }
 
+    @Override
+    public List<Medicine> getMedicine(String mName) {
+        return medicineDao.getMedicine(mName);
+    }
+
     //多条件查询单轮
     @Override
     public List<Medicine> getMedicineByQuery(String[] query) {
@@ -100,7 +105,7 @@ public class MedicineServiceImpl implements MedicineService {
     //多条件查询（多轮）
     @Override
     public List<Medicine> getMedicineByQuerys(String[] query1, String[] query2, String[] query3, String[] query4) {
-        int i = 0;
+        /*int i = 0;
         List<Medicine> list = new ArrayList<Medicine>();
         while (query1.length>i || query2.length>i || query3.length>i || query4.length>i){
             String[] codition = new String[4];
@@ -124,12 +129,12 @@ public class MedicineServiceImpl implements MedicineService {
             }else {
                 codition[3] = "%";
             }
-            /*List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery(codition);*/
-            /*for (Medicine medicine:medicineByQuery){
+            List<Medicine> medicineByQuery = medicineDao.getMedicineByQuery();
+            for (Medicine medicine:medicineByQuery){
                 list.add(medicine);
             }
-            i++;*/
-        }
+            i++;
+        }*/
         return null;
     }
 
@@ -161,15 +166,29 @@ public class MedicineServiceImpl implements MedicineService {
     //修改药品库存
     @Override
     public int updateMedicineNumber(Medicine medicine,int num,int patientId) {
-        addDic_Num(medicine.getTableCoding(),num,patientId);
-        Medicine medicine1 = medicineDao.getMedicine(medicine.getTableCoding());
-        medicine1.setNumber(medicine1.getNumber()-num);
-        return medicineDao.updateMedicineNumber(medicine1);
+        Medicine medicine2 = medicineDao.getMedicine(medicine.getTableCoding());
+        int i = 0;
+        if (medicine2.getNumber() >= num){
+            addDic_Num(medicine.getTableCoding(),num,patientId);
+            Medicine medicine1 = medicineDao.getMedicine(medicine.getTableCoding());
+            medicine1.setNumber(medicine1.getNumber()-num);
+            i = medicineDao.updateMedicineNumber(medicine1);
+        }
+        return i;
     }
 
     //实现药品库存回滚
-   /* public int RollBack(int tableCoding){
-
-    }*/
+    @Override
+    public int rollBack() {
+        int i = 0;
+        List<DicNum> dicNum = medicineDao.getDic_Num();
+        for (DicNum dicNum1:dicNum){
+            Medicine medicine = medicineDao.getMedicine(dicNum1.getTableCoding());
+            medicine.setNumber(medicine.getNumber()+dicNum1.getNumber());
+            medicineDao.updateMedicineNumber(medicine);
+            i = medicineDao.delDic_Num(dicNum1.getId());
+        }
+        return i;
+    }
 
 }

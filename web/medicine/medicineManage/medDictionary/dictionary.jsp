@@ -34,52 +34,53 @@
                 </ul>
                 <div class="layui-tab-content" style="padding-left: 0;padding-right: 0;">
                     <div class="layui-tab-item layui-show">
-                        <%--搜索块--%>
-                        <div class="layui-form layui-row layui-col-space16">
-                            <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
-                                <select id="select1" lay-search="" lay-creatable="">
-                                    <option value="" hidden=""></option>
-                                    <<c:forEach var="type" items="${type1}" varStatus="s">
-                                    <option value="${type.typename}">${type.typename}</option>
-                                </c:forEach>
-                                </select>
-                            </div>
-                            <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
-                                <select id="select2" lay-search="" lay-creatable="">
-                                    <option value="" hidden=""></option>
-                                    <<c:forEach var="type" items="${type2}" varStatus="s">
-                                    <option value="${type.typename}">${type.typename}</option>
-                                </c:forEach>
-                                </select>
-                            </div>
-                            <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
-                                <select id="select3" lay-search="" lay-creatable="">
-                                    <option value="" hidden=""></option>
-                                    <<c:forEach var="type" items="${type3}" varStatus="s">
-                                    <option value="${type.typename}">${type.typename}</option>
-                                </c:forEach>
-                                </select>
-                            </div>
-                            <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
-                                <select id="select4" lay-search="" lay-creatable="">
-                                    <option value="" hidden=""></option>
-                                    <<c:forEach var="type" items="${type4}" varStatus="s">
-                                    <option value="${type.typename}">${type.typename}</option>
-                                </c:forEach>
-                                </select>
-                            </div>
-                            <div class="layui-inline">
-                                <button class="layui-btn icon-btn" id="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
-                                    <i class="layui-icon">&#xe615;</i>搜索
-                                </button>
-                            </div>
-                        </div>
-                            <%--搜索结束--%>
                         <div class="layui-form toolbar">
                             <div class="layui-form-item text-right">
                                 <script type="text/html" id="toolbarDemo">
+                                    <%--搜索块--%>
+                                    <div class="layui-form layui-row layui-col-space16">
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select1" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <<c:forEach var="type" items="${type1}" varStatus="s">
+                                                <option value="${type.typename}">${type.typename}</option>
+                                            </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select2" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <<c:forEach var="type" items="${type2}" varStatus="s">
+                                                <option value="${type.typename}">${type.typename}</option>
+                                            </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select3" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <<c:forEach var="type" items="${type3}" varStatus="s">
+                                                <option value="${type.typename}">${type.typename}</option>
+                                            </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select4" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <<c:forEach var="type" items="${type4}" varStatus="s">
+                                                <option value="${type.typename}">${type.typename}</option>
+                                            </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button class="layui-btn icon-btn" id="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
+                                                <i class="layui-icon">&#xe615;</i>搜索
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <%--搜索结束--%>
+                                    <hr class="layui-border-green">
                                     <div class="layui-inline">
-                                        <input tb-search="xTable1" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
+                                        <input id="search" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
                                     </div>
                                     <c:forEach var="menu" items="${menuList}" varStatus="s">
                                         ${menu.resUrl}
