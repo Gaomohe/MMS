@@ -18,7 +18,9 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var batchNumber = $("#batchNumber").val();
         var productDate = $("#productDate").val();
         var expiration = $("#expiration").val();
+        var stockInTime = $("#stockInTime").val();
         var department = $("#department").val();
+        var notes = $("#notes").val();
         if(rName.length == "" ){
             layer.msg("药品名称不能为空")
             return false;
@@ -38,7 +40,9 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                 "batchNumber": batchNumber,
                 "productDate": productDate,
                 "expiration": expiration,
+                "stockInTime":stockInTime,
                 "department": department,
+                "notes":notes
             },
             type:"post",
             success:function(data){

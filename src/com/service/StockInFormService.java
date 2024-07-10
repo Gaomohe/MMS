@@ -1,6 +1,5 @@
 package com.service;
 
-import com.pojo.Orders;
 import com.pojo.StockInForm;
 import com.util.LayuiTable;
 
@@ -19,4 +18,6 @@ public interface StockInFormService {
     public int updateDoStockInForm(StockInForm stockInForm);
     //新增入库单
     public int addDoStockInForm(StockInForm stockInForm);
+
+    public List<StockInForm> getStockInFormByQuery(String[] query);
 }

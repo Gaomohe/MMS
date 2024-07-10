@@ -1,10 +1,8 @@
 package com.servlet;
 
-import com.pojo.Menu;
-import com.pojo.Orders;
-import com.pojo.StockInForm;
-import com.pojo.User;
+import com.pojo.*;
 import com.util.BaseServlet;
+import com.util.Result;
 import com.util.ResultData;
 import com.util.init.ToJSON;
 
@@ -45,7 +43,9 @@ public class StockInFormServlet extends BaseServlet {
         stockInForm.setBatchNumber(request.getParameter("batchNumber"));
         stockInForm.setProductDate(request.getParameter("productDate"));
         stockInForm.setExpiration(request.getParameter("expiration"));
+        stockInForm.setStockInTime(request.getParameter("stockInTime"));
         stockInForm.setDepartment(request.getParameter("department"));
+        stockInForm.setNotes(request.getParameter("notes"));
         int i = stockInFormService.addDoStockInForm(stockInForm);
         if (i>0){
             resultData.setStatus(200);
@@ -80,6 +80,27 @@ public class StockInFormServlet extends BaseServlet {
         }
         return resultData;
     }
+    //多条件查询库存（非多轮）
+    public void getStockInFormByQuery(HttpServletRequest request, HttpServletResponse response){
+
+//        int rId = Integer.parseInt(request.getParameter("rId"));
+        String rId = request.getParameter("rId");
+        String rName = request.getParameter("rName");
+        String stockInTime = request.getParameter("stockInTime");
+//        StockInFormObj stockInFormObj = new StockInFormObj();
+//        stockInFormObj.setrId(rId);
+//        stockInFormObj.setrName(rName);
+
+        String[] queries = {rId,rName,stockInTime};
+        List<StockInForm> stockInFormByQuery = stockInFormService.getStockInFormByQuery(queries);
+        System.out.println(stockInFormByQuery.get(0).getrId());
+        System.out.println(stockInFormByQuery.get(1).getrId());
+        System.out.println(stockInFormByQuery.get(2).getrId());
+        System.out.println(stockInFormByQuery.get(3).getrId());
+
+        ToJSON.toJson(response,stockInFormByQuery);
+
+    }
 
     public ResultData updateStockInForm(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
@@ -95,7 +116,9 @@ public class StockInFormServlet extends BaseServlet {
         stockInForm.setBatchNumber(request.getParameter("batchNumber"));
         stockInForm.setProductDate(request.getParameter("productDate"));
         stockInForm.setExpiration(request.getParameter("expiration"));
+        stockInForm.setStockInTime(request.getParameter("stockInTime"));
         stockInForm.setDepartment(request.getParameter("department"));
+        stockInForm.setNotes(request.getParameter("notes"));
         int i = stockInFormService.updateDoStockInForm(stockInForm);
         if (i>0){
             resultData.setStatus(200);

@@ -1,13 +1,12 @@
 package com.service.Impl;
 
-import com.pojo.Orders;
 import com.pojo.StockInForm;
 import com.service.StockInFormService;
 import com.util.LayuiTable;
 
 import java.util.List;
 
-import static com.util.Vessel.ordersDao;
+import static com.util.SQLtoString.getSQL;
 import static com.util.Vessel.stockInFormDao;
 
 public class StockInFormServiceImpl implements StockInFormService {
@@ -46,5 +45,14 @@ public class StockInFormServiceImpl implements StockInFormService {
     @Override
     public int addDoStockInForm(StockInForm stockInForm) {
         return stockInFormDao.addStockInForm(stockInForm);
+    }
+
+    @Override
+    public List<StockInForm> getStockInFormByQuery(String[] query) {
+        String[] keys = {"rId","rName","stockInTime"};//这里是键
+        Object[] values = {query[0],query[1],query[2]};//这里是值
+        String StockInForm = getSQL(keys, values, "StockInForm");//apply是表名
+
+        return stockInFormDao.getStockInFormByQuery(StockInForm);
     }
 }

@@ -34,7 +34,7 @@
         <div class="layui-inline">
             <label style="width: auto" class="layui-form-label">入库单号:</label>
             <div class="layui-input-inline">
-                <input type="text" name="rId" lay-verify="rId" placeholder="请输入入库单号" autocomplete="off" class="layui-input">
+                <input type="text" name="rId" lay-verify="rId" id="rId" placeholder="请输入入库单号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <%--药品信息--%>
@@ -42,7 +42,7 @@
         <div class="layui-inline">
             <label style="width: auto" class="layui-form-label">药品信息:</label>
             <div class="layui-input-inline">
-                <input type="text" name="rName" lay-verify="rName" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
+                <input type="text" name="rName" lay-verify="rName" id="rName" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -58,8 +58,8 @@
                             <input type="text" autocomplete="off" id="ID-laydate-end-date-1" class="layui-input" placeholder="结束日期">
                         </div>
                     </div>
-                    <button type="button" class="layui-btn layui-bg-blue">查询</button>
-                    <button class="layui-btn layui-btn-primary layui-border">重置</button>
+                    <button type="button" class="layui-btn layui-bg-blue" id="queryButton">查询</button>
+                    <button class="layui-btn layui-btn-primary layui-border" id="resetButton">重置</button>
                 </div>
 
 

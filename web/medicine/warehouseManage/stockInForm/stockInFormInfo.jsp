@@ -98,9 +98,23 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">入库时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="stockInTime" id="stockInTime" lay-verify="required" placeholder="请输入入库时间" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <label class="layui-form-label">部门</label>
         <div class="layui-input-inline">
             <input type="text" name="department" id="department" lay-verify="required" placeholder="请输入部门" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-inline">
+            <input type="text" name="notes" id="notes" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
         </div>
     </div>
 

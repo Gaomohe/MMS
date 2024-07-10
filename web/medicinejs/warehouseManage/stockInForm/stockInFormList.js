@@ -1,6 +1,6 @@
 layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','upload','dtree'],function(){
+}).use(['form','layer','laydate','table','upload','dtree'],function() {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
@@ -8,6 +8,16 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+
+    layui.use(function () {
+        var laydate = layui.laydate;
+        // 日期范围 - 左右面板联动选择模式
+        laydate.render({
+            elem: '#ID-laydate-rangeLinked',
+            range: ['#ID-laydate-start-date-1', '#ID-laydate-end-date-1'],
+            rangeLinked: true // 开启日期范围选择时的区间联动标注模式 ---  2.8+ 新增
+        });
+    });
 
     //表格渲染
     var tableIns = table.render({
@@ -32,13 +42,44 @@ layui.extend({
             {field: 'batchNumber', title:'批号' , width:100, align:"center"},
             {field: 'productDate', title:'生产日期' , width:100, align:"center"},
             {field: 'expiration', title:'有效期至' , width:100, align:"center"},
+            {field: 'stockInTime', title:'入库时间' , width:100, align:"center"},
             {field: 'department', title:'部门' , width:100, align:"center"},
+            {field: 'notes', title:'备注' , width:100, align:"center"},
 
         ]],
         done:function (data){
             console.log(data)
         }
     });
+    //根据入库单号/药品信息/入库日期查询和重置的事件
+        // 绑定点击事件
+    $("#queryButton").click(function() {
+        alert("ddd")
+        var rId = $("#rId").val();
+        var rName = $("#rName").val();
+        var stockInTime = $("#stockInTime").val();
+        console.log(rName);
+        $.ajax({
+            url:"/StockInForm?action=getStockInFormByQuery",
+            type:"POST",
+            data:{
+                "rId":rId,
+                "rName":rName,
+                "stockInTime":stockInTime
+            },
+            dataType:"JSON",
+            success:function (response){
+                console.log(response);
+                alert("success");
+                console.log(response[0]);
+                console.log(response[1]);
+                console.log(response[2]);
+                console.log(response[3]);
+                console.log("----------------");
+            }
+        })
+    });
+
 
     //工具栏事件
     table.on('toolbar(stockInFormList)', function(obj){
@@ -119,7 +160,8 @@ layui.extend({
                         body.find("#batchNumber").val(info.data.batchNumber);
                         body.find("#productDate").val(info.data.productDate);
                         body.find("#expiration").val(info.data.expiration);
-                        body.find("#department").val(info.data.department);
+                        body.find("#stockInTime").val(info.data.stockInTime);
+                        body.find("#notes").val(info.data.notes);
                     }
                 })
             }
@@ -129,7 +171,7 @@ layui.extend({
         layer.open({
             type: 2,
             content : "medicine/warehouseManage/stockInForm/stockInFormAdd.jsp",
-            area: ['1000px', '520px'],
+            area: ['1200px', '520px'],
             fixed: false, // 不固定
             maxmin: true,
             shadeClose: true,

@@ -17,4 +17,7 @@ public interface StockInFormDao {
     public int updateStockInForm(StockInForm stockInForm);
     //添加入库单
     public int addStockInForm(StockInForm stockInForm);
+
+    //根据入库单号，药品名称，入库日期区间查询
+    public List<StockInForm> getStockInFormByQuery(String sql);
 }

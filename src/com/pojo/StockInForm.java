@@ -12,7 +12,26 @@ public class StockInForm {
     private String batchNumber;
     private String productDate;
     private String expiration;
+
+    public String getStockInTime() {
+        return stockInTime;
+    }
+
+    public void setStockInTime(String stockInTime) {
+        this.stockInTime = stockInTime;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    private String stockInTime;
     private String department;
+    private String notes;
 
     public int getrId() {
         return rId;

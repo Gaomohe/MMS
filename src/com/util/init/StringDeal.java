@@ -1,5 +1,8 @@
 package com.util.init;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StringDeal {
     //主要用来处理字符串
 //   前端------ var dataString = $.param({"array": array});
@@ -26,4 +29,11 @@ public class StringDeal {
         }
         return strings;
     }
+
+//    //生成随机入库单号
+//    public static String generateStockInNumber(String businessType) {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+//        String timestamp = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+//        return businessType + "-" + timestamp;
+//    }
 }
