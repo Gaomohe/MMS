@@ -33,6 +33,7 @@ public class CuringServlet extends BaseServlet {
         return CuringServlet.class;
     }
 
+    //获取
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();

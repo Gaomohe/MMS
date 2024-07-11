@@ -51,26 +51,6 @@ public class MedicineServlet extends BaseServlet {
         session4.setAttribute("type4",alldosage);
         return "medicine/medicineManage/medDictionary/dictionary";
     }
-    public String getMenuBtn2(HttpServletRequest request, HttpServletResponse response){
-        int resId = Integer.parseInt(request.getParameter("resId"));
-        HttpSession session = request.getSession();
-        HttpSession session1 = request.getSession();
-        HttpSession session2 = request.getSession();
-        HttpSession session3 = request.getSession();
-        HttpSession session4 = request.getSession();
-        User user = (User)session.getAttribute("user");
-        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
-        List<Type> allGoodsType = typeService.getAllGoodsType();
-        List<Type> allMType = typeService.getAllMType();
-        List<Type> allfreeType = typeService.getAllfreeType();
-        List<Type> alldosage = typeService.getAlldosage();
-        session.setAttribute("menuList",menuList);
-        session1.setAttribute("type1",allGoodsType);
-        session2.setAttribute("type2",allMType);
-        session3.setAttribute("type3",allfreeType);
-        session4.setAttribute("type4",alldosage);
-        return "medicine/medicineManage/medPrice/priceList";
-    }
     //获取所有药品、、
     public LayuiTable<Medicine> getAllMedicine(HttpServletRequest request, HttpServletResponse response){
         HttpSession session9 = request.getSession();
