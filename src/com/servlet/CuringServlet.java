@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.util.Vessel.logDao;
-import static com.util.Vessel.menuService;
+import static com.util.Vessel.*;
+import static com.util.Vessel.logService;
 
 @WebServlet("/curing")
 public class CuringServlet extends BaseServlet {
@@ -32,8 +32,7 @@ public class CuringServlet extends BaseServlet {
     public Class getServlet() {
         return CuringServlet.class;
     }
-
-    //获取
+    //获取养护页面的按钮
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
@@ -54,7 +53,7 @@ public class CuringServlet extends BaseServlet {
         session4.setAttribute("type4",alldosage);
         return "medicine/medicineManage/curingMedicine/curingList";
     }
-
+    //获取养护页面信息（分页+状态）
     public LayuiTable<Medicine> getState(HttpServletRequest request,HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
@@ -78,6 +77,7 @@ public class CuringServlet extends BaseServlet {
         return layuiTable;
     }
 
+    //获取所有养护信息
     public LayuiTable<Curing> getAllCuring(HttpServletRequest request,HttpServletResponse response){
         List<Curing> curing = curingService.getCuring();
         LayuiTable<Curing> layuiTable = new LayuiTable<>();
@@ -88,6 +88,30 @@ public class CuringServlet extends BaseServlet {
         return layuiTable;
     }
 
+    //根据Time获取养护信息
+    public LayuiTable<Medicine> getCuringByTime(HttpServletRequest request,HttpServletResponse response){
+        String time = request.getParameter("time");
+        List<Medicine> midicineByTime = curingService.getMidicineByTime(time);
+        LayuiTable<Medicine> layuiTable = new LayuiTable<>();
+        layuiTable.setCode(0);
+        layuiTable.setMsg("");
+        layuiTable.setCount(midicineByTime.size());
+        layuiTable.setData(midicineByTime);
+        return layuiTable;
+    }
+
+    //根据name获取养护信息
+    public LayuiTable<Medicine> getCuringByName(HttpServletRequest request,HttpServletResponse response){
+        String name = request.getParameter("name");
+        List<Medicine> midicineByTime = curingService.getMidicineByName(name);
+        LayuiTable<Medicine> layuiTable = new LayuiTable<>();
+        layuiTable.setCode(0);
+        layuiTable.setMsg("");
+        layuiTable.setCount(midicineByTime.size());
+        layuiTable.setData(midicineByTime);
+        return layuiTable;
+    }
+    //根据tableCoding获取养护信息
     public LayuiTable<Curing> getCuringByTab(HttpServletRequest request,HttpServletResponse response){
         int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
         List<Curing> curing = curingService.getCuringByTab(tableCoding);
@@ -99,6 +123,7 @@ public class CuringServlet extends BaseServlet {
         return layuiTable;
     }
 
+    //根据Mid获取养护信息
     public LayuiTable<Curing> getCuringByMId(HttpServletRequest request,HttpServletResponse response){
         int mId = Integer.parseInt(request.getParameter("mId"));
         List<Curing> curing = curingService.getCuringByMId(mId);
@@ -110,6 +135,7 @@ public class CuringServlet extends BaseServlet {
         return layuiTable;
     }
 
+    //修改养护信息
     public ResultData<Curing> updataCuring(HttpServletRequest request, HttpServletResponse response){
         Curing curing = new Curing();
         curing.setTableCoding(Integer.parseInt(request.getParameter("tableCoding")));
@@ -120,6 +146,19 @@ public class CuringServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
 
+    //批量修改养护信息
+    public ResultData<Medicine> updateMedicineLastCuringDate(HttpServletRequest request, HttpServletResponse response){
+        String tableCoding = request.getParameter("tableCoding");
+        String[] arr = tableCoding.split(",");
+        int i= 0;
+        for (String s:arr){
+            int i1 = Integer.parseInt(s);
+            i = medicineService.updateMedicineLastCuringDate(i1);
+        }
+        return Result.resultStatus(i);
+    }
+
+    //添加养护信息
     public ResultData<Curing> addCuring(HttpServletRequest request, HttpServletResponse response){
         Curing curing = new Curing();
         curing.setTableCoding(Integer.parseInt(request.getParameter("tableCoding")));
@@ -129,6 +168,7 @@ public class CuringServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
 
+    //删除养护信息
     public ResultData<Curing> delCuring(HttpServletRequest request, HttpServletResponse response){
         int i1 = Integer.parseInt(request.getParameter("id"));
         int i = curingService.delCuring(i1);

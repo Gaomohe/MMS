@@ -72,6 +72,28 @@ public class CuringDaoImpl implements CuringDao {
         return list;
     }
 
+    public List<Curing> getCuringByTime(String time) {
+        String[] keys = new String[]{"time"};
+        String[] values = new String[]{time};
+        String table = "drugcuring";
+        ResultSet resultSet = initDao.search(keys,values,table);
+        List<Curing> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Curing curing = new Curing();
+                curing.setId(resultSet.getInt(1));
+                curing.setTableCoding(resultSet.getInt(2));
+                curing.setmId(resultSet.getInt(3));
+                curing.setContent(resultSet.getString(4));
+                curing.setTime(resultSet.getString(5));
+                list.add(curing);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     @Override
     public int updataCuring(Curing curing) {
         String sql = "UPDATE `drugcuring` SET `tableCoding`=?,`mId`=?,`content`=?,`time`=? WHERE `id`=?;";

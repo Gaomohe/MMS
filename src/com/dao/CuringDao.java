@@ -11,6 +11,8 @@ public interface CuringDao {
     public List<Curing> getCuringByTab(int tableCoding);
     //根据mId显示养护记录表
     public List<Curing> getCuringByMId(int mId);
+    //根据时间获取养护记录
+    public List<Curing> getCuringByTime(String time);
     //修改养护记录表
     public int updataCuring(Curing curing);
     //新建养护记录表信息

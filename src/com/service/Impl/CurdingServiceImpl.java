@@ -147,6 +147,65 @@ public class CurdingServiceImpl implements CuringService {
     }
 
     @Override
+    public List<Curing> getCuringByTime(String time) {
+        return curingDao.getCuringByTime(time);
+    }
+
+    @Override
+    public List<Medicine> getMidicineByTime(String time) {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+        List<Medicine> allMedicine = medicineDao.getMidicineByTime(time);
+        List<Medicine> allMedicine1 = new ArrayList<>();
+        for (Medicine medicine:allMedicine){
+            try {
+                Date parse1 = simpleDateFormat.parse(format);
+                Date parse2 = simpleDateFormat.parse(medicine.getLastCuringDate());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(parse1);
+                calendar.add(Calendar.DAY_OF_MONTH, -2); // Subtract 2 days from parse1
+                Date twoDaysAgo = calendar.getTime();
+                if (parse2.after(twoDaysAgo)){
+                    medicine.setState(0);
+                }else {
+                    medicine.setState(1);
+                }
+                allMedicine1.add(medicine);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return allMedicine1;
+    }
+    public List<Medicine> getMidicineByName(String name) {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+        List<Medicine> allMedicine = medicineDao.getMedicine(name);
+        List<Medicine> allMedicine1 = new ArrayList<>();
+        for (Medicine medicine:allMedicine){
+            try {
+                Date parse1 = simpleDateFormat.parse(format);
+                Date parse2 = simpleDateFormat.parse(medicine.getLastCuringDate());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(parse1);
+                calendar.add(Calendar.DAY_OF_MONTH, -2); // Subtract 2 days from parse1
+                Date twoDaysAgo = calendar.getTime();
+                if (parse2.after(twoDaysAgo)){
+                    medicine.setState(0);
+                }else {
+                    medicine.setState(1);
+                }
+                allMedicine1.add(medicine);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return allMedicine1;
+    }
+
+    @Override
     public int updataCuring(Curing curing) {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
