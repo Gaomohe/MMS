@@ -1,8 +1,13 @@
 package com.servlet;
 
+import com.pojo.Menu;
 import com.pojo.Price;
+import com.pojo.Type;
+import com.pojo.User;
 import com.service.Impl.PriceServiceImpl;
+import com.service.Impl.TypeServiceImpl;
 import com.service.PriceService;
+import com.service.TypeService;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
 import com.util.Result;
@@ -15,14 +20,40 @@ import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 import java.util.List;
 
+import static com.util.Vessel.menuService;
+
 @WebServlet("/price")
 public class PriceServlet extends BaseServlet {
 
     PriceService priceService = new PriceServiceImpl();
+    TypeService typeService = new TypeServiceImpl();
     @Override
     public Class getServlet() {
         return PriceServlet.class;
     }
+
+    //历史价格界面获取按钮
+    public String getMenuBtn2(HttpServletRequest request, HttpServletResponse response){
+        int resId = Integer.parseInt(request.getParameter("resId"));
+        HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        HttpSession session4 = request.getSession();
+        User user = (User)session.getAttribute("user");
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        List<Type> allGoodsType = typeService.getAllGoodsType();
+        List<Type> allMType = typeService.getAllMType();
+        List<Type> allfreeType = typeService.getAllfreeType();
+        List<Type> alldosage = typeService.getAlldosage();
+        session.setAttribute("menuList",menuList);
+        session1.setAttribute("type1",allGoodsType);
+        session2.setAttribute("type2",allMType);
+        session3.setAttribute("type3",allfreeType);
+        session4.setAttribute("type4",alldosage);
+        return "medicine/medicineManage/medPrice/priceList";
+    }
+
     //主要显示数据来源于药典的模块。
     //添加历史价格
     public ResultData<Price> addPrice(HttpServletRequest request, HttpServletResponse response){

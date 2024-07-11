@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import static com.util.Vessel.menuService;
+import static com.util.Vessel.*;
 
 @WebServlet("/menu")
 public class MenuServlet extends BaseServlet {
@@ -25,6 +25,10 @@ public class MenuServlet extends BaseServlet {
 
     //获取所有目录
     public void selectMenu(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","获取所有目录");
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
@@ -43,6 +47,10 @@ public class MenuServlet extends BaseServlet {
 
     //获取所有目录权限
     public void getResource(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","获取所有目录权限");
         try {
             LayuiTable<TreeTable> treeTableList = menuService.getMenus();
             String string = JSON.toJSONString(treeTableList);
@@ -57,6 +65,10 @@ public class MenuServlet extends BaseServlet {
 
     //获取所有按钮
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","获取所有按钮");
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
@@ -65,7 +77,12 @@ public class MenuServlet extends BaseServlet {
         return "medicine/systemManage/system/menuList";
     }
 
+    //通过id获取所有
     public ResultData selectMenuById(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","通过id获取所有");
         try {
             request.setCharacterEncoding("utf-8");
         }catch (Exception e){
@@ -79,6 +96,10 @@ public class MenuServlet extends BaseServlet {
 
     //添加新菜单
     public ResultData<Menu> addMenu(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","添加新菜单");
         try{
             request.setCharacterEncoding("utf-8");
         }catch (Exception e){
@@ -94,7 +115,6 @@ public class MenuServlet extends BaseServlet {
         String icon = request.getParameter("icon");
         String description = request.getParameter("description");
         String btn = request.getParameter("btn");
-
 
         Menu menus = new Menu();
         menus.setName(name);
@@ -123,6 +143,10 @@ public class MenuServlet extends BaseServlet {
 
     //删除菜单
     public ResultData<Menu> delMenu(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","删除菜单");
         int id = Integer.parseInt(request.getParameter("menuid"));
         int i = menuService.delMenu(id);
         ResultData<Menu> resultData = new ResultData<>();
@@ -138,6 +162,10 @@ public class MenuServlet extends BaseServlet {
 
     //修改菜单
     public ResultData<Menu> updateMenu(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","修改菜单");
         try {
             request.setCharacterEncoding("utf-8");
         } catch (Exception e) {
@@ -177,6 +205,10 @@ public class MenuServlet extends BaseServlet {
     }
     //根据唯一标识判断是否存在
     public ResultData<Menu> selectMenuByResKey(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","根据唯一标识判断是否存在");
         ResultData<Menu> resultData = new ResultData<>();
         try {
             request.setCharacterEncoding("utf-8");
@@ -196,10 +228,13 @@ public class MenuServlet extends BaseServlet {
     }
 
 
-
+    //根据类型获取所有按钮
     public void allButtonType(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","根据类型获取所有按钮");
         try {
-
             List<Btn> btnList = menuService.getBtnAll();
             String string = JSON.toJSONString(btnList);
             PrintWriter writer = response.getWriter();
@@ -211,7 +246,12 @@ public class MenuServlet extends BaseServlet {
         }
     }
 
+    //通过类型获取所有菜单
     public void menuByType(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","根据类型获取所有按钮");
         try {
             String typeStr = request.getParameter("mtype");
             int type = Integer.parseInt(typeStr);
@@ -227,7 +267,12 @@ public class MenuServlet extends BaseServlet {
     }
 
 
+    //添加权限
     public ResultData addResources(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","添加权限");
         String mname = request.getParameter("mname");
         String mfunction = request.getParameter("mfunction");
         String type2 = request.getParameter("type2");
@@ -272,8 +317,12 @@ public class MenuServlet extends BaseServlet {
         return resultData;
     }
 
+    //根据id获取所有菜单目录
     public ResultData allMenuById(HttpServletRequest request, HttpServletResponse response){
-
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","根据id获取所有菜单目录");
         String menuid = request.getParameter("menuid");
         int mid = Integer.parseInt(menuid);
         Menu menu1 = new Menu();
@@ -293,6 +342,10 @@ public class MenuServlet extends BaseServlet {
 
     //验证权限名是否存在
     public ResultData isMenuName(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","验证权限名是否存在");
         String name = request.getParameter("name");
         Menu menu = new Menu();
         menu.setName(name);
@@ -317,6 +370,10 @@ public class MenuServlet extends BaseServlet {
 
     //验证请求路径是否存在
     public ResultData isMenuUrl(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","验证请求路径是否存在");
         String url = request.getParameter("url");
         Menu menu = new Menu();
         menu.setResUrl(url);
@@ -341,7 +398,10 @@ public class MenuServlet extends BaseServlet {
 
     //修改权限
     public ResultData upMenu(HttpServletRequest request, HttpServletResponse response){
-
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","系统配置","修改权限");
         String midStr = request.getParameter("mid");
         int mid = Integer.parseInt(midStr);
         String mname = request.getParameter("mname");
