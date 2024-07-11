@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import static com.util.Vessel.menuService;
+import static com.util.Vessel.*;
 
 @WebServlet("/shopping")
 public class ShoppingServlet extends BaseServlet {
@@ -32,6 +32,10 @@ public class ShoppingServlet extends BaseServlet {
         return ShoppingServlet.class;
     }
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","采购申请","获取所有按钮");
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), Integer.parseInt(request.getParameter("resId")));
@@ -40,10 +44,22 @@ public class ShoppingServlet extends BaseServlet {
         session.setAttribute("kindList",kindList);
         return "/medicine/shoppingManage/requestApply/shopList";
     }
+
+    //获取所有采购申请信息
     public void getAll(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","采购申请","获取所有采购申请信息");
         ToJSON.toJson(response,shoppingService.getAll(Integer.parseInt(request.getParameter("page")),Integer.parseInt(request.getParameter("limit"))));
     }
+
+    //获取所有药品规格
     public void getSelectedValue(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","采购申请","获取所有药品规格");
         ToJSON.toJson(response,shoppingService.getSelectedValue(request.getParameter("drugFrom")));
     }
 
@@ -52,15 +68,27 @@ public class ShoppingServlet extends BaseServlet {
         ToJSON.toJson(response,shoppingService.getSelectedTime(value));
     }
     public void search(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","采购申请","条件查询所有采购信息");
         String searchValue = request.getParameter("searchValue");
         ToJSON.toJson(response,shoppingService.likeSelect(searchValue));
     }
     public ResultData<Medicine> selectById(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","采购申请","通过id获取所有采购申请");
         String dataString = request.getParameter("dataString");
         return shoppingService.selectById(StringDeal.toArray(dataString));
     }
 
     public ResultData add(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"添加","采购申请","新增采购申请信息");
         ResultData resultData = null;
         String arrKu = request.getParameter("arrKu");
         String arrID = request.getParameter("arrID");
@@ -81,6 +109,10 @@ public class ShoppingServlet extends BaseServlet {
 
     }
     public void prescriptionDrug(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"添加","采购申请","添加药品计量描述");
         ToJSON.toJson(response,shoppingService.prescriptionDrug());
     }
 }
