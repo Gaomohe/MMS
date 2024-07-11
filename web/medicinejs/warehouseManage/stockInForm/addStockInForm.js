@@ -208,17 +208,6 @@ layui.use(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 layui.use(['laydate', 'form', 'jquery'], function() {
     var laydate = layui.laydate;
     var form = layui.form;
