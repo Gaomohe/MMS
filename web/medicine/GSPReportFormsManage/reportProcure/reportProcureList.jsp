@@ -21,41 +21,39 @@
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body>
-<div class="layui-tab">
-    <ul class="layui-tab-title">
-        <li class="layui-this">标签1</li>
-        <li>标签2</li>
-        <li>标签3</li>
-        <li>标签4</li>
-        <li>标签5</li>
-    </ul>
-    <div class="layui-tab-content">
-        <div class="layui-tab-item layui-show">内容-1</div>
-        <div class="layui-tab-item">内容-2</div>
-        <div class="layui-tab-item">内容-3</div>
-        <div class="layui-tab-item">内容-4</div>
-        <div class="layui-tab-item">内容-5</div>
-    </div>
-</div>
-<%--<div class="layuimini-container">--%>
-<%--    <div class="layuimini-main">--%>
+<div class="layuimini-container">
+    <div class="layuimini-main">
 <%--        <blockquote class="layui-elem-quote layui-quote-nm">--%>
 
 <%--        </blockquote>--%>
-<%--        --%>
-<%--        --%>
-<%--&lt;%&ndash;        <script type="text/html" id="purchaseDemo">&ndash;%&gt;--%>
-<%--&lt;%&ndash;        &ndash;%&gt;--%>
-<%--&lt;%&ndash;        </script>&ndash;%&gt;--%>
-<%--    </div>--%>
-<%--</div>--%>
+
+        <div class="layui-tab" lay-filter="test-hash">
+            <ul class="layui-tab-title">
+                <li class="layui-this" lay-id="11">数据</li>
+                <li lay-id="22">标签2</li>
+                <li lay-id="33">标签3</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <script type="text/html" id="purchaseDemo">
+                        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">百搭按钮</button>
+                    </script>
+                    <table id="purchaseList" lay-filter="purchaseList"></table>
+                </div>
+                <div class="layui-tab-item">
+                    <div id="main" style="width: 600px;height:400px;"></div>
+                </div>
+                <div class="layui-tab-item"><div id="pie" style="width: 600px;height:400px;"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js" charset="utf-8"></script>
 <%--<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>--%>
-<script type="text/javascript" src="<%=basePath %>medicinejs/GSPReportFormsManage/reportProcure/reportProcureList.js" charset="utf-8"></script>
-
-
+<script type="text/javascript" src="<%=basePath %>medicinejs/GSPReportFormsManage/reportProcure/listreportProcure.js" charset="utf-8"></script>
 </body>
 
 </html>

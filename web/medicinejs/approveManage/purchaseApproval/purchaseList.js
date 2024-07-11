@@ -1,13 +1,13 @@
 layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','upload','dtree'],function(){
+}).use(['form','layer','laydate','table','upload','dtree','element'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         laydate = layui.laydate,
         upload = layui.upload,
         table = layui.table;
-    var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+    var dtree = layui.dtree;
     //表格渲染
     var tableIns = table.render({
         elem: '#purchaseList',

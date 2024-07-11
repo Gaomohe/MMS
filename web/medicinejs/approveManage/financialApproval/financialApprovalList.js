@@ -1,5 +1,3 @@
-
-
 layui.extend({
     dtree: '/admin/js/lay-module/layui_ext/dtree/dtree'  // 使用正确的相对路径或绝对路径
 }).use(['form', 'layer', 'laydate', 'table', 'upload', 'dtree'], function() {

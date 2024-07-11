@@ -9,293 +9,357 @@ layui.extend({
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
 
-    //表格渲染
-    var tableIns = table.render({
-        elem: '#logList',
-        url : '/log?action=getLogList',
-        cellMinWidth : 95,
-        page : true,
-        toolbar: '#logDemo',
-        height : "600px",
-        limit : 20,
-        limits : [10,15,20,25],
-        cols : [[
-            {type: "checkbox", fixed:"left", width:50},
-            {field: 'logId', title: '编号',  align:'center',width:150},
-            {field: 'time', title: '时间',  align:'center',width:250},
-            {field: 'name', title: '操作用户', width:200, align:"center"},
-            {field: 'action', title:'动作' , width:200, align:"center"},
-            {field: 'item', title:'事务' , width:200, align:"center"},
-            {field: 'operate', title:'操作' , width:200, align:"center"}
-        ]]
+    var LogName;
+    var action1;
+    var startTime;
+    var endTime;
+    var logUser;
+    var operate;
+    var tableMain;
+    var counts = 0;
+    var total = 0
+
+    $(document).ready(function(){
+        laydate.render({
+            elem: '#time'
+        });
+
+        //表格渲染
+        var tableIns = table.render({
+            elem: '#logList',
+            url : '/log?action=getLogList',
+            cellMinWidth : 95,
+            page : true,
+            toolbar: '#logDemo',
+            height : "600px",
+            limit : 20,
+            limits : [10,15,20,25],
+            cols : [[
+                {type: "checkbox", fixed:"left", width:50},
+                {field: 'logId', title: '编号',  align:'center',width:150},
+                {field: 'time', title: '时间',  align:'center',width:250},
+                {field: 'name', title: '操作用户', width:200, align:"center"},
+                {field: 'action', title:'动作' , width:200, align:"center"},
+                {field: 'item', title:'事务' , width:200, align:"center"},
+                {field: 'operate', title:'操作' , width:200, align:"center"}
+            ]]
+        });
+        tableMain = tableIns;
+        // 初始化下拉框
+        getLogAction();
+        getLogItem();
+        getLogUser()
+        getStartTime();
+        getEndTime();
+        logOperate();
+
+        table.on('toolbar(logList)', function(obj) {
+            var checkdata= table.checkStatus(obj.config.id)
+            var files= checkdata.data;
+            console.log(files);
+            var array = [];
+            var state = [];
+            for (let i = 0; i < files.length;i++){
+                array[i]=files[i].applyId;
+                state[i]=files[i].financeApprove;
+            }
+            // 根据点击的按钮事件执行相应的操作
+            switch (obj.event) {
+                case 'search':
+                    search(LogName,action1,startTime,endTime,logUser,operate); // 将 applyIds 数组作为参数传递给 search 函数
+                    break;
+                // 可以添加更多 case 来处理其他按钮点击事件
+                case 'reload':
+                    winReload();
+                case 'del':
+                    console.log("aaa");
+                    console.log(files);
+                    console.log(files.length);
+                    if (files.length > 0) {
+                        files.forEach(function(file) {
+                            // 假设每个file对象都有一个id属性，用于标识用户
+                            console.log(file.logId);
+                            total++;
+                            delLog(file.logId);
+                        });
+                    } else {
+                        layer.msg("未选择", {icon: 2});
+                    }
+                    break;
+                case 'unapprove':
+                    console.log("aaa");
+                    console.log(files);
+                    console.log(files.length);
+                    if (files.length > 0) {
+                        files.forEach(function(file) {
+                            // 假设每个file对象都有一个id属性，用于标识用户
+                            console.log(file.applyId);
+                            total++;
+                            setUnApprove(file.applyId);
+                        });
+                    } else {
+                        layer.msg("未选择", {icon: 2});
+                    }
+                    break;
+                case 'download':
+                    console.log("--------------------");
+                    downloads();
+                    break;
+            }
+        });
     });
 
-    //工具栏事件
-    table.on('toolbar(logList)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id);
-        var data = checkStatus.data;
-        var roleid = '';
-        for(i=0;i<data.length;i++){
-            roleid = data[i].id;
+    // 导出excel
+    function downloads() {
+        var checkRows = table.checkStatus('logList');
+        console.log(checkRows);
+        if (checkRows.data.length === 0) {
+            layer.msg('请选择要导出的数据', {icon: 2});
+        } else {
+            table.exportFile(tableMain.config.id,checkRows.data, 'log_data.xls');
         }
-        switch(obj.event){
-            case 'delRole':	//删除角色
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }
-                layer.confirm('删除角色后用户对应的权限也会删除,确定删除吗?', {icon: 3, title:'提示'}, function(index){
-                    delRole(roleid);
-                    layer.close(index);
+    }
+
+    //操作人
+    function getLogUser(){
+        // 申请编号
+        $('input[name="logUser"]').on('input', function(e) {
+            logUser = e.target.value;
+            console.log("申请人：" + logUser);
+        });
+    }
+
+    //开始时间
+    function getStartTime(){
+        // 开始时间
+        laydate.render({
+            elem: '#startTime',
+            type: 'date',
+            done: function(value) {
+                startTime = value;
+                console.log('用户选择的开始时间：', value);
+            }
+        });
+    }
+
+    //结束时间
+    function getEndTime(){
+        // 结束时间
+        laydate.render({
+            elem: '#endTime',
+            type: 'date',
+            done: function(value) {
+                endTime = value;
+                console.log('用户选择的结束时间：', value);
+            }
+        });
+    }
+
+    //日志动作
+    function getLogAction() {
+        $.post("/log?action=getLogAction", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                console.log(cs);
+                var dom = $("#action").empty().html('<option value="0">动作类型</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.logId + '">' + item.action + '</option>');
                 });
-                break;
-            case 'upRole':	//修改角色
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }else{
-                    upRole(roleid);
-                }
-                break;
+                form.render("select");
 
-            case 'addRole':	//新增角色
-                addRole();
-                break;
+                form.on('select(action)', function(data) {
+                    console.log("**************")
+                    console.log(data);
+                    action1 = cs.find(item => item.logId == data.value)?.action || '';
+                    console.log("选中动作动作：" + action1);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
 
-            case 'hairMenu':	//修改角色权限
-                if(data.length == 0 || data.length > 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return ;
-                }else{
-                    hairMenu(roleid);
-                }
-                break;
-        };
-    });
+    //日志操作类型
+    function getLogItem() {
+        $.post("/log?action=getLogItem", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                console.log(cs)
+                var dom = $("#logType").empty().html('<option value="0">事务类型</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.logId + '">' + item.item + '</option>');
+                });
+                form.render("select");
 
-    //删除角色
-    function delRole(roleid){
+                form.on('select(logType)', function(data) {
+                    LogName = cs.find(item => item.logId == data.value)?.item || '';
+                    console.log("被选中的日志是：" + LogName);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
+
+    function logOperate(){
+        $.post("/log?action=getLogOperate", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                console.log(cs)
+                var dom = $("#operate").empty().html('<option value="0">操作</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.logId + '">' + item.operate + '</option>');
+                });
+                form.render("select");
+
+                form.on('select(operate)', function(data) {
+                    operate = cs.find(item => item.logId == data.value)?.operate || '';
+                    console.log("被选中的操作是：" + operate);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
+
+    function delLog(id) {
         $.ajax({
-            url:"/role?action=delRole",
-            type:"post",
-            data:{"id":roleid},
-            success:function(data){
-                var info = JSON.parse(data);
-                if(info.status == 200){
-                    console.log(info.status)
-                    layer.msg("删除成功");
-                    tableIns.reload("#userList");
-                }
-            }
-        })
-    }
-
-    //修改角色
-    function upRole(roleid){
-        layui.layer.open({
-            title : "修改角色",
-            type : 2,
-            content : "medicine/systemManage/role/roleInfo.jsp",
-            area:['350px','430px'],
-            success:function(layero, index){
-                $.ajax({
-                    url:"/role?action=getRoleById",
-                    type:"post",
-                    data:{"id":roleid},
-                    success:function(data){
-                        var info = JSON.parse(data);
-                        console.log(info);
-                        var body = layui.layer.getChildFrame('body', index);
-                        body.find("#roleid").val(info.data.id);
-                        body.find("#rname2").val(info.data.name);
-                        body.find("#rname").val(info.data.name);
+            url: "/log?action=delLog",
+            data: { "id": id },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("res");
+                console.log(res);
+                console.log(res.status);
+                counts++;
+                console.log(counts);
+                console.log(total);
+                if (counts == total) {
+                    if (res.status) {
+                        layer.msg("删除成功", { icon: 1 });
+                        tableMain.reload();
+                    } else {
+                        layer.msg("删除失败", { icon: 2 });
                     }
-                })
-                /*        			//获取新窗口对象
-                                    var iframeWindow = layero.find('iframe')[0].contentWindow;
-                                    //重新渲染
-                                    iframeWindow.layui.form.render();*/
+                }
             }
         });
     }
 
-    //新增角色
-    function addRole(){
-        layui.layer.open({
-            title : "新增角色",
-            type : 2,
-            content : "medicine/systemManage/role/roleAdd.jsp",
-            area:['350px','430px'],
+    function search(LogName,action1,startTime,endTime,logUser,operate) {
+        console.log("-------------------");
+        console.log(action);
+        console.log("-------------------");
+        tableMain.reload({
+            url: "/log?action=Search",
+            where: {
+                "LogName": LogName,
+                "action1": action1,
+                "startTime": startTime,
+                "endTime": endTime,
+                "logUser":logUser,
+                "operate":operate
+            },
+            page: { curr: 1 }
+        });
+        getLogAction();
+        getLogItem();
+        getLogUser()
+        getStartTime();
+        getEndTime();
+        logOperate();
+    }
+
+    //重置
+    function winReload(){
+        getLogAction();
+        getLogItem();
+        getLogUser()
+        getStartTime();
+        getEndTime();
+        logOperate();
+        // location.reload();
+    }
+
+    //删除日志
+    function delApply(ids){
+        $.ajax({
+            url: "/financial?action=delApply",
+            data: { "ids": ids },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("res");
+                console.log(res);
+                console.log(res.status);
+                counts++;
+                console.log(counts);
+                console.log(total);
+                if (counts == total) {
+                    if (res.status) {
+                        layer.msg("删除成功", { icon: 1 });
+                        location.reload();
+                    } else {
+                        layer.msg("删除失败", { icon: 2 });
+                    }
+                }
+            }
         });
     }
 
-    //分配权限
-    function hairMenu(roleid) {
-        var index1=layer.open({
-            title : "分配权限",
-            type : 1,
-            content : $('#dtree1'),
-            area:['300px','500px'],
-            success:function () {
-                dtree.render({
-                    elem: '#dataTree3',
-                    url: "/role?action=MenuDtree",
-                    dataStyle: "layuiStyle",  //使用layui风格的数据格式
-                    dataFormat: "list",  //配置data的风格为list
-                    response:{message:"msg",statusCode:0},  //修改response中返回数据的定义
-                    checkbar:true,
-                    line: true,  // 显示树线
-                    done:function () {
-                        $.ajax({
-                            url:"/role?action=menuByRoleId",
-                            type:"post",
-                            data:{"id":roleid},
-                            success:function(res) {
-                                var cs = JSON.parse(res);
-                                console.log(cs);
-                                $.each(cs,function(index,row){
-                                    console.log(row.resId);
-                                    dtree.chooseDataInit("dataTree3",[row.resId]); // 初始化选中
-                                })
-                            }
-                        })
+    function setUnApprove(id){
+        $.ajax({
+            url: "/financial?action=setUnApprove",
+            data: { "id": id },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("res");
+                console.log(res);
+                console.log(res.status);
+                counts++;
+                console.log(counts);
+                console.log(total);
+                if (counts == total) {
+                    if (res.status) {
+                        layer.msg("审核成功", { icon: 1 });
+                        location.reload();
+                    } else {
+                        layer.msg("审核失败", { icon: 2 });
                     }
-                })
-            },
-            btn:["修改权限"],
-            yes:function () {
-                var node= dtree.getCheckbarNodesParam("dataTree3");
-                var infos = JSON.stringify(node);
-                var cs = JSON.parse(infos);
-                var menuidList=new Array();
-                $.each(cs,function(index,row){
-                    menuidList[index] = row.nodeId;
-                })
-                $.ajax({
-                    url:"/role?action=UpdateRoleMenu",
-                    data:{
-                        "array":menuidList,
-                        "roleid":roleid
-                    },
-                    type:"post",
-                    dataType:"json",
-                    traditional:true,
-                    success:function(data){
-                        console.log(data.status);
-                        if(data.status == 200){
-                            layer.msg(data.msg);
-                            table.reload('newsList');
-                            location.reload();
-                            layer.close(index1)
-                        }else{
-                            layer.msg("分配失败");
-                        }
-                    }
-                })
-            },
-
-        })
-    }
-
-    //分配权限
-    function hairMenu1(roleid) {
-        layui.layer.open({
-                title : "分配权限",
-                type : 1,
-                content : $('#dtree1'),
-                area:['300px','500px'],
-                success:function () {
-                    dtree.render({
-                        elem: "#dataTree3",
-                        url: "/role?action=allMenuDtree",
-                        dataStyle: "layuiStyle",  //使用layui风格的数据格式
-                        dataFormat: "list",  //配置data的风格为list
-                        response:{message:"msg",statusCode:0},  //修改response中返回数据的定义
-                        checkbar:true,
-                        line: true,  // 显示树线
-                        done:function (res) {
-                            $.ajax({
-                                url:"/role?action=menuByUseridType",
-                                type:"post",
-                                data:{"roleid":roleid},
-                                success:function(res){
-                                    var cs = JSON.parse(res);
-                                    $.each(cs,function(index,row){
-                                        dtree.chooseDataInit("dataTree3",[row.id]); // 初始化选中
-                                    })
-                                }
-                            })
-                        }
-
-                    })
                 }
             }
-        )
+        });
     }
 
-    //修改角色权限
-    function upRoleMenu(roleid){
-        layui.layer.open({
-            title : "分配权限",
-            type : 1,
-            content : $('#dtree1'),
-            area:['300px','500px'],
-            success:function(){
-                //给dtree树加载数据
-                dtree.render({
-                    elem: "#dataTree3",
-                    url: "/allMenuDtree",
-                    dataStyle: "layuiStyle",  //使用layui风格的数据格式
-                    dataFormat: "list",  //配置data的风格为list
-                    response:{message:"msg",statusCode:0},  //修改response中返回数据的定义
-                    checkbar:true,
-                    line: true,  // 显示树线
-                    done: function(res, $ul, first){
-                        $.ajax({
-                            url:"/allRoleMenu",
-                            type:"post",
-                            data:{"roleid":roleid},
-                            success:function(res){
-                                var cs = eval('(' + res + ')');
-                                $.each(cs,function(index,row){
-                                    dtree.chooseDataInit("dataTree3",[row.id]); // 初始化选中
-                                })
-                            }
-                        })
+    function setApprove(id){
+        $.ajax({
+            url: "/financial?action=setApply",
+            data: { "id": id },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("res");
+                console.log(res);
+                console.log(res.status);
+                counts++;
+                console.log(counts);
+                console.log(total);
+                if (counts == total) {
+                    if (res.status) {
+                        layer.msg("审核成功", { icon: 1 });
+                        location.reload();
+                    } else {
+                        layer.msg("审核失败", { icon: 2 });
                     }
-                });
-            },
-            btn:['修改权限'],	//确认按钮
-            yes: function(index, layero){
-                var params = dtree.getCheckbarNodesParam("dataTree3");
-                var infos = JSON.stringify(params);
-                var cs = eval('(' + infos + ')');
-                var menuidList = new Array();	//所有选中值的权限id
-                //alert(menuidList.length);
-                $.each(cs,function(index,row){
-                    menuidList[index] = row.nodeId;
-                })
-                $.ajax({
-                    url:"/menuByRoleid",
-                    data:{
-                        "array":menuidList,
-                        "roleid":roleid
-                    },
-                    type:"post",
-                    traditional:true,
-                    success:function(data){
-                        var demo = eval('(' + data + ')');
-                        if(demo.status == 1){
-                            layer.msg(demo.message);
-                            table.reload('newsList');
-                            layer.close(index)	//关闭/
-                        }else{
-                            layer.msg("分配失败");
-                        }
-                    }
-                })
+                }
             }
-        })
+        });
     }
 
 })
