@@ -42,12 +42,15 @@
             <div class="layui-input-inline">
                 <label class="layui-form-label">供应商</label>
                 <div class="layui-input-inline">
-                    <select lay-search="" id="manufactor" lay-event="manufactor" lay-filter="manufactor">
+                    <select lay-search="" id="manuFactor" lay-event="manuFactor" lay-filter="manuFactor">
 
                     </select>
                 </div>
             </div>
 
+
+
+<%----%>
 
 
 
