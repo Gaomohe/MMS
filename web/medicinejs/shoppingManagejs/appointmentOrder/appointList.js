@@ -12,45 +12,113 @@ layui.extend({
     var counts = 0;
     var total = 0;
     let idList = new Set();
+    var tableMain;
+    var supplierName;
+    var mTypeName;
+    var mNameName;
 
-    /*------------- 加载用户数据 --------------------------------*/
-    var tableIns = table.render({
-        elem: '#appointList',
-        url : '/appoint?action=getAllAppoint',
-        toolbar: '#appointDemo',
-        page : true,
-        height: 'full-145',
-        limit : 10,
-        limits : [5,10,15,20,25],
-        cols : [[
-            {fixed:"left",type: "checkbox", width:50},
-            {field: 'applyId', title: '申请编号',  align:'center',width:200},
-            {field: 'mId', title: '字典编号',  align:'center',width:200},
-            {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200},
-            {field: 'specification', title: '规格', align:'center',width:200},
-            {field: 'manufactor', title: '生产企业', align:'center',width:200},
-            {field: 'unit', title: '单位', minWidth:100, align:"center",width:200},
-            {field: 'department', title: '部门',  align:'center',width:200},
-            // {field: 'number', title: '采购数量',  align:'center'},
-            {field: 'applyNumber', title: '采购数量',  align:'center',width:200},
-            {field: 'purchasePrice', title: '采购价',  align:'center',width:200},
-            {field: 'code', title: '批号',  align:'center',width:200},
-            {field: 'mType', title: '药品分类',  align:'center',width:200},
-            {field: 'supplier', title: '供货单位',  align:'center'},
-            {field: 'approvalNumber', title: '准批文号',  align:'center'},
-            {field: 'placeOrigin', title: '产地',  align:'center'},
-            {field: 'applyUser' ,title:'申请人', align:'center'},
-            {field: 'applyTime' ,title:'申请时间', align:'center'},
-            {field: 'pharmacist' ,title:'药师审批人', align:'center'},
-            {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
-            {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
-            {field: 'finance' ,title:'财务审批人', align:'center'},
-            {field: 'financeApprove' ,title:'财务审批', align:'center'},
-            {field: 'financeTime' ,title:'财务审批时间', align:'center'},
-            {field: 'tableCoding' ,title:'自编码', align:'center'}
-        ]]
-    });
-    /*------------- 加载用户数据 --end------------------------------*/
+    $(document).ready(function(){
+        supplier();
+        mType();
+        mName();
+
+        /*------------- 加载用户数据 --------------------------------*/
+        var tableIns = table.render({
+            elem: '#appointList',
+            url : '/appoint?action=getAllAppoint',
+            toolbar: '#appointDemo',
+            page : true,
+            height: '600px',
+            limit : 10,
+            limits : [5,10,15,20,25],
+            cols : [[
+                {fixed:"left",type: "checkbox", width:50},
+                {field: 'applyId', title: '申请编号',  align:'center',width:200},
+                {field: 'mId', title: '字典编号',  align:'center',width:200},
+                {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200},
+                {field: 'specification', title: '规格', align:'center',width:200},
+                {field: 'manufactor', title: '生产企业', align:'center',width:200},
+                {field: 'unit', title: '单位', minWidth:100, align:"center",width:200},
+                {field: 'department', title: '部门',  align:'center',width:200},
+                // {field: 'number', title: '采购数量',  align:'center'},
+                {field: 'applyNumber', title: '采购数量',  align:'center',width:200},
+                {field: 'purchasePrice', title: '采购价',  align:'center',width:200},
+                {field: 'code', title: '批号',  align:'center',width:200},
+                {field: 'mType', title: '药品分类',  align:'center',width:200},
+                {field: 'supplier', title: '供货单位',  align:'center',width:200},
+                {field: 'approvalNumber', title: '准批文号',  align:'center',width:200},
+                {field: 'placeOrigin', title: '产地',  align:'center',width:200},
+                {field: 'applyUser' ,title:'申请人', align:'center',width:200},
+                {field: 'applyTime' ,title:'申请时间', align:'center',width:200},
+                {field: 'pharmacist' ,title:'药师审批人', align:'center',width:200},
+                {field: 'pharmacistApprove' ,title:'药师审批', align:'center',width:200},
+                {field: 'pharmacistTime' ,title:'药师审批时间', align:'center',width:200},
+                {field: 'finance' ,title:'财务审批人', align:'center',width:200},
+                {field: 'financeApprove' ,title:'财务审批', align:'center',width:200},
+                {field: 'financeTime' ,title:'财务审批时间', align:'center',width:200},
+                {field: 'tableCoding' ,title:'自编码', align:'center',width:200}
+            ]]
+        });
+        tableMain = tableIns;
+        /*------------- 加载用户数据 --end------------------------------*/
+
+        table.on('toolbar(appointList)',function (obj) {
+            var checkdata= table.checkStatus(obj.config.id)
+            var files= checkdata.data;
+            console.log(obj);
+            switch (obj.event) {
+                case 'delAppoint':
+                    if (files.length > 0) {
+                        files.forEach(function(file) {
+                            // 假设每个file对象都有一个id属性，用于标识用户
+                            total++;
+                            del(file.mId);
+                        });
+                    } else {
+                        layer.msg("you are not select", {icon: 2});
+                    }
+                    break;
+                case 'addAppoint':
+                    if (files.length > 0) {
+                        files.forEach(function(file) {
+                            // 假设每个file对象都有一个id属性，用于标识用户
+                            total++;
+                            idList.add(file.mId)
+                        });
+                        console.log("aaaaaaa");
+                        console.log(idList);
+                        console.log("aaaaaaa");
+                        let idListArray = Array.from(idList);
+                        console.log(idListArray); // 输出：[1, 2]
+                        addAppoint(idListArray);
+
+                    } else {
+                        layer.msg("请选择要添加的预约", {icon: 2});
+                    }
+                    break;
+                case 'upAppoint':
+                    // selectByIdUser(files[0].id,files[0].name);
+                    upAppoint(files[0].id);
+                    break;
+                case 'selectDesc':
+
+                    break;
+                case 'uploadUser':
+                    upLoad();
+                    break;
+                case 'reload':
+                    winReload();
+                    break;
+                case 'search':
+                    search();
+                    break;
+                case 'download':
+                    downloads();
+                    break;
+            }
+        });
+    })
+
 
     /*-------- 搜索用户 ----------------------------*/
     $("#doSubmit").click(function(){
@@ -63,52 +131,7 @@ layui.extend({
         });
     })
 
-    table.on('toolbar(appointList)',function (obj) {
-        var checkdata= table.checkStatus(obj.config.id)
-        var files= checkdata.data;
-        console.log(obj);
-        switch (obj.event) {
-            case 'delAppoint':
-                if (files.length > 0) {
-                    files.forEach(function(file) {
-                        // 假设每个file对象都有一个id属性，用于标识用户
-                        total++;
-                        del(file.mId);
-                    });
-                } else {
-                    layer.msg("you are not select", {icon: 2});
-                }
-                break;
-            case 'addAppoint':
-                if (files.length > 0) {
-                    files.forEach(function(file) {
-                        // 假设每个file对象都有一个id属性，用于标识用户
-                        total++;
-                        idList.add(file.mId)
-                    });
-                    console.log("aaaaaaa");
-                    console.log(idList);
-                    console.log("aaaaaaa");
-                    let idListArray = Array.from(idList);
-                    console.log(idListArray); // 输出：[1, 2]
-                    addAppoint(idListArray);
 
-                } else {
-                    layer.msg("请选择要添加的预约", {icon: 2});
-                }
-                break;
-            case 'upAppoint':
-                // selectByIdUser(files[0].id,files[0].name);
-                upAppoint(files[0].id);
-                break;
-            case 'selectDesc':
-
-                break;
-            case 'uploadUser':
-                upLoad();
-                break;
-        }
-    });
 
     //删除
     function del(ids) {
@@ -314,123 +337,103 @@ layui.extend({
     }
 
 
-    //分配权限
-    function hairMenu(userid){
-        layui.layer.open({
-            title : "分配权限",
-            type : 1,
-            content : $('#dtree1'),
-            area:['300px','500px'],
-            success:function(){
-                //给dtree树加载数据
-                dtree.render({
-                    elem: "#dataTree3",
-                    url: "/allMenuDtree",
-                    dataStyle: "layuiStyle",  //使用layui风格的数据格式
-                    dataFormat: "list",  //配置data的风格为list
-                    response:{message:"msg",statusCode:0},  //修改response中返回数据的定义
-                    checkbar:true,
-                    line: true,  // 显示树线
-                    done: function(res, $ul, first){
-                        $.ajax({
-                            url:"/menuByUseridType1",
-                            type:"post",
-                            data:{"userid":userid},
-                            success:function(res){
-                                var cs = eval('(' + res + ')');
-                                $.each(cs,function(index,row){
-                                    dtree.chooseDataInit("dataTree3",[row.id]); // 初始化选中
-                                })
-                            }
-                        })
-                    }
 
-
-
+    //分配生产企业
+    function supplier() {
+        $.post("/appoint?action=getSupplier", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#supplier").empty().html('<option value="0">供货商</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.applyId + '">' + item.supplier + '</option>');
                 });
+                form.render("select");
+
+                form.on('select(supplier)', function(data) {
+                    supplierName = cs.find(item => item.applyId == data.value)?.supplier || '';
+                    console.log("被选中的供货商是：" + supplierName);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
+
+    //药品类型
+    function mType() {
+        $.post("/appoint?action=getmType", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#mType").empty().html('<option value="0">药品类型</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.applyId + '">' + item.mType + '</option>');
+                });
+                form.render("select");
+
+                form.on('select(mType)', function(data) {
+                    mTypeName = cs.find(item => item.applyId == data.value)?.mType || '';
+                    console.log("被选中的药品类型是：" + mTypeName);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
+
+    //药品名称
+    //分配生产企业
+    function mName() {
+        $.post("/appoint?action=getmName", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#mName").empty().html('<option value="0">药品名称</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.applyId + '">' + item.mName + '</option>');
+                });
+                form.render("select");
+
+                form.on('select(mName)', function(data) {
+                    mNameName = cs.find(item => item.applyId == data.value)?.mName || '';
+                    console.log("被选中的药品类型是：" + mNameName);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
+
+
+    // 导出excel
+    function downloads() {
+        var checkRows = table.checkStatus('financialList');
+        console.log(checkRows);
+        if (checkRows.data.length === 0) {
+            layer.msg('请选择要导出的数据', {icon: 2});
+        } else {
+            table.exportFile(tableMain.config.id,checkRows.data, 'selected_data.xls');
+        }
+    }
+
+    function winReload(){
+        location.reload();
+    }
+
+
+    function search() {
+        tableMain.reload({
+            url: "/appoint?action=Search",
+            where: {
+                "supplierName": supplierName,
+                "mTypeName": mTypeName,
+                "mNameName": mNameName
             },
-            btn:['分配权限'],
-            yes: function(index, layero){
-                var params = dtree.getCheckbarNodesParam("dataTree3");
-                var infos = JSON.stringify(params);
-                var cs = eval('(' + infos + ')');
-                var menuidList = new Array();	//所有选中值的权限id
-                //alert(menuidList.length);
-                $.each(cs,function(index,row){
-                    menuidList[index] = row.nodeId;
-                })
-                $.ajax({
-                    url:"/menuByUserid",
-                    data:{"array":menuidList,"userid":userid},
-                    type:"post",
-                    traditional:true,
-                    success:function(data){
-                        var demo = eval('(' + data + ')');
-                        if(demo.status == 1){
-                            layer.msg(demo.message);
-                            layer.close(index)	//关闭
-                        }else{
-                            layer.msg("分配失败");
-                        }
-                    }
-                })
-            }
-        })
-    }
-
-    //分配角色
-    function HairRole(userid){
-        layer.open({
-            type:1,
-            title:"分配角色",
-            area:['200px','100px'],
-            content:$('#hairRole'),
-            success:function(){
-                //查询全部角色
-                $.ajax({
-                    url:"/hairRole",
-                    type:"post",
-                    dataType:"json",
-                    success:function(data){
-
-                    }
-                })
-            }
-        })
+            page: { curr: 1 }
+        });
+        supplier();
+        mType();
+        mName();
     }
 
 
 
-})
-layui.extend({
-    dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','laytpl','dtree'],function(){
-    var form = layui.form,
-        layer = parent.layer === undefined ? layui.layer : top.layer,
-        $ = layui.jquery,
-        laydate = layui.laydate,
-        laytpl = layui.laytpl,
-        table = layui.table;
-    var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
-
-    /*------------- 加载时间 --------------------------------*/
-    laydate.render({
-        elem: '#ID-laydate-demo'
-    });
-    /*------------- 加载销售数据 --------------------------------*/
-    var tableIns = table.render({
-        elem: '#userList',
-        url : '/user?action=getAllUser',
-        toolbar: '#toolbarDemo',
-        page : true,
-        height: 'full-145',
-        limit : 10,
-        limits : [5,10,15,20,25],
-        cols : [[
-            {fixed:"left",type: "checkbox", width:50},
-            {field: 'id', title: '编号',  align:'center'},
-            {title:'操作', width:150, templet: '#barDemo'}
-
-        ]]
-    });
 })

@@ -6,9 +6,11 @@ import com.pojo.*;
 import com.service.AppointService;
 import com.service.ShoppingService;
 import com.util.LayuiTable;
+import com.util.SQLtoString;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.util.Vessel.shoppingService;
@@ -127,5 +129,57 @@ public class AppointServiceImpl implements AppointService {
             }
         }
         return i;
+    }
+
+    //获取供应商
+    @Override
+    public List<Apply> getSupplier() {
+        int i = 1;
+        List<Apply> applyList = appointDao.getSupplier();
+        for (Apply apply : applyList){
+            apply.setApplyId(i);
+            i++;
+        }
+        return applyList;
+    }
+
+    //获取药品类型
+    @Override
+    public List<Apply> getmType() {
+        int i = 1;
+        List<Apply> applyList = appointDao.getmType();
+        for (Apply apply : applyList){
+            apply.setApplyId(i);
+            i++;
+        }
+        return applyList;
+    }
+
+    //获取药品名称
+    @Override
+    public List<Apply> getmName() {
+        int i = 1;
+        List<Apply> applyList = appointDao.getmName();
+        for (Apply apply : applyList){
+            apply.setApplyId(i);
+            i++;
+        }
+        return applyList;
+    }
+
+    //条件查询预购订单表
+    @Override
+    public LayuiTable<Apply> Search(Apply apply, int page, int limit) {
+        String sql = "";
+        String[] keys = {"mName","mType","supplier"};
+        Object[] values = {apply.getmName(),apply.getmType(),apply.getSupplier()};
+        sql = SQLtoString.getSQL(keys, values, "apply");
+        List<Apply> searchLogList = appointDao.Search(sql);
+        LayuiTable<Apply> layuiTable = new LayuiTable<>();
+        layuiTable.setMsg("");
+        layuiTable.setCode(0);
+        layuiTable.setCount(searchLogList.size());
+        layuiTable.setData(searchLogList);
+        return layuiTable;
     }
 }
