@@ -27,13 +27,14 @@ public class Medicine {
     private String drugFrom;
     private String handlingInformation;
     private String approvalNumber;
-    private String ManageTime;
+    private String lastCuringDate;//上次养护日期
     private int timesStorage;
     private String documentNumber;
     private String placeOrigin;
     private String batchsNumber;
     private int recordNumber;
     private int tableCoding;
+    private int state;//养护状态
 
     public int getmId() {
         return mId;
@@ -244,11 +245,11 @@ public class Medicine {
     }
 
     public String getLastCuringDate() {
-        return ManageTime;
+        return lastCuringDate;
     }
 
     public void setLastCuringDate(String lastCuringDate) {
-        ManageTime = lastCuringDate;
+        this.lastCuringDate = lastCuringDate;
     }
 
     public int getTimesStorage() {
@@ -297,5 +298,13 @@ public class Medicine {
 
     public void setTableCoding(int tableCoding) {
         this.tableCoding = tableCoding;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

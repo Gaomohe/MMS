@@ -31,19 +31,31 @@ public class AppointServlet extends BaseServlet {
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","采购申请","获取界面所有按钮");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
         return "medicine/shoppingManage/appointmentOrder/appointList";
     }
 
+    //获取所有采购申请信息
     public void getAllAppoint(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","采用申请","获取所有采购申请信息");
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
         page = (page-1)*limit;
         ToJSON.toJson(response,appointService.getAppointList(page,limit));
     }
 
+    //删除采购申请
     public ResultData delAppoint(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","采用申请","删除采购申请");
         String ids = request.getParameter("ids");
         System.out.println(ids.toString());
         int mId = Integer.parseInt(ids);
@@ -51,7 +63,12 @@ public class AppointServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
 
+    //采购申请
     public ResultData addAppoint(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","采用申请","提交采购申请");
         String[] idStr = request.getParameterValues("idsList");
         List<Integer> idList = Format.StringToInt(idStr);
         int i = appointService.addAppoint(idList);

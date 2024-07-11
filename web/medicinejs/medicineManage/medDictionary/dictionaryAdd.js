@@ -31,7 +31,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var drugFrom = $("#select4").val();
         var handlingInformation = $("#handlingInformation").val();
         var approvalNumber = $("#approvalNumber").val();
-        var LastCuringDate = $(".ManageTime").val();
+        var LastCuringDate = $("#lastCuringDate").val();
         var timesStorage = $("#timesStorage").val();
         var documentNumber = $("#documentNumber").val();
         var placeOrigin = $("#placeOrigin").val();

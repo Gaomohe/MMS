@@ -209,7 +209,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 					sort: true
 				},
 				{
-					field: 'LastCuringDate',
+					field: 'lastCuringDate',
 					title: '上次养护日期',
 					minWidth: 200,
 					align: 'center',
@@ -512,7 +512,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
 						sort: true
 					},
 					{
-						field: 'LastCuringDate',
+						field: 'lastCuringDate',
 						title: '上次养护日期',
 						minWidth: 200,
 						align: 'center',

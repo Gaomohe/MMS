@@ -57,7 +57,7 @@ public class MedicineDaoImpl implements MedicineDao {
         objects[22] = medicine.getDrugFrom();
         objects[23] = medicine.getHandlingInformation();
         objects[24] = medicine.getApprovalNumber();
-        objects[25] = "未养护";
+        objects[25] = medicine.getLastCuringDate();
         objects[26] = medicine.getTimesStorage();
         objects[27] = medicine.getDocumentNumber();
         objects[28] = medicine.getPlaceOrigin();

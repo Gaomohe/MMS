@@ -31,10 +31,19 @@
     <div class="layui-card">
         <div class="layui-card-body">
             <div class="layui-form toolbar">
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
-                    ${menu.resUrl}
-                </c:forEach>
-            </div>
+                <div class="layui-form-item text-right">
+                    <script type="text/html" id="toolbarDemo">
+                        <div class="layui-inline">
+                            <label style="width: auto" class="layui-form-label">养护时间:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" lay-event="time" lay-event="time" lay-filter="time" class="layui-input" id="time" placeholder="请选择时间">
+                            </div>
+                        </div>
+                        <c:forEach var="menu" items="${menuList}" varStatus="s">
+                            ${menu.resUrl}
+                        </c:forEach>
+                    </script>
+                </div>
             <table class="layui-table" id="tableTbAdv" lay-filter="tableTbAdv"></table>
         </div>
     </div>
@@ -50,6 +59,7 @@
 <script type="text/javascript" src="<%= path %>/iframe/assets/libs/layui/layui.js"></script>
 <script type="text/javascript" src="<%= path %>/iframe/assets/js/common.js?v=314"></script>
 <script type="text/javascript" src="<%= path %>medicinejs/medicineManage/curingMedicine/curingList.js"></script>
+<%--<script type="text/javascript" src="<%= path %>medicinejs/medicineManage/medDictionary/dictionaryList.js"></script>--%>
 </body>
 
 </html>

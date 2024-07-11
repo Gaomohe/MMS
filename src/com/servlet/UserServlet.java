@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static com.util.Vessel.menuService;
+import static com.util.Vessel.*;
 import static com.util.Vessel.userService;
 
 @WebServlet("/user")
@@ -35,6 +35,8 @@ public class UserServlet extends BaseServlet {
         User user = new User();
         user.setId(id);
         user.setPassword(password);
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","系统管理","登录");
         int login = 0;
         login = userService.login(user);
         if (login > 0) {
@@ -45,17 +47,25 @@ public class UserServlet extends BaseServlet {
         resultData = Result.resultStatus(login);
         return resultData;
     }
+
+    //获取所有用户列表
     public void getAllUser(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
         page = (page-1)*limit;
         ToJSON.toJson(response,userService.getAllUser(page,limit));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"打开","信息管理","获取所有用户列表");
     }
     //获取所有按钮
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","信息管理","获取所有按钮");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
         return "/medicine/infoManage/userManage/userList";
@@ -63,11 +73,19 @@ public class UserServlet extends BaseServlet {
 
     //删除一个人
     public ResultData delUser(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"删除","信息管理","根据id删除用户");
         int id = Integer.parseInt(request.getParameter("id"));
         return userService.delUser(id);
     }
 
     public ResultData allUserByUserid(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","信息管理","根据id获取用户所有信息");
         int id = Integer.parseInt(request.getParameter("userid"));
         return userService.allUserByUserid(id);
     }
@@ -77,10 +95,18 @@ public class UserServlet extends BaseServlet {
     }
 
     public ResultData queryUserIsRole(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","信息管理","获取用户角色身份");
         return userService.queryUserIsRole(Integer.parseInt(request.getParameter("userid")));
     }
 
     public ResultData doUpdateUser(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","信息管理","修改用户信息");
         User user = new User();
         user.setId(Integer.parseInt(request.getParameter("id")));
         user.setUserName(request.getParameter("name"));
@@ -100,6 +126,10 @@ public class UserServlet extends BaseServlet {
     }
 
     public ResultData addUser(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","信息管理","添加用户信息");
         User user = new User();
         user.setId(Integer.parseInt(request.getParameter("id")));
         user.setUserName(request.getParameter("name"));

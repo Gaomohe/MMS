@@ -7,6 +7,8 @@ public class Curing {
     private String content;
     private String time;
 
+    private int state;
+
     public int getId() {
         return id;
     }
@@ -45,5 +47,13 @@ public class Curing {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

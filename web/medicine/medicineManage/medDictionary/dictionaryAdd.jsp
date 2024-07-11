@@ -199,7 +199,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">上次养护日期:</label>
         <div class="layui-input-block">
-            <input type="date" id="ManageTime" value="" class="layui-input"/>
+            <input type="date" id="lastCuringDate" value="" class="layui-input"/>
         </div>
     </div>
     <%-- <div class="layui-form-item">
