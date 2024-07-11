@@ -36,4 +36,7 @@ public class StringDeal {
 //        String timestamp = simpleDateFormat.format(new Date(System.currentTimeMillis()));
 //        return businessType + "-" + timestamp;
 //    }
+//    public static void main(String[] args) {
+//        System.out.println(generateStockInNumber("sss"));
+//    }
 }

@@ -23,13 +23,14 @@
     <%--layui-form-item单独使用这个类会默认该元素独占一行--%>
         <div class="layui-form layui-row layui-col-space16">
 
-            <div class="layui-input-inline">
+            <div class="layui-inline">
                 <label class="layui-form-label">单据日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="ID-laydate-type-datetime" placeholder="yyyy-MM-dd HH:mm:ss">
+                    <input type="text" class="layui-input" id="ID-laydate-demo" placeholder="yyyy-MM-dd">
                 </div>
             </div>
 
+            <%--单据编号是随机生成的--%>
             <div class="layui-input-inline">
                 <label class="layui-form-label">单据编号</label>
                 <div class="layui-input-inline">
@@ -38,13 +39,15 @@
             </div>
 
             <div class="layui-input-inline">
-<%--                <label class="layui-form-label">单据编号</label>--%>
-                <select id="state">
-                    <option value="">请选择</option>
-                    <option value="未审批">未审阅</option>
-                    <option value="已审批">已审阅通过</option>
-                    <option value="已审批">已审阅未通过</option>
-                </select>
+                <label class="layui-form-label">供应商</label>
+                <div class="layui-input-inline">
+                    <select id="state">
+                        <option value="">请选择</option>
+                        <option value="未审批">未审阅</option>
+                        <option value="已审批">已审阅通过</option>
+                        <option value="已审批">已审阅未通过</option>
+                    </select>
+                </div>
             </div>
 
         </div>
@@ -55,10 +58,6 @@
         <div id="tableRes" class="table-overlay">
             <table id="paramTable" lay-filter="paramTable" class="layui-hide"></table>
         </div>
-<%--        <div class="layui-form-item" style="padding-left: 20px;">--%>
-<%--            <button class="layui-btn" lay-submit lay-filter="demo2">确认</button>--%>
-<%--            <button type="reset" class="layui-btn layui-btn-primary">重置</button>--%>
-<%--        </div>--%>
     </div>
 </form>
 
@@ -79,7 +78,6 @@
 
 <!-- 引入 layui.js -->
 <script src="//unpkg.com/layui@2.9.14/dist/layui.js"></script>
-<%--<script src="//cdn.staticfile.net/layui/2.9.13/layui.js"></script>--%>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockInForm/addStockInForm.js"></script>
 </body>

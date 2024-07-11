@@ -167,7 +167,6 @@ public class StockInFormDaoImpl implements StockInFormDao {
             while (resultSet.next()){
                 StockInForm stockInForm = new StockInForm();
                 stockInForm.setrId(resultSet.getInt(1));
-                System.out.println(resultSet.getInt(1));
                 stockInForm.setrName(resultSet.getString(2));
                 stockInForm.setStandard(resultSet.getString(3));
                 stockInForm.setManufactor(resultSet.getString(4));

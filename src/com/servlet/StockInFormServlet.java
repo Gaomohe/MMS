@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.pojo.*;
 import com.util.BaseServlet;
+import com.util.LayuiTable;
 import com.util.Result;
 import com.util.ResultData;
 import com.util.init.ToJSON;
@@ -82,19 +83,14 @@ public class StockInFormServlet extends BaseServlet {
     }
     //多条件查询库存（非多轮）
     public void getStockInFormByQuery(HttpServletRequest request, HttpServletResponse response){
-
-//        int rId = Integer.parseInt(request.getParameter("rId"));
         String rId = request.getParameter("rId");
         String rName = request.getParameter("rName");
         String stockInTime = request.getParameter("stockInTime");
-//        StockInFormObj stockInFormObj = new StockInFormObj();
-//        stockInFormObj.setrId(rId);
-//        stockInFormObj.setrName(rName);
-
         String[] queries = {rId,rName,stockInTime};
         List<StockInForm> stockInFormByQuery = stockInFormService.getStockInFormByQuery(queries);
-        ToJSON.toJson(response,stockInFormByQuery);
-
+        LayuiTable<StockInForm> layuiTable = new LayuiTable<StockInForm>();//因为表格是以layuitable的形式展示的
+        layuiTable.setData(stockInFormByQuery);
+        ToJSON.toJson(response,layuiTable);
     }
 
     public ResultData updateStockInForm(HttpServletRequest request, HttpServletResponse response){

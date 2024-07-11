@@ -11,11 +11,9 @@ layui.extend({
 
     layui.use(function () {
         var laydate = layui.laydate;
-        // 日期范围 - 左右面板联动选择模式
+        // 渲染
         laydate.render({
-            elem: '#ID-laydate-rangeLinked',
-            range: ['#ID-laydate-start-date-1', '#ID-laydate-end-date-1'],
-            rangeLinked: true // 开启日期范围选择时的区间联动标注模式 ---  2.8+ 新增
+            elem: '#ID-laydate-demo'
         });
     });
 
@@ -52,9 +50,8 @@ layui.extend({
         }
     });
     //根据入库单号/药品信息/入库日期查询和重置的事件
-        // 绑定点击事件
+        // 绑定“查询”点击事件
     $("#queryButton").click(function() {
-        alert("ddd")
         var rId = $("#rId").val();
         var rName = $("#rName").val();
         var stockInTime = $("#stockInTime").val();
@@ -70,15 +67,44 @@ layui.extend({
             dataType:"JSON",
             success:function (response){
                 console.log(response);
-                alert("success");
-                console.log(response[0]);
-                console.log(response[1]);
-                console.log(response[2]);
-                console.log(response[3]);
-                console.log("----------------");
-            }
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                console.log(tableData)
+                renderTable(tableData); // 渲染表格数据
+            },
         })
     });
+    function renderTable(data){
+        console.log(data)
+        layui.use('table',function (){
+            var table = layui.table;
+            table.render({
+                elem: '#stockInFormList',
+                data:data,
+                cols : [[
+                    {type: "checkbox", fixed:"left", width:50},
+                    {field: 'rId', title: '入库单号',  align:'center',width:100},
+                    {field: 'rName', title: '入库药品',  align:'center',width:100},
+                    {field: 'standard', title: '规格', width:100, align:"center"},
+                    {field: 'manufactor', title:'生产厂家' , width:100, align:"center"},
+                    {field: 'unit', title:'单位' , width:100, align:"center"},
+                    {field: 'rNum', title:'入库药品数量' , width:100, align:"center"},
+                    {field: 'cost', title:'成本' , width:100, align:"center"},
+                    {field: 'salePrice', title:'销售价' , width:100, align:"center"},
+                    {field: 'batchNumber', title:'批号' , width:100, align:"center"},
+                    {field: 'productDate', title:'生产日期' , width:100, align:"center"},
+                    {field: 'expiration', title:'有效期至' , width:100, align:"center"},
+                    {field: 'stockInTime', title:'入库时间' , width:100, align:"center"},
+                    {field: 'department', title:'部门' , width:100, align:"center"},
+                    {field: 'notes', title:'备注' , width:100, align:"center"},
+                ]],
+                done:function (data){
+                    console.log(data)
+                }
+            })
+        })
+    }
+    //绑定“重置”点击时间
+
 
 
     //工具栏事件
