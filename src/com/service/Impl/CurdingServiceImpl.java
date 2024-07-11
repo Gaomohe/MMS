@@ -75,10 +75,11 @@ public class CurdingServiceImpl implements CuringService {
     }
 
     public List<Medicine> getState(int index,int limit) {
+        int page = (index-1)*limit;
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
-        List<Medicine> allMedicine = medicineDao.getAllMedicine(index,limit);
+        List<Medicine> allMedicine = medicineDao.getAllMedicine(page,limit);
         List<Medicine> allMedicine1 = new ArrayList<>();
         int i = 0;
         for (Medicine medicine:allMedicine){

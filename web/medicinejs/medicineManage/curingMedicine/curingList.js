@@ -22,7 +22,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             {
                 field: 'state',
                 align: 'center',
-                minWidth: 100,
+                minWidth: 120,
                 sort: true,
                 templet: '#tplStateTbAdv',
                 title: '养护状态'
@@ -127,25 +127,9 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
         }
         switch(obj.event){
             case 'time':	//按照养护时间查找
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }
-                delFunc(tableCoding);
+                getTime();
                 break;
 
-            case 'upFunc':	//修改药品
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }else{
-                    upFunc(tableCoding);
-                }
-                break;
-
-            case 'addFunc':	//删除药品
-                addfunc();
-                break;
         };
     });
 
@@ -156,9 +140,17 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             type: 'date',
             done: function(value) {
                 applyTime = value;
-                console.log('用户选择的时间：', value);
+                if (applyTime.length !== 0 ){
+                    getByTime(applyTime);
+                }
             }
         });
+    }
+
+    function getByTime(time){
+        $.ajax({
+
+        })
     }
 
     // 渲染laydate
