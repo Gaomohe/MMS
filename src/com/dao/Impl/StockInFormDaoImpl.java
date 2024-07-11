@@ -15,23 +15,24 @@ public class StockInFormDaoImpl implements StockInFormDao {
         String sql=" select * from StockInForm";
         ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<StockInForm> stockInFormList = new ArrayList<StockInForm>();
-        StockInForm stockInForm = new StockInForm();
         try {
             while (resultSet.next()){
+                StockInForm stockInForm = new StockInForm();
                 stockInForm.setrId(resultSet.getInt(1));
-                stockInForm.setrName(resultSet.getString(2));
-                stockInForm.setStandard(resultSet.getString(3));
-                stockInForm.setManufactor(resultSet.getString(4));
-                stockInForm.setUnit(resultSet.getString(5));
-                stockInForm.setrNum(resultSet.getInt(6));
-                stockInForm.setCost(resultSet.getInt(7));
-                stockInForm.setSalePrice(resultSet.getInt(8));
-                stockInForm.setBatchNumber(resultSet.getString(9));
-                stockInForm.setProductDate(resultSet.getString(10));
-                stockInForm.setExpiration(resultSet.getString(11));
-                stockInForm.setStockInTime(resultSet.getString(12));
-                stockInForm.setDepartment(resultSet.getString(13));
-                stockInForm.setNotes(resultSet.getString(14));
+                stockInForm.setStockInNum(resultSet.getString(2));
+                stockInForm.setrName(resultSet.getString(3));
+                stockInForm.setStandard(resultSet.getString(4));
+                stockInForm.setManufactor(resultSet.getString(5));
+                stockInForm.setUnit(resultSet.getString(6));
+                stockInForm.setrNum(resultSet.getInt(7));
+                stockInForm.setCost(resultSet.getInt(8));
+                stockInForm.setSalePrice(resultSet.getInt(9));
+                stockInForm.setBatchNumber(resultSet.getString(10));
+                stockInForm.setProductDate(resultSet.getString(11));
+                stockInForm.setExpiration(resultSet.getString(12));
+                stockInForm.setStockInTime(resultSet.getString(13));
+                stockInForm.setDepartment(resultSet.getString(14));
+                stockInForm.setNotes(resultSet.getString(15));
                 stockInFormList.add(stockInForm);
             }
         }catch (Exception e){
@@ -50,19 +51,20 @@ public class StockInFormDaoImpl implements StockInFormDao {
         try {
             while (resultSet.next()){
                 stockInForm.setrId(resultSet.getInt(1));
-                stockInForm.setrName(resultSet.getString(2));
-                stockInForm.setStandard(resultSet.getString(3));
-                stockInForm.setManufactor(resultSet.getString(4));
-                stockInForm.setUnit(resultSet.getString(5));
-                stockInForm.setrNum(resultSet.getInt(6));
-                stockInForm.setCost(resultSet.getInt(7));
-                stockInForm.setSalePrice(resultSet.getInt(8));
-                stockInForm.setBatchNumber(resultSet.getString(9));
-                stockInForm.setProductDate(resultSet.getString(10));
-                stockInForm.setExpiration(resultSet.getString(11));
-                stockInForm.setStockInTime(resultSet.getString(12));
-                stockInForm.setDepartment(resultSet.getString(13));
-                stockInForm.setNotes(resultSet.getString(14));
+                stockInForm.setStockInNum(resultSet.getString(2));
+                stockInForm.setrName(resultSet.getString(3));
+                stockInForm.setStandard(resultSet.getString(4));
+                stockInForm.setManufactor(resultSet.getString(5));
+                stockInForm.setUnit(resultSet.getString(6));
+                stockInForm.setrNum(resultSet.getInt(7));
+                stockInForm.setCost(resultSet.getInt(8));
+                stockInForm.setSalePrice(resultSet.getInt(9));
+                stockInForm.setBatchNumber(resultSet.getString(10));
+                stockInForm.setProductDate(resultSet.getString(11));
+                stockInForm.setExpiration(resultSet.getString(12));
+                stockInForm.setStockInTime(resultSet.getString(13));
+                stockInForm.setDepartment(resultSet.getString(14));
+                stockInForm.setNotes(resultSet.getString(15));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -82,19 +84,20 @@ public class StockInFormDaoImpl implements StockInFormDao {
             while (resultSet.next()){
                 StockInForm stockInForm = new StockInForm();
                 stockInForm.setrId(resultSet.getInt(1));
-                stockInForm.setrName(resultSet.getString(2));
-                stockInForm.setStandard(resultSet.getString(3));
-                stockInForm.setManufactor(resultSet.getString(4));
-                stockInForm.setUnit(resultSet.getString(5));
-                stockInForm.setrNum(resultSet.getInt(6));
-                stockInForm.setCost(resultSet.getInt(7));
-                stockInForm.setSalePrice(resultSet.getInt(8));
-                stockInForm.setBatchNumber(resultSet.getString(9));
-                stockInForm.setProductDate(resultSet.getString(10));
-                stockInForm.setExpiration(resultSet.getString(11));
-                stockInForm.setStockInTime(resultSet.getString(12));
-                stockInForm.setDepartment(resultSet.getString(13));
-                stockInForm.setNotes(resultSet.getString(14));
+                stockInForm.setStockInNum(resultSet.getString(2));
+                stockInForm.setrName(resultSet.getString(3));
+                stockInForm.setStandard(resultSet.getString(4));
+                stockInForm.setManufactor(resultSet.getString(5));
+                stockInForm.setUnit(resultSet.getString(6));
+                stockInForm.setrNum(resultSet.getInt(7));
+                stockInForm.setCost(resultSet.getInt(8));
+                stockInForm.setSalePrice(resultSet.getInt(9));
+                stockInForm.setBatchNumber(resultSet.getString(10));
+                stockInForm.setProductDate(resultSet.getString(11));
+                stockInForm.setExpiration(resultSet.getString(12));
+                stockInForm.setStockInTime(resultSet.getString(13));
+                stockInForm.setDepartment(resultSet.getString(14));
+                stockInForm.setNotes(resultSet.getString(15));
                 list.add(stockInForm);
             }
         }catch (Exception e){
@@ -114,46 +117,48 @@ public class StockInFormDaoImpl implements StockInFormDao {
 
     @Override
     public int updateStockInForm(StockInForm stockInForm) {
-        String sql = "UPDATE StockInForm SET rName=?,standard=?,manufactor=?,unit=?,\n" +
+        String sql = "UPDATE StockInForm SET rName=?,stockInNum=?,standard=?,manufactor=?,unit=?,\n" +
                 "rNum=?,cost=?,salePrice=?,batchNumber=?,productDate=?,\n" +
                 "expiration=?,stockInTime=?,department=?,notes=? WHERE rId = ?;";
-        Object[] objects = new Object[14];
+        Object[] objects = new Object[15];
         objects[0] = stockInForm.getrName();
-        objects[1] = stockInForm.getStandard();
-        objects[2] = stockInForm.getManufactor();
-        objects[3] = stockInForm.getUnit();
-        objects[4] = stockInForm.getrNum();
-        objects[5] = stockInForm.getCost();
-        objects[6] = stockInForm.getSalePrice();
-        objects[7] = stockInForm.getBatchNumber();
-        objects[8] = stockInForm.getProductDate();
-        objects[9] = stockInForm.getExpiration();
-        objects[10] = stockInForm.getStockInTime();
-        objects[11] = stockInForm.getDepartment();
-        objects[12] = stockInForm.getNotes();
-        objects[13] = stockInForm.getrId();
+        objects[1] = stockInForm.getStockInNum();
+        objects[2] = stockInForm.getStandard();
+        objects[3] = stockInForm.getManufactor();
+        objects[4] = stockInForm.getUnit();
+        objects[5] = stockInForm.getrNum();
+        objects[6] = stockInForm.getCost();
+        objects[7] = stockInForm.getSalePrice();
+        objects[8] = stockInForm.getBatchNumber();
+        objects[9] = stockInForm.getProductDate();
+        objects[10] = stockInForm.getExpiration();
+        objects[11] = stockInForm.getStockInTime();
+        objects[12] = stockInForm.getDepartment();
+        objects[13] = stockInForm.getNotes();
+        objects[14] = stockInForm.getrId();
         int count= JDBC.update(sql,objects);
         return count;
     }
 
     @Override
     public int addStockInForm(StockInForm stockInForm) {
-        String sql = "INSERT INTO StockInForm (rName,standard,manufactor,unit,rNum,cost,salePrice,batchNumber,productDate,expiration,stockInTime,department,notes) \n" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);\n";
-        Object[] objects = new Object[13];
+        String sql = "INSERT INTO StockInForm (rName,stockInNum,standard,manufactor,unit,rNum,cost,salePrice,batchNumber,productDate,expiration,stockInTime,department,notes) \n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?);\n";
+        Object[] objects = new Object[14];
         objects[0] = stockInForm.getrName();
-        objects[1] = stockInForm.getStandard();
-        objects[2] = stockInForm.getManufactor();
-        objects[3] = stockInForm.getUnit();
-        objects[4] = stockInForm.getrNum();
-        objects[5] = stockInForm.getCost();
-        objects[6] = stockInForm.getSalePrice();
-        objects[7] = stockInForm.getBatchNumber();
-        objects[8] = stockInForm.getProductDate();
-        objects[9] = stockInForm.getExpiration();
-        objects[10] = stockInForm.getStockInTime();
-        objects[11] = stockInForm.getDepartment();
-        objects[12] = stockInForm.getNotes();
+        objects[1] = stockInForm.getStockInNum();
+        objects[2] = stockInForm.getStandard();
+        objects[3] = stockInForm.getManufactor();
+        objects[4] = stockInForm.getUnit();
+        objects[5] = stockInForm.getrNum();
+        objects[6] = stockInForm.getCost();
+        objects[7] = stockInForm.getSalePrice();
+        objects[8] = stockInForm.getBatchNumber();
+        objects[9] = stockInForm.getProductDate();
+        objects[10] = stockInForm.getExpiration();
+        objects[11] = stockInForm.getStockInTime();
+        objects[12] = stockInForm.getDepartment();
+        objects[13] = stockInForm.getNotes();
         int count= JDBC.update(sql,objects);
         return count;
     }
@@ -167,19 +172,20 @@ public class StockInFormDaoImpl implements StockInFormDao {
             while (resultSet.next()){
                 StockInForm stockInForm = new StockInForm();
                 stockInForm.setrId(resultSet.getInt(1));
-                stockInForm.setrName(resultSet.getString(2));
-                stockInForm.setStandard(resultSet.getString(3));
-                stockInForm.setManufactor(resultSet.getString(4));
-                stockInForm.setUnit(resultSet.getString(5));
-                stockInForm.setrNum(resultSet.getInt(6));
-                stockInForm.setCost(resultSet.getInt(7));
-                stockInForm.setSalePrice(resultSet.getInt(8));
-                stockInForm.setBatchNumber(resultSet.getString(9));
-                stockInForm.setProductDate(resultSet.getString(10));
-                stockInForm.setExpiration(resultSet.getString(11));
-                stockInForm.setStockInTime(resultSet.getString(12));
-                stockInForm.setDepartment(resultSet.getString(13));
-                stockInForm.setNotes(resultSet.getString(14));
+                stockInForm.setStockInNum(resultSet.getString(2));
+                stockInForm.setrName(resultSet.getString(3));
+                stockInForm.setStandard(resultSet.getString(4));
+                stockInForm.setManufactor(resultSet.getString(5));
+                stockInForm.setUnit(resultSet.getString(6));
+                stockInForm.setrNum(resultSet.getInt(7));
+                stockInForm.setCost(resultSet.getInt(8));
+                stockInForm.setSalePrice(resultSet.getInt(9));
+                stockInForm.setBatchNumber(resultSet.getString(10));
+                stockInForm.setProductDate(resultSet.getString(11));
+                stockInForm.setExpiration(resultSet.getString(12));
+                stockInForm.setStockInTime(resultSet.getString(13));
+                stockInForm.setDepartment(resultSet.getString(14));
+                stockInForm.setNotes(resultSet.getString(15));
                 stockInFormList.add(stockInForm);
             }
         }catch (Exception e){

@@ -2,6 +2,7 @@ package com.pojo;
 
 public class StockInForm {
     private int rId;
+    private String stockInNum;
     private String rName;
     private String standard;
     private String manufactor;
@@ -13,22 +14,6 @@ public class StockInForm {
     private String productDate;
     private String expiration;
 
-    public String getStockInTime() {
-        return stockInTime;
-    }
-
-    public void setStockInTime(String stockInTime) {
-        this.stockInTime = stockInTime;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
     private String stockInTime;
     private String department;
     private String notes;
@@ -39,6 +24,14 @@ public class StockInForm {
 
     public void setrId(int rId) {
         this.rId = rId;
+    }
+
+    public String getStockInNum() {
+        return stockInNum;
+    }
+
+    public void setStockInNum(String stockInNum) {
+        this.stockInNum = stockInNum;
     }
 
     public String getrName() {
@@ -127,5 +120,21 @@ public class StockInForm {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getStockInTime() {
+        return stockInTime;
+    }
+
+    public void setStockInTime(String stockInTime) {
+        this.stockInTime = stockInTime;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

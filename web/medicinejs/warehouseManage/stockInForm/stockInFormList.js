@@ -29,7 +29,8 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'rId', title: '入库单号',  align:'center',width:100},
+            {field: 'rId', title: '#',  align:'center',width:100},
+            {field: 'stockInNum', title: '入库单号',  align:'center',width:200},
             {field: 'rName', title: '入库药品',  align:'center',width:100},
             {field: 'standard', title: '规格', width:100, align:"center"},
             {field: 'manufactor', title:'生产厂家' , width:100, align:"center"},
@@ -38,9 +39,9 @@ layui.extend({
             {field: 'cost', title:'成本' , width:100, align:"center"},
             {field: 'salePrice', title:'销售价' , width:100, align:"center"},
             {field: 'batchNumber', title:'批号' , width:100, align:"center"},
-            {field: 'productDate', title:'生产日期' , width:100, align:"center"},
-            {field: 'expiration', title:'有效期至' , width:100, align:"center"},
-            {field: 'stockInTime', title:'入库时间' , width:100, align:"center"},
+            {field: 'productDate', title:'生产日期' , width:150, align:"center"},
+            {field: 'expiration', title:'有效期至' , width:150, align:"center"},
+            {field: 'stockInTime', title:'入库时间' , width:150, align:"center"},
             {field: 'department', title:'部门' , width:100, align:"center"},
             {field: 'notes', title:'备注' , width:100, align:"center"},
 
@@ -52,7 +53,7 @@ layui.extend({
     //根据入库单号/药品信息/入库日期查询和重置的事件
         // 绑定“查询”点击事件
     $("#queryButton").click(function() {
-        var rId = $("#rId").val();
+        var stockInNum = $("#stockInNum").val();
         var rName = $("#rName").val();
         var stockInTime = $("#stockInTime").val();
         console.log(rName);
@@ -60,7 +61,7 @@ layui.extend({
             url:"/StockInForm?action=getStockInFormByQuery",
             type:"POST",
             data:{
-                "rId":rId,
+                "stockInNum":stockInNum,
                 "rName":rName,
                 "stockInTime":stockInTime
             },
@@ -82,7 +83,8 @@ layui.extend({
                 data:data,
                 cols : [[
                     {type: "checkbox", fixed:"left", width:50},
-                    {field: 'rId', title: '入库单号',  align:'center',width:100},
+                    {field: 'rId', title: '#',  align:'center',width:100},
+                    {field: 'stockInNum', title: "入库单号",  align:'center',width:100},
                     {field: 'rName', title: '入库药品',  align:'center',width:100},
                     {field: 'standard', title: '规格', width:100, align:"center"},
                     {field: 'manufactor', title:'生产厂家' , width:100, align:"center"},
@@ -176,6 +178,7 @@ layui.extend({
                         var info = JSON.parse(data);
                         var body = layui.layer.getChildFrame('body', index);
                         body.find("#rId").val(info.data.rId);
+                        body.find("#stockInNum").val(info.data.stockInNum);
                         body.find("#rName").val(info.data.rName);
                         body.find("#standard").val(info.data.standard);
                         body.find("#manufactor").val(info.data.manufactor);
@@ -201,8 +204,21 @@ layui.extend({
             fixed: false, // 不固定
             maxmin: true,
             shadeClose: true,
-            btn: ['保存并审核', '取消'],
+            btn: ['保存', '取消'],
             btnAlign: 'c',
+            success:function (layero,index){
+                $.ajax({
+                    url:"/StockInForm?action=selectGeneratedStockInNumber",
+                    type:"POST",
+                    success:function (data){
+                        var info = JSON.parse(data);
+                        var cs = info.data
+                        console.log(cs)
+                        var body = layui.layer.getChildFrame('body', index);
+                        body.find("#stockInNum").val(cs)
+                    }
+                })
+            },
             yes: function (index, layero) {
                 // 获取 iframe 的窗口对象
                 var iframeWin = window[layero.find('iframe')[0]['name']];

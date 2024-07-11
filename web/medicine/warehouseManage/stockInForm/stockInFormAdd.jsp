@@ -34,21 +34,25 @@
             <div class="layui-input-inline">
                 <label class="layui-form-label">单据编号</label>
                 <div class="layui-input-inline">
-                    <input type="text" placeholder="请输入单据编号" class="layui-input">
+                    <input type="text"  id="stockInNum" disabled="" placeholder="请输入单据编号" class="layui-input">
                 </div>
             </div>
+
 
             <div class="layui-input-inline">
                 <label class="layui-form-label">供应商</label>
                 <div class="layui-input-inline">
-                    <select id="state">
-                        <option value="">请选择</option>
-                        <option value="未审批">未审阅</option>
-                        <option value="已审批">已审阅通过</option>
-                        <option value="已审批">已审阅未通过</option>
+                    <select lay-search="" id="manufactor" lay-event="manufactor" lay-filter="manufactor">
+
                     </select>
                 </div>
             </div>
+
+
+<%----%>
+
+
+
 
         </div>
 </div>

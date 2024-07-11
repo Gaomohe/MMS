@@ -5,6 +5,33 @@ layui.use(function(){
         elem: '#ID-laydate-demo'
     });
 });
+$(document).ready(function (){
+    getLogAction();
+})
+var allManufactor;
+function getLogAction() {
+    $.post("/StockInForm?action=getManufactorAll", function(res) {
+        try {
+            var cs = JSON.parse(res);
+            console.log(cs);
+            console.log(cs[0].rId)
+            console.log(cs[1].manufactor)
+            var dom = $("#manufactor").empty().html('<option value="0">请选择</option>');
+            $.each(cs, function(index, item) {
+                dom.append('<option value="' + item.rId + '">' + item.manufactor + '</option>');
+            });
+            form.render("select");
+
+            form.on('select(manufactor)', function(data) {
+                allManufactor = cs.find(item => item.rId == data.value)?.manufactor || '';
+                console.log("选中动作动作：" + allManufactor);
+            });
+        } catch (e) {
+            console.error("Error parsing JSON:", e);
+        }
+    });
+}
+
 
 layui.use(['table', 'form', 'jquery','laydate'], function () {
     var table = layui.table;
@@ -34,14 +61,37 @@ layui.use(['table', 'form', 'jquery','laydate'], function () {
         page: false,
         loading: false,
         even: false,
+    // {type: "checkbox", fixed:"left", width:50},
+    // {field: 'rId', title: '#',  align:'center',width:100},
+    // {field: 'stockInNum', title: "入库单号",  align:'center',width:100},
+    // {field: 'rName', title: '入库药品',  align:'center',width:100},
+    // {field: 'standard', title: '规格', width:100, align:"center"},
+    // {field: 'manufactor', title:'生产厂家' , width:100, align:"center"},
+    // {field: 'unit', title:'单位' , width:100, align:"center"},
+    // {field: 'rNum', title:'入库药品数量' , width:100, align:"center"},
+    // {field: 'cost', title:'成本' , width:100, align:"center"},
+    // {field: 'salePrice', title:'销售价' , width:100, align:"center"},
+    // {field: 'batchNumber', title:'批号' , width:100, align:"center"},
+    // {field: 'productDate', title:'生产日期' , width:100, align:"center"},
+    // {field: 'expiration', title:'有效期至' , width:100, align:"center"},
+    // {field: 'stockInTime', title:'入库时间' , width:100, align:"center"},
+    // {field: 'department', title:'部门' , width:100, align:"center"},
+    // {field: 'notes', title:'备注' , width:100, align:"center"},
         cols: [[
-            { field: 'bh', title: '编号', type: 'numbers',minWidth: 100},
-            { field: 'mq', title: '药品名称', edit: 'text', minWidth: 100, totalRowText: '合计：' },
-            { field: 'dw', title: '单位', edit: 'text', maxWidth: 80 },
-            { field: 'sl', title: '数量', edit: true, maxWidth: 100, totalRow: true },
-            { field: 'dj', title: '销售价', edit: 'text' , maxWidth: 100},
+            { field: 'rId', title: '#', type: 'numbers',minWidth: 100},
+            { field: 'rName', title: '药品名称', edit: 'text', minWidth: 100, totalRowText: '合计：' },
+            // {field: 'standard', title: '规格', width:100, align:"center"},
+            { field: 'unit', title: '单位', edit: 'text', maxWidth: 80 },
+            { field: 'rNum', title: '数量', edit: true, maxWidth: 100, totalRow: true },
+            // {field: 'cost', title:'成本' , width:100, align:"center"},
+            { field: 'salePrice', title: '销售价', edit: 'text' , maxWidth: 100},
+            // {field: 'batchNumber', title:'批号' , width:100, align:"center"},
+            // {field: 'productDate', title:'生产日期' , width:100, align:"center"},
+            // {field: 'expiration', title:'有效期至' , width:100, align:"center"},
+            // {field: 'stockInTime', title:'入库时间' , width:100, align:"center"},
+            // {field: 'department', title:'部门' , width:100, align:"center"},
             { field: 'je', title: '金额', totalRow: '{{= parseInt(d.TOTAL_NUMS) }} 元', edit: true, maxWidth: 100},
-            { field: 'bz', title: '备注', edit: 'text',  maxWidth: 100 },
+            { field: 'notes', title: '备注', edit: 'text',  maxWidth: 100 },
             { fixed: 'right', title: '操作', width: 134, minWidth: 125, align: 'center', toolbar: '#barDemo' },
         ]]
     })

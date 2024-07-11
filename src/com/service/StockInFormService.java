@@ -1,5 +1,6 @@
 package com.service;
 
+import com.pojo.Medicine;
 import com.pojo.StockInForm;
 import com.util.LayuiTable;
 
@@ -20,4 +21,6 @@ public interface StockInFormService {
     public int addDoStockInForm(StockInForm stockInForm);
 
     public List<StockInForm> getStockInFormByQuery(String[] query);
+
+//    public List<StockInForm> getStockInFormManufactorByQuery(String[] query);
 }

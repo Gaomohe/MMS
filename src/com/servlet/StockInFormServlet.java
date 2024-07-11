@@ -5,6 +5,7 @@ import com.util.BaseServlet;
 import com.util.LayuiTable;
 import com.util.Result;
 import com.util.ResultData;
+import com.util.init.StringDeal;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,12 @@ public class StockInFormServlet extends BaseServlet {
         session.setAttribute("menuList",menuList);
         return "/medicine/warehouseManage/stockInForm/stockInFormList";
     }
+
+
+    public void getManufactorAll(HttpServletRequest request, HttpServletResponse response){
+        List<StockInForm> stockInFormList = stockInFormService.getStockInFormList();
+        ToJSON.toJson(response,stockInFormList);
+    }
     //获取所有入库单（分页显示）
     public void selectStockInForm(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
@@ -34,6 +41,7 @@ public class StockInFormServlet extends BaseServlet {
     public ResultData addStockInForm(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         StockInForm stockInForm = new StockInForm();
+        stockInForm.setStockInNum(request.getParameter("stockInNum"));
         stockInForm.setrName(request.getParameter("rName"));
         stockInForm.setStandard(request.getParameter("standard"));
         stockInForm.setManufactor(request.getParameter("manufactor"));
@@ -81,14 +89,39 @@ public class StockInFormServlet extends BaseServlet {
         }
         return resultData;
     }
-    //多条件查询库存（非多轮）
+    //根据入库单号，药品信息，入库时间查询入库信息
     public void getStockInFormByQuery(HttpServletRequest request, HttpServletResponse response){
-        String rId = request.getParameter("rId");
+        String stockInNum = request.getParameter("stockInNum");
         String rName = request.getParameter("rName");
         String stockInTime = request.getParameter("stockInTime");
-        String[] queries = {rId,rName,stockInTime};
+        String[] queries = {stockInNum,rName,stockInTime};
         List<StockInForm> stockInFormByQuery = stockInFormService.getStockInFormByQuery(queries);
-        LayuiTable<StockInForm> layuiTable = new LayuiTable<StockInForm>();//因为表格是以layuitable的形式展示的
+        LayuiTable<StockInForm> layuiTable = new LayuiTable<StockInForm>();//因为表格是以layuiTable的形式展示的
+        layuiTable.setData(stockInFormByQuery);
+        ToJSON.toJson(response,layuiTable);
+    }
+//    //下拉框获取所有供货商
+//    public ResultData<Medicine> getMedicineByQuery(HttpServletRequest request, HttpServletResponse response){
+//        String select1 = request.getParameter("select1");
+//        String[] queries = {select1};
+//        List<Medicine> allMedicine = medicineService.getMedicineByQuery(queries);
+//        return Result.resultData(allMedicine);
+//    }
+    //随机生成单据编号
+    public ResultData<String> selectGeneratedStockInNumber(HttpServletRequest request, HttpServletResponse response){
+        String string = StringDeal.generateStockInNumber("MMS");//调用随机生成入库单号的方法
+        ResultData<String> resultData = new ResultData<String>();
+        resultData.setData(string);
+        return resultData;
+    }
+
+    public void getStockInSupplierByQuery(HttpServletRequest request, HttpServletResponse response){
+        String stockInNum = request.getParameter("stockInNum");
+        String rName = request.getParameter("rName");
+        String stockInTime = request.getParameter("stockInTime");
+        String[] queries = {stockInNum,rName,stockInTime};
+        List<StockInForm> stockInFormByQuery = stockInFormService.getStockInFormByQuery(queries);
+        LayuiTable<StockInForm> layuiTable = new LayuiTable<StockInForm>();//因为表格是以layuiTable的形式展示的
         layuiTable.setData(stockInFormByQuery);
         ToJSON.toJson(response,layuiTable);
     }
@@ -97,6 +130,7 @@ public class StockInFormServlet extends BaseServlet {
         ResultData resultData = new ResultData();
         StockInForm stockInForm = new StockInForm();
         stockInForm.setrId(Integer.parseInt(request.getParameter("rId")));
+        stockInForm.setStockInNum(request.getParameter("stockInNum"));
         stockInForm.setrName(request.getParameter("rName"));
         stockInForm.setStandard(request.getParameter("standard"));
         stockInForm.setManufactor(request.getParameter("manufactor"));
