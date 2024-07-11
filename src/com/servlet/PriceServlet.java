@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 import java.util.List;
 
-import static com.util.Vessel.menuService;
+import static com.util.Vessel.*;
 
 @WebServlet("/price")
 public class PriceServlet extends BaseServlet {
@@ -34,6 +34,10 @@ public class PriceServlet extends BaseServlet {
 
     //历史价格界面获取按钮
     public String getMenuBtn2(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","历史价格界面获取按钮");
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
         HttpSession session1 = request.getSession();
@@ -57,6 +61,10 @@ public class PriceServlet extends BaseServlet {
     //主要显示数据来源于药典的模块。
     //添加历史价格
     public ResultData<Price> addPrice(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","添加历史价格");
         String salePrice = request.getParameter("salePrice");
         if (salePrice.equals(" ")){
             salePrice = "0.0";
@@ -73,6 +81,10 @@ public class PriceServlet extends BaseServlet {
     }
     //获取所有历史价格（没用）
     public LayuiTable<Price> getPriceAll(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","获取所有历史价格");
         List<Price> historyAll = priceService.getHistoryAll();
         LayuiTable<Price> layuiTable = new LayuiTable();
         layuiTable.setData(historyAll);
@@ -80,6 +92,10 @@ public class PriceServlet extends BaseServlet {
     }
     //根据tableCoding获取历史价格
     public LayuiTable<Price> getPriceByTabCod(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","根据tableCoding获取历史价格");
         int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
         List<Price> historyAll = priceService.getHistoryByTab(tableCoding);
         LayuiTable<Price> layuiTable = new LayuiTable();
@@ -88,6 +104,10 @@ public class PriceServlet extends BaseServlet {
     }
     //根据mid获取历史价格
     public LayuiTable<Price> getPriceByMId(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","根据mid获取历史价格");
         int mId = Integer.parseInt(request.getParameter("mId"));
         List<Price> historyAll = priceService.getHistoryByMid(mId);
         LayuiTable<Price> layuiTable = new LayuiTable();
@@ -96,6 +116,10 @@ public class PriceServlet extends BaseServlet {
     }
     //根据时间获取历史价格（没用）
     public ResultData<Price> getPriceByTime(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","根据时间获取历史价格");
         String time = request.getParameter("time");
         Price historyByTime = priceService.getHistoryByTime(time);
         ResultData<Price> priceResultData = new ResultData<>();
@@ -104,6 +128,10 @@ public class PriceServlet extends BaseServlet {
     }
     //删除历史价格
     public ResultData<Price> delPrice(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","药品价格信息管理","删除历史价格");
         int i1 = Integer.parseInt(request.getParameter("id"));
         int i = priceService.delHistoryById(i1);
         return Result.resultStatus(i);
