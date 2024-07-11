@@ -52,4 +52,6 @@ public interface MenuService {
 
     //判断请求路径是否存在
     public int isMenuUrl(Menu menu);
+
+
 }

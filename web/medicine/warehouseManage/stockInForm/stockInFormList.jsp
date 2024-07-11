@@ -34,7 +34,7 @@
         <div class="layui-inline">
             <label style="width: auto" class="layui-form-label">入库单号:</label>
             <div class="layui-input-inline">
-                <input type="text" name="rId" lay-verify="rId" id="rId" placeholder="请输入入库单号" autocomplete="off" class="layui-input">
+                <input type="text" name="rId" lay-verify="stockInNum" id="stockInNum" placeholder="请输入入库单号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <%--药品信息--%>
@@ -45,9 +45,6 @@
                 <input type="text" name="rName" lay-verify="rName" id="rName" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
             </div>
         </div>
-
-<%--        <button type="button" class="layui-btn layui-bg-blue" id="queryButton">查询</button>
-            <button class="layui-btn layui-btn-primary layui-border" id="resetButton">重置</button>--%>
         <%--可根据入库日期查询药品入库单信息--%>
                 <div class="layui-inline">
                     <label class="layui-form-label">入库日期</label>

@@ -30,13 +30,14 @@ public class StringDeal {
         return strings;
     }
 
-//    //生成随机入库单号
-//    public static String generateStockInNumber(String businessType) {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-//        String timestamp = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-//        return businessType + "-" + timestamp;
-//    }
-//    public static void main(String[] args) {
-//        System.out.println(generateStockInNumber("sss"));
-//    }
+    //生成随机入库单号
+    public static String generateStockInNumber(String businessType) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timestamp = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+        return businessType + "-" + timestamp;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(generateStockInNumber("MMS"));
+    }
 }

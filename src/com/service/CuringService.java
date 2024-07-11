@@ -15,6 +15,12 @@ public interface CuringService {
     public List<Curing> getCuringByTab(int tableCoding);
     //根据mId显示养护记录表
     public List<Curing> getCuringByMId(int mId);
+    //根据时间获取养护记录
+    public List<Curing> getCuringByTime(String time);
+    //根据养护时间模糊查询药品
+    public List<Medicine> getMidicineByTime(String time);
+    //根据名称模糊查询药品
+    public List<Medicine> getMidicineByName(String name);
     //修改养护记录表
     public int updataCuring(Curing curing);
     //新建养护记录表信息

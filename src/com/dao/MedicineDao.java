@@ -33,6 +33,8 @@ public interface MedicineDao {
     public List<Medicine> getMedicine(String mName);
     //多条件查询（药品名称，商品分类，药品功效，剂型）
     public List<Medicine> getMedicineByQuery(String sql);
+    //根据养护时间模糊查询药品
+    public List<Medicine> getMidicineByTime(String time);
     //库存维护表新增
     public int addDic_Num(Medicine medicine,int patientId,int number);
     //库存数据获得
