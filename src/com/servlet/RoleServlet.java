@@ -41,6 +41,10 @@ public class RoleServlet extends BaseServlet {
     }
     //获取所有role
     public void getRoleList(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"打开","角色管理","获取所有role");
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
@@ -57,6 +61,10 @@ public class RoleServlet extends BaseServlet {
     }
     //根据ID获取角色
     public ResultData<Role> getRoleById(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"打开","角色管理","根据ID获取角色");
         int id = Integer.parseInt(request.getParameter("id"));
         Role roleById = roleService.getRoleById(id);
         ResultData<Role> resultData = new ResultData<>();
@@ -65,6 +73,10 @@ public class RoleServlet extends BaseServlet {
     }
     //删除角色与其对应的权限
     public ResultData<Role> delRole(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"删除","角色管理","删除角色与其对应的权限");
         int id = Integer.parseInt(request.getParameter("id"));
         int i = roleService.delRoleById(id);
         ResultData<Role> resultData = new ResultData<>();
@@ -73,6 +85,10 @@ public class RoleServlet extends BaseServlet {
     }
     //更新角色
     public ResultData<Role> updateRole(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"更新","角色管理","更新角色信息");
         ResultData<Role> resultData = new ResultData<>();
         try{
             request.setCharacterEncoding("utf-8");
@@ -104,6 +120,10 @@ public class RoleServlet extends BaseServlet {
     }
     //新增角色
     public ResultData<Role> addRole(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"添加","角色管理","新增角色信息");
         try{
             request.setCharacterEncoding("utf-8");
         }catch (Exception e){
@@ -132,6 +152,10 @@ public class RoleServlet extends BaseServlet {
 
     //获取全部权限信息
     public void MenuDtree(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","角色管理","获取全部权限信息");
         try {
             LayuiTable<Dtree> treeTableList = roleService.getMenus();
             String string = JSON.toJSONString(treeTableList);
@@ -162,6 +186,10 @@ public class RoleServlet extends BaseServlet {
 
     //修改角色绑定的权限
     public ResultData UpdateRoleMenu(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"修改","角色管理","修改角色绑定的权限");
         String roleid = request.getParameter("roleid");
         int id = Integer.parseInt(roleid);
         String[] arrays = request.getParameterValues("array");
