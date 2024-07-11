@@ -31,6 +31,8 @@ function getLogAction() {
         }
     });
 }
+
+
 layui.use(['table', 'form', 'jquery','laydate'], function () {
     var table = layui.table;
     var form = layui.form;
