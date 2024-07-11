@@ -42,6 +42,10 @@ public class FinancialServlet extends BaseServlet {
 
     //条件查询
     public void Search(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","财务审批","条件查询财务审批信息");
         String limitStr = request.getParameter("limit");
         String pageStr = request.getParameter("page");
         int limit = Integer.parseInt(limitStr);
@@ -78,6 +82,10 @@ public class FinancialServlet extends BaseServlet {
 
     //删除申请
     public ResultData delApply(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","财务审批","删除财务审批信息");
         int id = Integer.parseInt(request.getParameter("ids"));
         int i = financialService.delApply(id);
         ResultData resultData = new ResultData();
@@ -87,6 +95,10 @@ public class FinancialServlet extends BaseServlet {
 
     //获取批准全部信息
     public ResultData<List<Appointment>> getApproveById(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","财务审批","获取批准全部信息");
         int[] dataStrings = StringDeal.toArray(request.getParameter("dataString"));
         ResultData<List<Appointment>> resultData = new ResultData();
         resultData = approvalService.getAuditId(dataStrings);
@@ -98,6 +110,9 @@ public class FinancialServlet extends BaseServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         ResultData resultData = new ResultData();
         HttpSession session = request.getSession();
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","财务审批","财务审核通过");
         User user = (User)session.getAttribute("user");
         int i = financialService.setApply(id,user);
         resultData = Result.resultStatus(i);
@@ -110,6 +125,9 @@ public class FinancialServlet extends BaseServlet {
         ResultData resultData = new ResultData();
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        logService.setLog(name,"点击","财务审批","财务审核不通过");
         int i = financialService.setUnApprove(id,user);
         resultData = Result.resultStatus(i);
         return resultData;
