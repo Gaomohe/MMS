@@ -18,7 +18,11 @@ public class MedicineServiceImpl implements MedicineService {
     MedicineDao medicineDao = new MedicineDaoImpl();
     @Override
     public int addMedicine(Medicine medicine) {
-
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+        Medicine medicine1 = new Medicine();
+        medicine1.setLastCuringDate(format);
         return medicineDao.addMedicine(medicine);
     }
 
