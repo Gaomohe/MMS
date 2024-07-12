@@ -26,9 +26,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label">单据日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="ID-laydate-demo" placeholder="yyyy-MM-dd">
+                    <input type="text" class="layui-input" id="ID-laydate-type-datetime" placeholder="yyyy-MM-dd HH:mm:ss">
                 </div>
             </div>
+
 
             <%--单据编号是随机生成的--%>
             <div class="layui-input-inline">
@@ -42,39 +43,40 @@
             <div class="layui-input-inline">
                 <label class="layui-form-label">供应商</label>
                 <div class="layui-input-inline">
-                    <select lay-search="" id="manufactor" lay-event="manufactor" lay-filter="manufactor">
+                    <select lay-search="" id="manuFactor" lay-event="manuFactor" lay-filter="manuFactor">
 
                     </select>
                 </div>
             </div>
-
-
-<%----%>
-
-
-
-
         </div>
 </div>
 
-<form class="layui-form layui-form-pane" action="">
-    <div class="layui-card-body layui-text">
-        <div id="tableRes" class="table-overlay">
-            <table id="paramTable" lay-filter="paramTable" class="layui-hide"></table>
-        </div>
-    </div>
-</form>
+<div style="width: 600px; margin: 0 auto; position: absolute;top: 15%;left: 1%">
+<%--<table class="layui-table" lay-data="{url:'/StockInForm?action=getDrugNameByManufactor', page: true, limit:6 , limits:[6]}" id="ID-table-demo-theads-1">--%>
+<%--    <thead>--%>
+<%--    <tr>--%>
+<%--        <th lay-data="{checkbox:true}" rowspan="2"></th>--%>
+<%--        <th lay-data="{field:'rId', width:150, align:'center'}" rowspan="2">药品编号</th>--%>
+<%--        <th lay-data="{field:'rName', width:235, align:'center'}" rowspan="2">药品名</th>--%>
+<%--        <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#templet-demo-theads-tool'}" rowspan="2">操作</th>--%>
+<%--    </tr>--%>
+<%--    </thead>--%>
+<%--</table>--%>
+    <table id="addStockInFormList" lay-filter="addStockInFormList"></table>
+</div>
 
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add">增加一行</button>
-        <button class="layui-btn layui-btn-sm" lay-event="update">合计刷新</button>
+<div class="layui-btn-container" style="position: absolute;bottom: 0;left:38%">
+    <button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="saveButton">保存</button>
+    <button type="button" class="layui-btn layui-btn-primary layui-btn-lg" id="cancelButton">取消</button>
+</div>
+
+
+<script type="text/html" id="templet-demo-theads-tool">
+    <div class="layui-clear-space">
+        <button type="button" class="layui-btn layui-btn-sm" style="background-color: rgb(65,186,170); color: white">小型按钮</button>
+<%--        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" style="background-color: rgb(65,186,170); color: white">选择</a>--%>
     </div>
 </script>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
-</script>
-
 
 
 

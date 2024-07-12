@@ -168,8 +168,6 @@ layui.extend({
                 form.render("select");
 
                 form.on('select(action)', function(data) {
-                    console.log("**************")
-                    console.log(data);
                     action1 = cs.find(item => item.logId == data.value)?.action || '';
                     console.log("选中动作动作：" + action1);
                 });

@@ -19,9 +19,6 @@
 
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <blockquote class="layui-elem-quote quoteBox">
-            预购订单生成
-        </blockquote>
         <script type="text/html" id="appointDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
@@ -36,9 +33,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<%--<script type="text/javascript" src="../../pagejs/system/user/userList.js"></script>--%>
+<script type="text/javascript" src="<%=basePath%>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/shoppingManagejs/appointmentOrder/appointList.js" charset="UTF-8"></script>
-<%--<script type="text/javascript" src="<%=basePath %>admin/pagejs/system/user/userList.js" charset="utf-8"></script>--%>
 </body>
 </html>

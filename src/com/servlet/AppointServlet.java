@@ -1,13 +1,11 @@
 package com.servlet;
 
+import com.pojo.Apply;
 import com.pojo.Menu;
 import com.pojo.User;
 import com.service.AppointService;
 import com.service.Impl.AppointServiceImpl;
-import com.util.BaseServlet;
-import com.util.Format;
-import com.util.Result;
-import com.util.ResultData;
+import com.util.*;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
@@ -73,5 +71,42 @@ public class AppointServlet extends BaseServlet {
         List<Integer> idList = Format.StringToInt(idStr);
         int i = appointService.addAppoint(idList);
         return Result.resultStatus(i);
+    }
+
+    //获取供应商
+    public void getSupplier(HttpServletRequest request, HttpServletResponse response){
+        ToJSON.toJson(response,appointService.getSupplier());
+    }
+
+    //获取药品类型
+    public void getmType(HttpServletRequest request, HttpServletResponse response){
+        ToJSON.toJson(response,appointService.getmType());
+    }
+
+    //获取药品名称
+    public void getmName(HttpServletRequest request, HttpServletResponse response){
+        ToJSON.toJson(response,appointService.getmName());
+    }
+
+    //条件查询所有预购表信息
+    public void Search(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        String pageStr = request.getParameter("page");
+        String limitStr = request.getParameter("limit");
+        int page = Integer.parseInt(pageStr);
+        int limit = Integer.parseInt(limitStr);
+        logService.setLog(name,"查询","预购订单","查询预购订单表");
+        String supplierName = request.getParameter("supplierName");
+        String mTypeName = request.getParameter("mTypeName");
+        String mNameName = request.getParameter("mNameName");
+        Apply apply = new Apply();
+        apply.setSupplier(supplierName);
+        apply.setmType(mTypeName);
+        apply.setmName(mNameName);
+        page = (page-1)*limit;
+        LayuiTable<Apply> search = appointService.Search(apply, page, limit);
+        ToJSON.toJson(response,search);
     }
 }

@@ -20,4 +20,9 @@ public interface StockInFormDao {
 
     //根据入库单号，药品名称，入库日期区间查询
     public List<StockInForm> getStockInFormByQuery(String sql);
+
+    //查询所有生产厂家并排除重复
+    public List<StockInForm> getManufactorWithNoRepeat();
+    //查询所有生产厂家对应的药品名称
+    public List<StockInForm> getDrugNameByManufactor(int page, int limit);
 }

@@ -20,4 +20,16 @@ public interface AppointService {
 
     //填充apply表数据
     public int insertApply();
+
+    //获取供应商
+    public List<Apply> getSupplier();
+
+    //获取药品类型
+    public List<Apply> getmType();
+
+    //获取药品名称
+    public List<Apply> getmName();
+
+    //条件查询预购订单表
+    public LayuiTable<Apply> Search(Apply apply,int page, int limit);
 }

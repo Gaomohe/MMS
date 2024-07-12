@@ -7,6 +7,8 @@ import com.pojo.*;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
@@ -23,7 +25,7 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     @Override
     public ResultSet getAppointList() {
         String sql = "select * from apply \n" +
-                "where pharmacistApprove = '已批准' and financeApprove = '已批准';";
+                "where pharmacistApprove = '已审阅通过' and financeApprove = '已审阅通过';";
         Object[] obj = new Object[1];
         obj[0] = 0;
         return JDBC.select(sql, obj);
@@ -118,5 +120,113 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
         objects[16] = apply.getTableCoding();
         int update = JDBC.update(sql, objects);
         return update;
+    }
+
+    //获取供应商
+    @Override
+    public List<Apply> getSupplier() {
+        String sql = "select supplier from apply\n" +
+                "where applyId > ?\n" +
+                "group by supplier";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<Apply> list = new ArrayList<>();
+        try{
+            while (resultSet.next()) {
+                Apply apply = new Apply();
+                apply.setSupplier(resultSet.getString("supplier"));
+                list.add(apply);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Apply> getmType() {
+        String sql = "select mType from apply\n" +
+                "where applyId > ?\n" +
+                "group by mType";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<Apply> list = new ArrayList<>();
+        try{
+            while (resultSet.next()) {
+                Apply apply = new Apply();
+                apply.setmType(resultSet.getString("mType"));
+                list.add(apply);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //获取药品名称
+    @Override
+    public List<Apply> getmName() {
+        String sql = "select mName from apply\n" +
+                "where applyId > ?\n" +
+                "group by mName";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<Apply> list = new ArrayList<>();
+        try{
+            while (resultSet.next()) {
+                Apply apply = new Apply();
+                apply.setmName(resultSet.getString("mName"));
+                list.add(apply);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //条件查询预购订单表
+    @Override
+    public List<Apply> Search(String sql) {
+        sql += " AND applyId > ? AND pharmacistApprove = '已审阅通过' AND financeApprove = '已审阅通过'";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<Apply> list = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                Apply apply = new Apply();
+                apply.setApplyId(resultSet.getInt(1));
+                apply.setmId(resultSet.getInt(2));
+                apply.setmName(resultSet.getString(3));
+                apply.setSpecification(resultSet.getString(4));
+                apply.setManufactor(resultSet.getString(5));
+                apply.setUnit(resultSet.getString(6));
+                apply.setDepartment(resultSet.getString(7));
+                apply.setNumber(resultSet.getInt(8));
+                apply.setApplyNumber(resultSet.getInt(9));
+                apply.setPurchasePrice(resultSet.getDouble(10));
+                apply.setCode(resultSet.getString(11));
+                apply.setmType(resultSet.getString(12));
+                apply.setSupplier(resultSet.getString(13));
+                apply.setApprovalNumber(resultSet.getString(14));
+                apply.setPlaceOrigin(resultSet.getString(15));
+                apply.setApplyUser(resultSet.getString(16));
+                apply.setApplyTime(resultSet.getString(17));
+                apply.setPharmacist(resultSet.getString(18));
+                apply.setPharmacistApprove(resultSet.getString(19));
+                apply.setPharmacistTime(resultSet.getString(20));
+                apply.setFinance(resultSet.getString(21));
+                apply.setFinanceApprove(resultSet.getString(22));
+                apply.setFinanceTime(resultSet.getString(23));
+                apply.setTableCoding(resultSet.getInt(24));
+                list.add(apply);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

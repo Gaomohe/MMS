@@ -8,7 +8,7 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;  // 只在这里加载 dtree
-    var applyCode;//申请编号
+    var pName;//申请编号
     var mName;//药品名称
     var applyTime;//申请时间
     var status;//状态
@@ -28,7 +28,7 @@ layui.extend({
             elem: '#outpatientList',
             cellMinWidth: 95,
             page: true,
-            url : '/medicine?action=getAllMedicine',
+            url : '/patient?action=getPatientList',
             toolbar: '#outpatientDemo',
             height: "600px",
             limit: 20,
@@ -268,19 +268,19 @@ layui.extend({
             ],*/
             cols: [[
                 {fixed:"left",type: "checkbox", width:50},
-                {field: 'pId', title: '患者卡号',  align:'center'},
-                {field: 'dId', title: '医生编号',  align:'center'},
+                {field: 'pId', title: '患者卡号',  align:'center', width:200},
+                {field: 'dId', title: '医生编号',  align:'center', width:200},
                 {field: 'mId', title: '处方编号', minWidth:100, align:"center"},
-                {field: 'name', title: '患者姓名', align:'center'},
-                {field: 'sex', title: '性别', align:'center'},
+                {field: 'name', title: '患者姓名', align:'center', width:200},
+                {field: 'sex', title: '性别', align:'center', width:200},
                 {field: 'age', title: '年龄', minWidth:100, align:"center"},
-                {field: 'weight', title: '体重',  align:'center'},
-                {field: 'address', title: '住址',  align:'center'},
-                {field: 'phone', title: '联系方式',  align:'center'},
-                {field: 'diagnosticTime', title: '就诊时间',  align:'center'},
-                {field: 'allergy', title: '过敏史',  align:'center'},
-                {field: 'doctorAdvice', title: '医嘱',  align:'center'},
-                {field: 'dName', title: '医生姓名',  align:'center'},
+                {field: 'weight', title: '体重',  align:'center', width:200},
+                {field: 'address', title: '住址',  align:'center', width:200},
+                {field: 'phone', title: '联系方式',  align:'center', width:200},
+                {field: 'diagnosticTime', title: '就诊时间',  align:'center', width:200},
+                {field: 'allergy', title: '过敏史',  align:'center', width:200},
+                {field: 'doctorAdvice', title: '医嘱',  align:'center', width:200},
+                {field: 'dName', title: '医生姓名',  align:'center', width:200},
             ]],
         });
         tableMain = tableIns;
@@ -289,7 +289,7 @@ layui.extend({
         renderPharmacist();
         renderFinancial();
         getCode();
-        getmName();
+        getName();
         getTime();
         getStatus();
 
@@ -368,11 +368,11 @@ layui.extend({
         });
     });
 
-    function getCode(){
+    function getName(){
         // 申请编号
-        $('input[name="code"]').on('input', function(e) {
-            applyCode = e.target.value;
-            console.log("实时输入申请编号：" + applyCode);
+        $('input[name="name"]').on('input', function(e) {
+            pName = e.target.value;
+            console.log("实时输入患者姓名：" + pName);
         });
     }
 
