@@ -8,7 +8,7 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;  // 只在这里加载 dtree
-    var applyCode;//申请编号
+    var pName;//申请编号
     var mName;//药品名称
     var applyTime;//申请时间
     var status;//状态
@@ -289,7 +289,7 @@ layui.extend({
         renderPharmacist();
         renderFinancial();
         getCode();
-        getmName();
+        getName();
         getTime();
         getStatus();
 
@@ -368,11 +368,11 @@ layui.extend({
         });
     });
 
-    function getCode(){
+    function getName(){
         // 申请编号
-        $('input[name="code"]').on('input', function(e) {
-            applyCode = e.target.value;
-            console.log("实时输入申请编号：" + applyCode);
+        $('input[name="name"]').on('input', function(e) {
+            pName = e.target.value;
+            console.log("实时输入患者姓名：" + pName);
         });
     }
 

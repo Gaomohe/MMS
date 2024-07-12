@@ -224,18 +224,14 @@ layui.extend({
                 var iframeWin = window[layero.find('iframe')[0]['name']];
                 var elemMark = iframeWin.$('#mark'); // 获得 iframe 中某个输入框元素
                 var value = elemMark.val();
+                console.log(value)
 
                 if ($.trim(value) === '') return elemMark.focus();
                 // 显示获得的值
                 layer.msg('获得 iframe 中的输入框标记值：' + value);
+
             }
         })
-        // layui.layer.open({
-        //     title : "新增入库单",
-        //     type : 2,
-        //     content : "medicine/warehouseManage/stockInForm/stockInFormAdd.jsp",
-        //     area:['400px','500px'],
-        // });
     }
 
 })

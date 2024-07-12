@@ -5,12 +5,8 @@ import com.pojo.Patient;
 import com.pojo.User;
 import com.util.JDBC;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class OutpatientDaoImpl implements OutpatientDao {
@@ -39,12 +35,11 @@ public class OutpatientDaoImpl implements OutpatientDao {
                 patient.setAge(resultSet.getInt(6));
                 patient.setWeight(resultSet.getInt(7));
                 patient.setAddress(resultSet.getString(8));
-                patient.setAddress(resultSet.getString(9));
-                patient.setPhone(resultSet.getString(10));
-                patient.setDiagnosticTime(resultSet.getString(11));
-                patient.setAllergy(resultSet.getString(12));
-                patient.setDoctorAdvice(resultSet.getString(13));
-                patient.setdName(resultSet.getString(14));
+                patient.setPhone(resultSet.getString(9));
+                patient.setDiagnosticTime(resultSet.getString(10));
+                patient.setAllergy(resultSet.getString(11));
+                patient.setDoctorAdvice(resultSet.getString(12));
+                patient.setdName(resultSet.getString(13));
                 list.add(patient);
             }
         }catch (Exception e){
