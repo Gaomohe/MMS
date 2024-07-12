@@ -171,7 +171,7 @@ String path = request.getContextPath();
             if (checkRows.data.length == 0) {
                 layer.msg('请选择要导出的数据', {icon: 2});
             } else {
-                table.exportFile(insTb.config.id, checkRows.data, 'xls');
+                table.exportFile(insTb.config.id, checkRows.data, 'docx');
             }
         });
 

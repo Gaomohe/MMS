@@ -46,7 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a>
                 <div class="layuimini-tool"><i title="展开" class="fa fa-outdent" data-side-fold="1"></i></div>
             </a>
-
             <!--电脑端头部菜单-->
             <ul class="layui-nav layui-layout-left layuimini-header-menu layuimini-menu-header-pc layuimini-pc-show">
             </ul>

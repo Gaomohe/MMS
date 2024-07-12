@@ -14,6 +14,15 @@ public class Patient {
     private String allergy;
     private String doctorAdvice;
     private String dName;
+    public String lastDiaTime;
+
+    public String getLastDiaTime() {
+        return lastDiaTime;
+    }
+
+    public void setLastDiaTime(String lastDiaTime) {
+        this.lastDiaTime = lastDiaTime;
+    }
 
     public int getpId() {
         return pId;

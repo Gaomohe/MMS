@@ -61,6 +61,47 @@ public class OutpatientServlet extends BaseServlet {
         LayuiTable<Patient> patientList = outpatientService.getPatientList(page, limit, user);
         ToJSON.toJson(response,patientList);
     }
+    //获取所有个人诊断患者
+    public void Search(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        user.setUserName(name);
+        logService.setLog(name,"查询","门诊管理","条件查看个人患者列表");
+
+        String pIdStr = request.getParameter("pId");
+        int pId = Integer.parseInt(pIdStr);
+        String pName = request.getParameter("pName");
+        String pSex = request.getParameter("pSex");
+        String pAgeStr = request.getParameter("pAge");
+        int pAge = Integer.parseInt(pAgeStr);
+        String pWeightStr = request.getParameter("pWeight");
+        double pWeight = Double.parseDouble(pWeightStr);
+        String pAddress = request.getParameter("pAddress");
+        String pPhone = request.getParameter("pPhone");
+        String pAllergy = request.getParameter("pAllergy");
+        String doctorAdvice = request.getParameter("doctorAdvice");
+        String lastTime = request.getParameter("lastTime");
+
+        Patient patient = new Patient();
+        patient.setpId(pId);
+        patient.setdId(user.getId());
+        patient.setdName(pName);
+        patient.setSex(pSex);
+        patient.setAge(pAge);
+        patient.setWeight(pWeight);
+        patient.setAddress(pAddress);
+        patient.setPhone(pPhone);
+        patient.setAllergy(pAllergy);
+        patient.setDoctorAdvice(doctorAdvice);
+        patient.setdName(name);
+        patient.setLastDiaTime(lastTime);
+
+        ToJSON.toJson(response,outpatientService.Search(patient));
+
+
+
+    }
 
 
 }

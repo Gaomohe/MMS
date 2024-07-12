@@ -40,6 +40,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
                 patient.setAllergy(resultSet.getString(11));
                 patient.setDoctorAdvice(resultSet.getString(12));
                 patient.setdName(resultSet.getString(13));
+                patient.setLastDiaTime(resultSet.getString(14));
                 list.add(patient);
             }
         }catch (Exception e){
