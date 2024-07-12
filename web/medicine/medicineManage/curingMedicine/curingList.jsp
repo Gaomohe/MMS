@@ -26,7 +26,6 @@
     </div>
 </div>
 
-
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-card-body" style="padding-top: 5px;">
@@ -93,7 +92,6 @@
     </div>
 </div>
 
-</div>
 
 <!-- 表格状态列 -->
 <script type="text/html" id="tplStateTbAdv">

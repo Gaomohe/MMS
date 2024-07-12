@@ -135,6 +135,15 @@ String path = request.getContextPath();
             layer.msg(JSON.stringify(data.field));
             return false;
         });
+        // 导出excel
+        $('#btnExportTbAdv').click(function () {
+            var checkRows = table.checkStatus('tableTbAdv');
+            if (checkRows.data.length == 0) {
+                layer.msg('请选择要导出的数据', {icon: 2});
+            } else {
+                table.exportFile(insTb.config.id, checkRows.data, 'docx');
+            }
+        });
     });
 </script>
 </body>
