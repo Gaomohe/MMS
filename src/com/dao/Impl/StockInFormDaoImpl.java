@@ -194,6 +194,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         return stockInFormList;
     }
 
+    //下拉框获取所有药品供应商(不重复)
     @Override
     public List<StockInForm> getManufactorWithNoRepeat() {
         String sql="SELECT MIN(rid) AS rid, manufactor  \n" +
@@ -205,6 +206,31 @@ public class StockInFormDaoImpl implements StockInFormDao {
             while (resultSet.next()){
                 StockInForm stockInForm = new StockInForm();
                 stockInForm.setrId(resultSet.getInt("rid"));
+                stockInForm.setManufactor(resultSet.getString("manufactor"));
+                stockInFormList.add(stockInForm);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return stockInFormList;
+    }
+
+    //通过供应商查找对应药品(并分页显示)
+    @Override
+    public List<StockInForm> getDrugNameByManufactor(int page, int limit) {
+        String sql="SELECT MIN(rid) AS rid, rName,manufactor\n" +
+                "FROM stockinform\n" +
+                "GROUP BY rid LIMIT ?,?";
+        Object[] objects = new Object[2];
+        objects[0]=page;
+        objects[1]=limit;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<StockInForm> stockInFormList = new ArrayList<StockInForm>();
+        try {
+            while (resultSet.next()){
+                StockInForm stockInForm = new StockInForm();
+                stockInForm.setrId(resultSet.getInt("rid"));
+                stockInForm.setrName(resultSet.getString("rName"));
                 stockInForm.setManufactor(resultSet.getString("manufactor"));
                 stockInFormList.add(stockInForm);
             }

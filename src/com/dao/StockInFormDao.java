@@ -23,4 +23,6 @@ public interface StockInFormDao {
 
     //查询所有生产厂家并排除重复
     public List<StockInForm> getManufactorWithNoRepeat();
+    //查询所有生产厂家对应的药品名称
+    public List<StockInForm> getDrugNameByManufactor(int page, int limit);
 }

@@ -24,4 +24,6 @@ public interface StockInFormService {
 
     public List<StockInForm> getManufactorWithNoRepeat();
 
+    public LayuiTable<StockInForm> getDrugNameByManufactor(int page, int limit);
+
 }

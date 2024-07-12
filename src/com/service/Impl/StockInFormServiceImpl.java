@@ -59,4 +59,16 @@ public class StockInFormServiceImpl implements StockInFormService {
     public List<StockInForm> getManufactorWithNoRepeat() {
         return stockInFormDao.getManufactorWithNoRepeat();
     }
+
+    @Override
+    public LayuiTable<StockInForm> getDrugNameByManufactor(int page, int limit) {
+        int curePage = (page-1)*limit;
+        List<StockInForm> stockInFormList = stockInFormDao.getDrugNameByManufactor(curePage,limit);
+        LayuiTable<StockInForm> LayuiTable = new LayuiTable<StockInForm>();
+        LayuiTable.setMsg("");
+        LayuiTable.setCode(0);
+        LayuiTable.setCount(stockInFormDao.selectStockInForm().size());
+        LayuiTable.setData(stockInFormList);
+        return LayuiTable;
+    }
 }

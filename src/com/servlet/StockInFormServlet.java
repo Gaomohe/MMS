@@ -27,17 +27,25 @@ public class StockInFormServlet extends BaseServlet {
         return "/medicine/warehouseManage/stockInForm/stockInFormList";
     }
 
-
+    //获取所有供货商
     public void getManufactorAll(HttpServletRequest request, HttpServletResponse response){
         List<StockInForm> stockInFormList = stockInFormService.getManufactorWithNoRepeat();
         ToJSON.toJson(response,stockInFormList);
     }
+    //获取所有供应商对应的药品名并分页显示
+    public void getDrugNameByManufactor(HttpServletRequest request, HttpServletResponse response){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        ToJSON.toJson(response,stockInFormService.getDrugNameByManufactor(page,limit));
+    }
+
     //获取所有入库单（分页显示）
     public void selectStockInForm(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
         ToJSON.toJson(response, stockInFormService.selectStockInForm(page,limit));
     }
+    //添加入库单
     public ResultData addStockInForm(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         StockInForm stockInForm = new StockInForm();
@@ -63,7 +71,7 @@ public class StockInFormServlet extends BaseServlet {
         }
         return resultData;
     }
-
+    //删除入库单
     public ResultData delStockInForm(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("rId"));
         ResultData resultData = new ResultData();
@@ -77,7 +85,7 @@ public class StockInFormServlet extends BaseServlet {
         }
         return resultData;
     }
-
+    //通过入库单id(注意不是入库单号)查询
     public ResultData selectStockInFormById(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         int rId =Integer.parseInt(request.getParameter("rId"));
@@ -108,6 +116,7 @@ public class StockInFormServlet extends BaseServlet {
         return resultData;
     }
 
+    //按条件查询(可单个查询)重新加载数据表格
     public void getStockInSupplierByQuery(HttpServletRequest request, HttpServletResponse response){
         String stockInNum = request.getParameter("stockInNum");
         String rName = request.getParameter("rName");
@@ -118,7 +127,7 @@ public class StockInFormServlet extends BaseServlet {
         layuiTable.setData(stockInFormByQuery);
         ToJSON.toJson(response,layuiTable);
     }
-
+    //更新入库单
     public ResultData updateStockInForm(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         StockInForm stockInForm = new StockInForm();
