@@ -38,5 +38,7 @@ public class Vessel {
     public static FinancialDao financialDao = new FinancialDaoImpl();
     public static FinancialService financialService = new FinancialServiceImpl();
 
+    public static OutpatientDao outpatientDao = new OutpatientDaoImpl();
+    public static OutpatientService outpatientService = new OutpatientServiceImpl();
 
 }

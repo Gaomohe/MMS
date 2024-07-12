@@ -35,28 +35,28 @@ layui.extend({
             limits: [10, 15, 20, 25],
             cols: [[
                 {fixed:"left",type: "checkbox", width:50},
-                {field: 'applyId', title: '申请编号',  align:'center'},
-                {field: 'mId', title: '字典编号',  align:'center'},
-                {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
-                {field: 'specification', title: '规格', align:'center'},
-                {field: 'manufactor', title: '生产企业', align:'center'},
-                {field: 'unit', title: '单位', minWidth:100, align:"center"},
-                {field: 'department', title: '部门',  align:'center'},
-                {field: 'applyNumber', title: '采购数量',  align:'center'},
-                {field: 'purchasePrice', title: '采购价',  align:'center'},
-                {field: 'code', title: '批号',  align:'center'},
-                {field: 'mType', title: '药品分类',  align:'center'},
-                {field: 'supplier', title: '供货单位',  align:'center'},
-                {field: 'approvalNumber', title: '准批文号',  align:'center'},
-                {field: 'placeOrigin', title: '产地',  align:'center'},
-                {field: 'applyUser' ,title:'申请人', align:'center'},
-                {field: 'applyTime' ,title:'申请时间', align:'center'},
-                {field: 'pharmacist' ,title:'药师', align:'center'},
-                {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
-                {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
-                {field: 'finance' ,title:'财务', align:'center'},
-                {field: 'financeApprove' ,title:'财务审批', align:'center'},
-                {field: 'financeTime' ,title:'财务审批时间', align:'center'}
+                {field: 'applyId', title: '申请编号',  align:'center',width:200},
+                {field: 'mId', title: '字典编号',  align:'center',width:200},
+                {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200},
+                {field: 'specification', title: '规格', align:'center',width:200},
+                {field: 'manufactor', title: '生产企业', align:'center',width:200},
+                {field: 'unit', title: '单位', minWidth:100, align:"center",width:200},
+                {field: 'department', title: '部门',  align:'center',width:200},
+                {field: 'applyNumber', title: '采购数量',  align:'center',width:200},
+                {field: 'purchasePrice', title: '采购价',  align:'center',width:200},
+                {field: 'code', title: '批号',  align:'center',width:200},
+                {field: 'mType', title: '药品分类',  align:'center',width:200},
+                {field: 'supplier', title: '供货单位',  align:'center',width:200},
+                {field: 'approvalNumber', title: '准批文号',  align:'center',width:200},
+                {field: 'placeOrigin', title: '产地',  align:'center',width:200},
+                {field: 'applyUser' ,title:'申请人', align:'center',width:200},
+                {field: 'applyTime' ,title:'申请时间', align:'center',width:200},
+                {field: 'pharmacist' ,title:'药师', align:'center',width:200},
+                {field: 'pharmacistApprove' ,title:'药师审批', align:'center',width:200},
+                {field: 'pharmacistTime' ,title:'药师审批时间', align:'center',width:200},
+                {field: 'finance' ,title:'财务', align:'center',width:200},
+                {field: 'financeApprove' ,title:'财务审批', align:'center',width:200},
+                {field: 'financeTime' ,title:'财务审批时间', align:'center',width:200}
             ]],
         });
         tableMain = tableIns;
@@ -70,12 +70,6 @@ layui.extend({
         getStatus();
 
         table.on('toolbar(financialList)', function(obj) {
-            /*var checkStatus = table.checkStatus(obj.config.id);
-            var data = checkStatus.data;
-            var applyIds = []; // 用来存储所有选中行的 applyId
-            for (let i = 0; i < data.length; i++) {
-                applyIds.push(data[i].applyId); // 将每个选中行的 applyId 添加到数组中
-            }*/
             var checkdata= table.checkStatus(obj.config.id)
             var files= checkdata.data;
             console.log(files);
@@ -109,11 +103,6 @@ layui.extend({
                     }
                     break;
                 case 'approve':
-                    /*console.log("aaaaaa");
-                    console.log(array);
-                    console.log(state);
-                    approve(array,state);*/
-
                     console.log("aaa");
                     console.log(files);
                     console.log(files.length);
