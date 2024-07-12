@@ -16,10 +16,10 @@ import java.util.List;
 import static com.util.Vessel.*;
 
 @WebServlet("/patient")
-public class outpatientServlet extends BaseServlet {
+public class OutpatientServlet extends BaseServlet {
     @Override
     public Class getServlet() {
-        return outpatientServlet.class;
+        return OutpatientServlet.class;
     }
 
     //获取所有按钮
@@ -60,5 +60,6 @@ public class outpatientServlet extends BaseServlet {
         LayuiTable<Patient> patientList = outpatientService.getPatientList(page, limit, user);
         ToJSON.toJson(response,patientList);
     }
+
 
 }
