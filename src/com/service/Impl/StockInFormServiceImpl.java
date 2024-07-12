@@ -3,10 +3,6 @@ package com.service.Impl;
 import com.pojo.StockInForm;
 import com.service.StockInFormService;
 import com.util.LayuiTable;
-import com.util.init.StringDeal;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
@@ -59,11 +55,8 @@ public class StockInFormServiceImpl implements StockInFormService {
         return stockInFormDao.getStockInFormByQuery(StockInForm);
     }
 
-//    @Override
-//    public List<StockInForm> getStockInFormManufactorByQuery(String[] query) {
-//        String[] keys = {"manufactor"};//这里是键
-//        Object[] values = {query[0]};//这里是值
-//        String manufactor = getSQL(keys, values, "StockInForm");//apply是表名
-//        return stockInFormDao.getStockInFormByQuery(manufactor);
-//    }
+    @Override
+    public List<StockInForm> getManufactorWithNoRepeat() {
+        return stockInFormDao.getManufactorWithNoRepeat();
+    }
 }

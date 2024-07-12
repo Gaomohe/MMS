@@ -22,5 +22,6 @@ public interface StockInFormService {
 
     public List<StockInForm> getStockInFormByQuery(String[] query);
 
-//    public List<StockInForm> getStockInFormManufactorByQuery(String[] query);
+    public List<StockInForm> getManufactorWithNoRepeat();
+
 }

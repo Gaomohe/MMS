@@ -26,9 +26,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label">单据日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="ID-laydate-demo" placeholder="yyyy-MM-dd">
+                    <input type="text" class="layui-input" id="ID-laydate-type-datetime" placeholder="yyyy-MM-dd HH:mm:ss">
                 </div>
             </div>
+
 
             <%--单据编号是随机生成的--%>
             <div class="layui-input-inline">
@@ -47,16 +48,6 @@
                     </select>
                 </div>
             </div>
-
-
-<%----%>
-
-
-<%----%>
-
-
-
-
         </div>
 </div>
 

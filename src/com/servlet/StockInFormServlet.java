@@ -29,7 +29,7 @@ public class StockInFormServlet extends BaseServlet {
 
 
     public void getManufactorAll(HttpServletRequest request, HttpServletResponse response){
-        List<StockInForm> stockInFormList = stockInFormService.getStockInFormList();
+        List<StockInForm> stockInFormList = stockInFormService.getManufactorWithNoRepeat();
         ToJSON.toJson(response,stockInFormList);
     }
     //获取所有入库单（分页显示）
@@ -100,13 +100,6 @@ public class StockInFormServlet extends BaseServlet {
         layuiTable.setData(stockInFormByQuery);
         ToJSON.toJson(response,layuiTable);
     }
-//    //下拉框获取所有供货商
-//    public ResultData<Medicine> getMedicineByQuery(HttpServletRequest request, HttpServletResponse response){
-//        String select1 = request.getParameter("select1");
-//        String[] queries = {select1};
-//        List<Medicine> allMedicine = medicineService.getMedicineByQuery(queries);
-//        return Result.resultData(allMedicine);
-//    }
     //随机生成单据编号
     public ResultData<String> selectGeneratedStockInNumber(HttpServletRequest request, HttpServletResponse response){
         String string = StringDeal.generateStockInNumber("MMS");//调用随机生成入库单号的方法

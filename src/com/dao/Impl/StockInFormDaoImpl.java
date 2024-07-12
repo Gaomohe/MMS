@@ -193,4 +193,24 @@ public class StockInFormDaoImpl implements StockInFormDao {
         }
         return stockInFormList;
     }
+
+    @Override
+    public List<StockInForm> getManufactorWithNoRepeat() {
+        String sql="SELECT MIN(rid) AS rid, manufactor  \n" +
+                "FROM stockinform  \n" +
+                "GROUP BY manufactor;";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<StockInForm> stockInFormList = new ArrayList<StockInForm>();
+        try {
+            while (resultSet.next()){
+                StockInForm stockInForm = new StockInForm();
+                stockInForm.setrId(resultSet.getInt("rid"));
+                stockInForm.setManufactor(resultSet.getString("manufactor"));
+                stockInFormList.add(stockInForm);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return stockInFormList;
+    }
 }
