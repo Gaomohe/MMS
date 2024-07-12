@@ -57,6 +57,7 @@ public class OutpatientServlet extends BaseServlet {
         logService.setLog(name,"点击","开处方","查看个人患者列表");
         int page = Integer.parseInt(pageStr);
         int limit = Integer.parseInt(limitStr);
+        page = (page - 1) * limit;
         LayuiTable<Patient> patientList = outpatientService.getPatientList(page, limit, user);
         ToJSON.toJson(response,patientList);
     }
