@@ -70,13 +70,22 @@ public class OutpatientServlet extends BaseServlet {
         logService.setLog(name,"查询","门诊管理","条件查看个人患者列表");
 
         String pIdStr = request.getParameter("pId");
-        int pId = Integer.parseInt(pIdStr);
+        int pId = 0;
+        if (pIdStr != null){
+            pId = Integer.parseInt(pIdStr);
+        }
         String pName = request.getParameter("pName");
         String pSex = request.getParameter("pSex");
         String pAgeStr = request.getParameter("pAge");
-        int pAge = Integer.parseInt(pAgeStr);
+        int pAge = 0;
+        if(pAgeStr != null && !pAgeStr.isEmpty()){
+            pAge = Integer.parseInt(pAgeStr);
+        }
         String pWeightStr = request.getParameter("pWeight");
-        double pWeight = Double.parseDouble(pWeightStr);
+        double pWeight = 0;
+        if (pWeightStr != null){
+            pWeight = Double.parseDouble(pWeightStr);
+        }
         String pAddress = request.getParameter("pAddress");
         String pPhone = request.getParameter("pPhone");
         String pAllergy = request.getParameter("pAllergy");

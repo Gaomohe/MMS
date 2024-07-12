@@ -1,9 +1,11 @@
 package com.service.Impl;
 
+import com.pojo.Log;
 import com.pojo.Patient;
 import com.pojo.User;
 import com.service.OutpatientService;
 import com.util.LayuiTable;
+import com.util.SQLtoString;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,10 +25,27 @@ public class OutpatientServiceImpl implements OutpatientService {
         return layuiTable;
     }
 
+    //条件查询所有病人列表
     @Override
-    public List<Patient> Search(Patient patient) {
-        String[] keys = {"name","sex","age","age","weight","address","phone","diagnosticTime","allergy","doctorAdvice","dName","lastDiaTime"};
+    public LayuiTable<Patient> Search(Patient patient) {
+        String sql = "";
+        if (patient.getpId() == 0){
+            String[] keys = {"name","sex","age","age","address","phone","allergy","doctorAdvice","dName","lastDiaTime"};
+            Object[] values = {patient.getName(),patient.getSex(),patient.getAge(),patient.getAddress(),patient.getPhone(),patient.getAllergy(),patient.getDoctorAdvice(),patient.getdName(),patient.getLastDiaTime()};
+            sql = SQLtoString.getSQL(keys,values,"patient");
+        }else if(patient.getpId() > 0){
+            String[] keys = {"pId","name","sex","address","phone","allergy","doctorAdvice","dName","lastDiaTime"};
+            Object[] values = {patient.getpId(),patient.getName(),patient.getSex(),patient.getAddress(),patient.getPhone(),patient.getAllergy(),patient.getDoctorAdvice(),patient.getdName(),patient.getLastDiaTime()};
+            sql = SQLtoString.getSQL(keys,values,"patient");
+        }
+        List<Patient> patientList = outpatientDao.Search(sql);
+        LayuiTable<Patient> layuiTable = new LayuiTable<>();
+        layuiTable.setMsg("");
+        layuiTable.setCode(0);
+        layuiTable.setCount(patientList.size());
+        layuiTable.setData(patientList);
 
-        return Collections.emptyList();
+
+        return layuiTable;
     }
 }

@@ -11,5 +11,5 @@ public interface OutpatientService {
     public LayuiTable<Patient> getPatientList(int page, int limit, User user);
 
     //条件查询所有患者
-    public List<Patient> Search(Patient patient);
+    public LayuiTable<Patient> Search(Patient patient);
 }

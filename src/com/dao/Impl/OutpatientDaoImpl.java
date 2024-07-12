@@ -4,6 +4,7 @@ import com.dao.OutpatientDao;
 import com.pojo.Patient;
 import com.pojo.User;
 import com.util.JDBC;
+import jdk.nashorn.internal.scripts.JD;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,6 +24,39 @@ public class OutpatientDaoImpl implements OutpatientDao {
         objects[2] = page;
         objects[3] = limit;
         ResultSet resultSet = JDBC.select(sql,objects);
+        List<Patient> list = new ArrayList<Patient>();
+        try{
+            while (resultSet.next()) {
+                Patient patient = new Patient();
+                patient.setpId(resultSet.getInt(1));
+                patient.setdId(resultSet.getInt(2));
+                patient.setmId(resultSet.getInt(3));
+                patient.setName(resultSet.getString(4));
+                patient.setSex(resultSet.getString(5));
+                patient.setAge(resultSet.getInt(6));
+                patient.setWeight(resultSet.getInt(7));
+                patient.setAddress(resultSet.getString(8));
+                patient.setPhone(resultSet.getString(9));
+                patient.setDiagnosticTime(resultSet.getString(10));
+                patient.setAllergy(resultSet.getString(11));
+                patient.setDoctorAdvice(resultSet.getString(12));
+                patient.setdName(resultSet.getString(13));
+                patient.setLastDiaTime(resultSet.getString(14));
+                list.add(patient);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //条件查询所有病人列表
+    @Override
+    public List<Patient> Search(String sql) {
+        sql += " and dId > ?";
+        Object[] objects = new Object[1];
+        objects[0] = 0;
+        ResultSet resultSet = JDBC.select(sql, objects);
         List<Patient> list = new ArrayList<Patient>();
         try{
             while (resultSet.next()) {
