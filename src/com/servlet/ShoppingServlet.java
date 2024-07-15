@@ -42,6 +42,7 @@ public class ShoppingServlet extends BaseServlet {
         List<Medicine> kindList = shoppingService.getKind();
         session.setAttribute("menuList",menuList);
         session.setAttribute("kindList",kindList);
+
         return "/medicine/shoppingManage/requestApply/shopList";
     }
 

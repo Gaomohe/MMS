@@ -20,8 +20,8 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
-            {field: 'applyId', title: '申请编号',  align:'center'},
-            {field: 'mId', title: '字典编号',  align:'center'},
+            // {field: 'applyId', title: '申请编号',  align:'center'},
+            // {field: 'mId', title: '字典编号',  align:'center'},
             {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
             {field: 'specification', title: '规格', align:'center'},
             {field: 'manufactor', title: '生产企业', align:'center'},
@@ -87,52 +87,7 @@ layui.extend({
                 break;
             case 'audit':
                 //审核
-
-                var dataString = $.param({"array": array});
-
-                $.ajax({
-                    url:"/approval?action=isok",
-                    data:{
-                        dataString
-                    },
-                    type:"post",
-                    success:function(data){
-                        var parse = JSON.parse(data);
-                        if (parse.status===200){
-                            layer.alert('已通过！');
-                            // 刷新父页面
-                            parent.window.location.reload();
-
-                            // 关闭弹出层
-                            var index = parent.layer.getFrameIndex(window.name); // 获取弹出层索引
-                            parent.layer.close(index); // 关闭弹出层
-
-                            //刷新页面，重新加载页面
-                            // reloadAuditWindow
-                        }else {
-                            layer.msg('出错啦', {icon: 2});
-
-
-
-                        }
-                    }
-                })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                // audit(array,state);
+                audit(array,state);
                 break;
             case 'noaudit':
                 //反审核
@@ -213,52 +168,16 @@ layui.extend({
             content : "medicine/approveManage/purchaseApproval/audit.jsp",
             area:['900px','500px'],
             success:function (layero, index){
-                var $iframe = layero.find('iframe'); // jQuery 对象
-                console.log("再来")
-                console.log($iframe)
-                // 确保 iframe 存在
-                if ($iframe.length > 0) {
-                    // 使用原生 DOM API 添加 load 事件监听器
-                    $iframe[0].addEventListener('load', function() {
-                        console.log('The iframe has loaded.');
-                        // 这里可以执行进一步的操作，例如访问 iframe 的内容
-                    });
-                } else {
-                    console.error('Iframe element not found inside the layer.');
-                }
-                // 给 iframe 添加 load 事件监听器
+                var $iframe = layero.find('iframe')[0]; // jQuery 对象
                 $.ajax({
                     url:"/approval?action=getAuditId",//根据id将状态改成“以审批”
                     type:"post",
                     data:{dataString},
-                    success:function(data){
-                        var info = JSON.parse(data).data;
-                        iframe = layer.getChildFrame('body', index);
-                        var rowsHtml = '';
-                        $(document).ready(function(){
-                            form.render('checkbox');
-                        });
-                        $.each(info, function(i, item) {
-                            rowsHtml += '<tr>';
-                            rowsHtml += '<td><input type="checkbox" id="'+i+'" name="'+item.mName+'" value="'+item.applyId+'"></td>';
-                            rowsHtml += '<td>' + item.applyId + '</td>';
-                            rowsHtml += '<td>' + item.mName + '</td>';
-                            rowsHtml += '<td>' + item.number + '</td>';
-                            rowsHtml += '<td>'+item.mType+'</td>';
-                            rowsHtml += '<td>'+item.specification+"/"+item.unit+'</td>';
-                            rowsHtml += '<td>'+item.pharmacistApprove+'</td>';
-                            rowsHtml += '<td>' + item.applyNumber + '</td>';
-                            rowsHtml += '</tr>';
-                        });
-                        // 更新iframe窗口中的表格body
-                        // $(iframe).find('#table-body').html(rowsHtml);
-                        console.log("不不不")
-                        window.onload = function() {
-                            document.getElementById('table-body').innerHTML = rowsHtml;
-                        }
-
-
+                    success:function (data){
+                        // 操作iframe
+                        $iframe.contentWindow.postMessage(data, '*');
                     }
+
                 })
             }
         })

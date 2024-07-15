@@ -15,7 +15,7 @@ layui.extend({
         cellMinWidth : 95,
         page : true,
         toolbar: '#shoppDemo',
-        height : "full-125",
+        height : "800px",
         limit : 20,
         limits : [10,15,20,25],
         cols : [[

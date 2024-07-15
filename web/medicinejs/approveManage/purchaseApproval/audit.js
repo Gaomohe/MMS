@@ -4,8 +4,41 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
         ,layedit = layui.layedit
         ,laydate = layui.laydate;
     var $ = layui.$;
-    // 初始设置半选
 
+    window.addEventListener('message', function(event) {
+        // 检查 event.origin 以确保消息来自可信源
+        // if (event.origin !== "http://yourtrusteddomain.com") return;
+
+        // 获取父页面发送的消息内容
+        var messageData = event.data;
+        var otg = JSON.parse(messageData).data;
+        var htmlString = ''
+// 可以创建多个行的HTML字符串
+        for (var i = 0; i < otg.length; i++) {
+            htmlString+='<tr>';
+            htmlString+='<td><input type="checkbox" id="'+otg[i].applyId+'" name="" value="'+otg[i].mName+'"></td>'
+            htmlString+='<td>'+otg[i].applyId+'</td>'
+            htmlString+='<td>'+otg[i].mName+'</td>'
+            htmlString+='<td>'+otg[i].number+'</td>'
+            htmlString+='<td>'+otg[i].unit+'</td>'
+            htmlString+='<td>'+otg[i].specification+'</td>'
+            htmlString+='<td>'+otg[i].pharmacistApprove+'</td>'
+            htmlString+='<td>'+otg[i].applyNumber+'</td>'
+            htmlString+='</tr>'
+        }
+
+// 获取tbody元素
+        var tbody = document.getElementById("table-body");
+
+// 使用innerHTML属性填充HTML
+        tbody.innerHTML = htmlString;
+
+        // 插入 HTML，这里假设 messageData 就是您要插入的 HTML 字符串
+
+    }, false);
+
+
+    // 初始设置半选
     //通过事件
     $("#isok").click(function(){
         // 获取所有选中的复选框
