@@ -11,7 +11,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
 
     // 前端分页
     var tableIns=tableX.render({
-        elem: '#xTable1',
+        elem: '#xTable2',
         url: '/quality?action=getQualityBySS&storageStatus=0',
         toolbar: '#toolbarDemo',
         page: true,
@@ -135,16 +135,27 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var tableCoding = '';
-        var mId='';
+        var id='';
         var arr='';
         for(i=0;i<data.length;i++){
             tableCoding = data[i].tableCoding;
-            mId = data[i].mId;
             arr+=data[i].tableCoding+",";
         }
+        alert(1)
         switch(obj.event){
             case 'time':	//按照养护时间查找
                 getTime();
+                break;
+            case 'delFunc':
+                var i = 0;
+                for(i=0;i<data.length;i++){
+                    id = data[i].id;
+                    console.log(delFunc(id));
+                }
+                if (i=data.length){
+                    layer.msg("删除成功")
+                    setTimeout(function (){location.reload()},2000);
+                }
                 break;
         };
     });
@@ -180,7 +191,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         layui.use('table', function(){
             var table = layui.table;
             table.render({
-                elem: '#xTable1',
+                elem: '#xTable2',
                 data: data, // 使用从后端获取的数据渲染表格
                 toolbar: '#toolbarDemo',
                 page: true,
@@ -418,6 +429,32 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 // 假设后端返回的数据是一个数组，可以根据数据格式进行处理
                 var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
                 renderTable(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        })
+    }
+
+    function delFunc(id){
+        $.ajax({
+            url:"/quality?action=delQuality",
+            data:{
+                id
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(date) {
+                var info = JSON.parse(date);
+                if (info.status == 200){
+                    return 1;
+                }
+                /*if (info.status == 200){
+                    layer.msg("删除成功")
+                    setTimeout(function (){location.reload()}, 2000);
+                }else {
+                    layer.msg("删除失败")
+                }*/
             },
             error: function(error) {
                 console.error('Error:', error);

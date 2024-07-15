@@ -45,8 +45,8 @@
         <div class="layui-card-body" style="padding-top: 5px;">
             <div class="layui-tab layui-tab-brief" lay-filter="tableXTab">
                 <ul class="layui-tab-title">
-                    <li>药品价格</li>
-                    <li>历史价格</li>
+                    <li>未入库</li>
+                    <li>已入库</li>
                 </ul>
                 <div class="layui-tab-content" style="padding-left: 0;padding-right: 0;">
                     <div class="layui-tab-item layui-show">
@@ -119,41 +119,7 @@
                     <%--第二页--%>
                     <div class="layui-tab-item">
                         <div id="xTable2">
-                            <form class="layui-form">
-                                <div class="layui-fluid" style="padding-bottom: 75px;">
 
-                                    <div class="layui-card">
-                                        <div class="layui-card-header">点击选择药品数据</div>
-                                        <div class="layui-card-body">
-
-                                            <table class="layui-table" id="priceTable1" lay-filter="priceTable1"></table>
-                                        </div>
-                                    </div>
-
-                                    <div class="layui-card">
-                                        <div class="layui-card-header">药品历史价格1</div>
-                                        <div class="layui-card-body">
-
-                                            <table class="layui-table" id="priceTable2" lay-filter="priceTable2"></table>
-                                            <script type="text/html" id="barDemo1">
-                                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                                            </script>
-                                        </div>
-                                    </div>
-
-                                    <div class="layui-card">
-                                        <div class="layui-card-header">药品历史价格2</div>
-                                        <div class="layui-card-body">
-
-                                            <table class="layui-table" id="priceTable3" lay-filter="priceTable3"></table>
-                                            <script type="text/html" id="barDemo2">
-                                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                                            </script>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -164,7 +130,7 @@
 </body>
 <script type="text/javascript" src="<%=path%>iframe/assets/libs/layui/layui.js"></script>
 <script type="text/javascript" src="<%=path%>iframe/assets/js/common.js"></script>
-<script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityList.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityListNO.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/typesList.js" charset="UTF-8"></script>
 <%--<script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medPrice/historyPrice.js" charset="UTF-8"></script>--%>
 </html>
