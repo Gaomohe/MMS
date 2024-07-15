@@ -138,9 +138,15 @@ public class OutpatientServlet extends BaseServlet {
         String pName = request.getParameter("pName");
         String pSex = request.getParameter("pSex");
         String pAgeStr = request.getParameter("pAge");
-        int pAge = Integer.parseInt(pAgeStr);
+        int pAge = 0;
+        if(pAgeStr != null && !pAgeStr.isEmpty()){
+            pAge = Integer.parseInt(pAgeStr);
+        }
         String pWeightStr = request.getParameter("pWeight");
-        double pWeight = Double.parseDouble(pWeightStr);
+        double pWeight = 0;
+        if (pWeightStr != null){
+            pWeight = Double.parseDouble(pWeightStr);
+        }
         String pAddress = request.getParameter("pAddress");
         String pPhone = request.getParameter("pPhone");
         String pAllergy = request.getParameter("pAllergy");
