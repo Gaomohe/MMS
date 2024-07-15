@@ -1,6 +1,7 @@
 package com.service;
 
 import com.pojo.Medicine;
+import com.pojo.Quality;
 import com.pojo.StockInForm;
 import com.util.LayuiTable;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface StockInFormService {
     //查询全部入库单
     public List<StockInForm> getStockInFormList();
-    //按入库单号查询，带分页
+    //分页查询所有入库单
     public LayuiTable<StockInForm> selectStockInForm(int page, int limit);
     //按入库单号查询
     public StockInForm getStockInFormById(int id);
@@ -24,9 +25,7 @@ public interface StockInFormService {
 
     public List<StockInForm> getManufactorWithNoRepeat();
 
-    public LayuiTable<StockInForm> getDrugNameByManufactor(int page, int limit);
-
-    //通过供应商名称查询对应的药品
+    public LayuiTable<Quality> getDrugNameByManufactor(int page, int limit);
     //通过供应商名称查询对应的药品名称
     public LayuiTable<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor);
 }

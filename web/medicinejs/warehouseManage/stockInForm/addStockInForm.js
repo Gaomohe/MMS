@@ -63,10 +63,15 @@ layui.use(['laydate', 'form', 'jquery'], function() {
             limits : [6],
             cols : [[
                 {checkbox: true, rowspan: 2}, // 复选框列
-                {field:'rId', width:150, align:'center', title:'药品编号', rowspan: 2}, // 药品编号列
-                {field:'rName', width:235, align:'center', title:'药品名', rowspan: 2}, // 药品名列
-                {fixed: 'right', width:160, align:'center', toolbar: '#templet-demo-theads-tool', title:'操作', rowspan: 2} // 操作列
-            ]]
+                {field:'tableCoding', width:200, align:'center', title:'药品编号', rowspan: 2}, // 药品编号列
+                {field:'mName', width:235, align:'center', title:'药品名', rowspan: 2}, // 药品名列
+                {field:'totlNumber', width:200, align:'center', title:'待入库药品数量', rowspan: 2}, // 药品名列
+                {field:'statue', width:100, align:'center', title:'质检状态', rowspan: 2}, // 药品名列
+                {field:'storageStatus', width:100, align:'center', title:'入库状态', rowspan: 2}, // 药品名列
+            ]],
+            done:function (data){
+                console.log(data)
+            }
         });
 });
 
