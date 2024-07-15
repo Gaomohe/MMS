@@ -38,21 +38,6 @@
 
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <blockquote class="layui-elem-quote layui-quote-nm">
-            <div class="layui-carousel" id="test1" lay-filter="test1">
-                <div carousel-item>
-                    <!-- 轮播内容 -->
-                    <div><a href="javascript:void(0)">安徽省人民政府办公厅关于印发
-                        加强矿山全生命周期管理若干措施的通知</a></div>
-                    <div><a href="javascript:void(0)">安徽省人民政府办公厅关于印发2024年
-                        省政府负责同志联系推进重点项目的通知</a></div>
-                    <div><a href="javascript:void(0)">安徽省人民政府办公厅关于
-                        2024年第二季度全省政府网站与
-                        政务新媒体检查情况的通报</a></div>
-                    <!-- 可以根据需要添加更多轮播项 -->
-                </div>
-            </div>
-        </blockquote>
         <script type="text/html" id="shoppDemo">
             <div class="layui-inline">
                 <%--            按钮--%>
@@ -83,8 +68,18 @@
 
                 </select>
             </div>
+    <div class="layui-col-md2">
+        <select lay-filter="onChangeSelect" id="">
+            <option id="onChangeSelectValue" value="">选择供应商</option>
+            <c:forEach var="kindList" items="${kindList}" varStatus="s">
+                <option value="${kindList.drugFrom}">${kindList.drugFrom}</option>
+            </c:forEach>
+
+        </select>
+    </div>
+
     <div class="layui-col-md8">
-        <button lay-event="explain" type="button" class="layui-btn layui-btn-primary layui-btn-radius">说明</button>
+<%--        <button lay-event="explain" type="button" class="layui-btn layui-btn-primary layui-btn-radius">说明</button>--%>
     </div>
 </div>
 

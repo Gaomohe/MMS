@@ -60,13 +60,13 @@
         <br>
         <div class="layui-row">
             <div class="layui-col-xs12">
-                <button type="button" class="layui-btn layui-bg-blue">基本资料</button>
-                <button type="button" class="layui-btn">工资信息</button>
-                <button type="button" class="layui-btn layui-bg-purple">考勤信息</button>
-                <button type="button" class="layui-btn layui-bg-red">奖惩信息</button>
-                <button type="button" class="layui-btn layui-bg-orange">税务信息</button>
-                <button type="button" class="layui-btn layui-btn-primary layui-border">设置管理</button>
-                <button type="button" class="layui-btn layui-btn-primary layui-border">投诉与帮助</button>
+                <button lay-event="basicInformation" type="button" class="layui-btn layui-bg-blue">基本资料</button>
+                <button lay-event="salaryInformation" type="button" class="layui-btn">工资信息</button>
+                <button lay-event="attendanceInformation" type="button" class="layui-btn layui-bg-purple">考勤信息</button>
+                <button lay-event="RewardPunishmentInformation" type="button" class="layui-btn layui-bg-red">奖惩信息</button>
+                <button lay-event="taxInformation" type="button" class="layui-btn layui-bg-orange">税务信息</button>
+                <button lay-event="settingsManagement" type="button" class="layui-btn layui-btn-primary layui-border">设置管理</button>
+                <button lay-event="complaintsAndHelp" type="button" class="layui-btn layui-btn-primary layui-border">投诉与帮助</button>
             </div>
         </div>
     </form>

@@ -51,8 +51,6 @@ public class ApprovalServiceImpl implements ApprovalService {
                         appointment.setFinanceTime(resultSet.getString(23));
                         appointment.setTableCoding(resultSet.getInt(24));
                         applyList.add(appointment);
-
-
                     }
                     }
                     appointmentResultData.setData(applyList);
@@ -221,8 +219,6 @@ public class ApprovalServiceImpl implements ApprovalService {
 
                 list.add(ap);
             }
-
-
             sub_applyResultData.setData(list);
             sub_applyResultData.setMsg("");
             sub_applyResultData.setStatus(200);

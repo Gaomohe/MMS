@@ -1,5 +1,6 @@
 package com.service;
 
+import com.pojo.Medicine;
 import com.pojo.Patient;
 import com.pojo.User;
 import com.util.LayuiTable;
@@ -15,4 +16,7 @@ public interface OutpatientService {
 
     //添加患者信息
     public int addPatient(Patient patient);
+
+    //门诊检索查看药品
+    public LayuiTable<Medicine> getMedicineList(Medicine medicine);
 }

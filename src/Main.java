@@ -36,4 +36,14 @@ public class Main {
 
 
     }
+
+    /*public static void main(String[] args) {
+        int totalRecords = 157674;
+        int limit = 1000;
+
+        for (int offset = 0; offset < totalRecords; offset += limit) {
+            System.out.println("SELECT * FROM `dictionary` LIMIT " + limit + " OFFSET " + offset + ";");
+        }
+    }*/
+
 }

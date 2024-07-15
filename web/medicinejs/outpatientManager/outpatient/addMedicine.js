@@ -8,7 +8,7 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;
-    var mType, mPower,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain;
+    var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain;
 
     $(document).ready(function() {
         laydate.render({
@@ -20,7 +20,7 @@ layui.extend({
             page: true,
             url: '/medicine?action=getAllMedicine',
             toolbar: '#addMedicineDemo',
-            height: "1800px",
+            height: "800px",
             limit: 20,
             limits: [10, 15, 20, 25],
             cols: [
@@ -262,7 +262,7 @@ layui.extend({
         getmType();
         getmPower();
 
-        table.on('toolbar(outpatientList)', function(obj) {
+        table.on('toolbar(addMedicineList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
             var files = checkdata.data;
             var array = [];
@@ -274,7 +274,12 @@ layui.extend({
 
             switch (obj.event) {
                 case 'search':
-                    search(pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime);
+                    console.log("---------------");
+                    console.log(mPower);
+                    console.log(mType);
+                    console.log(Unit);
+                    console.log("---------------");
+                    Search(mPower,mType,Unit);
                     break;
                 case 'reload':
                     winReload();
@@ -383,28 +388,30 @@ layui.extend({
         });
     }
 
+    var define = "";
+    function Search(mPower,mType,Unit) {
+        console.log("wwwwwwwwwwwwwwwwwwwwwwwww");
+        console.log(mPower);
+        console.log(mType);
+        console.log(Unit);
 
-    function search(pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime) {
         tableMain.reload({
-            url: "/patient?action=Search",
+            url: '/patient?action=getMedicineList',
             where: {
-                "pName": pName,
-                "pSex": pSex,
-                "pAge": pAge,
-                "pId": pId,
-                "pWeight": pWeight,
-                "pAddress": pAddress,
-                "pPhone": pPhone,
-                "pAllergy": pAllergy,
-                "doctorAdvice": doctorAdvice,
-                "lastTime": lastTime
+                "mPower": mPower,
+                "mType": mType,
+                "Unit": Unit,
             },
             page: {curr: 1}
         });
+
+        // 重新获取下拉菜单的选项
         getUnit();
         getmType();
         getmPower();
     }
+
+
 
     function addPatient(){
         $.ajax({

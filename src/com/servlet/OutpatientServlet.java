@@ -1,9 +1,6 @@
 package com.servlet;
 
-import com.pojo.Menu;
-import com.pojo.Patient;
-import com.pojo.Type;
-import com.pojo.User;
+import com.pojo.*;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
 import com.util.Result;
@@ -190,5 +187,20 @@ public class OutpatientServlet extends BaseServlet {
         ToJSON.toJson(response,alldosage);
     }
 
+    //门诊中医生查药
+    public void getMedicineList(HttpServletRequest request,HttpServletResponse response){
+        String mPower = request.getParameter("mPower");
+        String mType = request.getParameter("mType");
+        String unit = request.getParameter("Unit");
+
+        Medicine medicine = new Medicine();
+        medicine.setGoodsType(mPower);
+        medicine.setUnit(unit);
+        medicine.setmType(mType);
+
+        LayuiTable<Medicine> medicineList = outpatientService.getMedicineList(medicine);
+        ToJSON.toJson(response,medicineList);
+
+    }
 
 }

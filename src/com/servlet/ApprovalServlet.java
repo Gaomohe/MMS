@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.util.Vessel.logService;
-import static com.util.Vessel.userService;
+import static com.util.Vessel.*;
 
 @WebServlet("/approval")
 public class ApprovalServlet extends BaseServlet {
@@ -47,7 +46,12 @@ public class ApprovalServlet extends BaseServlet {
         String name = userService.getName(user1.getId());
         logService.setLog(name,"点击","采购审批","获取所有采购申请信息");
         int[] dataStrings = StringDeal.toArray(request.getParameter("dataString"));
-        return approvalService.getAuditId(dataStrings);
+        ResultData<List<Appointment>> auditId = approvalService.getAuditId(dataStrings);
+        session.setAttribute("applies",auditId.getData());
+        return auditId;
+    }
+    public ResultData<List<Appointment>> getRecord(HttpServletRequest request, HttpServletResponse response){
+        return null;
     }
     public void search(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();

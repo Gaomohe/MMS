@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 import com.pojo.Log;
+import com.pojo.Medicine;
 import com.pojo.Patient;
 import com.pojo.User;
 import com.service.OutpatientService;
@@ -55,5 +56,19 @@ public class OutpatientServiceImpl implements OutpatientService {
     public int addPatient(Patient patient) {
         patient.setDiagnosticTime(GetTime.getTime());
         return outpatientDao.addPatient(patient);
+    }
+
+    @Override
+    public LayuiTable<Medicine> getMedicineList(Medicine medicine) {
+        LayuiTable<Medicine> layuiTable = new LayuiTable<>();
+        String[] keys = {"goodsType","mType","unit"};
+        Object[] values = {medicine.getGoodsType(),medicine.getmType(),medicine.getUnit()};
+        String sql = SQLtoString.getSQL(keys, values, "dictionary");
+        List<Medicine> medicineList = outpatientDao.getMedicineList(sql);
+        layuiTable.setMsg("");
+        layuiTable.setCode(0);
+        layuiTable.setCount(medicineList.size());
+        layuiTable.setData(medicineList);
+        return layuiTable;
     }
 }
