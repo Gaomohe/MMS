@@ -247,7 +247,7 @@ public class QualityDaoImpl implements QualityDao {
     public int updateQualityTime(Quality quality) {
         String sql="UPDATE `quality` SET `time` = ? WHERE `id` = ?";
         Object[] objects = new Object[2];
-        objects[0] = quality.getStatue();
+        objects[0] = quality.getTime();
         objects[1] = quality.getId();
         int i = JDBC.update(sql, objects);
         return i;
