@@ -81,7 +81,20 @@ public class QualityServlet extends BaseServlet {
     //根据时间获取质检表
     public LayuiTable<Quality> getQualityByTime(HttpServletRequest request, HttpServletResponse response){
         String time = request.getParameter("time");
+        System.out.println(time);
         List<Quality> qualityByTime = qualityService.getQualityByTime(time);
+        LayuiTable<Quality> layuiTable = new LayuiTable<>();
+        layuiTable.setCode(0);
+        layuiTable.setCount(qualityByTime.size());
+        layuiTable.setData(qualityByTime);
+        layuiTable.setMsg("操作成功");
+        return layuiTable;
+    }
+    //根据药品名称获取质检表
+    public LayuiTable<Quality> getQualityBymName(HttpServletRequest request, HttpServletResponse response){
+        String mName = request.getParameter("mName");
+        System.out.println(mName);
+        List<Quality> qualityByTime = qualityService.getQualityByName(mName);
         LayuiTable<Quality> layuiTable = new LayuiTable<>();
         layuiTable.setCode(0);
         layuiTable.setCount(qualityByTime.size());
@@ -140,7 +153,7 @@ public class QualityServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
 
-    //添加质检表
+    /*//添加质检表
     public ResultData<Quality> addQuality(HttpServletRequest request, HttpServletResponse response){
         int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
         int totlNumber = Integer.parseInt(request.getParameter("totlNumber"));
@@ -148,5 +161,5 @@ public class QualityServlet extends BaseServlet {
         Quality quality = new Quality(tableCoding,totlNumber,surveyNumber);
         int i = qualityService.addQuality(quality);
         return Result.resultStatus(i);
-    }
+    }*/
 }

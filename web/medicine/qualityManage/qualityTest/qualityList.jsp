@@ -91,6 +91,12 @@
                                                 <i class="layui-icon">&#xe615;</i>搜索
                                             </button>
                                         </div>
+                                        <div class="layui-inline">
+                                            <label style="width: auto" class="layui-form-label">质检时间:</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" lay-event="time" lay-filter="time" class="layui-input" id="time" placeholder="请选择时间">
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr class="layui-border-green">
                                     <div class="layui-inline">
@@ -103,6 +109,10 @@
                             </div>
                         </div>
                         <table id="xTable1" lay-filter="xTable1"></table>
+                        <script type="text/html" id="tplStateTbAdv">
+                            <input type="checkbox" lay-filter="ckStateTbAdv" value="{{d.id}}" lay-skin="switch"
+                                   lay-text="已质检|未质检" {{d.statue==1?'checked':''}}/>
+                        </script>
                     </div>
 
 
@@ -156,5 +166,5 @@
 <script type="text/javascript" src="<%=path%>iframe/assets/js/common.js"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityList.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/typesList.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medPrice/historyPrice.js" charset="UTF-8"></script>
+<%--<script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medPrice/historyPrice.js" charset="UTF-8"></script>--%>
 </html>

@@ -13,6 +13,8 @@ public interface QualityService {
     public List<Quality> getQualityBySS(int storageStatus,int index,int limit,String order,String sort);//分页加排序
     //根据时间获取质检表
     public List<Quality> getQualityByTime(String time);
+    //根据名称获取质检表信息
+    public List<Quality> getQualityByName(String mName);
     //根据查询获取质检表
     public List<Quality> getQualityByQuery(String[] query);
     //修改质检表质检状态

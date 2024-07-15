@@ -1,4 +1,4 @@
-layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], function() {
+layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','laydate'], function() {
     var $ = layui.jquery;
     var layer = layui.layer;
     var element = layui.element;
@@ -7,6 +7,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
     var tableX = layui.tableX;
     var layer = layui.layer;
     var form = layui.from;
+    var laydate = layui.laydate;
 
     // 前端分页
     var tableIns=tableX.render({
@@ -34,7 +35,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                     title: '质检状态',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    templet: '#tplStateTbAdv',
                 },
                 {
                     field: 'tableCoding',
@@ -125,87 +127,27 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                     align: 'center',
                     sort: true
                 },
-                {
-                    title: '操作',
-                    minWidth: 200,
-                    align: 'center',
-                    sort: true
-                },
             ]
         ],
     });
 
-
     table.on('toolbar(xTable1)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
-        var tableCoding="";
-        var mId="";
-        var salePrice="";
+        var tableCoding = '';
+        var mId='';
+        var arr='';
         for(i=0;i<data.length;i++){
             tableCoding = data[i].tableCoding;
             mId = data[i].mId;
-            salePrice = data[i].salePrice;
-
+            arr+=data[i].tableCoding+",";
         }
         switch(obj.event){
-            case 'upPrice':	//修改药价
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }else{
-                    upPrice(tableCoding,mId,salePrice);
-                }
+            case 'time':	//按照养护时间查找
+                getTime();
                 break;
-
-            case 'backPrice':	//药价回溯
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }else{
-                    backPrice(tableCoding,mId,salePrice);
-                }
-                break;
-
         };
     });
-    function upPrice(tableCoding,mId,salePrice){
-        $.ajax({
-            url:"/price?action=addPrice",
-            data:{
-                tableCoding,
-                mId,
-                salePrice
-            },
-            type:"POST",
-            dataType:"JSON",
-            success:function (data) {
-                if (data.status == 200){
-                    openUpdate(tableCoding);
-                }else {
-                    layer.msg("添加失败");
-                }
-            }
-        })
-    };
-    function openUpdate(tableCoding){
-        layui.layer.open({
-            title : "修改价格",
-            type : 2,
-            content : "medicine/medicineManage/medPrice/priceInfo.jsp",
-            area:['450px','450px'],
-        });
-    }
-    function backPrice(tableCoding,mId,salePrice){
-        layui.layer.open({
-            title : "药价回溯",
-            type : 2,
-            content : "medicine/medicineManage/medPrice/backPrice.jsp?tableCoding="+tableCoding+"&mId="+mId+"&salePrice="+salePrice,
-            area:['1000px','450px'],
-        });
-    }
-
-
     //搜索
     $("#searchByQuerys").click(function () {
         select1 = $("#select1").val();
@@ -213,7 +155,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
         select3 = $("#select3").val();
         select4 = $("#select4").val();
         $.ajax({
-            url: '/medicine?action=getMedicineByQuery', // 后端处理数据的URL
+            url: '/quality?action=getQualityByQuery', // 后端处理数据的URL
             type: "POST", // 或 'GET'，取决于后端接口的要求
             data: {
                 select1,
@@ -251,8 +193,22 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                         width: 50
                     },
                     {
+                        field: 'id',
+                        title: '质检数据编号',
+                        minWidth: 200,
+                        align: 'center',
+                        sort: true
+                    },
+                    {
+                        field: 'statue',
+                        title: '质检状态',
+                        minWidth: 200,
+                        align: 'center',
+                        sort: true
+                    },
+                    {
                         field: 'tableCoding',
-                        title: '数据编号',
+                        title: '药品数据编号',
                         minWidth: 200,
                         align: 'center',
                         sort: true
@@ -271,8 +227,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                         align: "center",
                     },
                     {
-                        field: 'specification',
-                        title: '规格',
+                        field: 'totlNumber',
+                        title: '本批入库数量',
                         minWidth: 200,
                         align: 'center',
                     },
@@ -284,46 +240,18 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                         sort: true
                     },
                     {
-                        field: 'purchasePrice',
-                        title: '采购价',
+                        field: 'surveyNumber',
+                        title: '抽样数量',
                         minWidth: 200,
                         align: 'center',
                         sort: true,
-                    },
-                    {
-                        field: 'salePrice',
-                        title: '销售价',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true,
-                    },
-                    {
-                        field: 'productDate',
-                        title: '生产日期',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'profits',
-                        title: '利润金额',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true,
-                    },
-                    {
-                        field: 'code',
-                        title: '自编码',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
                     },
                     {
                         field: 'goodsType',
                         title: '商品分类',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
                     },
                     {
                         field: 'mType',
@@ -333,15 +261,42 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                         sort: true
                     },
                     {
-                        field: 'defined',
-                        title: '自定义类',
+                        field: 'defind',
+                        title: '自定义分类',
+                        minWidth: 200,
+                        align: 'center',
+                        sort: true,
+                    },
+                    {
+                        field: 'drugFrom',
+                        title: '剂型',
                         minWidth: 200,
                         align: 'center',
                         sort: true
                     },
                     {
-                        field: 'drugFrom',
-                        title: '剂型',
+                        field: 'warehousingRemarks',
+                        title: '仓库标注',
+                        minWidth: 200,
+                        align: 'center',
+                        sort: true
+                    },
+                    {
+                        field: 'storageStatus',
+                        title: '入库状态',
+                        minWidth: 200,
+                        align: 'center',
+                        sort: true
+                    },
+                    {
+                        field: 'time',
+                        title: '质检时间',
+                        minWidth: 200,
+                        align: 'center',
+                        sort: true
+                    },
+                    {
+                        title: '操作',
                         minWidth: 200,
                         align: 'center',
                         sort: true
@@ -352,34 +307,18 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
             table.on('toolbar(xTable1)', function(obj){
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
-                var tableCoding="";
-                var mId="";
-                var salePrice="";
+                var tableCoding = '';
+                var mId='';
+                var arr='';
                 for(i=0;i<data.length;i++){
                     tableCoding = data[i].tableCoding;
                     mId = data[i].mId;
-                    salePrice = data[i].salePrice;
-
+                    arr+=data[i].tableCoding+",";
                 }
                 switch(obj.event){
-                    case 'upPrice':	//修改药价
-                        if(data.length != 1){
-                            layer.msg("请选择一行数据进行操作")
-                            return false;
-                        }else{
-                            upPrice(tableCoding,mId,salePrice);
-                        }
+                    case 'time':	//按照养护时间查找
+                        getTime();
                         break;
-
-                    case 'backPrice':	//药价回溯
-                        if(data.length != 1){
-                            layer.msg("请选择一行数据进行操作")
-                            return false;
-                        }else{
-                            backPrice(tableCoding,mId,salePrice);
-                        }
-                        break;
-
                 };
             });
             $("#searchByQuerys").click(function () {
@@ -388,7 +327,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                 select3 = $("#select3").val();
                 select4 = $("#select4").val();
                 $.ajax({
-                    url: '/medicine?action=getMedicineByQuery', // 后端处理数据的URL
+                    url: '/quality?action=getQualityByQuery', // 后端处理数据的URL
                     type: "POST", // 或 'GET'，取决于后端接口的要求
                     data: {
                         select1,
@@ -412,7 +351,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                 if (event.which === 13) {
                     var search = $('#search').val();
                     $.ajax({
-                        url: '/medicine?action=getMedicineByName',
+                        url: '/quality?action=getQualityBymName',
                         type: "POST",
                         data: {
                             mName: search,
@@ -436,7 +375,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
         if (event.which === 13) {
             var search = $('#search').val();
             $.ajax({
-                url: '/medicine?action=getMedicineByName',
+                url: '/quality?action=getQualityBymName',
                 type: "POST",
                 data: {
                     mName: search,
@@ -453,4 +392,64 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
         }
     });
 
+    function getTime(){
+        // 申请时间
+        laydate.render({
+            elem: '#time',
+            type: 'date',
+            done: function(value) {
+                applyTime = value;
+                if (applyTime.length !== 0 ){
+                    getByTime(applyTime);
+                }
+            }
+        });
+    }
+    function getByTime(time){
+        $.ajax({
+            url:"/quality?action=getQualityByTime",
+            data:{
+                time
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(response) {
+                // 在成功回调中处理后端返回的数据
+                // 假设后端返回的数据是一个数组，可以根据数据格式进行处理
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        })
+    }
+});
+
+layui.use(['form'], function(){
+    var form = layui.form;
+    var $ = layui.jquery;
+
+    // 监听指定复选框
+    form.on('switch(ckStateTbAdv)', function(data){
+        var id = data.value; // 获取复选框的值
+        var isChecked = data.elem.checked; // 获取复选框的选中状态
+        // 发送AJAX请求到服务器
+        $.ajax({
+            url: '/quality?action=updateQualityStatue', // 假设的后端接口URL
+            type: 'POST',
+            data: {id: id}, // 发送userId和新的状态
+            success: function(data){
+                if (data.status == 200){
+                    layer.msg('状态变化');
+                }else {
+                    layer.msg("变化失败")
+                }
+            },
+            error: function(xhr, status, error){
+                // 处理错误
+                console.error('Error:', error);
+            }
+        });
+    });
 });

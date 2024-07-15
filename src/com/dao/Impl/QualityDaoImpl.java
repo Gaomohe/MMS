@@ -167,7 +167,38 @@ public class QualityDaoImpl implements QualityDao {
     public List<Quality> getQualityByTime(String time) {
         String sql="SELECT * FROM `quality` WHERE `time` like ?;";
         List<Quality> list = new ArrayList<>();
-        Object[] objects = new Object[]{time};
+        Object[] objects = new Object[]{"%"+time+"%"};
+        ResultSet resultSet = JDBC.select(sql, objects);
+        try {
+            while (resultSet.next()){
+                Quality quality = new Quality();
+                quality.setId(resultSet.getInt(1));
+                quality.setStatue(resultSet.getInt(2));
+                quality.setTableCoding(resultSet.getInt(3));
+                quality.setmId(resultSet.getInt(4));
+                quality.setmName(resultSet.getString(5));
+                quality.setTotlNumber(resultSet.getInt(6));
+                quality.setSurveyNumber(resultSet.getInt(7));
+                quality.setGoodsType(resultSet.getString(8));
+                quality.setmType(resultSet.getString(9));
+                quality.setDefind(resultSet.getString(10));
+                quality.setDrugFrom(resultSet.getString(11));
+                quality.setWarehousingRemarks(resultSet.getString(12));
+                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setTime(resultSet.getString(14));
+                list.add(quality);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Quality> getQualityByName(String mName) {
+        String sql="SELECT * FROM `quality` WHERE `mNme` like ?;";
+        List<Quality> list = new ArrayList<>();
+        Object[] objects = new Object[]{"%"+mName+"%"};
         ResultSet resultSet = JDBC.select(sql, objects);
         try {
             while (resultSet.next()){

@@ -33,6 +33,15 @@ public class QualityServiceImpl implements QualityService {
         quality.setmType(medicine.getmType());
         quality.setDefind(medicine.getDefined());
         quality.setDrugFrom(medicine.getDrugFrom());
+        if (quality.getTotlNumber()<3){
+            quality.setSurveyNumber(quality.getTotlNumber());
+        }else if(quality.getTotlNumber()>3 && quality.getTotlNumber()<50){
+            quality.setSurveyNumber(3);
+        }else {
+            int totlNumber = quality.getTotlNumber();
+            int i = (int) Math.ceil(totlNumber/50);
+            quality.setSurveyNumber(3+i);
+        }
         quality.setWarehousingRemarks(medicine.getWarehousingRemarks());
         return qualityDao.addQuality(quality);
     }
@@ -57,6 +66,11 @@ public class QualityServiceImpl implements QualityService {
     @Override
     public List<Quality> getQualityByTime(String time) {
         return qualityDao.getQualityByTime(time);
+    }
+
+    @Override
+    public List<Quality> getQualityByName(String mName) {
+        return qualityDao.getQualityByName(mName);
     }
 
     @Override
