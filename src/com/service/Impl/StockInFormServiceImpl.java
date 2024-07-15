@@ -1,5 +1,6 @@
 package com.service.Impl;
 
+import com.pojo.Quality;
 import com.pojo.StockInForm;
 import com.service.StockInFormService;
 import com.util.LayuiTable;
@@ -61,14 +62,14 @@ public class StockInFormServiceImpl implements StockInFormService {
     }
 
     @Override
-    public LayuiTable<StockInForm> getDrugNameByManufactor(int page, int limit) {
+    public LayuiTable<Quality> getDrugNameByManufactor(int page, int limit) {
         int curePage = (page-1)*limit;
-        List<StockInForm> stockInFormList = stockInFormDao.getDrugNameByManufactor(curePage,limit);
-        LayuiTable<StockInForm> LayuiTable = new LayuiTable<StockInForm>();
+        List<Quality> drugNameByManufactor = stockInFormDao.getDrugNameByManufactor(curePage, limit);
+        LayuiTable<Quality> LayuiTable = new LayuiTable<Quality>();
         LayuiTable.setMsg("");
         LayuiTable.setCode(0);
-        LayuiTable.setCount(stockInFormDao.selectStockInForm().size());
-        LayuiTable.setData(stockInFormList);
+        LayuiTable.setCount(stockInFormDao.getDrugNameByManufactor().size());
+        LayuiTable.setData(drugNameByManufactor);
         return LayuiTable;
     }
 
