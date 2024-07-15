@@ -126,11 +126,16 @@ layui.extend({
     }
 
     function getSex() {
-        $('input[name="sex"]').on('input', function(e) {
+        /*$('input[name="sex"]').on('input', function(e) {
             pSex = e.target.value;
             console.log("患者性别：" + pSex);
+        });*/
+        form.on('select(sex)', function(data) {
+            pSex = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
+            console.log("被选中的状态是：" + pSex);
         });
     }
+
 
     function getAge() {
         $('input[name="age"]').on('input', function(e) {
@@ -171,8 +176,8 @@ layui.extend({
 
     //过敏史
     function getAllergy() {
-        $('input[name="allergy"]').on('input', function(e) {
-            pAllergy = e.target.value;
+        form.on('select(allergy)', function(data) {
+            pAllergy = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
             console.log("过敏史：" + pAllergy);
         });
     }

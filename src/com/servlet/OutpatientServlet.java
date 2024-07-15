@@ -97,7 +97,7 @@ public class OutpatientServlet extends BaseServlet {
         Patient patient = new Patient();
         patient.setpId(pId);
         patient.setdId(user.getId());
-        patient.setdName(pName);
+        patient.setName(pName);
         patient.setSex(pSex);
         patient.setAge(pAge);
         patient.setWeight(pWeight);
