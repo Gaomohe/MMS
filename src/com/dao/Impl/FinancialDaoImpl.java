@@ -12,10 +12,7 @@ import java.util.List;
 public class FinancialDaoImpl implements FinancialDao {
     @Override
     public List<Apply> getPurchaseList(String sql) {
-        sql += " and applyId > ?";
-        Object[] obj = new Object[1];
-        obj[0] = 0;
-        ResultSet resultSet = JDBC.select(sql, obj);
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<Apply> list = new ArrayList<>();
         try{
             while (resultSet.next()) {

@@ -12,6 +12,7 @@ import com.util.SQLtoString;
 import java.util.Collections;
 import java.util.List;
 
+import static com.util.Vessel.medicineCount;
 import static com.util.Vessel.outpatientDao;
 
 public class OutpatientServiceImpl implements OutpatientService {
@@ -63,11 +64,11 @@ public class OutpatientServiceImpl implements OutpatientService {
         LayuiTable<Medicine> layuiTable = new LayuiTable<>();
         String[] keys = {"goodsType","mType","unit"};
         Object[] values = {medicine.getGoodsType(),medicine.getmType(),medicine.getUnit()};
-        String sql = SQLtoString.getSQL(keys, values, "dictionary");
+        String sql = SQLtoString.setSQL(keys, values, "dictionary");
         List<Medicine> medicineList = outpatientDao.getMedicineList(sql);
         layuiTable.setMsg("");
         layuiTable.setCode(0);
-        layuiTable.setCount(medicineList.size());
+        layuiTable.setCount(medicineCount);
         layuiTable.setData(medicineList);
         return layuiTable;
     }

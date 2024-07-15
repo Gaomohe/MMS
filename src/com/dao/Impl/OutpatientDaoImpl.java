@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.util.Vessel.medicineCount;
+
 public class OutpatientDaoImpl implements OutpatientDao {
 
     //获取病患列表
@@ -55,10 +57,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
     //条件查询所有病人列表
     @Override
     public List<Patient> Search(String sql) {
-        sql += " and dId > ?";
-        Object[] objects = new Object[1];
-        objects[0] = 0;
-        ResultSet resultSet = JDBC.select(sql, objects);
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<Patient> list = new ArrayList<Patient>();
         try{
             while (resultSet.next()) {
@@ -112,11 +111,9 @@ public class OutpatientDaoImpl implements OutpatientDao {
 
     @Override
     public List<Medicine> getMedicineList(String sql) {
-        sql += " and mId > ?";
-        Object[] objects = new Object[1];
-        objects[0] = 0;
-        ResultSet resultSet = JDBC.select(sql, objects);
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<Medicine> medicines = new ArrayList<>();
+        medicineCount = 0;
         try {
             while (resultSet.next()){
                 Medicine medicine = new Medicine();
@@ -153,6 +150,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
                 medicine.setBatchsNumber(resultSet.getString(31));
                 medicine.setRecordNumber(resultSet.getInt(32));
                 medicine.setTableCoding(resultSet.getInt(33));
+                medicineCount++;
                 medicines.add(medicine);
             }
         }catch (Exception e){

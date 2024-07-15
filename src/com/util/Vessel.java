@@ -43,4 +43,6 @@ public class Vessel {
 
     public static TypeService typeService = new TypeServiceImpl();
 
+    public static int medicineCount = 0;
+
 }
