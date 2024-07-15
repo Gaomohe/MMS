@@ -1,7 +1,9 @@
 package com.util.init;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class StringDeal {
     //主要用来处理字符串
@@ -37,7 +39,23 @@ public class StringDeal {
         return businessType + "-" + timestamp;
     }
 
-    public static void main(String[] args) {
-        System.out.println(generateStockInNumber("MMS"));
+    //提取出有值的数组
+    public static List<String[]> getTwoNotEmpty(String[] keys,String[] values) {
+        List<String> listKey = new ArrayList<>();
+        List<String> listValues = new ArrayList<>();
+        for (int i = 0; i < values.length; i++) {
+            if (!values[i].equals("")){
+                listValues.add(values[i]);
+                listKey.add(keys[i]);
+            }
+        }
+        String[] keyList = new String[listKey.size()];
+        String[] valuesList = new String[listValues.size()];
+        keyList = listKey.toArray(keyList);
+        valuesList = listValues.toArray(valuesList);
+        List<String[]> reTwo = new ArrayList<>();
+        reTwo.add(keyList);
+        reTwo.add(valuesList);
+        return reTwo;
     }
 }
