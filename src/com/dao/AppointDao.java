@@ -42,4 +42,7 @@ public interface AppointDao {
 
     //条件查询预购订单表
     public List<Apply> Search(String sql);
+
+    //获取药品数量
+    public int getNumber(int id);
 }

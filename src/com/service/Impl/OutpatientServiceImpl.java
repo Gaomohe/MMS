@@ -4,6 +4,7 @@ import com.pojo.Log;
 import com.pojo.Patient;
 import com.pojo.User;
 import com.service.OutpatientService;
+import com.util.GetTime;
 import com.util.LayuiTable;
 import com.util.SQLtoString;
 
@@ -47,5 +48,12 @@ public class OutpatientServiceImpl implements OutpatientService {
 
 
         return layuiTable;
+    }
+
+    //添加患者信息
+    @Override
+    public int addPatient(Patient patient) {
+        patient.setDiagnosticTime(GetTime.getTime());
+        return outpatientDao.addPatient(patient);
     }
 }

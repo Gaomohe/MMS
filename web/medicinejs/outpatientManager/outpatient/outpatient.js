@@ -93,16 +93,6 @@ layui.extend({
                         layer.msg("未选择", {icon: 2});
                     }
                     break;
-                case 'unapprove':
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            total++;
-                            setUnApprove(file.applyId);
-                        });
-                    } else {
-                        layer.msg("未选择", {icon: 2});
-                    }
-                    break;
                 case 'addPatient':
                     addPatient();
                     break;
@@ -243,6 +233,40 @@ layui.extend({
         getAdvice();
         getTime();
         getStatus();
+    }
+
+    function addPatient(){
+        $.ajax({
+            url: "/patient?action=addPatient",
+            data: {
+                "pName": pName,
+                "pSex": pSex,
+                "pAge": pAge,
+                "pId": pId,
+                "pWeight": pWeight,
+                "pAddress": pAddress,
+                "pPhone": pPhone,
+                "pAllergy": pAllergy,
+                "doctorAdvice": doctorAdvice,
+                "lastTime": lastTime
+            },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("--------------------");
+                console.log(res);
+                console.log("********************");
+                console.log(res.status);
+                console.log("++++++++++++++++++++");
+                if (res.status==200){
+                    layer.msg("添加成功", { icon: 1 });
+                    tableMain.reload();
+                }else {
+                    layer.msg("删除失败", { icon: 2 });
+                }
+            }
+        });
     }
 });
 

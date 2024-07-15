@@ -5,6 +5,8 @@ import com.pojo.Patient;
 import com.pojo.User;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
+import com.util.Result;
+import com.util.ResultData;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
@@ -107,9 +109,45 @@ public class OutpatientServlet extends BaseServlet {
         patient.setLastDiaTime(lastTime);
 
         ToJSON.toJson(response,outpatientService.Search(patient));
+    }
 
+    //添加病患信息
+    public ResultData addPatient(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        user.setUserName(name);
+        logService.setLog(name,"添加","门诊管理","添加病患信息");
 
+        String pName = request.getParameter("pName");
+        String pSex = request.getParameter("pSex");
+        String pAgeStr = request.getParameter("pAge");
+        int pAge = Integer.parseInt(pAgeStr);
+        String pWeightStr = request.getParameter("pWeight");
+        double pWeight = Double.parseDouble(pWeightStr);
+        String pAddress = request.getParameter("pAddress");
+        String pPhone = request.getParameter("pPhone");
+        String pAllergy = request.getParameter("pAllergy");
+        String doctorAdvice = request.getParameter("doctorAdvice");
+        String lastTime = request.getParameter("lastTime");
 
+        Patient patient = new Patient();
+        patient.setdId(user.getId());
+        patient.setName(pName);
+        patient.setSex(pSex);
+        patient.setAge(pAge);
+        patient.setWeight(pWeight);
+        patient.setAddress(pAddress);
+        patient.setPhone(pPhone);
+        patient.setAllergy(pAllergy);
+        patient.setDoctorAdvice(doctorAdvice);
+        patient.setdName(name);
+        if (lastTime != null){
+            patient.setLastDiaTime(lastTime);
+        }
+        int i = outpatientService.addPatient(patient);
+        ResultData resultData = Result.resultStatus(i);
+        return resultData;
     }
 
 

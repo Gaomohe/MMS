@@ -11,4 +11,7 @@ public interface OutpatientDao {
 
     //条件查询所有病人列表
     public List<Patient> Search(String sql);
+
+    //添加患者信息
+    public int addPatient(Patient patient);
 }

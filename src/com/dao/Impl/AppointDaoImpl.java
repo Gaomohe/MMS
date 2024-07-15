@@ -229,4 +229,22 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
         }
         return list;
     }
+
+    @Override
+    public int getNumber(int id) {
+        String sql = "SELECT applyNumber FROM apply WHERE mId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        int number = 0;
+        try {
+            while (resultSet.next()){
+                Apply apply = new Apply();
+                number = resultSet.getInt("applyNumber");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return number;
+    }
 }

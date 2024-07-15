@@ -82,4 +82,27 @@ public class OutpatientDaoImpl implements OutpatientDao {
         }
         return list;
     }
+
+    //添加患者信息
+    @Override
+    public int addPatient(Patient patient) {
+        String sql = "INSERT INTO patient(dId, name, sex, age, weight, address, phone, diagnosticTime, allergy, doctorAdvice, dName, lastDiaTime) \n" +
+                "    VALUE (?,?,?,?,?,?,?,?,?,?,?,?);";
+        Object[] objects = new Object[12];
+        objects[0] = patient.getdId();
+        objects[1] = patient.getName();
+        objects[2] = patient.getSex();
+        objects[3] = patient.getAge();
+        objects[4] = patient.getWeight();
+        objects[5] = patient.getAddress();
+        objects[6] = patient.getPhone();
+        objects[7] = patient.getDiagnosticTime();
+        objects[8] = patient.getAllergy();
+        objects[9] = patient.getDoctorAdvice();
+        objects[10] = patient.getdName();
+        objects[11] = patient.getLastDiaTime();
+        int i = 0;
+        i = JDBC.update(sql,objects);
+        return i;
+    }
 }

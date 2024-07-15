@@ -16,6 +16,15 @@ public class Quality {
     private int storageStatus;
     private String time;
 
+    public Quality(int tableCoding, int totlNumber, int surveyNumber) {
+        this.tableCoding = tableCoding;
+        this.totlNumber = totlNumber;
+        this.surveyNumber = surveyNumber;
+    }
+
+    public Quality() {
+    }
+
     public int getId() {
         return id;
     }

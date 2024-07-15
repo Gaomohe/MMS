@@ -1,9 +1,12 @@
 package com.service.Impl;
 
+import com.dao.Impl.MedicineDaoImpl;
 import com.dao.Impl.QualityDaoImpl;
+import com.dao.MedicineDao;
 import com.dao.QualityDao;
+import com.pojo.Medicine;
 import com.pojo.Quality;
-import com.service.QualityServlet;
+import com.service.QualityService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,17 +14,26 @@ import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
 
-public class QualityServletImpl implements QualityServlet {
+public class QualityServiceImpl implements QualityService {
 
     QualityDao qualityDao = new QualityDaoImpl();
+    MedicineDao medicineDao = new MedicineDaoImpl();
     @Override
     public int addQuality(Quality quality) {
+        Medicine medicine = medicineDao.getMedicine(quality.getTableCoding());
         Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
         quality.setTime(format);
         quality.setStatue(0);
         quality.setStorageStatus(0);
+        quality.setmId(medicine.getmId());
+        quality.setmName(medicine.getmName());
+        quality.setGoodsType(medicine.getGoodsType());
+        quality.setmType(medicine.getmType());
+        quality.setDefind(medicine.getDefined());
+        quality.setDrugFrom(medicine.getDrugFrom());
+        quality.setWarehousingRemarks(medicine.getWarehousingRemarks());
         return qualityDao.addQuality(quality);
     }
 
@@ -64,6 +76,7 @@ public class QualityServletImpl implements QualityServlet {
         }else {
             quality1.setStatue(0);
         }
+        System.out.println(quality1.getStatue());
         return qualityDao.updateQualityStatue(quality1);
     }
 
@@ -81,8 +94,9 @@ public class QualityServletImpl implements QualityServlet {
     @Override
     public int updateQualityTime(Quality quality) {
         Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
+        System.out.println(format);
         quality.setTime(format);
         return qualityDao.updateQualityTime(quality);
     }

@@ -4,6 +4,7 @@ import com.dao.AppointDao;
 import com.dao.Impl.AppointDaoImpl;
 import com.pojo.*;
 import com.service.AppointService;
+import com.service.QualityService;
 import com.service.ShoppingService;
 import com.util.LayuiTable;
 import com.util.SQLtoString;
@@ -19,6 +20,8 @@ public class AppointServiceImpl implements AppointService {
     AppointDao appointDao = new AppointDaoImpl();
     AppointDaoImpl appointDaoImpl = new AppointDaoImpl();
     LayuiTable<Appointment> layuiTable = new LayuiTable();
+
+    QualityService qualityService = new QualityServiceImpl();
     @Override
     public int delAppoint(int id) {
         return appointDao.delAppoint(id);
@@ -84,6 +87,11 @@ public class AppointServiceImpl implements AppointService {
         for(int id : idList){
             appointment = appointDao.getAppoint(id);
             allPrice = appointment.getNumber() * appointment.getPurchasePrice();
+            int number = appointDao.getNumber(id);
+            Quality quality = new Quality();
+            quality.setTableCoding(id);
+            quality.setTotlNumber(number);
+            qualityService.addQuality(quality);
         }
         buyOrder buyorder = new buyOrder();
         buyorder.setAllPrice(allPrice);

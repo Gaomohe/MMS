@@ -12,4 +12,7 @@ public interface OutpatientService {
 
     //条件查询所有患者
     public LayuiTable<Patient> Search(Patient patient);
+
+    //添加患者信息
+    public int addPatient(Patient patient);
 }
