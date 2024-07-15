@@ -61,18 +61,18 @@ public class MedicineServlet extends BaseServlet {
         int limit = Integer.parseInt(request.getParameter("limit"));
         String sort = request.getParameter("sort");
         String order = request.getParameter("order");
-        List<Medicine> allMedicine1 = medicineService.getAllMedicine();
+        int i = medicineService.getAllMedicine();
         LayuiTable<Medicine> layuiTable = new LayuiTable<>();
         if (order==null){
             List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit);
             layuiTable.setCode(0);
-            layuiTable.setCount(allMedicine1.size());
+            layuiTable.setCount(i);
             layuiTable.setData(allMedicine);
             layuiTable.setMsg("操作成功");
         }else {
             List<Medicine> allMedicine = medicineService.getAllMedicine(page,limit,order,sort);
             layuiTable.setCode(0);
-            layuiTable.setCount(allMedicine1.size());
+            layuiTable.setCount(i);
             layuiTable.setData(allMedicine);
             layuiTable.setMsg("操作成功");
         }

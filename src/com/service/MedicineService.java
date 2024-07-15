@@ -22,7 +22,7 @@ public interface MedicineService {
     //全部查询
     public List<Medicine> getAllMedicine(int index,int limit);
     public List<Medicine> getAllMedicine(int index,int limit,String type,String title);
-    public List<Medicine> getAllMedicine();
+    public int getAllMedicine();
     //药品回显
     public Medicine getMedicine(int tableCoding);
     //根据名字模糊查询药品

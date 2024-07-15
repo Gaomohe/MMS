@@ -24,7 +24,7 @@ public interface MedicineDao {
     //全部查询
     public List<Medicine> getAllMedicine(int index,int limit);
     public List<Medicine> getAllMedicine(int index,int limit,String order,String title);
-    public List<Medicine> getAllMedicine();
+    public int getAllMedicine();
     //全部查询
     public List<Medicine> getMedicineByMId(int mId);
     //药品回显

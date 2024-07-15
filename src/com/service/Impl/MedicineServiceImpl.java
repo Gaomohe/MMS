@@ -81,7 +81,7 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public List<Medicine> getAllMedicine() {
+    public int getAllMedicine() {
         return medicineDao.getAllMedicine();
     }
 

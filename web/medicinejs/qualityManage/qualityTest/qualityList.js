@@ -436,15 +436,18 @@ layui.use(['form'], function(){
         var isChecked = data.elem.checked; // 获取复选框的选中状态
         // 发送AJAX请求到服务器
         $.ajax({
-            url: '/quality?action=updateQualityStatue', // 假设的后端接口URL
+            url: '/quality?action=updateQualityStatue',
             type: 'POST',
-            data: {id: id}, // 发送userId和新的状态
+            data: {id: id},
             success: function(data){
-                if (data.status == 200){
-                    layer.msg('状态变化');
-                }else {
-                    layer.msg("变化失败")
-                }
+                var info = JSON.parse(data);
+               if (info.status == 200){
+                   layer.msg("变化成功")
+                   setTimeout(function (){location.reload()}, 2000);
+               }else {
+                   layer.msg("变化失败")
+               }
+
             },
             error: function(xhr, status, error){
                 // 处理错误

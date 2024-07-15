@@ -285,8 +285,215 @@ public class MedicineDaoImpl implements MedicineDao {
         return medicines;
     }
 
-    public List<Medicine> getAllMedicine() {
-        String sql = "SELECT * FROM `dictionary`";
+    public int getAllMedicine() {
+        String sql = "SELECT tableCoding FROM `dictionary`";
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
+        /*List<Medicine> medicines = new ArrayList<Medicine>();*/
+        int i = 0;
+        try{
+            while(resultSet.next()){
+                /*Medicine medicine = new Medicine();*/
+               /* medicine.setmId(resultSet.getInt(1));
+                medicine.setmName(resultSet.getString(2));
+                medicine.setSpecification(resultSet.getString(3));
+                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString(5));
+                medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));
+                medicine.setNumber(resultSet.getInt(8));
+                medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setUsefulLife(resultSet.getString(10));
+                medicine.setPurchasePrice(resultSet.getInt(11));
+                medicine.setSalePrice(resultSet.getInt(12));
+                medicine.setProductDate(resultSet.getString(13));
+                medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));
+                medicine.setGoodsType(resultSet.getString(16));
+                medicine.setmType(resultSet.getString(17));
+                medicine.setDefined(resultSet.getString(18));
+                medicine.setSupplier(resultSet.getString(19));
+                medicine.setWarehousingDate(resultSet.getString(20));
+                medicine.setLocationDescription(resultSet.getString(21));
+                medicine.setSign(resultSet.getString(22));
+                medicine.setWarehousingRemarks(resultSet.getString(23));
+                medicine.setDrugFrom(resultSet.getString(24));
+                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString(26));
+                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setTimesStorage(resultSet.getInt(28));
+                medicine.setDocumentNumber(resultSet.getString(29));
+                medicine.setPlaceOrigin(resultSet.getString(30));
+                medicine.setBatchsNumber(resultSet.getString(31));
+                medicine.setRecordNumber(resultSet.getInt(32));*/
+                /*medicine.setTableCoding(resultSet.getInt(1));
+                medicines.add(medicine);*/
+                i++;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    /*public List<Medicine> getAllMedicine() {
+        String sql = "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 0;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 1000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 2000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 3000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 4000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 5000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 6000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 7000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 8000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 9000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 10000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 11000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 12000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 13000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 14000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 15000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 16000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 17000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 18000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 19000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 20000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 21000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 22000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 23000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 24000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 25000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 26000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 27000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 28000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 29000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 30000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 31000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 32000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 33000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 34000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 35000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 36000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 37000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 38000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 39000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 40000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 41000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 42000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 43000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 44000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 45000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 46000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 47000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 48000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 49000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 50000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 51000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 52000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 53000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 54000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 55000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 56000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 57000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 58000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 59000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 60000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 61000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 62000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 63000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 64000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 65000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 66000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 67000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 68000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 69000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 70000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 71000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 72000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 73000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 74000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 75000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 76000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 77000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 78000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 79000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 80000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 81000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 82000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 83000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 84000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 85000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 86000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 87000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 88000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 89000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 90000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 91000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 92000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 93000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 94000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 95000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 96000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 97000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 98000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 99000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 100000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 101000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 102000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 103000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 104000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 105000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 106000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 107000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 108000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 109000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 110000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 111000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 112000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 113000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 114000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 115000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 116000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 117000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 118000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 119000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 120000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 121000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 122000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 123000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 124000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 125000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 126000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 127000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 128000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 129000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 130000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 131000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 132000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 133000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 134000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 135000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 136000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 137000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 138000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 139000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 140000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 141000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 142000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 143000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 144000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 145000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 146000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 147000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 148000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 149000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 150000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 151000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 152000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 153000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 154000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 155000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 156000;\n" +
+                "SELECT * FROM `dictionary` LIMIT 1000 OFFSET 157000;";
         ResultSet resultSet = JDBC.select(sql,new Object[1]);
         List<Medicine> medicines = new ArrayList<Medicine>();
         try{
@@ -331,7 +538,7 @@ public class MedicineDaoImpl implements MedicineDao {
             e.printStackTrace();
         }
         return medicines;
-    }
+    }*/
 
     //根据药品编码药品的数据
     @Override

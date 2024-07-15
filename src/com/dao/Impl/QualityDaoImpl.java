@@ -16,12 +16,12 @@ public class QualityDaoImpl implements QualityDao {
         String sql="INSERT INTO `quality` \n" +
                 "(`statue`,`tableCoding`,`mId`,`mNme`,`totlNumber`,\n" +
                 "`surveyNumber`,`goodsType`,`mType`,`defind`,`drugFrom`,\n" +
-                "`warehousingRemarks`,`storageStatus`,`time`)\n" +
+                "`warehousingRemarks`,`storageStatus`,`time`,supplier)\n" +
                 "VALUES \n" +
                 "(?,?,?,?,?,\n" +
                 "?,?,?,?,?,\n" +
-                "?,?,?) ";
-        Object[] objects = new Object[13];
+                "?,?,?,?) ";
+        Object[] objects = new Object[14];
         objects[0] = quality.getStatue();
         objects[1] = quality.getTableCoding();
         objects[2] = quality.getmId();
@@ -35,6 +35,7 @@ public class QualityDaoImpl implements QualityDao {
         objects[10] = quality.getWarehousingRemarks();
         objects[11] = quality.getStorageStatus();
         objects[12] = quality.getTime();
+        objects[13] = quality.getSupplier();
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -61,6 +62,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -91,6 +93,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -123,6 +126,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -155,6 +159,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -186,6 +191,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -217,6 +223,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -246,6 +253,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setWarehousingRemarks(resultSet.getString(12));
                 quality.setStorageStatus(resultSet.getInt(13));
                 quality.setTime(resultSet.getString(14));
+                quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
             }
         }catch (Exception e){

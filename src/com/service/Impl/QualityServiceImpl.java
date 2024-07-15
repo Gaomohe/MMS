@@ -33,6 +33,7 @@ public class QualityServiceImpl implements QualityService {
         quality.setmType(medicine.getmType());
         quality.setDefind(medicine.getDefined());
         quality.setDrugFrom(medicine.getDrugFrom());
+        quality.setSupplier(medicine.getSupplier());
         if (quality.getTotlNumber()<3){
             quality.setSurveyNumber(quality.getTotlNumber());
         }else if(quality.getTotlNumber()>3 && quality.getTotlNumber()<50){
