@@ -8,7 +8,7 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;
-    var pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain;
+    var mType, mPower,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain;
 
     $(document).ready(function() {
         laydate.render({
@@ -258,18 +258,9 @@ layui.extend({
             ],
         });
         tableMain = tableIns;
-        // 初始化下拉框
-        getName();
-        getSex();
-        getAge();
-        getPid();
-        getWeight();
-        getAddress();
-        getPhone();
-        getAllergy();
-        getAdvice();
-        getTime();
-        getStatus();
+        getUnit();
+        getmType();
+        getmPower();
 
         table.on('toolbar(outpatientList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
@@ -318,104 +309,77 @@ layui.extend({
     //刷新页面
     function winReload(){
         // location.reload();
-        getName();
-        getSex();
-        getAge();
-        getPid();
-        getWeight();
-        getAddress();
-        getPhone();
-        getAllergy();
-        getAdvice();
-        getTime();
-        getStatus();
-    }
 
-    //获取患者姓名
-    function getName() {
-        console.log("Initializing patient name input");
-        $('input[name="pName"]').on('input', function(e) {
-            pName = e.target.value;
-            console.log("实时输入患者姓名：" + pName);
-        });
-    }
-
-    function getSex() {
-        $('input[name="sex"]').on('input', function(e) {
-            pSex = e.target.value;
-            console.log("患者性别：" + pSex);
-        });
-    }
-
-    function getAge() {
-        $('input[name="age"]').on('input', function(e) {
-            pAge = e.target.value;
-            console.log("患者年龄：" + pAge);
-        });
-    }
-
-    function getPid() {
-        $('input[name="pid"]').on('input', function(e) {
-            pId = e.target.value;
-            console.log("患者卡号：" + pId);
-        });
-    }
-
-    function getWeight() {
-        $('input[name="weight"]').on('input', function(e) {
-            pWeight = e.target.value;
-            console.log("患者体重：" + pWeight);
-        });
-    }
-
-    //患者地址
-    function getAddress() {
-        $('input[name="address"]').on('input', function(e) {
-            pAddress = e.target.value;
-            console.log("患者地址：" + pAddress);
-        });
-    }
-
-    //患者联系方式
-    function getPhone() {
-        $('input[name="phone"]').on('input', function(e) {
-            pPhone = e.target.value;
-            console.log("联系方式：" + pPhone);
-        });
-    }
-
-    //过敏史
-    function getAllergy() {
-        $('input[name="allergy"]').on('input', function(e) {
-            pAllergy = e.target.value;
-            console.log("过敏史：" + pAllergy);
-        });
-    }
-
-    //医嘱
-    function getAdvice() {
-        $('textarea[name="doctorAdvice"]').on('input', function(e) {
-            doctorAdvice = e.target.value;
-            console.log("医嘱：" + doctorAdvice);
-        });
+        getUnit();
+        getmType();
+        getmPower();
 
     }
 
-    function getTime() {
-        laydate.render({
-            elem: '#lastTime',
-            type: 'date',
-            done: function(value) {
-                lastTime = value;
-                console.log('用户选择的时间：', value);
+
+
+    //获取药品分类
+    function getmPower() {
+        console.log("---------------");
+        $.post("/patient?action=getmPower", function(res) {
+            console.log(res);
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#mPower").empty().html('<option value="0">药品功效</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
+                });
+                form.render("select");
+
+                form.on('select(mPower)', function(data) {
+                    mPower = cs.find(item => item.id == data.value)?.typename || '';
+                    console.log("被选药品功效：" + mPower);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
             }
         });
     }
 
-    function getStatus() {
-        form.on('select(status)', function(data) {
-            status = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
-            console.log("被选中的状态是：" + status);
+    //获取药品类型
+    function getmType() {
+        $.post("/patient?action=getmType", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#mType").empty().html('<option value="0">药品类型</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
+                });
+                form.render("select");
+
+                form.on('select(mType)', function(data) {
+                    mType = cs.find(item => item.id == data.value)?.typename || '';
+                    console.log("被选中的药品类型：" + mType);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
+        });
+    }
+
+    //获取药剂类型
+    function getUnit() {
+        $.post("/patient?action=getUnit", function(res) {
+            try {
+                var cs = JSON.parse(res);
+                var dom = $("#unit").empty().html('<option value="0">药剂类型</option>');
+                $.each(cs, function(index, item) {
+                    dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
+                });
+                form.render("select");
+
+                form.on('select(unit)', function(data) {
+                    Unit = cs.find(item => item.id == data.value)?.typename || '';
+                    console.log("被药品药剂类型：" + Unit);
+                });
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+            }
         });
     }
 
@@ -437,17 +401,9 @@ layui.extend({
             },
             page: {curr: 1}
         });
-        getName();
-        getSex();
-        getAge();
-        getPid();
-        getWeight();
-        getAddress();
-        getPhone();
-        getAllergy();
-        getAdvice();
-        getTime();
-        getStatus();
+        getUnit();
+        getmType();
+        getmPower();
     }
 
     function addPatient(){

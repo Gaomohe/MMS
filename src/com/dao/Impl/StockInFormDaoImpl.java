@@ -239,4 +239,26 @@ public class StockInFormDaoImpl implements StockInFormDao {
         }
         return stockInFormList;
     }
+
+    @Override
+    public List<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor) {
+        String sql="SELECT rId,rName FROM stockinform WHERE manufactor = ? LIMIT ?,?\n";
+        Object[] objects = new Object[3];
+        objects[0]=manufactor;
+        objects[1]=page;
+        objects[2]=limit;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<StockInForm> stockInFormList = new ArrayList<StockInForm>();
+        try {
+            while (resultSet.next()){
+                StockInForm stockInForm = new StockInForm();
+                stockInForm.setrId(resultSet.getInt("rid"));
+                stockInForm.setrName(resultSet.getString("rName"));
+                stockInFormList.add(stockInForm);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return stockInFormList;
+    }
 }

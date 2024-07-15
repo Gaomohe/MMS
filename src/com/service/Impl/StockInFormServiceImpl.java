@@ -71,4 +71,16 @@ public class StockInFormServiceImpl implements StockInFormService {
         LayuiTable.setData(stockInFormList);
         return LayuiTable;
     }
+
+    @Override
+    public LayuiTable<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor) {
+        int curePage = (page-1)*limit;
+        List<StockInForm> stockInFormList = stockInFormDao.getDrugNameByManufactorName(curePage,limit,manufactor);
+        LayuiTable<StockInForm> LayuiTable = new LayuiTable<StockInForm>();
+        LayuiTable.setMsg("");
+        LayuiTable.setCode(0);
+        LayuiTable.setCount(stockInFormDao.selectStockInForm().size());
+        LayuiTable.setData(stockInFormList);
+        return LayuiTable;
+    }
 }

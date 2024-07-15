@@ -35,22 +35,46 @@ public class TypeServiceImpl implements TypeService {
     //查询所有
     @Override
     public List<Type> getAllGoodsType() {
-        return typeDao.getAllGoodsType();
+        int i = 1;
+        List<Type> typeList = typeDao.getAllGoodsType();
+        for (Type type : typeList){
+            type.setId(i);
+            i++;
+        }
+        return typeList;
     }
 
     @Override
     public List<Type> getAllMType() {
-        return typeDao.getAllMType();
+        int i = 1;
+        List<Type> typeList = typeDao.getAllMType();
+        for (Type type : typeList){
+            type.setId(i);
+            i++;
+        }
+        return typeList;
     }
 
     @Override
     public List<Type> getAllfreeType() {
-        return typeDao.getAllfreeType();
+        int i = 1;
+        List<Type> typeList = typeDao.getAllfreeType();
+        for (Type type : typeList){
+            type.setId(i);
+            i++;
+        }
+        return typeList;
     }
 
     @Override
     public List<Type> getAlldosage() {
-        return typeDao.getAlldosage();
+        int i = 1;
+        List<Type> typeList = typeDao.getAlldosage();
+        for (Type type : typeList){
+            type.setId(i);
+            i++;
+        }
+        return typeList;
     }
 
     @Override

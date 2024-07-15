@@ -41,4 +41,6 @@ public class Vessel {
     public static OutpatientDao outpatientDao = new OutpatientDaoImpl();
     public static OutpatientService outpatientService = new OutpatientServiceImpl();
 
+    public static TypeService typeService = new TypeServiceImpl();
+
 }

@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.pojo.Menu;
 import com.pojo.Patient;
+import com.pojo.Type;
 import com.pojo.User;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
@@ -163,6 +164,24 @@ public class OutpatientServlet extends BaseServlet {
         int i = outpatientService.addPatient(patient);
         ResultData resultData = Result.resultStatus(i);
         return resultData;
+    }
+
+    //获取功效类型
+    public void getmPower(HttpServletRequest request,HttpServletResponse response){
+        List<Type> allGoodsType = typeService.getAllGoodsType();
+        ToJSON.toJson(response,allGoodsType);
+    }
+
+    //获取药品类型
+    public void getmType(HttpServletRequest request,HttpServletResponse response){
+        List<Type> allMType = typeService.getAllMType();
+        ToJSON.toJson(response,allMType);
+    }
+
+    //药品规格
+    public void getUnit(HttpServletRequest request,HttpServletResponse response){
+        List<Type> alldosage = typeService.getAlldosage();
+        ToJSON.toJson(response,alldosage);
     }
 
 

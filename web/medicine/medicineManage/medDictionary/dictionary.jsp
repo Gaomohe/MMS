@@ -42,9 +42,9 @@
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select1" lay-search="" lay-creatable="">
                                                 <option value="">商品分类</option>
-                                                <<c:forEach var="type" items="${type1}" varStatus="s">
+                                                <c:forEach var="type" items="${type1}" varStatus="s">
                                                 <option value="${type.typename}">${type.typename}</option>
-                                            </c:forEach>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
