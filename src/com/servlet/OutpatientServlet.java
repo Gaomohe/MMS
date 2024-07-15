@@ -37,11 +37,15 @@ public class OutpatientServlet extends BaseServlet {
 
     //获取所有按钮
     public String getAddMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        String idStr = request.getParameter("pId");
+        int thePId = Integer.parseInt(idStr);
+        patientId = thePId;
         int resId = 180;
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("thePId",thePId);
         session.setAttribute("menuList",menuList);
         logService.setLog(name,"点击","门诊管理","打开开处方界面");
         return "medicine/outpatientManager/outpatient/addMedicine";

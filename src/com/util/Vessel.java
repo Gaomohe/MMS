@@ -45,4 +45,6 @@ public class Vessel {
 
     public static int medicineCount = 0;
 
+    public static int patientId = 0;
+
 }
