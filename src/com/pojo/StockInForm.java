@@ -3,6 +3,16 @@ package com.pojo;
 public class StockInForm {
     private int rId;
     private String stockInNum;
+    private int tableCoding;
+
+    public int getTableCoding() {
+        return tableCoding;
+    }
+
+    public void setTableCoding(int tableCoding) {
+        this.tableCoding = tableCoding;
+    }
+
     private String rName;
     private String standard;
     private String manufactor;

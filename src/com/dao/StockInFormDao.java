@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Quality;
 import com.pojo.StockInForm;
 
 import java.util.List;
@@ -23,7 +24,9 @@ public interface StockInFormDao {
 
     //查询所有生产厂家并排除重复
     public List<StockInForm> getManufactorWithNoRepeat();
-    //查询所有生产厂家对应的药品名称
-    public List<StockInForm> getDrugNameByManufactor(int page, int limit);
+    //根据质量检测表查询有哪些药品是要入库的
+    public List<Quality> getDrugNameByManufactor(int page, int limit);
+    //获取上面这个表的长度
+    public List<Quality> getDrugNameByManufactor();
     public List<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactorName);
 }

@@ -49,12 +49,12 @@
         </div>
 </div>
 
-<div id="transfer" style="width: 600px; margin: 0 auto; position: absolute;top: 15%;left: 1%">
+<div id="transfer" style="width:1150px; margin: 0 auto; position: absolute;top: 15%;left: 1%">
     <table id="addStockInFormList" lay-filter="addStockInFormList"></table>
 </div>
 
 <div class="layui-btn-container" style="position: absolute;bottom: 0;left:38%">
-    <button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="saveButton">保存</button>
+    <button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="saveButton">确定入库</button>
     <button type="button" class="layui-btn layui-btn-primary layui-btn-lg" id="cancelButton">取消</button>
 </div>
 
