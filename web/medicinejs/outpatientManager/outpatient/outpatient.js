@@ -8,7 +8,7 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;
-    var pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain;
+    var pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,disease,tableMain;
 
     $(document).ready(function() {
         laydate.render({
@@ -21,18 +21,18 @@ layui.extend({
             page: true,
             url: '/patient?action=getPatientList',
             toolbar: '#outpatientDemo',
-            height: "600px",
+            height: "800px",
             limit: 20,
             limits: [10, 15, 20, 25],
             cols: [[
                 {fixed:"left",type: "checkbox", width:50},
                 {field: 'pId', title: '患者卡号',  align:'center', width:200},
-                {field: 'dId', title: '医生编号',  align:'center', width:200},
+                // {field: 'dId', title: '医生编号',  align:'center', width:200},
                 {field: 'mId', title: '处方编号', minWidth:100, align:"center"},
                 {field: 'name', title: '患者姓名', align:'center', width:200},
                 {field: 'sex', title: '性别', align:'center', width:200},
                 {field: 'age', title: '年龄', minWidth:100, align:"center"},
-                {field: 'weight', title: '体重',  align:'center', width:200},
+                {field: 'weight', title: '体重/kg',  align:'center', width:200},
                 {field: 'address', title: '住址',  align:'center', width:200},
                 {field: 'phone', title: '联系方式',  align:'center', width:200},
                 {field: 'diagnosticTime', title: '就诊时间',  align:'center', width:200},
@@ -53,6 +53,7 @@ layui.extend({
         getPhone();
         getAllergy();
         getAdvice();
+        getDisease();
         getTime();
         getStatus();
 
@@ -83,22 +84,30 @@ layui.extend({
                         layer.msg("you are not select", {icon: 2});
                     }
                     break;
-                case 'approve':
+                case 'addPatient':
+                    addPatient();
+                    break;
+                case 'addMedicine':
                     if (files.length > 0) {
-                        files.forEach(function(file) {
-                            total++;
-                            setApprove(file.applyId);
-                        });
+                        console.log(files[0].pId);
+                        addMedicine(files[0].pId);
                     } else {
                         layer.msg("未选择", {icon: 2});
                     }
                     break;
-                case 'addPatient':
-                    addPatient();
-                    break;
             }
         });
     });
+
+    //打开开处方的界面
+    function addMedicine(id){
+        layui.layer.open({
+            title : "开设处方",
+            type : 2,
+            content : "/patient?action=getAddMenuBtn&pId=" + id,
+            area:['1200px','675px']
+        });
+    }
 
     //刷新页面
     function winReload(){
@@ -126,13 +135,9 @@ layui.extend({
     }
 
     function getSex() {
-        /*$('input[name="sex"]').on('input', function(e) {
-            pSex = e.target.value;
-            console.log("患者性别：" + pSex);
-        });*/
         form.on('select(sex)', function(data) {
             pSex = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
-            console.log("被选中的状态是：" + pSex);
+            console.log("患者性别：" + pSex);
         });
     }
 
@@ -191,6 +196,15 @@ layui.extend({
 
     }
 
+    //就诊结果
+    function getDisease() {
+        $('textarea[name="disease"]').on('input', function(e) {
+            disease = e.target.value;
+            console.log("医嘱：" + disease);
+        });
+
+    }
+
     function getTime() {
         laydate.render({
             elem: '#lastTime',
@@ -221,6 +235,7 @@ layui.extend({
                 "pWeight": pWeight,
                 "pAddress": pAddress,
                 "pPhone": pPhone,
+                "disease":disease,
                 "pAllergy": pAllergy,
                 "doctorAdvice": doctorAdvice,
                 "lastTime": lastTime

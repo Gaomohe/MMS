@@ -15,6 +15,15 @@ public class Patient {
     private String doctorAdvice;
     private String dName;
     public String lastDiaTime;
+    private String disease;
+
+    public String getDisease() {
+        return disease;
+    }
+
+    public void setDisease(String disease) {
+        this.disease = disease;
+    }
 
     public String getLastDiaTime() {
         return lastDiaTime;

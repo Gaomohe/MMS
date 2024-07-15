@@ -75,6 +75,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
                 patient.setDoctorAdvice(resultSet.getString(12));
                 patient.setdName(resultSet.getString(13));
                 patient.setLastDiaTime(resultSet.getString(14));
+                patient.setDisease(resultSet.getString(15));
                 list.add(patient);
             }
         }catch (Exception e){
@@ -86,9 +87,9 @@ public class OutpatientDaoImpl implements OutpatientDao {
     //添加患者信息
     @Override
     public int addPatient(Patient patient) {
-        String sql = "INSERT INTO patient(dId, name, sex, age, weight, address, phone, diagnosticTime, allergy, doctorAdvice, dName, lastDiaTime) \n" +
-                "    VALUE (?,?,?,?,?,?,?,?,?,?,?,?);";
-        Object[] objects = new Object[12];
+        String sql = "INSERT INTO patient(dId, name, sex, age, weight, address, phone, diagnosticTime, allergy, doctorAdvice, dName, lastDiaTime,disease) \n" +
+                "    VALUE (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        Object[] objects = new Object[13];
         objects[0] = patient.getdId();
         objects[1] = patient.getName();
         objects[2] = patient.getSex();
@@ -101,6 +102,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
         objects[9] = patient.getDoctorAdvice();
         objects[10] = patient.getdName();
         objects[11] = patient.getLastDiaTime();
+        objects[12] = patient.getDisease();
         int i = 0;
         i = JDBC.update(sql,objects);
         return i;

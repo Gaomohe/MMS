@@ -36,6 +36,19 @@ public class OutpatientServlet extends BaseServlet {
         return "medicine/outpatientManager/outpatient/outpatientList";
     }
 
+
+    //获取所有按钮
+    public String getAddMenuBtn(HttpServletRequest request, HttpServletResponse response){
+        int resId = 180;
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("menuList",menuList);
+        logService.setLog(name,"点击","门诊管理","打开开处方界面");
+        return "medicine/outpatientManager/outpatient/addMedicine";
+    }
+
     //获取所有按钮
     public String getMenuBtn1(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
@@ -93,6 +106,7 @@ public class OutpatientServlet extends BaseServlet {
         String pAllergy = request.getParameter("pAllergy");
         String doctorAdvice = request.getParameter("doctorAdvice");
         String lastTime = request.getParameter("lastTime");
+        String disease = request.getParameter("disease");
 
         Patient patient = new Patient();
         patient.setpId(pId);
@@ -107,6 +121,7 @@ public class OutpatientServlet extends BaseServlet {
         patient.setDoctorAdvice(doctorAdvice);
         patient.setdName(name);
         patient.setLastDiaTime(lastTime);
+        patient.setDisease(disease);
 
         ToJSON.toJson(response,outpatientService.Search(patient));
     }
