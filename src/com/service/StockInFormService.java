@@ -26,4 +26,7 @@ public interface StockInFormService {
 
     public LayuiTable<StockInForm> getDrugNameByManufactor(int page, int limit);
 
+    //通过供应商名称查询对应的药品
+    //通过供应商名称查询对应的药品名称
+    public LayuiTable<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor);
 }

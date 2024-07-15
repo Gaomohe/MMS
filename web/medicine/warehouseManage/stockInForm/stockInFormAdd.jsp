@@ -12,8 +12,6 @@
     <title>Demo</title>
     <!-- 引入 layui.css -->
     <link href="//unpkg.com/layui@2.9.14/dist/css/layui.css" rel="stylesheet">
-<%--    <link href="//cdn.staticfile.net/layui/2.9.13/css/layui.css" rel="stylesheet">--%>
-    <%--    <link href="admin\lib\layui-v2.9.13\layui\css\layui.css" rel="stylesheet">--%>
 </head>
 
 <body>
@@ -51,17 +49,7 @@
         </div>
 </div>
 
-<div style="width: 600px; margin: 0 auto; position: absolute;top: 15%;left: 1%">
-<%--<table class="layui-table" lay-data="{url:'/StockInForm?action=getDrugNameByManufactor', page: true, limit:6 , limits:[6]}" id="ID-table-demo-theads-1">--%>
-<%--    <thead>--%>
-<%--    <tr>--%>
-<%--        <th lay-data="{checkbox:true}" rowspan="2"></th>--%>
-<%--        <th lay-data="{field:'rId', width:150, align:'center'}" rowspan="2">药品编号</th>--%>
-<%--        <th lay-data="{field:'rName', width:235, align:'center'}" rowspan="2">药品名</th>--%>
-<%--        <th lay-data="{fixed: 'right', width: 160, align: 'center', toolbar: '#templet-demo-theads-tool'}" rowspan="2">操作</th>--%>
-<%--    </tr>--%>
-<%--    </thead>--%>
-<%--</table>--%>
+<div id="transfer" style="width: 600px; margin: 0 auto; position: absolute;top: 15%;left: 1%">
     <table id="addStockInFormList" lay-filter="addStockInFormList"></table>
 </div>
 
@@ -73,11 +61,9 @@
 
 <script type="text/html" id="templet-demo-theads-tool">
     <div class="layui-clear-space">
-        <button type="button" class="layui-btn layui-btn-sm" style="background-color: rgb(65,186,170); color: white">小型按钮</button>
-<%--        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" style="background-color: rgb(65,186,170); color: white">选择</a>--%>
+        <button id="addDrugs" type="button" class="layui-btn layui-btn-xs layui-btn-normal">添加</button>
     </div>
 </script>
-
 
 
 

@@ -61,7 +61,8 @@
             </c:forEach>
         </script>
 
-        <table id="stockInFormList" lay-filter="stockInFormList"></table>
+            <table id="stockInFormList" lay-filter="stockInFormList"></table>
+
     </div>
 </div>
 

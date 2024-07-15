@@ -39,6 +39,15 @@ public class StockInFormServlet extends BaseServlet {
         ToJSON.toJson(response,stockInFormService.getDrugNameByManufactor(page,limit));
     }
 
+    //通过供应商查询该供应商对应的药品名称
+    public void getDrugNameByManufactorName(HttpServletRequest request, HttpServletResponse response){
+        String manufactorName = request.getParameter("manufactorName");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        ToJSON.toJson(response,stockInFormService.getDrugNameByManufactorName(page,limit,manufactorName));
+    }
+
+
     //获取所有入库单（分页显示）
     public void selectStockInForm(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
