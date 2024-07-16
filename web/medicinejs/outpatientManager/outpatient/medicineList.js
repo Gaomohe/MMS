@@ -122,6 +122,7 @@ layui.extend({
                     layer.msg("开药方成功", { icon: 1 });
                     tableMain.close();
                     layui.layer.close();
+
                 }else {
                     layer.msg("失败", { icon: 2 });
                 }
