@@ -12,7 +12,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
     // 前端分页
     var tableIns=tableX.render({
         elem: '#xTable1',
-        url: '/quality?action=getQualityBySS&storageStatus=0',
+        url: '/quality?action=getQualityBySS&storageStatus=未入库',
         toolbar: '#toolbarDemo',
         page: true,
         height: 600,
@@ -141,7 +141,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             tableCoding = data[i].tableCoding;
             arr+=data[i].tableCoding+",";
         }
-        alert(1)
         switch(obj.event){
             case 'time':	//按照养护时间查找
                 getTime();
@@ -165,6 +164,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         select2 = $("#select2").val();
         select3 = $("#select3").val();
         select4 = $("#select4").val();
+        sql = 1;
         $.ajax({
             url: '/quality?action=getQualityByQuery', // 后端处理数据的URL
             type: "POST", // 或 'GET'，取决于后端接口的要求
@@ -172,7 +172,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 select1,
                 select2,
                 select3,
-                select4
+                select4,
+                sql,
             },
             dataType:"JSON",
             success: function(response) {
@@ -215,7 +216,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '质检状态',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        templet: '#tplStateTbAdv',
                     },
                     {
                         field: 'tableCoding',
@@ -306,12 +308,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         align: 'center',
                         sort: true
                     },
-                    {
-                        title: '操作',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
                 ]
                 ],
             });
@@ -337,6 +333,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 select2 = $("#select2").val();
                 select3 = $("#select3").val();
                 select4 = $("#select4").val();
+                sql = 1;
                 $.ajax({
                     url: '/quality?action=getQualityByQuery', // 后端处理数据的URL
                     type: "POST", // 或 'GET'，取决于后端接口的要求
@@ -344,7 +341,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         select1,
                         select2,
                         select3,
-                        select4
+                        select4,
+                        sql
                     },
                     dataType:"JSON",
                     success: function(response) {
@@ -366,6 +364,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         type: "POST",
                         data: {
                             mName: search,
+                            sql:1,
                         },
                         dataType: "JSON",
                         success: function(response) {
@@ -390,6 +389,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 type: "POST",
                 data: {
                     mName: search,
+                    sql:1,
                 },
                 dataType: "JSON",
                 success: function(response) {
@@ -420,7 +420,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         $.ajax({
             url:"/quality?action=getQualityByTime",
             data:{
-                time
+                time,
+                sql:1
             },
             type:"POST",
             dataType:"JSON",

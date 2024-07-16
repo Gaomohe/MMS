@@ -13,7 +13,7 @@ public class Quality {
     private String defind;
     private String drugFrom;
     private String warehousingRemarks;
-    private int storageStatus;
+    private String storageStatus;
     private String time;
     private String supplier;
 
@@ -122,11 +122,11 @@ public class Quality {
         this.warehousingRemarks = warehousingRemarks;
     }
 
-    public int getStorageStatus() {
+    public String getStorageStatus() {
         return storageStatus;
     }
 
-    public void setStorageStatus(int storageStatus) {
+    public void setStorageStatus(String storageStatus) {
         this.storageStatus = storageStatus;
     }
 

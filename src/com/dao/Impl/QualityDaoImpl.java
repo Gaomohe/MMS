@@ -2,7 +2,6 @@ package com.dao.Impl;
 
 import com.dao.Impl.init.InitDaoImpl;
 import com.dao.QualityDao;
-import com.pojo.Medicine;
 import com.pojo.Quality;
 import com.util.JDBC;
 
@@ -60,7 +59,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
             }
@@ -71,7 +70,7 @@ public class QualityDaoImpl implements QualityDao {
     }
 
     @Override
-    public List<Quality> getQualityBySS(int storageStatus) {
+    public List<Quality> getQualityBySS(String storageStatus) {
         String sql="SELECT * FROM `quality` WHERE `storageStatus`=?;";
         List<Quality> list = new ArrayList<>();
         Object[] objects = new Object[]{storageStatus};
@@ -91,7 +90,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
@@ -103,7 +102,7 @@ public class QualityDaoImpl implements QualityDao {
     }
 
     @Override
-    public List<Quality> getQualityBySS(int storageStatus,int index, int limit) {
+    public List<Quality> getQualityBySS(String storageStatus, int index, int limit) {
         String sql="SELECT * FROM `quality` WHERE `storageStatus`=?\n" +
                 "LIMIT ?,?;";
         List<Quality> list = new ArrayList<>();
@@ -124,7 +123,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
@@ -136,7 +135,7 @@ public class QualityDaoImpl implements QualityDao {
     }
 
     @Override
-    public List<Quality> getQualityBySS(int storageStatus,int index, int limit, String order, String title) {
+    public List<Quality> getQualityBySS(String storageStatus, int index, int limit, String order, String title) {
         String sql="SELECT * FROM (SELECT * FROM `quality` ORDER BY "+title+" "+order+" LIMIT ?,?) AS a \n" +
                 "WHERE `storageStatus`=?";
         List<Quality> list = new ArrayList<>();
@@ -157,7 +156,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
@@ -169,11 +168,11 @@ public class QualityDaoImpl implements QualityDao {
     }
 
     @Override
-    public List<Quality> getQualityByTime(String time) {
-        String sql="SELECT * FROM `quality` WHERE `time` like ?;";
+    public List<Quality> getQualityByTime(String sql, String time) {
+        String sql1="SELECT * FROM ("+sql+") WHERE `time` like ?;";
         List<Quality> list = new ArrayList<>();
         Object[] objects = new Object[]{"%"+time+"%"};
-        ResultSet resultSet = JDBC.select(sql, objects);
+        ResultSet resultSet = JDBC.select(sql1, objects);
         try {
             while (resultSet.next()){
                 Quality quality = new Quality();
@@ -189,7 +188,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
@@ -201,11 +200,11 @@ public class QualityDaoImpl implements QualityDao {
     }
 
     @Override
-    public List<Quality> getQualityByName(String mName) {
-        String sql="SELECT * FROM `quality` WHERE `mNme` like ?;";
+    public List<Quality> getQualityByName(String sql, String mName) {
+        String sql1="SELECT * FROM ("+sql+") WHERE `mNme` like ?;";
         List<Quality> list = new ArrayList<>();
         Object[] objects = new Object[]{"%"+mName+"%"};
-        ResultSet resultSet = JDBC.select(sql, objects);
+        ResultSet resultSet = JDBC.select(sql1, objects);
         try {
             while (resultSet.next()){
                 Quality quality = new Quality();
@@ -221,7 +220,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 list.add(quality);
@@ -251,7 +250,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setDefind(resultSet.getString(10));
                 quality.setDrugFrom(resultSet.getString(11));
                 quality.setWarehousingRemarks(resultSet.getString(12));
-                quality.setStorageStatus(resultSet.getInt(13));
+                quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 list.add(quality);

@@ -57,7 +57,7 @@
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select1" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
-                                                <<c:forEach var="type" items="${type1}" varStatus="s">
+                                                <c:forEach var="type" items="${type1}" varStatus="s">
                                                 <option value="${type.typename}">${type.typename}</option>
                                             </c:forEach>
                                             </select>
@@ -65,7 +65,7 @@
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select2" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
-                                                <<c:forEach var="type" items="${type2}" varStatus="s">
+                                                <c:forEach var="type" items="${type2}" varStatus="s">
                                                 <option value="${type.typename}">${type.typename}</option>
                                             </c:forEach>
                                             </select>
@@ -73,7 +73,7 @@
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select3" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
-                                                <<c:forEach var="type" items="${type3}" varStatus="s">
+                                                <c:forEach var="type" items="${type3}" varStatus="s">
                                                 <option value="${type.typename}">${type.typename}</option>
                                             </c:forEach>
                                             </select>
@@ -81,7 +81,7 @@
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select4" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
-                                                <<c:forEach var="type" items="${type4}" varStatus="s">
+                                                <c:forEach var="type" items="${type4}" varStatus="s">
                                                 <option value="${type.typename}">${type.typename}</option>
                                             </c:forEach>
                                             </select>
@@ -100,7 +100,7 @@
                                     </div>
                                     <hr class="layui-border-green">
                                     <div class="layui-inline">
-                                        <input id="search" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
+                                        <input id="search" lay-event="enterSearch" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
                                     </div>
                                     <c:forEach var="menu" items="${menuList}" varStatus="s">
                                         ${menu.resUrl}
@@ -118,9 +118,7 @@
 
                     <%--第二页--%>
                     <div class="layui-tab-item">
-                        <div id="xTable2">
-
-                        </div>
+                        <div id="xTable2" lay-filter="xTable2"></div>
                     </div>
                 </div>
             </div>
@@ -130,7 +128,8 @@
 </body>
 <script type="text/javascript" src="<%=path%>iframe/assets/libs/layui/layui.js"></script>
 <script type="text/javascript" src="<%=path%>iframe/assets/js/common.js"></script>
-<script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityListNO.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityList.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityList2.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/typesList.js" charset="UTF-8"></script>
 <%--<script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medPrice/historyPrice.js" charset="UTF-8"></script>--%>
 </html>

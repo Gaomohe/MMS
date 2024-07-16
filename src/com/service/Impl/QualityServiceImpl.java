@@ -26,7 +26,7 @@ public class QualityServiceImpl implements QualityService {
         String format = simpleDateFormat.format(date);
         quality.setTime(format);
         quality.setStatue(0);
-        quality.setStorageStatus(0);
+        quality.setStorageStatus("未入库");
         quality.setmId(medicine.getmId());
         quality.setmName(medicine.getmName());
         quality.setGoodsType(medicine.getGoodsType());
@@ -48,39 +48,39 @@ public class QualityServiceImpl implements QualityService {
     }
 
     @Override
-    public List<Quality> getQualityBySS(int storageStatus) {
+    public List<Quality> getQualityBySS(String storageStatus) {
         return qualityDao.getQualityBySS(storageStatus);
     }
 
     @Override
-    public List<Quality> getQualityBySS(int storageStatus, int index, int limit) {
+    public List<Quality> getQualityBySS(String storageStatus, int index, int limit) {
         int page = (index-1)*limit;
         return qualityDao.getQualityBySS(storageStatus,page,limit);
     }
 
     @Override
-    public List<Quality> getQualityBySS(int storageStatus, int index, int limit, String order, String title) {
+    public List<Quality> getQualityBySS(String storageStatus, int index, int limit, String order, String title) {
         int page = (index-1)*limit;
         return qualityDao.getQualityBySS(storageStatus,page,limit,order,title);
     }
 
     @Override
-    public List<Quality> getQualityByTime(String time) {
-        return qualityDao.getQualityByTime(time);
+    public List<Quality> getQualityByTime(String sql, String time) {
+        return qualityDao.getQualityByTime(sql, time);
     }
 
     @Override
-    public List<Quality> getQualityByName(String mName) {
-        return qualityDao.getQualityByName(mName);
+    public List<Quality> getQualityByName(String sql, String mName) {
+        return qualityDao.getQualityByName(sql, mName);
     }
 
     @Override
-    public List<Quality> getQualityByQuery(String[] query) {
+    public List<Quality> getQualityByQuery(String sql,String[] query) {
         int i = 0;
         String[] keys = {"goodsType","mType","defined","drugFrom"};//这里是键
         Object[] values = {query[0],query[1],query[2],query[3]};//这里是值
-        String sql = getSQL(keys, values, "quality");//apply是表名
-        return qualityDao.getQualityByQuery(sql);
+        String sql1 = getSQL(keys, values, sql);//apply是表名
+        return qualityDao.getQualityByQuery(sql1);
     }
 
     @Override
@@ -98,10 +98,10 @@ public class QualityServiceImpl implements QualityService {
     @Override
     public int updateQualitySS(Quality quality) {
         Quality quality1 = qualityDao.getQualityByID(quality.getId());
-        if (quality1.getStorageStatus() == 0){
-            quality1.setStorageStatus(1);
+        if (quality1.getStorageStatus().equals("未入库")){
+            quality1.setStorageStatus("已入库");
         }else {
-            quality1.setStorageStatus(0);
+            quality1.setStorageStatus("未入库");
         }
         return qualityDao.updateQualitySS(quality1);
     }
