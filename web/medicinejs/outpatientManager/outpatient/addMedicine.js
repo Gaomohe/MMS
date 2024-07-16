@@ -491,27 +491,6 @@ layui.extend({
         });
     }
 
-    /*function addMedicine(){
-        let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
-        $.ajax({
-            url:"/patient?action=addMedicine",
-            data: {
-                "mIdList": mIdArray,
-                "pId": pId,
-            },
-            type: "post",
-            dataType: "json",
-            traditional: true,
-            success:function (res){
-                if (res.status==200){
-                    layer.msg("开出处方成功", { icon: 1 });
-                    tableMain.reload();
-                }else {
-                    layer.msg("删除失败", { icon: 2 });
-                }
-            }
-        });
-    }*/
 
     //打开开处方的界面
     function addMedicine(){
