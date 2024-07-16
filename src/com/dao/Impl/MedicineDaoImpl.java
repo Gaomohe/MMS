@@ -795,7 +795,7 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public int addDic_Num(Medicine medicine, int patientId, int number) {
-        String sql="INSERT INTO `dic_num` (`tableCoding`,`number`,`statue`,`patientId`)VALUES(?,?,?,?)";
+        String sql="INSERT INTO `dic_num` (`tableCoding`,`number`,`statue`,`patientId`,time)VALUES(?,?,?,?,NOW())";
         Object[] objects= new Object[4];
         objects[0] = medicine.getTableCoding();
         objects[1] = number;

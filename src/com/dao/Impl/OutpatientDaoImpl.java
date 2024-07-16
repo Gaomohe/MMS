@@ -46,6 +46,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
                 patient.setDoctorAdvice(resultSet.getString(12));
                 patient.setdName(resultSet.getString(13));
                 patient.setLastDiaTime(resultSet.getString(14));
+                patient.setDisease(resultSet.getString(15));
                 list.add(patient);
             }
         }catch (Exception e){
@@ -109,6 +110,7 @@ public class OutpatientDaoImpl implements OutpatientDao {
         return i;
     }
 
+    //门诊医生条件查询所有药品
     @Override
     public List<Medicine> getMedicineList(String sql) {
         ResultSet resultSet = JDBC.select(sql, new Object[1]);
@@ -117,39 +119,39 @@ public class OutpatientDaoImpl implements OutpatientDao {
         try {
             while (resultSet.next()){
                 Medicine medicine = new Medicine();
-                medicine.setmId(resultSet.getInt(1));
-                medicine.setmName(resultSet.getString(2));
-                medicine.setSpecification(resultSet.getString(3));
-                medicine.setManufactor(resultSet.getString(4));
-                medicine.setUnit(resultSet.getString(5));
-                medicine.setDepartment(resultSet.getString(6));
-                medicine.setPosition(resultSet.getString(7));
-                medicine.setNumber(resultSet.getInt(8));
-                medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setmId(resultSet.getInt("mId"));
+                medicine.setmName(resultSet.getString("mName"));
+                medicine.setSpecification(resultSet.getString("specification"));
+//                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString("unit"));
+                /*medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));*/
+                medicine.setNumber(resultSet.getInt("number"));
+                /*medicine.setBatchNumber(resultSet.getString(9));
                 medicine.setUsefulLife(resultSet.getString(10));
-                medicine.setPurchasePrice(resultSet.getInt(11));
-                medicine.setSalePrice(resultSet.getInt(12));
-                medicine.setProductDate(resultSet.getString(13));
-                medicine.setProfits(resultSet.getString(14));
-                medicine.setCode(resultSet.getString(15));
-                medicine.setGoodsType(resultSet.getString(16));
-                medicine.setmType(resultSet.getString(17));
-                medicine.setDefined(resultSet.getString(18));
+                medicine.setPurchasePrice(resultSet.getInt(11));*/
+                medicine.setSalePrice(resultSet.getInt("salePrice"));
+                medicine.setProductDate(resultSet.getString("productDate"));
+                /*medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));*/
+                medicine.setGoodsType(resultSet.getString("goodsType"));
+                medicine.setmType(resultSet.getString("mType"));
+                /*medicine.setDefined(resultSet.getString(18));
                 medicine.setSupplier(resultSet.getString(19));
                 medicine.setWarehousingDate(resultSet.getString(20));
                 medicine.setLocationDescription(resultSet.getString(21));
                 medicine.setSign(resultSet.getString(22));
-                medicine.setWarehousingRemarks(resultSet.getString(23));
-                medicine.setDrugFrom(resultSet.getString(24));
-                medicine.setHandlingInformation(resultSet.getString(25));
-                medicine.setApprovalNumber(resultSet.getString(26));
-                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setWarehousingRemarks(resultSet.getString(23));*/
+                medicine.setDrugFrom(resultSet.getString("drugFrom"));
+//                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString("approvalNumber"));
+                /*medicine.setLastCuringDate(resultSet.getString(27));
                 medicine.setTimesStorage(resultSet.getInt(28));
                 medicine.setDocumentNumber(resultSet.getString(29));
                 medicine.setPlaceOrigin(resultSet.getString(30));
                 medicine.setBatchsNumber(resultSet.getString(31));
-                medicine.setRecordNumber(resultSet.getInt(32));
-                medicine.setTableCoding(resultSet.getInt(33));
+                medicine.setRecordNumber(resultSet.getInt(32));*/
+                medicine.setTableCoding(resultSet.getInt("tableCoding"));
                 medicineCount++;
                 medicines.add(medicine);
             }
@@ -157,5 +159,111 @@ public class OutpatientDaoImpl implements OutpatientDao {
             e.printStackTrace();
         }
         return medicines;
+    }
+
+    @Override
+    public Patient backValues(int id) {
+        String sql = "select * from patient where pId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        Patient patient = new Patient();
+        try{
+            while (resultSet.next()) {
+                patient.setpId(resultSet.getInt(1));
+                patient.setdId(resultSet.getInt(2));
+                patient.setmId(resultSet.getInt(3));
+                patient.setName(resultSet.getString(4));
+                patient.setSex(resultSet.getString(5));
+                patient.setAge(resultSet.getInt(6));
+                patient.setWeight(resultSet.getInt(7));
+                patient.setAddress(resultSet.getString(8));
+                patient.setPhone(resultSet.getString(9));
+                patient.setDiagnosticTime(resultSet.getString(10));
+                patient.setAllergy(resultSet.getString(11));
+                patient.setDoctorAdvice(resultSet.getString(12));
+                patient.setdName(resultSet.getString(13));
+                patient.setLastDiaTime(resultSet.getString(14));
+                patient.setDisease(resultSet.getString(15));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return patient;
+    }
+
+    @Override
+    public int addmOrder(int pId) {
+        String sql = "insert into morder(pId) value(?)";
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        int result = JDBC.update(sql, objects);
+        return result;
+    }
+
+    @Override
+    public int getOrderId() {
+        String sql = "SELECT orderId FROM morder ORDER BY orderId DESC LIMIT 1\n";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        int orderId = 0;
+        try{
+            while (resultSet.next()) {
+
+                orderId = resultSet.getInt("orderId");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return orderId;
+    }
+
+    @Override
+    public int updatemIdtoPatient(int orderId, int pId) {
+        String sql = "update patient set mId = ? where pId = ?";
+        Object[] objects = new Object[2];
+        objects[0] = orderId;
+        objects[1] = pId;
+        int result = JDBC.update(sql, objects);
+        return result;
+    }
+
+    @Override
+    public int addMedicine(int orderId, Medicine medicine) {
+        String sql = "insert into medicineorder(mId,orderId,number) values(?,?,?)";
+        Object[] objects = new Object[3];
+        objects[0] = medicine.getmId();
+        objects[1] = orderId;
+        objects[2] = medicine.getNumber();
+        int result = JDBC.update(sql, objects);
+        return result;
+    }
+
+    //已选中药品回显
+    @Override
+    public Medicine getPatientMedicine(int mId) {
+        String sql = "select * from dictionary where mId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = mId;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        Medicine medicine = new Medicine();
+        try{
+            while (resultSet.next()) {
+                medicine.setmId(resultSet.getInt("mId"));
+                medicine.setmName(resultSet.getString("mName"));
+                medicine.setSpecification(resultSet.getString("specification"));
+                medicine.setUnit(resultSet.getString("unit"));
+                medicine.setNumber(resultSet.getInt("number"));
+                medicine.setSalePrice(resultSet.getInt("salePrice"));
+                medicine.setProductDate(resultSet.getString("productDate"));
+                medicine.setGoodsType(resultSet.getString("goodsType"));
+                medicine.setmType(resultSet.getString("mType"));
+                medicine.setDrugFrom(resultSet.getString("drugFrom"));
+                medicine.setApprovalNumber(resultSet.getString("approvalNumber"));
+                medicine.setTableCoding(resultSet.getInt("tableCoding"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return medicine;
     }
 }

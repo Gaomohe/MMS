@@ -84,7 +84,7 @@ public class SQLtoString {
         }
 
         // 构建完整的查询语句
-        String sql = "SELECT * FROM " + table + whereClause.toString();
+        String sql = "SELECT tableCoding,mName,mId,specification,unit,number,salePrice,productDate,goodsType,mType,drugFrom,approvalNumber FROM " + table + whereClause.toString();
         System.out.println(sql);
         return sql;
     }

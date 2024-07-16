@@ -5,6 +5,9 @@ import com.dao.Impl.*;
 import com.service.*;
 import com.service.Impl.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Vessel {
     public static UserDao userDao = new UserDaoImpl();
     public static UserService userService = new UserServiceImpl();
@@ -46,5 +49,10 @@ public class Vessel {
     public static int medicineCount = 0;
 
     public static int patientId = 0;
+
+    public static List<Integer> intList = new ArrayList<Integer>();
+
+    public static MedicineDao medicineDao = new MedicineDaoImpl();
+    public static MedicineService medicineService = new MedicineServiceImpl();
 
 }

@@ -36,6 +36,16 @@ public class Medicine {
     private int tableCoding;
     private int state;//养护状态
 
+    private String update;
+
+    public String getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(String update) {
+        this.update = update;
+    }
+
     public int getmId() {
         return mId;
     }

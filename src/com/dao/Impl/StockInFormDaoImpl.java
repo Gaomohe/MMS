@@ -256,7 +256,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 quality.setSupplier(resultSet.getString(3));
                 quality.setTotlNumber(resultSet.getInt(4));
                 quality.setStatue(resultSet.getInt(5));
-                quality.setStorageStatus(resultSet.getInt(6));
+                quality.setStorageStatus(resultSet.getString(6));
                 qualityList.add(quality);
             }
         }catch (Exception e){
@@ -289,7 +289,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 quality.setSupplier(resultSet.getString(3));
                 quality.setTotlNumber(resultSet.getInt(4));
                 quality.setStatue(resultSet.getInt(5));
-                quality.setStorageStatus(resultSet.getInt(6));
+                quality.setStorageStatus(resultSet.getString(6));
                 qualityList.add(quality);
             }
         }catch (Exception e){

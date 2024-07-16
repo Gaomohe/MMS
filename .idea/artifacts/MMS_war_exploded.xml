@@ -16,6 +16,10 @@
           <element id="library" level="project" name="jstl" />
           <element id="library" level="project" name="servlet-api" />
           <element id="library" level="project" name="standard" />
+          <element id="library" level="project" name="jackson-core-2.12.3" />
+          <element id="library" level="project" name="gson-2.8.9" />
+          <element id="library" level="project" name="jackson-databind-2.12.3" />
+          <element id="library" level="project" name="jackson-annotations-2.12.1" />
         </element>
       </element>
     </root>

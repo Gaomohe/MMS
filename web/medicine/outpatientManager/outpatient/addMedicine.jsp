@@ -35,6 +35,9 @@
         <table id="addMedicineList2" lay-filter="addMedicineList2"></table>
     </div>
 </div>
+
+
+
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/outpatientManager/outpatient/addMedicine.js" charset="utf-8"></script>

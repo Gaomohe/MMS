@@ -1,6 +1,5 @@
 package com.servlet;
 
-import com.alibaba.fastjson.JSON;
 import com.pojo.*;
 import com.service.Impl.QualityServiceImpl;
 import com.service.Impl.TypeServiceImpl;
@@ -12,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 import java.util.List;
 
 import static com.util.Vessel.*;
@@ -55,7 +53,7 @@ public class QualityServlet extends BaseServlet {
 
     //根据入库信息获取所有质检信息(主要显示)
     public LayuiTable<Quality> getQualityBySS(HttpServletRequest request, HttpServletResponse response){
-        int storageStatus = Integer.parseInt(request.getParameter("storageStatus"));
+        String storageStatus = request.getParameter("storageStatus");
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
         String sort = request.getParameter("sort");
@@ -81,8 +79,13 @@ public class QualityServlet extends BaseServlet {
     //根据时间获取质检表
     public LayuiTable<Quality> getQualityByTime(HttpServletRequest request, HttpServletResponse response){
         String time = request.getParameter("time");
-        System.out.println(time);
-        List<Quality> qualityByTime = qualityService.getQualityByTime(time);
+        String sql = request.getParameter("sql");
+        if (sql.equals("1")){
+            sql="(SELECT * FROM `quality` WHERE `storageStatus`='未入库')AS a";
+        }else {
+            sql="(SELECT * FROM `quality` WHERE `storageStatus`='已入库')AS a";
+        }
+        List<Quality> qualityByTime = qualityService.getQualityByTime(sql, time);
         LayuiTable<Quality> layuiTable = new LayuiTable<>();
         layuiTable.setCode(0);
         layuiTable.setCount(qualityByTime.size());
@@ -93,8 +96,13 @@ public class QualityServlet extends BaseServlet {
     //根据药品名称获取质检表
     public LayuiTable<Quality> getQualityBymName(HttpServletRequest request, HttpServletResponse response){
         String mName = request.getParameter("mName");
-        System.out.println(mName);
-        List<Quality> qualityByTime = qualityService.getQualityByName(mName);
+        String sql = request.getParameter("sql");
+        if (sql.equals("1")){
+            sql="(SELECT * FROM `quality` WHERE `storageStatus`='未入库')AS a";
+        }else {
+            sql="(SELECT * FROM `quality` WHERE `storageStatus`='已入库')AS a";
+        }
+        List<Quality> qualityByTime = qualityService.getQualityByName(sql, mName);
         LayuiTable<Quality> layuiTable = new LayuiTable<>();
         layuiTable.setCode(0);
         layuiTable.setCount(qualityByTime.size());
@@ -109,8 +117,14 @@ public class QualityServlet extends BaseServlet {
         String select2 = request.getParameter("select2");
         String select3 = request.getParameter("select3");
         String select4 = request.getParameter("select4");
+        String sql = request.getParameter("sql");
+        if (sql.equals("1")){
+            sql="(SELECT * FROM `quality` WHERE `storageStatus`='未入库')AS a";
+        }else {
+            sql="(SELECT * FROM `quality` WHERE `storageStatus`='已入库')AS a";
+        }
         String[] queries = {select1,select2,select3,select4};
-        List<Quality> quality = qualityService.getQualityByQuery(queries);
+        List<Quality> quality = qualityService.getQualityByQuery(sql,queries);
         return Result.resultData(quality);
     }
 

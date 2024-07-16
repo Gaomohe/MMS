@@ -19,4 +19,13 @@ public interface OutpatientService {
 
     //门诊检索查看药品
     public LayuiTable<Medicine> getMedicineList(Medicine medicine);
+
+    //回显病患信息
+    public Patient backValues(int id);
+
+    //开处方
+    public int addMedicine(int pId,List<Medicine> medicineList);
+
+    //已选中药品回显
+    public LayuiTable<Medicine> getPatientMedicine(List<Integer> mIdList,int page,int limit);
 }

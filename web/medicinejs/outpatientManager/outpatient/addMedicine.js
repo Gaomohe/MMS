@@ -8,9 +8,11 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;
-    var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain;
+    var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain,patientId,mName;
+    let mIdList = new Set();
 
     $(document).ready(function() {
+        backValues();
         laydate.render({
             elem: '#time'
         });
@@ -54,31 +56,31 @@ layui.extend({
                         minWidth: 200,
                         align: 'center',
                     },
-                    {
+                    /*{
                         field: 'manufactor',
                         title: '生产企业',
                         minWidth: 400,
                         align: 'center',
-                    },
+                    },*/
                     {
                         field: 'unit',
                         title: '单位',
                         minWidth: 100,
                         align: "center",
                     },
-                    {
+                    /*{
                         field: 'department',
                         title: '部门',
                         minWidth: 200,
                         align: 'center',
-                    },
-                    {
+                    },*/
+                    /*{
                         field: 'position',
                         title: '货位',
                         minWidth: 200,
                         align: 'center',
                         sort: true
-                    },
+                    },*/
                     {
                         field: 'number',
                         title: '数量',
@@ -86,7 +88,7 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    {
+                    /*{
                         field: 'batchNumber',
                         title: '批号',
                         minWidth: 200,
@@ -106,7 +108,7 @@ layui.extend({
                         minWidth: 200,
                         align: 'center',
                         sort: true
-                    },
+                    },*/
                     {
                         field: 'salePrice',
                         title: '销售价',
@@ -121,7 +123,7 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    {
+                    /*{
                         field: 'profits',
                         title: '利润金额',
                         minWidth: 200,
@@ -134,7 +136,7 @@ layui.extend({
                         minWidth: 200,
                         align: 'center',
                         sort: true
-                    },
+                    },*/
                     {
                         field: 'goodsType',
                         title: '商品分类',
@@ -149,7 +151,7 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    {
+                    /*{
                         field: 'defined',
                         title: '自定义类',
                         minWidth: 200,
@@ -181,13 +183,13 @@ layui.extend({
                         title: '标志',
                         minWidth: 200,
                         align: 'center',
-                    },
-                    {
+                    },*/
+                    /*{
                         field: 'warehousingRemarks',
                         title: '入库备注',
                         minWidth: 200,
                         align: 'center',
-                    },
+                    },*/
                     {
                         field: 'drugFrom',
                         title: '剂型',
@@ -195,12 +197,12 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    {
+                   /* {
                         field: 'handlingInformation',
                         title: '处理情况',
                         minWidth: 200,
                         align: 'center',
-                    },
+                    },*/
                     {
                         field: 'approvalNumber',
                         title: '批准文号',
@@ -208,7 +210,7 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    {
+                    /*{
                         field: 'lastCuringDate',
                         title: '上次养护日期',
                         minWidth: 200,
@@ -253,7 +255,7 @@ layui.extend({
                         title: '操作',
                         width: 200,
                         templet: '#barDemo',
-                    }
+                    }*/
                 ]
             ],
         });
@@ -261,6 +263,7 @@ layui.extend({
         getUnit();
         getmType();
         getmPower();
+        getmName();
 
         table.on('toolbar(addMedicineList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
@@ -279,7 +282,7 @@ layui.extend({
                     console.log(mType);
                     console.log(Unit);
                     console.log("---------------");
-                    Search(mPower,mType,Unit);
+                    Search(mPower,mType,Unit,mName);
                     break;
                 case 'reload':
                     winReload();
@@ -307,6 +310,17 @@ layui.extend({
                 case 'addPatient':
                     addPatient();
                     break;
+                case 'addMedicine':
+                    if (files.length > 0) {
+                        files.forEach(function(file) {
+                            mIdList.add(file.mId)
+                        });
+                    } else {
+                        layer.msg("未选择", {icon: 2});
+                    }
+                    console.log(mIdList);
+                    addMedicine();
+                    break;
             }
         });
     });
@@ -314,14 +328,49 @@ layui.extend({
     //刷新页面
     function winReload(){
         // location.reload();
-
         getUnit();
         getmType();
         getmPower();
+        getmName();
+    }
 
+    //病患信息回显
+    function backValues(){
+        $.ajax({
+            url:"/patient?action=backValues",
+            data: {
+                "patientId":patientId
+            },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+                console.log("--------------------");
+                console.log(res);
+                console.log("++++++++++++++++++++");
+                document.querySelector('input[name="pid"]').value = res.pId;
+                pId = res.pId;
+                document.querySelector('input[name="pName"]').value = res.name;
+                document.querySelector('input[name="sex"]').value = res.sex;
+                document.querySelector('input[name="age"]').value = res.age;
+                document.querySelector('input[name="weight"]').value = res.weight;
+                document.querySelector('input[name="address"]').value = res.address;
+                document.querySelector('input[name="phone"]').value = res.phone;
+                document.querySelector('input[name="allergy"]').value = res.allergy;
+                document.querySelector('input[name="time"]').value = res.diagnosticTime;
+                document.querySelector('textarea[name="disease"]').value = res.disease;
+                document.querySelector('textarea[name="doctorAdvice"]').value = res.doctorAdvice;
+            }
+        })
     }
 
 
+    function getmName(){
+        $('input[name="mName"]').on('input', function(e) {
+            mName = e.target.value;
+            console.log("药品名称：" + mName);
+        });
+    }
 
     //获取药品分类
     function getmPower() {
@@ -389,29 +438,24 @@ layui.extend({
     }
 
     var define = "";
-    function Search(mPower,mType,Unit) {
-        console.log("wwwwwwwwwwwwwwwwwwwwwwwww");
-        console.log(mPower);
-        console.log(mType);
-        console.log(Unit);
-
+    function Search(mPower,mType,Unit,mName) {
         tableMain.reload({
             url: '/patient?action=getMedicineList',
             where: {
                 "mPower": mPower,
                 "mType": mType,
                 "Unit": Unit,
+                "mName":mName
             },
             page: {curr: 1}
         });
-
         // 重新获取下拉菜单的选项
         getUnit();
         getmType();
         getmPower();
+        backValues();
+        getmName();
     }
-
-
 
     function addPatient(){
         $.ajax({
@@ -444,6 +488,45 @@ layui.extend({
                     layer.msg("删除失败", { icon: 2 });
                 }
             }
+        });
+    }
+
+    /*function addMedicine(){
+        let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
+        $.ajax({
+            url:"/patient?action=addMedicine",
+            data: {
+                "mIdList": mIdArray,
+                "pId": pId,
+            },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success:function (res){
+                if (res.status==200){
+                    layer.msg("开出处方成功", { icon: 1 });
+                    tableMain.reload();
+                }else {
+                    layer.msg("删除失败", { icon: 2 });
+                }
+            }
+        });
+    }*/
+
+    //打开开处方的界面
+    function addMedicine(){
+        let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
+        console.log("1111111111111111111");
+        console.log(mIdList);
+        console.log("2222222222222222222");
+        console.log(mIdArray);
+        console.log("3333333333333333333");
+
+        layui.layer.open({
+            title : "开设处方",
+            type : 2,
+            content: "/patient?action=getMenuBtn1&mIdList=" + mIdArray.join(","),
+            area:['1000px','600px']
         });
     }
 });

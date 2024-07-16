@@ -1,17 +1,19 @@
 package com.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojo.*;
-import com.util.BaseServlet;
-import com.util.LayuiTable;
-import com.util.Result;
-import com.util.ResultData;
+import com.util.*;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.util.Vessel.*;
 
@@ -53,13 +55,23 @@ public class OutpatientServlet extends BaseServlet {
 
     //获取所有按钮
     public String getMenuBtn1(HttpServletRequest request, HttpServletResponse response){
-        int resId = Integer.parseInt(request.getParameter("resId"));
+        String mIdListStr = request.getParameter("mIdList");
+        List<Integer> integers = new ArrayList<>();
+        if (mIdListStr != null && !mIdListStr.isEmpty()) {
+            String[] mIdListArray = mIdListStr.split(",");
+            for (String idStr : mIdListArray) {
+                integers.add(Integer.parseInt(idStr));
+            }
+        }
+        intList = integers;
+        int resId = 253;
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
         logService.setLog(name,"点击","开处方","获取所有按钮");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
+        session.setAttribute("integers",integers);
         return "medicine/outpatientManager/outpatient/medicineList";
     }
 
@@ -196,15 +208,97 @@ public class OutpatientServlet extends BaseServlet {
         String mPower = request.getParameter("mPower");
         String mType = request.getParameter("mType");
         String unit = request.getParameter("Unit");
+        String mName = request.getParameter("mName");
 
         Medicine medicine = new Medicine();
         medicine.setGoodsType(mPower);
         medicine.setUnit(unit);
         medicine.setmType(mType);
+        medicine.setmName(mName);
 
         LayuiTable<Medicine> medicineList = outpatientService.getMedicineList(medicine);
         ToJSON.toJson(response,medicineList);
 
+    }
+
+
+    //病患信息回显
+    public void backValues(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        int thePId = (Integer)session.getAttribute("thePId");
+        Patient patient = outpatientService.backValues(thePId);
+        ToJSON.toJson(response,patient);
+    }
+
+    /*//开处方（添加处方）
+    public ResultData addMedicine(HttpServletRequest request,HttpServletResponse response){
+        String[] mIdLists = request.getParameterValues("mIdList");
+        List<Integer> integers = Format.StringToInt(mIdLists);
+        String pIdStr = request.getParameter("pId");
+        int pId = Integer.parseInt(pIdStr);
+        int i = outpatientService.addMedicine(pId, integers);
+        ResultData resultData = Result.resultStatus(i);
+        return resultData;
+    }*/
+
+    //回显已选药品
+    public void getPatientMedicine(HttpServletRequest request ,HttpServletResponse response){
+        String pageStr = request.getParameter("page");
+        int page = Integer.parseInt(pageStr);
+        String limitStr = request.getParameter("limit");
+        int limit = Integer.parseInt(limitStr);
+        page = (page - 1) * limit;
+        LayuiTable<Medicine> patientMedicine = outpatientService.getPatientMedicine(intList,page,limit);
+        ToJSON.toJson(response,patientMedicine);
+    }
+
+
+    //确认开处方
+    public ResultData submit(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        user.setUserName(name);
+        logService.setLog(name,"点击","开处方","确认开处方");
+
+        int thePId = (Integer)session.getAttribute("thePId");
+
+        StringBuilder jsonBuffer = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuffer.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String jsonString = jsonBuffer.toString();
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> priceList = null;
+        try {
+            priceList = mapper.readValue(jsonString, Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        List<Medicine> medicineList = new ArrayList<>();
+        if (priceList != null) {
+            for (Map.Entry<String, String> entry : priceList.entrySet()) {
+                Medicine medicine = new Medicine();
+                String keyStr = entry.getKey();
+                String valueStr = entry.getValue();
+                int Key = Integer.parseInt(keyStr);
+                int Value = Integer.parseInt(valueStr);
+                medicine.setmId(Key);
+                medicine.setNumber(Value);
+                medicineList.add(medicine);
+            }
+        }
+
+        int i = outpatientService.addMedicine(thePId,medicineList);
+        ResultData resultData = Result.resultStatus(i);
+        return resultData;
     }
 
 }

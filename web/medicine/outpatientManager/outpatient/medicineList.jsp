@@ -25,14 +25,14 @@
 <div class="layui-form">
     <div class="layuimini-container">
         <div class="layuimini-main">
-            <script type="text/html" id="outpatientDemo">
+            <table id="MedicineList" lay-filter="MedicineList"></table>
+            <script type="text/html" id="MedicineDemo">
                 <c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}
                 </c:forEach>
             </script>
-            <table id="outpatientList" lay-filter="outpatientList"></table>
         </div>
-        <table id="outpatientList2" lay-filter="outpatientList2"></table>
+        <table id="addMedicineList2" lay-filter="addMedicineList2"></table>
     </div>
 </div>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
