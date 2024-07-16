@@ -3,6 +3,7 @@ package com.service;
 import com.pojo.Medicine;
 import com.pojo.Quality;
 import com.pojo.StockInForm;
+import com.pojo.StockInWithQuality;
 import com.util.LayuiTable;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public interface StockInFormService {
     //更新入库单
     public int updateDoStockInForm(StockInForm stockInForm);
     //新增入库单
-    public int addDoStockInForm(StockInForm stockInForm);
+    public int addDoStockInForm(StockInWithQuality stockInWithQuality);
 
     public List<StockInForm> getStockInFormByQuery(String[] query);
 
     public List<StockInForm> getManufactorWithNoRepeat();
 
-    public LayuiTable<Quality> getDrugNameByManufactor(int page, int limit);
+    public LayuiTable<StockInWithQuality> getDrugNameByManufactor(int page, int limit);
     //通过供应商名称查询对应的药品名称
-    public LayuiTable<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor);
+    public LayuiTable<StockInWithQuality> getDrugNameByManufactorName(int page, int limit,String manufactor);
 }

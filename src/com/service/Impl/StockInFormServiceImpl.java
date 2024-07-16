@@ -2,6 +2,7 @@ package com.service.Impl;
 
 import com.pojo.Quality;
 import com.pojo.StockInForm;
+import com.pojo.StockInWithQuality;
 import com.service.StockInFormService;
 import com.util.LayuiTable;
 import java.util.List;
@@ -43,8 +44,8 @@ public class StockInFormServiceImpl implements StockInFormService {
     }
 
     @Override
-    public int addDoStockInForm(StockInForm stockInForm) {
-        return stockInFormDao.addStockInForm(stockInForm);
+    public int addDoStockInForm(StockInWithQuality stockInWithQuality) {
+        return stockInFormDao.addStockInForm(stockInWithQuality);
     }
 
     //分条件查询
@@ -62,10 +63,10 @@ public class StockInFormServiceImpl implements StockInFormService {
     }
 
     @Override
-    public LayuiTable<Quality> getDrugNameByManufactor(int page, int limit) {
+    public LayuiTable<StockInWithQuality> getDrugNameByManufactor(int page, int limit) {
         int curePage = (page-1)*limit;
-        List<Quality> drugNameByManufactor = stockInFormDao.getDrugNameByManufactor(curePage, limit);
-        LayuiTable<Quality> LayuiTable = new LayuiTable<Quality>();
+        List<StockInWithQuality> drugNameByManufactor = stockInFormDao.getDrugNameByManufactor(curePage, limit);
+        LayuiTable<StockInWithQuality> LayuiTable = new LayuiTable<StockInWithQuality>();
         LayuiTable.setMsg("");
         LayuiTable.setCode(0);
         LayuiTable.setCount(stockInFormDao.getDrugNameByManufactor().size());
@@ -74,14 +75,14 @@ public class StockInFormServiceImpl implements StockInFormService {
     }
 
     @Override
-    public LayuiTable<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor) {
+    public LayuiTable<StockInWithQuality> getDrugNameByManufactorName(int page, int limit,String manufactor) {
         int curePage = (page-1)*limit;
-        List<StockInForm> stockInFormList = stockInFormDao.getDrugNameByManufactorName(curePage,limit,manufactor);
-        LayuiTable<StockInForm> LayuiTable = new LayuiTable<StockInForm>();
+        List<StockInWithQuality> drugNameByManufactorName = stockInFormDao.getDrugNameByManufactorName(curePage, limit, manufactor);
+        LayuiTable<StockInWithQuality> LayuiTable = new LayuiTable<StockInWithQuality>();
         LayuiTable.setMsg("");
         LayuiTable.setCode(0);
-        LayuiTable.setCount(stockInFormDao.selectStockInForm().size());
-        LayuiTable.setData(stockInFormList);
+        LayuiTable.setCount(stockInFormDao.getDrugNameByManufactorName().size());
+        LayuiTable.setData(drugNameByManufactorName);
         return LayuiTable;
     }
 }

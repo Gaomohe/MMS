@@ -57,26 +57,27 @@ public class StockInFormServlet extends BaseServlet {
     //添加入库单
     public ResultData addStockInForm(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
-        StockInForm stockInForm = new StockInForm();
-        stockInForm.setStockInNum(request.getParameter("stockInNum"));
-        stockInForm.setrName(request.getParameter("rName"));
-        stockInForm.setStandard(request.getParameter("standard"));
-        stockInForm.setManufactor(request.getParameter("manufactor"));
-        stockInForm.setUnit(request.getParameter("unit"));
-        stockInForm.setrNum(Integer.parseInt(request.getParameter("rNum")));
-        stockInForm.setCost(Integer.parseInt(request.getParameter("cost")));
-        stockInForm.setSalePrice(Integer.parseInt(request.getParameter("salePrice")));
-        stockInForm.setBatchNumber(request.getParameter("batchNumber"));
-        stockInForm.setProductDate(request.getParameter("productDate"));
-        stockInForm.setExpiration(request.getParameter("expiration"));
-        stockInForm.setStockInTime(request.getParameter("stockInTime"));
-        stockInForm.setDepartment(request.getParameter("department"));
-        stockInForm.setNotes(request.getParameter("notes"));
-        int i = stockInFormService.addDoStockInForm(stockInForm);
+        StockInWithQuality stockInWithQuality = new StockInWithQuality();
+        stockInWithQuality.setStockInNum(request.getParameter("StockInNum"));
+        stockInWithQuality.setManufactor(request.getParameter("manufactor"));
+        stockInWithQuality.setrName(request.getParameter("rName"));
+        stockInWithQuality.setStandard(request.getParameter("standard"));
+        stockInWithQuality.setUnit(request.getParameter("unit"));
+        stockInWithQuality.setCost(Integer.parseInt(request.getParameter("cost")));
+        stockInWithQuality.setSalePrice(Integer.parseInt(request.getParameter("salePrice")));
+        stockInWithQuality.setBatchNumber(request.getParameter("batchNumber"));
+        stockInWithQuality.setProductDate(request.getParameter("productDate"));
+        stockInWithQuality.setExpiration(request.getParameter("expiration"));
+//        stockInWithQuality.setStockInTime(request.getParameter("stockInTime"));
+        stockInWithQuality.setDepartment(request.getParameter("department"));
+        stockInWithQuality.setTotlNumber(Integer.parseInt(request.getParameter("totlNumber")));
+        stockInWithQuality.setStatue(Integer.parseInt(request.getParameter("statue")));
+        stockInWithQuality.setStorageStatus(("storageStatus"));
+        int i = stockInFormService.addDoStockInForm(stockInWithQuality);
         if (i>0){
             resultData.setStatus(200);
             resultData.setMsg("添加成功");
-            resultData.setData(stockInForm);
+            resultData.setData(stockInWithQuality);
         }
         return resultData;
     }
