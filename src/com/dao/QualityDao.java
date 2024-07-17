@@ -27,4 +27,6 @@ public interface QualityDao {
     public int updateQualityTime(Quality quality);
     //删除质检表
     public int delQuality(int id);
+    //获取采购oid
+    public int getOid();
 }

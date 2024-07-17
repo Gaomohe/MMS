@@ -2,8 +2,10 @@ package com.servlet;
 
 import com.pojo.*;
 import com.service.Impl.QualityServiceImpl;
+import com.service.Impl.SalReturnServiceImpl;
 import com.service.Impl.TypeServiceImpl;
 import com.service.QualityService;
+import com.service.SalReturnService;
 import com.service.TypeService;
 import com.util.*;
 
@@ -20,6 +22,7 @@ public class QualityServlet extends BaseServlet {
 
     QualityService qualityService = new QualityServiceImpl();
     TypeService typeService = new TypeServiceImpl();
+    SalReturnService salReturnService = new SalReturnServiceImpl();
     @Override
     public Class getServlet() {
         return QualityServlet.class;
@@ -166,14 +169,17 @@ public class QualityServlet extends BaseServlet {
         int i = qualityService.delQuality(id);
         return Result.resultStatus(i);
     }
-
-    /*//添加质检表
-    public ResultData<Quality> addQuality(HttpServletRequest request, HttpServletResponse response){
-        int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
-        int totlNumber = Integer.parseInt(request.getParameter("totlNumber"));
-        int surveyNumber = Integer.parseInt(request.getParameter("surveyNumber"));
-        Quality quality = new Quality(tableCoding,totlNumber,surveyNumber);
-        int i = qualityService.addQuality(quality);
+    public ResultData<Quality> delQualityByOid(HttpServletRequest request, HttpServletResponse response){
+        int oid = Integer.parseInt(request.getParameter("oid"));
+        int i = qualityService.delQuality(oid);
         return Result.resultStatus(i);
-    }*/
+    }
+
+    //退货
+    public int returnMedicine(HttpServletRequest request, HttpServletResponse response){
+        int oId = Integer.parseInt(request.getParameter("oId"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        int i = salReturnService.addSalReturn(oId, id);
+        return i;
+    }
 }

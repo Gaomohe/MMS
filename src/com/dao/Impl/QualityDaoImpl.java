@@ -15,12 +15,12 @@ public class QualityDaoImpl implements QualityDao {
         String sql="INSERT INTO `quality` \n" +
                 "(`statue`,`tableCoding`,`mId`,`mNme`,`totlNumber`,\n" +
                 "`surveyNumber`,`goodsType`,`mType`,`defind`,`drugFrom`,\n" +
-                "`warehousingRemarks`,`storageStatus`,`time`,supplier)\n" +
+                "`warehousingRemarks`,`storageStatus`,`time`,supplier,oId)\n" +
                 "VALUES \n" +
                 "(?,?,?,?,?,\n" +
                 "?,?,?,?,?,\n" +
-                "?,?,?,?) ";
-        Object[] objects = new Object[14];
+                "?,?,?,?,?) ";
+        Object[] objects = new Object[15];
         objects[0] = quality.getStatue();
         objects[1] = quality.getTableCoding();
         objects[2] = quality.getmId();
@@ -35,6 +35,7 @@ public class QualityDaoImpl implements QualityDao {
         objects[11] = quality.getStorageStatus();
         objects[12] = quality.getTime();
         objects[13] = quality.getSupplier();
+        objects[14] = quality.getOrderId();
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -62,6 +63,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -93,6 +95,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -126,6 +129,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -159,6 +163,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -191,6 +196,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -223,6 +229,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -253,6 +260,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setStorageStatus(resultSet.getString(13));
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
+                quality.setOrderId(resultSet.getInt(16));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -300,5 +308,22 @@ public class QualityDaoImpl implements QualityDao {
             i = 1;
         }
         return i;
+    }
+
+    //获取最新的oid
+    public int getOid() {
+        String sql="SELECT * FROM `app_order` \n" +
+                "ORDER BY `oId` DESC\n" +
+                "LIMIT 1;";
+        int oid = 0;
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
+        try {
+            while (resultSet.next()){
+                oid = resultSet.getInt(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return oid;
     }
 }

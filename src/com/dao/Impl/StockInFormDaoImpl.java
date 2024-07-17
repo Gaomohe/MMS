@@ -1,9 +1,9 @@
 package com.dao.Impl;
 
-import com.dao.QualityDao;
 import com.dao.StockInFormDao;
 import com.pojo.Quality;
 import com.pojo.StockInForm;
+import com.pojo.StockInWithQuality;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
@@ -147,25 +147,23 @@ public class StockInFormDaoImpl implements StockInFormDao {
     }
 
     @Override
-    public int addStockInForm(StockInForm stockInForm) {
-        String sql = "INSERT INTO StockInForm (rName,stockInNum,tableCoding,standard,manufactor,unit,rNum,cost,salePrice,batchNumber,productDate,expiration,stockInTime,department,notes) \n" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?,?,?,?);\n";
-        Object[] objects = new Object[15];
-        objects[0] = stockInForm.getrName();
-        objects[1] = stockInForm.getStockInNum();
-        objects[2] = stockInForm.getTableCoding();
-        objects[3] = stockInForm.getStandard();
-        objects[4] = stockInForm.getManufactor();
-        objects[5] = stockInForm.getUnit();
-        objects[6] = stockInForm.getrNum();
-        objects[7] = stockInForm.getCost();
-        objects[8] = stockInForm.getSalePrice();
-        objects[9] = stockInForm.getBatchNumber();
-        objects[10] = stockInForm.getProductDate();
-        objects[11] = stockInForm.getExpiration();
-        objects[12] = stockInForm.getStockInTime();
-        objects[13] = stockInForm.getDepartment();
-        objects[14] = stockInForm.getNotes();
+    public int addStockInForm(StockInWithQuality stockInWithQuality) {
+        String sql = "INSERT INTO StockInForm (rName, stockInNum, standard, manufactor, unit, rNum, cost, salePrice, batchNumber, productDate, expiration, stockInTime, department) \n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);\n";
+        Object[] objects = new Object[13];
+        objects[0] = stockInWithQuality.getrName();
+        objects[1] = stockInWithQuality.getStockInNum();
+        objects[2] = stockInWithQuality.getStandard();//
+        objects[3] = stockInWithQuality.getManufactor();
+        objects[4] = stockInWithQuality.getUnit();//
+        objects[5] = stockInWithQuality.getTotlNumber();
+        objects[6] = stockInWithQuality.getCost();//
+        objects[7] = stockInWithQuality.getSalePrice();
+        objects[8] = stockInWithQuality.getBatchNumber();
+        objects[9] = stockInWithQuality.getProductDate();
+        objects[10] = stockInWithQuality.getExpiration();
+        objects[11] = stockInWithQuality.getStockInNum();
+        objects[12] = stockInWithQuality.getDepartment();
         int count= JDBC.update(sql,objects);
         return count;
     }
@@ -228,36 +226,51 @@ public class StockInFormDaoImpl implements StockInFormDao {
       质量检测表显示待入库总数和入库状态（默认为0）
       只有当质量检测状态为1同时入库状态为0的时候我点添加才会入库成功*/
     @Override
-    public List<Quality> getDrugNameByManufactor(int page, int limit) {
+    public List<StockInWithQuality> getDrugNameByManufactor(int page, int limit) {
         String sql="SELECT \n" +
                 "    s.rid,\n" +
                 "    s.rName,\n" +
+                "    s.standard,\n" +
+                "    s.unit,\n" +
+                "    s.cost,\n" +
+                "    s.salePrice,\n" +
+                "    s.batchNumber,\n" +
+                "    s.productDate,\n" +
+                "    s.expiration,\n" +
                 "    s.manufactor,\n" +
+                "    s.department,\n" +
                 "    q.totlNumber, \n" +
                 "    q.statue,      \n" +
-                "    q.storageStatus         \n" +
+                "    q.storageStatus        \n" +
                 "FROM stockinform AS s\n" +
                 "JOIN quality AS q \n" +
                 "ON s.tablecoding = q.tablecoding\n" +
-                "WHERE q.statue = 1 AND q.storageStatus = 0 " +
+                "WHERE q.statue = 1 AND q.storageStatus = 0 \n" +
                 "LIMIT ?,?;";
 
         Object[] objects = new Object[2];
         objects[0]=page;
         objects[1]=limit;
         ResultSet resultSet = JDBC.select(sql, objects);
-        List<Quality> qualityList = new ArrayList<Quality>();
+        List<StockInWithQuality> qualityList = new ArrayList<StockInWithQuality>();
         try {
             while (resultSet.next()){
-                Quality quality = new Quality();
-                quality.setTableCoding(resultSet.getInt(1));
-                //这里的tablecoding同时是两个表中的id，所以用tablecoding
-                quality.setmName(resultSet.getString(2));
-                quality.setSupplier(resultSet.getString(3));
-                quality.setTotlNumber(resultSet.getInt(4));
-                quality.setStatue(resultSet.getInt(5));
-                quality.setStorageStatus(resultSet.getString(6));
-                qualityList.add(quality);
+                StockInWithQuality stockInWithQuality = new StockInWithQuality();
+                stockInWithQuality.setrId(resultSet.getInt(1));
+                stockInWithQuality.setrName(resultSet.getString(2));
+                stockInWithQuality.setStandard(resultSet.getString(3));
+                stockInWithQuality.setUnit(resultSet.getString(4));
+                stockInWithQuality.setCost(resultSet.getInt(5));
+                stockInWithQuality.setSalePrice(resultSet.getInt(6));
+                stockInWithQuality.setBatchNumber(resultSet.getString(7));
+                stockInWithQuality.setProductDate(resultSet.getString(8));
+                stockInWithQuality.setExpiration(resultSet.getString(9));
+                stockInWithQuality.setManufactor(resultSet.getString(10));
+                stockInWithQuality.setDepartment(resultSet.getString(11));
+                stockInWithQuality.setTotlNumber(resultSet.getInt(12));
+                stockInWithQuality.setStatue(resultSet.getInt(13));
+                stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -266,31 +279,47 @@ public class StockInFormDaoImpl implements StockInFormDao {
     }
 
     @Override
-    public List<Quality> getDrugNameByManufactor() {
+    public List<StockInWithQuality> getDrugNameByManufactor() {
         String sql="SELECT \n" +
                 "    s.rid,\n" +
                 "    s.rName,\n" +
+                "    s.standard,\n" +
+                "    s.unit,\n" +
+                "    s.cost,\n" +
+                "    s.salePrice,\n" +
+                "    s.batchNumber,\n" +
+                "    s.productDate,\n" +
+                "    s.expiration,\n" +
                 "    s.manufactor,\n" +
+                "    s.department,\n" +
                 "    q.totlNumber, \n" +
                 "    q.statue,      \n" +
-                "    q.storageStatus         \n" +
+                "    q.storageStatus        \n" +
                 "FROM stockinform AS s\n" +
                 "JOIN quality AS q \n" +
                 "ON s.tablecoding = q.tablecoding\n" +
-                "WHERE q.statue = 1 AND q.storageStatus = 0";
+                "WHERE q.statue = 1 AND q.storageStatus = 0 \n";
+
         ResultSet resultSet = JDBC.select(sql,new Object[1]);
-        List<Quality> qualityList = new ArrayList<Quality>();
+        List<StockInWithQuality> qualityList = new ArrayList<StockInWithQuality>();
         try {
             while (resultSet.next()){
-                Quality quality = new Quality();
-                quality.setTableCoding(resultSet.getInt(1));
-                //这里的tablecoding同时是两个表中的id，所以用tablecoding
-                quality.setmName(resultSet.getString(2));
-                quality.setSupplier(resultSet.getString(3));
-                quality.setTotlNumber(resultSet.getInt(4));
-                quality.setStatue(resultSet.getInt(5));
-                quality.setStorageStatus(resultSet.getString(6));
-                qualityList.add(quality);
+                StockInWithQuality stockInWithQuality = new StockInWithQuality();
+                stockInWithQuality.setrId(resultSet.getInt(1));
+                stockInWithQuality.setrName(resultSet.getString(2));
+                stockInWithQuality.setStandard(resultSet.getString(3));
+                stockInWithQuality.setUnit(resultSet.getString(4));
+                stockInWithQuality.setCost(resultSet.getInt(5));
+                stockInWithQuality.setSalePrice(resultSet.getInt(6));
+                stockInWithQuality.setBatchNumber(resultSet.getString(7));
+                stockInWithQuality.setProductDate(resultSet.getString(8));
+                stockInWithQuality.setExpiration(resultSet.getString(9));
+                stockInWithQuality.setManufactor(resultSet.getString(10));
+                stockInWithQuality.setDepartment(resultSet.getString(11));
+                stockInWithQuality.setTotlNumber(resultSet.getInt(12));
+                stockInWithQuality.setStatue(resultSet.getInt(13));
+                stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -299,24 +328,103 @@ public class StockInFormDaoImpl implements StockInFormDao {
     }
 
     @Override
-    public List<StockInForm> getDrugNameByManufactorName(int page, int limit,String manufactor) {
-        String sql="SELECT rId,rName FROM stockinform WHERE manufactor = ? LIMIT ?,?\n";
+    public List<StockInWithQuality> getDrugNameByManufactorName(int page, int limit,String manufactor) {
+        String sql="SELECT \n" +
+                "    s.rid,\n" +
+                "    s.rName,\n" +
+                "    s.standard,\n" +
+                "    s.unit,\n" +
+                "    s.cost,\n" +
+                "    s.salePrice,\n" +
+                "    s.batchNumber,\n" +
+                "    s.productDate,\n" +
+                "    s.expiration,\n" +
+                "    s.manufactor,\n" +
+                "    s.department,\n" +
+                "    q.totlNumber, \n" +
+                "    q.statue,      \n" +
+                "    q.storageStatus        \n" +
+                "FROM stockinform AS s\n" +
+                "JOIN quality AS q \n" +
+                "ON s.tablecoding = q.tablecoding\n" +
+                "WHERE q.statue = 1 AND q.storageStatus = 0 AND s.`manufactor`=?\n" +
+                "LIMIT ? , ?";
         Object[] objects = new Object[3];
         objects[0]=manufactor;
         objects[1]=page;
         objects[2]=limit;
         ResultSet resultSet = JDBC.select(sql, objects);
-        List<StockInForm> stockInFormList = new ArrayList<StockInForm>();
+        List<StockInWithQuality> qualityList = new ArrayList<StockInWithQuality>();
         try {
             while (resultSet.next()){
-                StockInForm stockInForm = new StockInForm();
-                stockInForm.setrId(resultSet.getInt("rid"));
-                stockInForm.setrName(resultSet.getString("rName"));
-                stockInFormList.add(stockInForm);
+                StockInWithQuality stockInWithQuality = new StockInWithQuality();
+                stockInWithQuality.setrId(resultSet.getInt(1));
+                stockInWithQuality.setrName(resultSet.getString(2));
+                stockInWithQuality.setStandard(resultSet.getString(3));
+                stockInWithQuality.setUnit(resultSet.getString(4));
+                stockInWithQuality.setCost(resultSet.getInt(5));
+                stockInWithQuality.setSalePrice(resultSet.getInt(6));
+                stockInWithQuality.setBatchNumber(resultSet.getString(7));
+                stockInWithQuality.setProductDate(resultSet.getString(8));
+                stockInWithQuality.setExpiration(resultSet.getString(9));
+                stockInWithQuality.setManufactor(resultSet.getString(10));
+                stockInWithQuality.setDepartment(resultSet.getString(11));
+                stockInWithQuality.setTotlNumber(resultSet.getInt(12));
+                stockInWithQuality.setStatue(resultSet.getInt(13));
+                stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return stockInFormList;
+        return qualityList;
+    }
+
+    @Override
+    public List<StockInWithQuality> getDrugNameByManufactorName() {
+        String sql="SELECT \n" +
+                "    s.rid,\n" +
+                "    s.rName,\n" +
+                "    s.standard,\n" +
+                "    s.unit,\n" +
+                "    s.cost,\n" +
+                "    s.salePrice,\n" +
+                "    s.batchNumber,\n" +
+                "    s.productDate,\n" +
+                "    s.expiration,\n" +
+                "    s.manufactor,\n" +
+                "    s.department,\n" +
+                "    q.totlNumber, \n" +
+                "    q.statue,      \n" +
+                "    q.storageStatus        \n" +
+                "FROM stockinform AS s\n" +
+                "JOIN quality AS q \n" +
+                "ON s.tablecoding = q.tablecoding\n" +
+                "WHERE q.statue = 1 AND q.storageStatus = 0 AND s.`manufactor`='南昌恒湖药酒有限责任公司'";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<StockInWithQuality> qualityList = new ArrayList<StockInWithQuality>();
+        try {
+            while (resultSet.next()){
+                StockInWithQuality stockInWithQuality = new StockInWithQuality();
+                stockInWithQuality.setrId(resultSet.getInt(1));
+                stockInWithQuality.setrName(resultSet.getString(2));
+                stockInWithQuality.setStandard(resultSet.getString(3));
+                stockInWithQuality.setUnit(resultSet.getString(4));
+                stockInWithQuality.setCost(resultSet.getInt(5));
+                stockInWithQuality.setSalePrice(resultSet.getInt(6));
+                stockInWithQuality.setBatchNumber(resultSet.getString(7));
+                stockInWithQuality.setProductDate(resultSet.getString(8));
+                stockInWithQuality.setExpiration(resultSet.getString(9));
+                stockInWithQuality.setManufactor(resultSet.getString(10));
+                stockInWithQuality.setDepartment(resultSet.getString(11));
+                stockInWithQuality.setTotlNumber(resultSet.getInt(12));
+                stockInWithQuality.setStatue(resultSet.getInt(13));
+                stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                qualityList.add(stockInWithQuality);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return qualityList;
     }
 }

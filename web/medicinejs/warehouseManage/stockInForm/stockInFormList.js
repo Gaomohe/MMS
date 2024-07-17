@@ -10,10 +10,9 @@ layui.extend({
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
 
     layui.use(function () {
-        var laydate = layui.laydate;
-        // 渲染
         laydate.render({
-            elem: '#ID-laydate-demo'
+            elem: '#MainTime',
+            type: 'datetime'
         });
     });
 
@@ -74,6 +73,17 @@ layui.extend({
             },
         })
     });
+    //重置
+    $("#resetButton").click(function() {
+        tableIns.reload({
+            url:"/StockInForm?action=selectStockInForm",
+            page: {
+                curr:1
+            }
+        })
+    })
+
+
     function renderTable(data){
         console.log(data)
         layui.use('table',function (){
@@ -83,7 +93,7 @@ layui.extend({
                 data:data,
                 cols : [[
                     {type: "checkbox", fixed:"left", width:50},
-                    {field: 'rId', title: '#',  align:'center',width:100},
+                    // {field: 'rId', title: '#',  align:'center',width:100},
                     {field: 'stockInNum', title: "入库单号",  align:'center',width:100},
                     {field: 'rName', title: '入库药品',  align:'center',width:100},
                     {field: 'standard', title: '规格', width:100, align:"center"},
@@ -97,7 +107,7 @@ layui.extend({
                     {field: 'expiration', title:'有效期至' , width:100, align:"center"},
                     {field: 'stockInTime', title:'入库时间' , width:100, align:"center"},
                     {field: 'department', title:'部门' , width:100, align:"center"},
-                    {field: 'notes', title:'备注' , width:100, align:"center"},
+                    {field: 'notes', title:'入库状态' , width:100, align:"center"},
                 ]],
                 done:function (data){
                     console.log(data)
@@ -105,32 +115,40 @@ layui.extend({
             })
         })
     }
-    //绑定“重置”点击时间
-
 
 
     //工具栏事件
     table.on('toolbar(stockInFormList)', function(obj){
-        console.log(obj)
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var rId = '';
+        var id = [];
         for(i=0;i<data.length;i++){
             rId = data[i].rId;
+            id.push(rId)
         }
-        console.log(rId)
+        console.log(id)
+        console.log(data)
         switch(obj.event){
             case 'delStockInForm':
-                if(data.length != 1){
+                if(data.length = 0){
                     layer.msg("请选择一行数据进行操作")
                     return false;
-                }
-                layer.confirm('确定删除此入库单吗?', {icon: 3, title:'提示'}, function(index){
-                    delStockInForm(rId);
-                    layer.close(index);
-                });
-                break;
+                }else if (data.length>=1){
+                    layer.confirm('确定删除此入库单吗?', {icon: 3, title:'提示'}, function(index){
+                        for(i=0;i<id.length;i++){
+                            delStockInForm(id[i]);
+                        }
 
+                        layer.close(index);
+                        setTimeout(function(){
+                            layer.closeAll("iframe");
+                            //刷新父页面
+                            parent.location.reload();
+                        },1000);
+                    });
+                    break;
+                }
             case 'updateStockInForm':
                 if(data.length != 1){
                     layer.msg("请选择一行数据进行操作")
@@ -147,11 +165,11 @@ layui.extend({
         };
     });
 
-    function delStockInForm(rId){
+    function delStockInForm(id){
         $.ajax({
             url:"/StockInForm?action=delStockInForm",
             type:"post",
-            data:{"rId":rId},
+            data:{"id":id},
             success:function(data){
                 console.log(data)
                 var info = JSON.parse(data);

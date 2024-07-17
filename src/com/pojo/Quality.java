@@ -16,6 +16,7 @@ public class Quality {
     private String storageStatus;
     private String time;
     private String supplier;
+    private int orderId;
 
     public Quality(int tableCoding, int totlNumber, int surveyNumber) {
         this.tableCoding = tableCoding;
@@ -145,5 +146,13 @@ public class Quality {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

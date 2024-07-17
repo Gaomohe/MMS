@@ -24,7 +24,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">单据日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="ID-laydate-type-datetime" placeholder="yyyy-MM-dd HH:mm:ss">
+                    <input type="text" class="layui-input" id="time" placeholder="yyyy-MM-dd HH:mm:ss">
                 </div>
             </div>
 
