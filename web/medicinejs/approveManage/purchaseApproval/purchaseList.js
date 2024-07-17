@@ -20,7 +20,7 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
-            // {field: 'applyId', title: '申请编号',  align:'center'},
+            {field: 'applyId', title: '申请编号',  align:'center'},
             // {field: 'mId', title: '字典编号',  align:'center'},
             {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
             {field: 'specification', title: '规格', align:'center'},
@@ -48,11 +48,12 @@ layui.extend({
         done:function (data){
         }
     });
-    $(document).ready(function (){
+    layui.use(function() {
+        var laydate = layui.laydate;
         laydate.render({
             elem: '#ID-laydate-demo',
         });
-    })
+    });
 
     table.on('toolbar(purchaseList)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
@@ -91,10 +92,11 @@ layui.extend({
                 break;
             case 'noaudit':
                 //反审核
-                // noaudit(array,state);
+                noaudit(array,state);
                 break;
-            case 'export':
+            case 'download':
                 //导出
+                download(array);
                 break;
             case 'delOK':
                 delOK();
@@ -103,24 +105,44 @@ layui.extend({
         }
 
     });
+    function download(purchId){
+        if (purchId.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
+        layer.confirm('是否需要导出', {icon: 3}, function(){
+            layer.msg('ok', {icon: 1});
+        }, function(){
+            layer.msg('未导出');
+        });
+        var checkRows = table.checkStatus('purchaseList');
+        console.log(checkRows);
+        if (checkRows.data.length === 0) {
+            layer.msg('请选择要导出的数据', {icon: 2});
+        } else {
+            table.exportFile(tableIns.config.id,checkRows.data, 'selected_data.xls');
+        }
+
+    }
     function noaudit(array,state){
+        if (array.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
         for (let i = 0; i < state.length; i++) {
             if (state[i]==="未审阅"){
                 layer.alert("单据"+array[i]+"未审阅！不允许撤销！");
                 return ;
             }
         }
-        if (purchId.length===0){
-            layer.msg("请选择一条记录");
-            return ;
-        }
-        var dataString = $.param({"purchId": purchId});
+        var dataString = $.param({"purchId": array});
         $.ajax({
             url:"/approval?action=noaudit",//根据id查询的方法
             type:"post",
             data:{dataString},
             success:function(data){
-                if (data.status===200){
+                var parse = JSON.parse(data);
+                if (parse.status===200){
                     layer.msg("已撤销", { icon: 1 });
                     tableIns.reload()
                 }else {
@@ -130,37 +152,31 @@ layui.extend({
         })
     }
     function delOK(){
-        layer.confirm('是否清除所有已审核的记录？', {icon: 3}, function(){
-            $.ajax({
-                url:"/approval?action=delOK",//根据id查询的方法
-                type:"post",
-                data:{},
-                success:function(data){
-                    if (data.status===200){
-                        layer.msg('已清除', {icon: 1});
-                        tableIns.reload()
-                    }else {
-                        layer.msg("出错了", { icon: 2 });
-                    }
-                }
-            })
-
-            tableIns.reload()
+        layer.confirm('是否展示所有未审核的记录？', {icon: 3}, function(){
+            tableIns.reload({
+                url : '/approval?action=delOK',
+                where: {
+                },
+                type:'static',
+                page: false,
+            });
+            layer.msg('已经展示');
         }, function(){
-            layer.msg('未清除');
+            layer.msg('未展示');
         });
     }
     function audit(array,state){
+        if (array.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
         for (let i = 0; i < state.length; i++) {
             if (state[i]==="已审阅通过" || state[i]==="已审阅未通过"){
                 layer.alert("单据"+array[i]+"已审阅,请取消！");
                 return ;
             }
         }
-        if (array.length===0){
-            layer.msg("请选择一条记录");
-            return ;
-        }
+
         var dataString = $.param({"array": array});
         layui.layer.open({
             title : "审批",
@@ -207,6 +223,7 @@ layui.extend({
             type:'static',
             page: false,
             done:function (date){
+
             }
         });
 

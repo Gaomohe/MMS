@@ -1,3 +1,4 @@
+import com.dao.Impl.BillDaoImpl;
 import com.dao.Impl.ShoppingDaoImpl;
 import com.dao.Impl.init.InitDaoImpl;
 import com.google.gson.Gson;
@@ -20,12 +21,11 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         InitDaoImpl initDao = new InitDaoImpl();
-
-        String[] keys={"mName"};
-        String[] value={"飞翔"};
-        ResultSet apply = initDao.search(keys, value, "apply");
+//        ResultSet one = initDao.getOne(1, "mId", "dictionary");
+        BillDaoImpl billDao = new BillDaoImpl();
+        ResultSet allIncome = billDao.getAllIncome();
         try {
-            if (apply.next()){
+            if (allIncome.next()){
                 System.out.println("okyyy");
             }else {
                 System.out.println("杀杀杀cc");

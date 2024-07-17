@@ -24,4 +24,9 @@ public interface ApprovalService {
     public ResultData<Integer> nook(int[] ints,String userName);
 
     public ResultData<List<Apply>> getHistory();
+
+    //反审核
+    public ResultData<Integer> noaudit(int[] ints,String name);
+
+    public LayuiTable<Appointment> delOK();
 }

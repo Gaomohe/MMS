@@ -100,10 +100,10 @@
 
 <hr class="layui-border-green">
 <button lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
-<button lay-event="delOK" type="button" class="layui-btn layui-bg-red">清除已审阅</button>
+<button lay-event="delOK" type="button" class="layui-btn layui-bg-red">未审阅</button>
 <button lay-event="audit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
 <button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
-<button lay-event="export" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
+<button lay-event="download" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
 
 
         </script>

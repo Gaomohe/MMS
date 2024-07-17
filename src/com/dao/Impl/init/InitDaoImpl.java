@@ -68,4 +68,35 @@ public class InitDaoImpl {
         return JDBC.select(sql,new Object[1]);
     }
 
+
+    //自定义表格搜索------0：无where   1：有where
+    public ResultSet searchCustomize(String[] keys,String[] values,String table,int o){
+        StringBuilder sqlbuild;
+        if (o==0){
+                 sqlbuild = new StringBuilder(table+" where ");
+            }else {
+            sqlbuild = new StringBuilder(table+" and ");
+        }
+            for (int i = 0; i < keys.length-1; i++) {
+                sqlbuild.append(keys[i]).append(" like ? and ");
+            }
+            sqlbuild.append(keys[keys.length-1]).append(" like ?");
+            Object[] objects = new Object[values.length];
+            for (int i = 0; i < values.length; i++) {
+                objects[i]="%"+values[0]+"%";
+            }
+            String sql = sqlbuild.toString();
+            return JDBC.select(sql, objects);
+    }
+
+
+    //自定义获取
+    public ResultSet getAllCustomize(String sqlTable){
+        return JDBC.select(sqlTable, new Object[1]);
+    }
+    public ResultSet getAllCustomize(int page,int limit,String sqlTable){
+        String sql = sqlTable + " limit ?,?";
+        Object[] objects = new Object[]{page,limit};
+        return JDBC.select(sql, objects);
+    }
 }

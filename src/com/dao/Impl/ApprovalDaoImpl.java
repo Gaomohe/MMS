@@ -22,4 +22,11 @@ public class ApprovalDaoImpl extends InitDaoImpl implements ApprovalDao {
         Object[] objects = new Object[]{userName,id};
         return JDBC.update(sql,objects) > 0;
     }
+
+    @Override
+    public boolean noaudit(int id, String name) {
+    String sql = "update apply set pharmacistApprove = '未审阅',pharmacist = ? where applyId=?";
+        Object[] objects = new Object[]{name,id};
+        return JDBC.update(sql,objects) > 0;
+    }
 }

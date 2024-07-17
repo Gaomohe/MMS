@@ -8,6 +8,7 @@ import com.pojo.User;
 import com.service.ApprovalService;
 import com.util.LayuiTable;
 import com.util.ResultData;
+import com.util.init.StringDeal;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -226,5 +227,66 @@ public class ApprovalServiceImpl implements ApprovalService {
             e.printStackTrace();
         }
         return sub_applyResultData;
+    }
+
+    @Override
+    public ResultData<Integer> noaudit(int[] ints, String name) {
+        for (int i : ints) {
+            if (approvalDao.noaudit(i,name)){
+                integerResultData.setStatus(200);
+            }else {
+                integerResultData.setStatus(400);
+                break;
+            }
+        }
+        return integerResultData;
+    }
+
+
+
+    @Override
+    public LayuiTable<Appointment> delOK() {
+        ResultSet resultSet = approvalDao.getOne("未审阅", "pharmacistApprove", "apply");
+        int count = 0;
+        List<Appointment> appointmentList = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Appointment appointment = new Appointment();
+                appointment.setApplyId(resultSet.getInt(1));
+                appointment.setmId(resultSet.getInt(2));
+                appointment.setmName(resultSet.getString(3));
+                appointment.setSpecification(resultSet.getString(4));
+                appointment.setManufactor(resultSet.getString(5));
+                appointment.setUnit(resultSet.getString(6));
+                appointment.setDepartment(resultSet.getString(7));
+                appointment.setNumber(resultSet.getInt(8));
+                appointment.setApplyNumber(resultSet.getInt(9));
+                appointment.setPurchasePrice(resultSet.getDouble(10));
+                appointment.setCode(resultSet.getString(11));
+                appointment.setmType(resultSet.getString(12));
+                appointment.setSupplier(resultSet.getString(13));
+                appointment.setApprovalNumber(resultSet.getString(14));
+                appointment.setPlaceOrigin(resultSet.getString(15));
+                appointment.setApplyUser(resultSet.getString(16));
+                appointment.setApplyTime(resultSet.getString(17));
+                appointment.setPharmacist(resultSet.getString(18));
+                appointment.setPharmacistApprove(resultSet.getString(19));
+                appointment.setPharmacistTime(resultSet.getString(20));
+                appointment.setFinance(resultSet.getString(21));
+                appointment.setFinanceApprove(resultSet.getString(22));
+                appointment.setFinanceTime(resultSet.getString(23));
+                appointment.setTableCoding(resultSet.getInt(24));
+                appointmentList.add(appointment);
+                count++;
+            }
+            appointmentLayuiTable.setData(appointmentList);
+            appointmentLayuiTable.setMsg("");
+            appointmentLayuiTable.setCode(0);
+            appointmentLayuiTable.setCount(count);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return appointmentLayuiTable;
     }
 }
