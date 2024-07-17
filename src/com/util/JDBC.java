@@ -12,9 +12,13 @@ public class JDBC {
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url="jdbc:mysql://rm-bp1ln5cud01u6z7893o.mysql.rds.aliyuncs.com:3306/mms";
-            String name="root1";
-            String password="MMS_root";
+            String url = "jdbc:mysql://localhost:3306/zsy_system?useUnicode=true&characterEncoding=UTF-8";
+            String name = "root";
+            String password = "root";
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            String url="jdbc:mysql://rm-bp1ln5cud01u6z7893o.mysql.rds.aliyuncs.com:3306/mms";
+//            String name="root1";
+//            String password="MMS_root";
             connection = DriverManager.getConnection(url, name, password);
         }catch (Exception e){
             e.printStackTrace();
