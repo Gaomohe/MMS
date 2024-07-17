@@ -113,7 +113,7 @@ public class AppointServiceImpl implements AppointService {
         orders.setoId(bId);
         for(int id : idList){
             appointment = appointDao.getAppoint(id);
-            int i = appointDao.addAppoint(id,bId,appointment.getNumber());
+            int i = appointDao.addAppoint(id,bId,appointment.getApplyNumber());
             if (i > 0){
                 num++;
             }

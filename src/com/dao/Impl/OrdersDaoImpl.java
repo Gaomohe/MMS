@@ -113,6 +113,11 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setRecipient(resultSet.getString("recipient")); // 收货人
                 orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
+                orders.setAllPrice(resultSet.getDouble("allPrice"));
+                orders.setAdvance(resultSet.getDouble("advance"));
+                orders.setAdvanceStatus(resultSet.getString("advanceStatus"));
+                orders.setFinals(resultSet.getDouble("finals"));
+                orders.setFinalsStatus(resultSet.getString("finalsStatus"));
                 list.add(orders);
             }
         }catch (Exception e){
