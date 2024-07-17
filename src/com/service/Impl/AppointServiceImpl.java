@@ -93,7 +93,7 @@ public class AppointServiceImpl implements AppointService {
             Apply apply = appointDao.getManufactor(id);
             orders.setManufactor(apply.getManufactor());
             orders.setBuyer(apply.getApplyUser());
-            orders.setShippingAddress(apply.getSupplier());
+            orders.setShippingAddress(apply.getManufactor());
 
             Quality quality = new Quality();
             quality.setTableCoding(id);
