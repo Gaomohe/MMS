@@ -58,32 +58,32 @@
                                             <select id="select1" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
                                                 <c:forEach var="type" items="${type1}" varStatus="s">
-                                                <option value="${type.typename}">${type.typename}</option>
-                                            </c:forEach>
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select2" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
                                                 <c:forEach var="type" items="${type2}" varStatus="s">
-                                                <option value="${type.typename}">${type.typename}</option>
-                                            </c:forEach>
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select3" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
                                                 <c:forEach var="type" items="${type3}" varStatus="s">
-                                                <option value="${type.typename}">${type.typename}</option>
-                                            </c:forEach>
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select4" lay-search="" lay-creatable="">
                                                 <option value="" hidden=""></option>
                                                 <c:forEach var="type" items="${type4}" varStatus="s">
-                                                <option value="${type.typename}">${type.typename}</option>
-                                            </c:forEach>
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                         <div class="layui-inline">
@@ -109,17 +109,75 @@
                             </div>
                         </div>
                         <table id="xTable1" lay-filter="xTable1"></table>
-                        <script type="text/html" id="tplStateTbAdv">
-                            <input type="checkbox" lay-filter="ckStateTbAdv" value="{{d.id}}" lay-skin="switch"
-                                   lay-text="已质检|未质检" {{d.statue==1?'checked':''}}/>
-                        </script>
                     </div>
-
 
                     <%--第二页--%>
                     <div class="layui-tab-item">
+                        <div class="layui-form toolbar">
+                            <div class="layui-form-item text-right">
+                                <script type="text/html" id="toolbarDemo2">
+                                    <div class="layui-form layui-row layui-col-space16">
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select21" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <c:forEach var="type" items="${type1}" varStatus="s">
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select22" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <c:forEach var="type" items="${type2}" varStatus="s">
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select23" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <c:forEach var="type" items="${type3}" varStatus="s">
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
+                                            <select id="select24" lay-search="" lay-creatable="">
+                                                <option value="" hidden=""></option>
+                                                <c:forEach var="type" items="${type4}" varStatus="s">
+                                                    <option value="${type.typename}">${type.typename}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button class="layui-btn icon-btn" id="searchByQuerys2" lay-event="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
+                                                <i class="layui-icon">&#xe615;</i>搜索
+                                            </button>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label style="width: auto" class="layui-form-label">质检时间:</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" lay-event="time2" lay-filter="time" class="layui-input" id="time2" placeholder="请选择时间">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="layui-border-green">
+                                    <div class="layui-inline">
+                                        <input id="search2" lay-event="enterSearch" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
+                                    </div>
+                                    <c:forEach var="menu" items="${menuList}" varStatus="s">
+                                        ${menu.resUrl}
+                                    </c:forEach>
+                                </script>
+                            </div>
+                        </div>
                         <div id="xTable2" lay-filter="xTable2"></div>
                     </div>
+
+                    <script type="text/html" id="tplStateTbAdv">
+                        <input type="checkbox" lay-filter="ckStateTbAdv" value="{{d.id}}" lay-skin="switch"
+                               lay-text="已质检|未质检" {{d.statue==1?'checked':''}}/>
+                    </script>
                 </div>
             </div>
         </div>
@@ -131,5 +189,4 @@
 <script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityList.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/qualityManage/qualityTest/qualityList2.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medDictionary/typesList.js" charset="UTF-8"></script>
-<%--<script type="text/javascript" src="<%=path%>medicinejs/medicineManage/medPrice/historyPrice.js" charset="UTF-8"></script>--%>
 </html>

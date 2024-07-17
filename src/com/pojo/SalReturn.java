@@ -1,0 +1,75 @@
+package com.pojo;
+
+public class SalReturn {
+    private int id;
+    private String returnId;
+    private String address;
+    private String shippingWay;
+    private String shippingTime;
+    private String consigner;
+    private String consignee;
+    private int oId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getReturnId() {
+        return returnId;
+    }
+
+    public void setReturnId(String returnId) {
+        this.returnId = returnId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getShippingWay() {
+        return shippingWay;
+    }
+
+    public void setShippingWay(String shippingWay) {
+        this.shippingWay = shippingWay;
+    }
+
+    public String getShippingTime() {
+        return shippingTime;
+    }
+
+    public void setShippingTime(String shippingTime) {
+        this.shippingTime = shippingTime;
+    }
+
+    public String getConsigner() {
+        return consigner;
+    }
+
+    public void setConsigner(String consigner) {
+        this.consigner = consigner;
+    }
+
+    public String getConsignee() {
+        return consignee;
+    }
+
+    public void setConsignee(String consignee) {
+        this.consignee = consignee;
+    }
+
+    public int getoId() {
+        return oId;
+    }
+
+    public void setoId(int oId) {
+        this.oId = oId;
+    }
+}

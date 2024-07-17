@@ -13,7 +13,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
     var tableIns=tableX.render({
         elem: '#xTable2',
         url: '/quality?action=getQualityBySS&storageStatus=已入库',
-        toolbar: '#toolbarDemo',
+        toolbar: '#toolbarDemo2',
         page: true,
         height: 600,
         limit: 15,
@@ -28,7 +28,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '质检数据编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide: true,
                 },
                 {
                     field: 'statue',
@@ -43,14 +44,16 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '药品数据编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide: true,
                 },
                 {
                     field: 'mId',
                     title: '药品编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide: true,
                 },
                 {
                     field: 'mName',
@@ -63,6 +66,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '本批入库数量',
                     minWidth: 200,
                     align: 'center',
+                    sort: true
                 },
                 {
                     field: 'usefulLife',
@@ -142,7 +146,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             arr+=data[i].tableCoding+",";
         }
         switch(obj.event){
-            case 'time':	//按照时间查找
+            case 'time':	//按照养护时间查找
                 getTime();
                 break;
             case 'delFunc':
@@ -156,19 +160,15 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     setTimeout(function (){location.reload()},2000);
                 }
                 break;
-            case 'searchByQuerys':
-                search()
-                break;
-
         };
     });
     //搜索
-    function search() {
-        select1 = $("#select1").val();
-        select2 = $("#select2").val();
-        select3 = $("#select3").val();
-        select4 = $("#select4").val();
-        console.log(select1,select2);
+    $("#searchByQuerys2").click(function () {
+        select1 = $("#select21").val();
+        select2 = $("#select22").val();
+        select3 = $("#select23").val();
+        select4 = $("#select24").val();
+        sql = 2;
         $.ajax({
             url: '/quality?action=getQualityByQuery', // 后端处理数据的URL
             type: "POST", // 或 'GET'，取决于后端接口的要求
@@ -177,28 +177,28 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 select2,
                 select3,
                 select4,
-                sql:2,
+                sql,
             },
             dataType:"JSON",
             success: function(response) {
                 // 在成功回调中处理后端返回的数据
                 // 假设后端返回的数据是一个数组，可以根据数据格式进行处理
                 var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
-                renderTable(tableData); // 渲染表格数据
+                renderTable1(tableData); // 渲染表格数据
             },
             error: function(error) {
                 console.error('Error:', error);
             }
         });
-    };
+    });
     //查询方法
-    function renderTable(data) {
+    function renderTable1(data) {
         layui.use('table', function(){
             var table = layui.table;
             table.render({
                 elem: '#xTable2',
                 data: data, // 使用从后端获取的数据渲染表格
-                toolbar: '#toolbarDemo',
+                toolbar: '#toolbarDemo2',
                 page: true,
                 height: 600,
                 limit: 15,
@@ -213,7 +213,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '质检数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true,
                     },
                     {
                         field: 'statue',
@@ -228,14 +229,16 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '药品数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true,
                     },
                     {
                         field: 'mId',
                         title: '药品编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true,
                     },
                     {
                         field: 'mName',
@@ -248,6 +251,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '本批入库数量',
                         minWidth: 200,
                         align: 'center',
+                        sort: true
                     },
                     {
                         field: 'usefulLife',
@@ -319,34 +323,48 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
                 var tableCoding = '';
-                var id='';
+                var mId='';
                 var arr='';
                 for(i=0;i<data.length;i++){
                     tableCoding = data[i].tableCoding;
+                    mId = data[i].mId;
                     arr+=data[i].tableCoding+",";
                 }
                 switch(obj.event){
-                    case 'time':	//按照时间查找
+                    case 'time2':	//按照养护时间查找
                         getTime();
                         break;
-                    case 'delFunc':
-                        var i = 0;
-                        for(i=0;i<data.length;i++){
-                            id = data[i].id;
-                            console.log(delFunc(id));
-                        }
-                        if (i=data.length){
-                            layer.msg("删除成功")
-                            setTimeout(function (){location.reload()},2000);
-                        }
-                        break;
-                    case 'searchByQuerys':
-                        search()
-                        break;
-
                 };
             });
-            $('#search').off('keypress').on('keypress', function(event) {
+            $("#searchByQuerys2").click(function () {
+                select1 = $("#select21").val();
+                select2 = $("#select22").val();
+                select3 = $("#select23").val();
+                select4 = $("#select24").val();
+                sql = 2;
+                $.ajax({
+                    url: '/quality?action=getQualityByQuery', // 后端处理数据的URL
+                    type: "POST", // 或 'GET'，取决于后端接口的要求
+                    data: {
+                        select1,
+                        select2,
+                        select3,
+                        select4,
+                        sql,
+                    },
+                    dataType:"JSON",
+                    success: function(response) {
+                        // 在成功回调中处理后端返回的数据
+                        // 假设后端返回的数据是一个数组，可以根据数据格式进行处理
+                        var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                        renderTable1(tableData); // 渲染表格数据
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+            $('#search2').off('keypress').on('keypress', function(event) {
                 if (event.which === 13) {
                     var search = $('#search').val();
                     $.ajax({
@@ -354,12 +372,12 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         type: "POST",
                         data: {
                             mName: search,
-                            sql:1,
+                            sql:2,
                         },
                         dataType: "JSON",
                         success: function(response) {
                             var tableData = response.data;
-                            renderTable(tableData);
+                            renderTable1(tableData);
                         },
                         error: function(error) {
                             console.error('Error:', error);
@@ -370,20 +388,22 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         });
     }
 
-    $('#search').off('keypress').on('keypress', function(event) {
+
+    $('#search2').off('keypress').on('keypress', function(event) {
         if (event.which === 13) {
-            var search = $('#search').val();
+            var search = $('#search2').val();
             $.ajax({
                 url: '/quality?action=getQualityBymName',
                 type: "POST",
                 data: {
                     mName: search,
-                    sql:1,
+                    sql:2,
                 },
                 dataType: "JSON",
                 success: function(response) {
                     var tableData = response.data;
-                    renderTable(tableData);
+                    console.log(tableData);
+                    renderTable1(tableData);
                 },
                 error: function(error) {
                     console.error('Error:', error);
@@ -395,7 +415,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
     function getTime(){
         // 申请时间
         laydate.render({
-            elem: '#time',
+            elem: '#time2',
             type: 'date',
             done: function(value) {
                 applyTime = value;
@@ -410,7 +430,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             url:"/quality?action=getQualityByTime",
             data:{
                 time,
-                sql:2,
+                sql:2
             },
             type:"POST",
             dataType:"JSON",
@@ -418,7 +438,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 // 在成功回调中处理后端返回的数据
                 // 假设后端返回的数据是一个数组，可以根据数据格式进行处理
                 var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
-                renderTable(tableData); // 渲染表格数据
+                renderTable1(tableData); // 渲染表格数据
             },
             error: function(error) {
                 console.error('Error:', error);
@@ -468,12 +488,12 @@ layui.use(['form'], function(){
             data: {id: id},
             success: function(data){
                 var info = JSON.parse(data);
-               if (info.status == 200){
-                   layer.msg("变化成功")
-                   setTimeout(function (){location.reload()}, 2000);
-               }else {
-                   layer.msg("变化失败")
-               }
+                if (info.status == 200){
+                    layer.msg("变化成功")
+                    setTimeout(function (){location.reload()}, 2000);
+                }else {
+                    layer.msg("变化失败")
+                }
 
             },
             error: function(xhr, status, error){

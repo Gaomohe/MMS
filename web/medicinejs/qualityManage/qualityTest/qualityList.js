@@ -28,7 +28,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '质检数据编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide: true,
                 },
                 {
                     field: 'statue',
@@ -43,14 +44,16 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '药品数据编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide: true,
                 },
                 {
                     field: 'mId',
                     title: '药品编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide: true,
                 },
                 {
                     field: 'mName',
@@ -63,6 +66,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '本批入库数量',
                     minWidth: 200,
                     align: 'center',
+                    sort: true
                 },
                 {
                     field: 'usefulLife',
@@ -127,6 +131,14 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     align: 'center',
                     sort: true
                 },
+                {
+                    field: 'orderId',
+                    title: '订单编号',
+                    minWidth: 200,
+                    align: 'center',
+                    sort: true,
+                    hide: true,
+                },
             ]
         ],
     });
@@ -135,10 +147,11 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var tableCoding = '';
+        var totlNumber="";
         var id='';
         var arr='';
+        var oId='';
         for(i=0;i<data.length;i++){
-            tableCoding = data[i].tableCoding;
             arr+=data[i].tableCoding+",";
         }
         switch(obj.event){
@@ -150,6 +163,19 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 for(i=0;i<data.length;i++){
                     id = data[i].id;
                     console.log(delFunc(id));
+                }
+                if (i=data.length){
+                    layer.msg("删除成功")
+                    setTimeout(function (){location.reload()},2000);
+                }
+                break;
+            case 'addFunc':
+                var i = 0;
+                for(i;i<data.length;i++){
+                    id = data[i].id;
+                    oId = data[i].orderId;
+                    addFunc(oId,id);
+                    /*delFuncByOid(oId)*/
                 }
                 if (i=data.length){
                     layer.msg("删除成功")
@@ -209,7 +235,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '质检数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true,
                     },
                     {
                         field: 'statue',
@@ -224,14 +251,16 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '药品数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true,
                     },
                     {
                         field: 'mId',
                         title: '药品编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true,
                     },
                     {
                         field: 'mName',
@@ -244,6 +273,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         title: '本批入库数量',
                         minWidth: 200,
                         align: 'center',
+                        sort: true
                     },
                     {
                         field: 'usefulLife',
@@ -315,16 +345,40 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
                 var tableCoding = '';
-                var mId='';
+                var totlNumber="";
+                var id='';
                 var arr='';
+                var oId='';
                 for(i=0;i<data.length;i++){
-                    tableCoding = data[i].tableCoding;
-                    mId = data[i].mId;
                     arr+=data[i].tableCoding+",";
                 }
                 switch(obj.event){
                     case 'time':	//按照养护时间查找
                         getTime();
+                        break;
+                    case 'delFunc':
+                        var i = 0;
+                        for(i=0;i<data.length;i++){
+                            id = data[i].id;
+                            console.log(delFunc(id));
+                        }
+                        if (i=data.length){
+                            layer.msg("删除成功")
+                            setTimeout(function (){location.reload()},2000);
+                        }
+                        break;
+                    case 'addFunc':
+                        var i = 0;
+                        for(i;i<data.length;i++){
+                            id = data[i].id;
+                            oId = data[i].orderId;
+                            addFunc(oId,id);
+                            /*delFuncByOid(oId)*/
+                        }
+                        if (i=data.length){
+                            layer.msg("删除成功")
+                            setTimeout(function (){location.reload()},2000);
+                        }
                         break;
                 };
             });
@@ -379,8 +433,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             });
         });
     }
-
-
+    //名称搜索
     $('#search').off('keypress').on('keypress', function(event) {
         if (event.which === 13) {
             var search = $('#search').val();
@@ -402,7 +455,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             });
         }
     });
-
+    //时间搜索
     function getTime(){
         // 申请时间
         laydate.render({
@@ -436,7 +489,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             }
         })
     }
-
+    //删
     function delFunc(id){
         $.ajax({
             url:"/quality?action=delQuality",
@@ -456,6 +509,53 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 }else {
                     layer.msg("删除失败")
                 }*/
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        })
+    }
+
+    function delFuncByOid(oid){
+        $.ajax({
+            url:"/quality?action=delQualityByOid",
+            data:{
+                oid
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(date) {
+                var info = JSON.parse(date);
+                if (info.status == 200){
+                    return 1;
+                }
+                /*if (info.status == 200){
+                    layer.msg("删除成功")
+                    setTimeout(function (){location.reload()}, 2000);
+                }else {
+                    layer.msg("删除失败")
+                }*/
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        })
+    }
+    //退货
+    function addFunc(oId,id){
+        $.ajax({
+            url:"/quality?action=returnMedicine",
+            data:{
+                oId,
+                id
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(date) {
+                var info = JSON.parse(date);
+                if (info.status == 200){
+                    return 1;
+                }
             },
             error: function(error) {
                 console.error('Error:', error);

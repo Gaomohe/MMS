@@ -4,11 +4,15 @@ import com.dao.Impl.MedicineDaoImpl;
 import com.dao.Impl.QualityDaoImpl;
 import com.dao.MedicineDao;
 import com.dao.QualityDao;
+import com.pojo.Curing;
 import com.pojo.Medicine;
 import com.pojo.Quality;
 import com.service.QualityService;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,11 +48,32 @@ public class QualityServiceImpl implements QualityService {
             quality.setSurveyNumber(3+i);
         }
         quality.setWarehousingRemarks(medicine.getWarehousingRemarks());
+        quality.setOrderId(qualityDao.getOid());
         return qualityDao.addQuality(quality);
     }
 
     @Override
     public List<Quality> getQualityBySS(String storageStatus) {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+        int i = 0;
+        for (Quality qualityBySS : qualityDao.getQualityBySS(storageStatus)) {
+            try {
+                Date parse1 = simpleDateFormat.parse(format);
+                Date parse2 = simpleDateFormat.parse(qualityBySS.getTime());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(parse1);
+                calendar.add(Calendar.DAY_OF_MONTH, -10);
+                Date DaysAgo = calendar.getTime();
+                if (parse2.before(DaysAgo)&&qualityBySS.getStorageStatus().equals("已入库")){
+                    qualityBySS.setStatue(0);
+                    qualityDao.updateQualityStatue(qualityBySS);
+                }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return qualityDao.getQualityBySS(storageStatus);
     }
 
@@ -77,7 +102,7 @@ public class QualityServiceImpl implements QualityService {
     @Override
     public List<Quality> getQualityByQuery(String sql,String[] query) {
         int i = 0;
-        String[] keys = {"goodsType","mType","defined","drugFrom"};//这里是键
+        String[] keys = {"goodsType","mType","defind","drugFrom"};//这里是键
         Object[] values = {query[0],query[1],query[2],query[3]};//这里是值
         String sql1 = getSQL(keys, values, sql);//apply是表名
         return qualityDao.getQualityByQuery(sql1);
@@ -118,6 +143,7 @@ public class QualityServiceImpl implements QualityService {
 
     @Override
     public int delQuality(int id) {
+
         return qualityDao.delQuality(id);
     }
 }
