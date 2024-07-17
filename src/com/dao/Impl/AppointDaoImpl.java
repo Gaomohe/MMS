@@ -64,11 +64,12 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     }
 
     @Override
-    public int addAppoint(int id, int bId) {
-        String sql = "insert into app_order(oId,aId) value(?,?)";
-        Object[] objects = new Object[2];
+    public int addAppoint(int id, int bId,int applyBuyNumber) {
+        String sql = "insert into app_order(oId,aId,applyBuyNumber) value(?,?,?)";
+        Object[] objects = new Object[3];
         objects[1] = id;
         objects[0] = bId;
+        objects[2] = applyBuyNumber;
         int update = JDBC.update(sql, objects);
         return update;
     }
@@ -246,5 +247,39 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
             e.printStackTrace();
         }
         return number;
+    }
+
+    @Override
+    public Apply getManufactor(int mId) {
+        String sql = "select * from apply WHERE mId = ? ";
+        Object[] objects = new Object[1];
+        objects[0] = mId;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        Apply apply = new Apply();
+        try{
+            while (resultSet.next()){
+                apply.setApplyUser(resultSet.getString("applyUser"));
+                apply.setManufactor(resultSet.getString("manufactor"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return apply;
+    }
+
+    //订单信息填充
+    @Override
+    public int insertOrder(Orders orders) {
+        String sql = "insert into orders(oId,manufactor,buyer,allPrice,advance,finals,shippingAddress) value(?,?,?,?,?,?,?)";
+        Object[] objects = new Object[7];
+        objects[0] = orders.getoId();
+        objects[1] = orders.getManufactor();
+        objects[2] = orders.getBuyer();
+        objects[3] = orders.getAllPrice();
+        objects[4] = orders.getAdvance();
+        objects[5] = orders.getFinals();
+        objects[6] = orders.getShippingAddress();
+        int result = JDBC.update(sql, objects);
+        return result;
     }
 }

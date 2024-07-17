@@ -1,10 +1,7 @@
 package com.dao;
 
 
-import com.pojo.Apply;
-import com.pojo.Appointment;
-import com.pojo.Medicine;
-import com.pojo.buyOrder;
+import com.pojo.*;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -23,7 +20,7 @@ public interface AppointDao {
     public int getOrderId();
 
     //绑定订单订单详情表
-    public int addAppoint(int id, int bId);
+    public int addAppoint(int id, int bId,int applyBuyNumber);
 
     //返回价格数量
     public Appointment getAppoint(int id);
@@ -45,4 +42,10 @@ public interface AppointDao {
 
     //获取药品数量
     public int getNumber(int id);
+
+    //获取供货商
+    public Apply getManufactor(int mId);
+
+    //订单信息填充
+    public int insertOrder(Orders orders);
 }

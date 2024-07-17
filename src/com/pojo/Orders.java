@@ -21,6 +21,11 @@ public class Orders {
     private String recipient; // 收货人
     private String orderCondition; // 收货状态
     private String statement; // 收货说明
+    private double allPrice;
+    private double advance;
+    private String advanceStatus;
+    private double finals;
+    private String finalsStatus;
 
     public int getoId() {
         return oId;
@@ -180,5 +185,45 @@ public class Orders {
 
     public void setStatement(String statement) {
         this.statement = statement;
+    }
+
+    public double getAllPrice() {
+        return allPrice;
+    }
+
+    public void setAllPrice(double allPrice) {
+        this.allPrice = allPrice;
+    }
+
+    public double getAdvance() {
+        return advance;
+    }
+
+    public void setAdvance(double advance) {
+        this.advance = advance;
+    }
+
+    public String getAdvanceStatus() {
+        return advanceStatus;
+    }
+
+    public void setAdvanceStatus(String advanceStatus) {
+        this.advanceStatus = advanceStatus;
+    }
+
+    public double getFinals() {
+        return finals;
+    }
+
+    public void setFinals(double finals) {
+        this.finals = finals;
+    }
+
+    public String getFinalsStatus() {
+        return finalsStatus;
+    }
+
+    public void setFinalsStatus(String finalsStatus) {
+        this.finalsStatus = finalsStatus;
     }
 }
