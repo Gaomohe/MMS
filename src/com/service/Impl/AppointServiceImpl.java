@@ -100,6 +100,7 @@ public class AppointServiceImpl implements AppointService {
             quality.setTotlNumber(number);
             qualityService.addQuality(quality);
         }
+
         orders.setAllPrice(allPrice);
         double advance = allPrice * 0.3;
         double finals = allPrice - advance;
