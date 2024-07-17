@@ -3,6 +3,7 @@ package com.servlet;
 import com.pojo.Advance;
 import com.pojo.Income;
 import com.pojo.Spend;
+import com.pojo.Transfer;
 import com.service.Impl.BillServiceImpl;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
@@ -33,6 +34,11 @@ public class BillServlet extends BaseServlet {
         session.setAttribute("supply1",supply1);
         session.setAttribute("supply2",supply2);
         session.setAttribute("supply3",supply3);
+
+        //财务人员
+
+
+
 
 
         return "medicine/financeManage/bill/financeList01";
@@ -147,6 +153,8 @@ public class BillServlet extends BaseServlet {
         LayuiTable<Advance> advanceLayuiTable = billService.search03(twoNotEmpty.get(0), twoNotEmpty.get(1));
         ToJSON.toJson(response,advanceLayuiTable);
     }
+
+
 
 
 

@@ -1,9 +1,6 @@
 package com.service;
 
-import com.pojo.Advance;
-import com.pojo.Appointment;
-import com.pojo.Income;
-import com.pojo.Spend;
+import com.pojo.*;
 import com.util.LayuiTable;
 import com.util.ResultData;
 import com.util.init.StringDeal;
@@ -29,11 +26,14 @@ public interface BillService {
     public List<?> getOpera1();
 
 
+    //财务
     public List<?> getFinance1();
+    public List<?> getFinance2();
 
 
 
     public List<?> getAccount1();
+    public List<?> getAccount2();
 
 
 
@@ -45,6 +45,9 @@ public interface BillService {
     public LayuiTable<Income> search01(String[] keys,String[] values);
     public LayuiTable<Spend> search02(String[] keys,String[] values);
     public LayuiTable<Advance> search03(String[] keys,String[] values);
+    public LayuiTable<Transfer> search_transfer(String[] keys,String[] values);
 
     public LayuiTable<Spend> getAllSpend(int page,int limit);
+
+    public LayuiTable<Transfer> getAllTransfer(int page,int limit);
 }

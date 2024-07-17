@@ -31,4 +31,23 @@ public class BillDaoImpl extends InitDaoImpl implements BillDao {
         return JDBC.select(sql,new Object[1]);
     }
 
+    @Override
+    public ResultSet getFinance2() {
+        String sql = "select distinct finance from apply where financeApprove ='已审阅通过'";
+        return JDBC.select(sql,new Object[1]);
+    }
+
+    @Override
+    public ResultSet getAccount2() {
+        String sql = "select  distinct manufactor from apply where financeApprove ='已审阅通过' ";
+        return JDBC.select(sql,new Object[1]);
+    }
+
+    @Override
+    public ResultSet getAllTransfer(int page,int limit) {
+        String sql = "select * from apply where financeApprove ='已审阅通过' limit ?,?";
+        Object[] objects = new Object[]{page,limit};
+        return JDBC.select(sql,objects);
+    }
+
 }

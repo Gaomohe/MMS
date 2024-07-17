@@ -99,4 +99,25 @@ public class InitDaoImpl {
         Object[] objects = new Object[]{page,limit};
         return JDBC.select(sql, objects);
     }
+
+    //查询一张表有多少条数据,0->表名，1->自定义
+    public int getRow(String table,int i){
+        int count = 0;
+        String sql = null;
+        if (i == 0){
+            sql = "select * from "+table;
+        }else if (i == 1){
+            sql = table;
+        }
+        ResultSet select = JDBC.select(sql, new Object[1]);
+        try {
+            while (select.next()){
+                count++;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

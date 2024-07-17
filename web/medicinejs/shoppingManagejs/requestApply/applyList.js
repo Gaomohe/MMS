@@ -23,7 +23,6 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
         });
         var arrID = $.param({"arrID": arrID});
         var arrKu = $.param({"arrKu": arrKu});
-
         $.ajax({
             url:"/shopping?action=add",
             data:{
@@ -32,7 +31,8 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
             type:"post",
             success:function(data){
                 var info = JSON.parse(data);
-                console.log(info)
+                console.log("什么")
+                console.log(data)
                 if(info.status === 200){
                     layer.msg("申请成功")
                     setTimeout(function(){
