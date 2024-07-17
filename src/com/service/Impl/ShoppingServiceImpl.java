@@ -207,13 +207,10 @@ public class ShoppingServiceImpl implements ShoppingService {
             resultData.setStatus(200);
             resultData.setData("");
             resultData.setMsg("");
-            int i = appointService.insertApply();
-            System.out.println(i);
         }else {
             resultData.setStatus(500);
             resultData.setData("");
             resultData.setMsg("");
-
         }
         return resultData;
     }

@@ -12,7 +12,6 @@
           <element id="library" level="project" name="commons-io-2.4" />
           <element id="library" level="project" name="fastjson-1.2.13" />
           <element id="library" level="project" name="jsp-api" />
-          <element id="library" level="project" name="mysql-connector-j-8.4.0" />
           <element id="library" level="project" name="jstl" />
           <element id="library" level="project" name="servlet-api" />
           <element id="library" level="project" name="standard" />
@@ -20,6 +19,7 @@
           <element id="library" level="project" name="gson-2.8.9" />
           <element id="library" level="project" name="jackson-databind-2.12.3" />
           <element id="library" level="project" name="jackson-annotations-2.12.1" />
+          <element id="library" level="project" name="mysql-connector-j-8.4.0" />
         </element>
       </element>
     </root>

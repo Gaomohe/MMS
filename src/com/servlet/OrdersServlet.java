@@ -159,6 +159,12 @@ public class OrdersServlet extends BaseServlet {
         return resultData;
     }
 
+    public void getOrderDetails(HttpServletRequest request,HttpServletResponse response){
+        String oIdStr = request.getParameter("oId");
+        int oId = Integer.parseInt(oIdStr);
+        Orders orders = ordersService.getOrdersById(oId);
+    }
+
 
     @Override
     public Class getServlet() {

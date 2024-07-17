@@ -158,4 +158,17 @@ layui.extend({
         });
     }
 
+    function getOrderDetails(){
+        $.ajax({
+            url:"/orders?action=getOrderDetails",
+            type:"get",
+            data:{
+                "oId":oId,
+            },
+            success:function(data){
+
+            }
+        })
+    }
+
 })

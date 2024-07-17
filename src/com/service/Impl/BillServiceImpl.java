@@ -4,6 +4,7 @@ import com.dao.Impl.BillDaoImpl;
 import com.pojo.Advance;
 import com.pojo.Income;
 import com.pojo.Spend;
+import com.pojo.Transfer;
 import com.service.BillService;
 import com.util.LayuiTable;
 import com.util.ResultData;
@@ -20,6 +21,7 @@ public class BillServiceImpl implements BillService {
     LayuiTable<Income> listLayuiTable = new LayuiTable<>();
     LayuiTable<Spend> spendLayuiTable = new LayuiTable<>();
     LayuiTable<Advance> advanceLayuiTable = new LayuiTable<>();
+    LayuiTable<Transfer> transferLayuiTable = new LayuiTable<>();
     @Override
     public LayuiTable<?> search(String[] key, String[] value) {
         ResultSet ledger = billDao.search(key, value, "ledger");
@@ -121,12 +123,44 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public List<Transfer> getFinance2() {
+        List<Transfer> list = new ArrayList<>();
+        ResultSet finance2 = billDao.getFinance2();
+        try {
+            while (finance2.next()){
+                Transfer transfer = new Transfer();
+                transfer.setcName(finance2.getString(1));
+                list.add(transfer);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
     public List<?> getAccount1() {
         List<?> list = new ArrayList<>();
         ResultSet kind = billDao.getKind("", "");
         try {
             // TODO: 2024-07-16
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Transfer> getAccount2() {
+        List<Transfer> list = new ArrayList<>();
+        ResultSet account2 = billDao.getAccount2();
+        try {
+            while (account2.next()){
+                Transfer transfer = new Transfer();
+                transfer.setSupName(account2.getString(1));
+                list.add(transfer);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -340,6 +374,41 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public LayuiTable<Transfer> search_transfer(String[] keys, String[] values) {
+        String sql = "select * from apply where financeApprove ='已审阅通过' ";
+        int count = billDao.getRow(sql, 1);
+        ResultSet allTransfer = billDao.searchCustomize(keys, values, sql, 1);
+        List<Transfer> transferList = new ArrayList<>();
+        try {
+            while (allTransfer.next()){
+                Transfer transfer = new Transfer();
+                transfer.setId(allTransfer.getInt(1));
+                transfer.setcName(allTransfer.getString("finance"));
+                transfer.setzName("医院");
+                transfer.setName(allTransfer.getString("finance"));
+                int applyNumber = allTransfer.getInt("applyNumber");
+                double purchasePrice = allTransfer.getDouble("purchasePrice");
+
+                transfer.setMoney(String.format("%.2f",applyNumber*purchasePrice)+"元");
+                transfer.setRealMoney(String.format("%.2f",applyNumber*purchasePrice*0.3)+"元");
+                transfer.setSupName(allTransfer.getString("supplier"));
+                transfer.setTime(allTransfer.getString("financeTime"));
+                transfer.setNote("预付款");
+                transferList.add(transfer);
+            }
+
+            transferLayuiTable.setCount(count);
+            transferLayuiTable.setData(transferList);
+            transferLayuiTable.setMsg("");
+            transferLayuiTable.setCode(0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return transferLayuiTable;
+
+    }
+
+    @Override
     public LayuiTable<Spend> getAllSpend(int page,int limit) {
         String sqlTable = "select * from app_order left join dictionary on app_order.aId=dictionary.mId";
         ResultSet allIncome = billDao.getAllCustomize(page,limit,sqlTable);
@@ -379,5 +448,39 @@ public class BillServiceImpl implements BillService {
             e.printStackTrace();
         }
         return spendLayuiTable;
+    }
+
+    @Override
+    public LayuiTable<Transfer> getAllTransfer(int page,int limit) {
+        String sql = "select * from apply where financeApprove ='已审阅通过' ";
+        int count = billDao.getRow(sql, 1);
+        List<Transfer> transferList = new ArrayList<>();
+        ResultSet allTransfer = billDao.getAllTransfer(page,limit);
+        try {
+            while (allTransfer.next()){
+                Transfer transfer = new Transfer();
+                transfer.setId(allTransfer.getInt(1));
+                transfer.setcName(allTransfer.getString("finance"));
+                transfer.setzName("医院");
+                transfer.setName(allTransfer.getString("finance"));
+                int applyNumber = allTransfer.getInt("applyNumber");
+                double purchasePrice = allTransfer.getDouble("purchasePrice");
+
+                transfer.setMoney(String.format("%.2f",applyNumber*purchasePrice)+"元");
+                transfer.setRealMoney(String.format("%.2f",applyNumber*purchasePrice*0.3)+"元");
+                transfer.setSupName(allTransfer.getString("supplier"));
+                transfer.setTime(allTransfer.getString("financeTime"));
+                transfer.setNote("预付款");
+                transferList.add(transfer);
+            }
+
+            transferLayuiTable.setCount(count);
+            transferLayuiTable.setData(transferList);
+            transferLayuiTable.setMsg("");
+            transferLayuiTable.setCode(0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return transferLayuiTable;
     }
 }

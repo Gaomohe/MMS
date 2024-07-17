@@ -25,11 +25,10 @@ public class ShoppingDaoImpl extends InitDaoImpl implements ShoppingDao {
 
     @Override
     public ResultSet memoryList() {
-        String sql = "select * from dictionary\n" +
-                "where tableCoding in (\n" +
-                "    select mId from sub_apply\n" +
-                "    where approve = ?\n" +
-                "    );";
+        String sql = "SELECT d.*\n" +
+                "FROM dictionary d\n" +
+                "JOIN sub_apply sa ON d.tableCoding = sa.mId\n" +
+                "WHERE sa.approve = ?";
         Object[] objects = new Object[1];
         objects[0] = 0;
         return JDBC.select(sql,objects);

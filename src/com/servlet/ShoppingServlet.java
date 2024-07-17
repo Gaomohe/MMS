@@ -9,6 +9,7 @@ import com.pojo.User;
 import com.service.Impl.ShoppingServiceImpl;
 import com.util.BaseServlet;
 import com.util.GetTime;
+import com.util.Result;
 import com.util.ResultData;
 import com.util.init.StringDeal;
 import com.util.init.ToJSON;
@@ -52,7 +53,10 @@ public class ShoppingServlet extends BaseServlet {
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"点击","采购申请","获取所有采购申请信息");
-        ToJSON.toJson(response,shoppingService.getAll(Integer.parseInt(request.getParameter("page")),Integer.parseInt(request.getParameter("limit"))));
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page =(page-1)*limit;
+        ToJSON.toJson(response,shoppingService.getAll(page,limit));
     }
 
     //获取所有药品规格
@@ -107,7 +111,12 @@ public class ShoppingServlet extends BaseServlet {
             resultData = shoppingService.addSub_Apply(sub_apply);
         }
         return resultData;
+    }
 
+    public ResultData insertApply(HttpServletRequest request, HttpServletResponse response){
+        int i = appointService.insertApply();
+        ResultData resultData = Result.resultStatus(i);
+        return resultData;
     }
     public void prescriptionDrug(HttpServletRequest request, HttpServletResponse response){
         HttpSession session9 = request.getSession();
