@@ -28,19 +28,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">药品名</label>
-        <div class="layui-input-inline">
-            <input type="text" name="oName" id="oName" lay-verify="required" placeholder="请输入药品名" autocomplete="off" class="layui-input">
-        </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">规格</label>
-        <div class="layui-input-inline">
-            <input type="text" name="specification" id="specification" lay-verify="required" placeholder="请输入规格" autocomplete="off" class="layui-input">
-        </div>
-    </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">生产企业</label>
@@ -49,26 +37,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">单位</label>
-        <div class="layui-input-inline">
-            <input type="text" name="unit" id="unit" lay-verify="required" placeholder="请输入单位" autocomplete="off" class="layui-input">
-        </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">订单数量</label>
-        <div class="layui-input-inline">
-            <input type="text" name="oNum" id="oNum" lay-verify="required" placeholder="请输入订单数量" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">采购单价</label>
-        <div class="layui-input-inline">
-            <input type="text" name="salePrice" id="salePrice" lay-verify="required" placeholder="请输入采购单价" autocomplete="off" class="layui-input">
-        </div>
-    </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">发货地址</label>
@@ -160,6 +129,8 @@
             <input type="text" name="statement" id="statement" lay-verify="required" placeholder="请输入收货说明" autocomplete="off" class="layui-input">
         </div>
     </div>
+
+
 
     <br/><br/>
     <div class="layui-form-item">

@@ -134,8 +134,12 @@ public class QualityServlet extends BaseServlet {
     //修改质检表质检状态
     public ResultData<Quality> updateQualityStatue(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
         Quality quality = new Quality();
         quality.setId(id);
+        quality.setWarehousingRemarks(name);
         int i = qualityService.updateQualityStatue(quality);
         int i1 = qualityService.updateQualityTime(quality);
         int i2 = 0;

@@ -41,13 +41,13 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
         var oId = $("#oId").val();
-        var oName = $("#oName").val();
+        /*var oName = $("#oName").val();
         var oName2 = $("#oName2").val();
-        var specification = $("#specification").val();
+        var specification = $("#specification").val();*/
         var manufactor = $("#manufactor").val();
-        var unit = $("#unit").val();
+        /*var unit = $("#unit").val();
         var oNum = $("#oNum").val();
-        var salePrice = $("#salePrice").val();
+        var salePrice = $("#salePrice").val();*/
         var shippingAddress = $("#shippingAddress").val();
         var deliveryAddress = $("#deliveryAddress").val();
         var shippingTime = $("#shippingTime").val();
@@ -61,7 +61,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var recipient = $("#recipient").val();
         var orderCondition = $("#orderCondition").val();
         var statement = $("#statement").val();
-        if(oName.length == "" ){
+        /*if(oName.length == "" ){
             layer.msg("药品名称不能为空")
             return false;
         }else if(oName.length != null && oName!=oName2 ){
@@ -70,7 +70,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                 layer.msg("药品名称已存在! 请重新输入")
                 return false;
             }
-        }
+        }*/
 
         $.ajax({
             url:"/orders?action=updateOrders",

@@ -15,11 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.util.Vessel.menuService;
-import static com.util.Vessel.ordersService;
+import static com.util.Vessel.*;
+import static com.util.Vessel.logService;
 
 @WebServlet("/orders")
 public class OrdersServlet extends BaseServlet {
+
+    @Override
+    public Class getServlet() {
+        return OrdersServlet.class;
+    }
+
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
@@ -28,6 +34,19 @@ public class OrdersServlet extends BaseServlet {
         session.setAttribute("menuList",menuList);
         return "/medicine/shoppingManage/order/orderList";
     }
+
+    public String getMenuBtn1(HttpServletRequest request, HttpServletResponse response){
+        String oIdStr = request.getParameter("oId");
+        int theoId = Integer.parseInt(oIdStr);
+        int resId = 288;
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("menuList",menuList);
+        session.setAttribute("theoId",theoId);
+        return "/medicine/shoppingManage/order/orderDetail";
+    }
+
     //获取所有订单
     public void selectOrders(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
@@ -158,15 +177,45 @@ public class OrdersServlet extends BaseServlet {
 
     //获取订单详情
     public void getOrderDetails(HttpServletRequest request,HttpServletResponse response){
-        String oIdStr = request.getParameter("oId");
-        int oId = Integer.parseInt(oIdStr);
-        List<Apply> applyList = ordersService.getOrderDetails(oId);
-        ToJSON.toJson(response,applyList);
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+        HttpSession session = request.getSession();
+        int oId = (Integer) session.getAttribute("theoId");
+        LayuiTable<Apply> layuiTable = ordersService.getOrderDetails(oId,page,limit);
+        ToJSON.toJson(response,layuiTable);
+    }
+
+    //获取供应商
+    public void getOrderList(HttpServletRequest request,HttpServletResponse response){
+        List<Orders> orderList = ordersService.getOrderList();
+        ToJSON.toJson(response,orderList);
+    }
+    public void getOrderList1(HttpServletRequest request,HttpServletResponse response){
+        List<Orders> orderList = ordersService.getOrderList1();
+        ToJSON.toJson(response,orderList);
+    }
+    public void getOrderList2(HttpServletRequest request,HttpServletResponse response){
+        List<Orders> orderList = ordersService.getOrderList2();
+        ToJSON.toJson(response,orderList);
+    }
+
+    //条件查询表
+    public void Search(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","采购管理","条件查询所有采购订单");
+        String supplier = request.getParameter("supplier");
+        String buyUser = request.getParameter("buyUser");
+        String status = request.getParameter("status");
+        Orders order = new Orders();
+        order.setManufactor(supplier);
+        order.setBuyer(buyUser);
+        order.setStatement(status);
+        LayuiTable<Orders> layuiTable = ordersService.Search(order);
+
     }
 
 
-    @Override
-    public Class getServlet() {
-        return OrdersServlet.class;
-    }
 }

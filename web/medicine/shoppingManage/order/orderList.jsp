@@ -25,16 +25,11 @@
 
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <blockquote class="layui-elem-quote quoteBox">
-            采购订单列表
-        </blockquote>
         <script type="text/html" id="ordersDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
             </c:forEach>
         </script>
-
-
         <table id="ordersList" lay-filter="ordersList"></table>
     </div>
 </div>

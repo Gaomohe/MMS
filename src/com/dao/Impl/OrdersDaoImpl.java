@@ -40,6 +40,11 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setRecipient(resultSet.getString("recipient")); // 收货人
                 orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
+                orders.setAllPrice(resultSet.getDouble("allPrice"));
+                orders.setAdvance(resultSet.getDouble("advance"));
+                orders.setAdvanceStatus(resultSet.getString("advanceStatus"));
+                orders.setFinals(resultSet.getDouble("finals"));
+                orders.setFinalsStatus(resultSet.getString("finalsStatus"));
                 ordersList.add(orders);
             }
         }catch (Exception e){
@@ -77,6 +82,11 @@ public class OrdersDaoImpl implements OrdersDao{
                 orders.setRecipient(resultSet.getString("recipient")); // 收货人
                 orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
                 orders.setStatement(resultSet.getString("statement")); // 收货说明
+                orders.setAllPrice(resultSet.getDouble("allPrice"));
+                orders.setAdvance(resultSet.getDouble("advance"));
+                orders.setAdvanceStatus(resultSet.getString("advanceStatus"));
+                orders.setFinals(resultSet.getDouble("finals"));
+                orders.setFinalsStatus(resultSet.getString("finalsStatus"));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -217,12 +227,15 @@ public class OrdersDaoImpl implements OrdersDao{
 
     //获取订单详情
     @Override
-    public List<Apply> getOrderDetails(int oId) {
+    public List<Apply> getOrderDetails(int oId,int page,int limit) {
         String sql = "select * from apply\n" +
                 "left join app_order on apply.mId = app_order.aId\n" +
-                "where app_order.oId = ?";
-        Object[] objects = new Object[1];
+                "where app_order.oId = ?\n" +
+                "limit ?,?;";
+        Object[] objects = new Object[3];
         objects[0]=oId;
+        objects[1]=page;
+        objects[2]=limit;
         ResultSet resultSet = JDBC.select(sql, objects);
         List<Apply> list = new ArrayList<>();
         try{
@@ -262,23 +275,117 @@ public class OrdersDaoImpl implements OrdersDao{
 
     //订单退退货
     @Override
-    public int backOrder(int oId) {
-        String sql = "update orders set statement='退货'\n" +
+    public int backOrder(int oId,String username) {
+        String sql = "update orders set statement='退货',recipient = ?\n" +
                 "where oId = ?;";
-        Object[] objects = new Object[1];
-        objects[0]=oId;
+        Object[] objects = new Object[2];
+        objects[0] = username;
+        objects[1]=oId;
         int result = JDBC.update(sql, objects);
         return result;
     }
 
     //订单确认
     @Override
-    public int getOrder(int oId) {
-        String sql = "update orders set statement='已完成'\n" +
+    public int getOrder(int oId,String username) {
+        String sql = "update orders set statement='已完成',recipient = ?\n" +
                 "where oId = ?;";
-        Object[] objects = new Object[1];
-        objects[0]=oId;
+        Object[] objects = new Object[2];
+        objects[0] = username;
+        objects[1]=oId;
         int result = JDBC.update(sql, objects);
         return result;
+    }
+
+    @Override
+    public List<Orders> getOrderList() {
+        String sql = "select manufactor from orders\n" +
+                "group by manufactor;";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<Orders> list = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Orders orders=new Orders();
+                orders.setManufactor(resultSet.getString("manufactor")); // 生产企业
+                list.add(orders);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }@Override
+    public List<Orders> getOrderList1() {
+        String sql = "select buyer from orders\n" +
+                "group by buyer";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<Orders> list = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Orders orders=new Orders();
+                orders.setBuyer(resultSet.getString("buyer")); // 采购人
+                list.add(orders);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+    @Override
+    public List<Orders> getOrderList2() {
+        String sql = "select statement from orders\n" +
+                "group by statement;";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<Orders> list = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Orders orders=new Orders();
+                orders.setStatement(resultSet.getString("statement")); // 收货说明
+
+                list.add(orders);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Orders> Search(String sql) {
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<Orders> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Orders orders = new Orders();
+                orders.setoId(resultSet.getInt("oId")); // 采购单号
+                orders.setoName(resultSet.getString("oName")); // 药品名
+                orders.setSpecification(resultSet.getString("specification")); // 规格
+                orders.setManufactor(resultSet.getString("manufactor")); // 生产企业
+                orders.setUnit(resultSet.getString("unit")); // 单位
+                orders.setoNum(resultSet.getInt("oNum")); // 订单数量
+                orders.setSalePrice(resultSet.getInt("salePrice")); // 采购单价
+                orders.setShippingAddress(resultSet.getString("shippingAddress")); // 发货地址
+                orders.setDeliveryAddress(resultSet.getString("deliveryAddress")); // 收货地址
+                orders.setShippingTime(resultSet.getString("shippingTime")); // 发货时间
+                orders.setShippingWay(resultSet.getString("shippingWay")); // 发货方式
+                orders.setTempControlWay(resultSet.getString("tempControlWay")); // 温控方式
+                orders.setDeliveryTime(resultSet.getString("deliveryTime")); // 到货时间
+                orders.setDeliveryTemp(resultSet.getString("deliveryTemp")); // 到货温度
+                orders.setAttachment(resultSet.getString("attachment")); // 关联附件
+                orders.setSalesman(resultSet.getString("salesman")); // 供货单位业务员
+                orders.setBuyer(resultSet.getString("buyer")); // 采购人
+                orders.setRecipient(resultSet.getString("recipient")); // 收货人
+                orders.setOrderCondition(resultSet.getString("orderCondition")); // 收货状态
+                orders.setStatement(resultSet.getString("statement")); // 收货说明
+                orders.setAllPrice(resultSet.getDouble("allPrice"));
+                orders.setAdvance(resultSet.getDouble("advance"));
+                orders.setAdvanceStatus(resultSet.getString("advanceStatus"));
+                orders.setFinals(resultSet.getDouble("finals"));
+                orders.setFinalsStatus(resultSet.getString("finalsStatus"));
+                list.add(orders);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

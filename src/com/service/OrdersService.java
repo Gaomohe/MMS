@@ -16,11 +16,19 @@ public interface OrdersService {
     public int isUname(Orders orders);
 
     //获取订单详情
-    public List<Apply> getOrderDetails(int oId);
+    public LayuiTable<Apply> getOrderDetails(int oId,int page,int limit);
 
     //订单退货
-    public int backOrder(int oId);
+    public int backOrder(int oId,String username);
 
     //订单确认
-    public int getOrder(int oId);
+    public int getOrder(int oId,String username);
+
+    //获取供应商列表
+    public List<Orders> getOrderList();
+    public List<Orders> getOrderList1();
+    public List<Orders> getOrderList2();
+
+    //条件查询订单表
+    public LayuiTable<Orders> Search(Orders order);
 }

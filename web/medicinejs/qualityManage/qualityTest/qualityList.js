@@ -112,7 +112,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 },
                 {
                     field: 'warehousingRemarks',
-                    title: '仓库标注',
+                    title: '质检人',
                     minWidth: 200,
                     align: 'center',
                     sort: true
