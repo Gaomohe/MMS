@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SalReturnService {
     //添加退货单
-    public int addSalReturn(int oId,int id);
+    public int addSalReturn(int oId,int id,String name);
     //查看所有订货单
     public int getAllSalReturn();
     public List<SalReturn> getSalReturn();
