@@ -9,18 +9,41 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
         var id = $("#id").val();
-        var demoCascader11 = $("#demoCascader11").val();
-        console.log(demoCascader11);
+        var demoCascader11Value = $("#demoCascader11").val(); // 获取级联选择器的值
+        var valuesArray = demoCascader11Value.split(','); // 分割成数组
+        var a = '';
+        valuesArray.forEach(function(value) {
+            var label = '';
+            // 假设 citysData 是你的省市区数据
+            function findLabel(data, value) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].value === value) {
+                        label = data[i].label;
+                        return true; // 但这里的 return true 不会影响 forEach 循环
+                    }
+                    if (data[i].children) {
+                        // 递归查找子级
+                        if (findLabel(data[i].children, value)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            // 从 citysData 开始查找
+            findLabel(citysData, value);
+            a +="/"+label;
+        });
         var address = $("#address").val();
         var shippingWay = $("#shippingWay").val();
         var consigner = $("#consigner").val();
 
-        demoCascader11 +="/"+address
+        a +="/"+address
         $.ajax({
             url:"/returnSal?action=updateAll",
             data:{
                 id,
-                address:demoCascader11,
+                address:a,
                 shippingWay,
                 consigner
             },
@@ -47,7 +70,8 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
         elem: '#demoCascader11',
         data: citysData,
         itemHeight: '250px',
-        filterable: false
+        filterable: false,
+        label:true,
     });
 
 });

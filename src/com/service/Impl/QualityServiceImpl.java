@@ -17,11 +17,13 @@ import java.util.Date;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
+import static com.util.Vessel.ordersService;
 
 public class QualityServiceImpl implements QualityService {
 
     QualityDao qualityDao = new QualityDaoImpl();
     MedicineDao medicineDao = new MedicineDaoImpl();
+
     @Override
     public int addQuality(Quality quality) {
         Medicine medicine = medicineDao.getMedicine(quality.getTableCoding());
@@ -121,10 +123,18 @@ public class QualityServiceImpl implements QualityService {
     }
 
     @Override
-    public int updateQualitySS(Quality quality) {
-        Quality quality1 = qualityDao.getQualityByID(quality.getId());
+    //入库状态改变方法
+    public int updateQualitySS(int id) {
+        Quality quality1 = qualityDao.getQualityByID(id);
+        List<Integer> qualityOid = qualityDao.getQualityOid(quality1.getOrderId());
+        for (int i:qualityOid){
+            if (i==0){
+                return i;
+            }
+        }
         if (quality1.getStorageStatus().equals("未入库")){
             quality1.setStorageStatus("已入库");
+            ordersService.getOrder(quality1.getOrderId());
         }else {
             quality1.setStorageStatus("未入库");
         }

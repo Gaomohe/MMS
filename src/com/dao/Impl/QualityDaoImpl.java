@@ -269,6 +269,21 @@ public class QualityDaoImpl implements QualityDao {
         return list;
     }
 
+    public List<Integer> getQualityOid(int oId) {
+        String sql="SELECT * FROM `quality` WHERE `oId` = ?;";
+        Object[] objects = new Object[]{oId};
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<Integer> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                int statue = resultSet.getInt(2);
+                list.add(statue);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
     @Override
     public int updateQualityStatue(Quality quality) {
         String sql="UPDATE `quality` SET `statue` = ? WHERE `id` = ?";
@@ -283,7 +298,7 @@ public class QualityDaoImpl implements QualityDao {
     public int updateQualitySS(Quality quality) {
         String sql="UPDATE `quality` SET `storageStatus` = ? WHERE `id` = ?";
         Object[] objects = new Object[2];
-        objects[0] = quality.getStatue();
+        objects[0] = quality.getStorageStatus();
         objects[1] = quality.getId();
         int i = JDBC.update(sql, objects);
         return i;

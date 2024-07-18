@@ -148,9 +148,7 @@ public class QualityServlet extends BaseServlet {
     //修改质检表入库状态
     public ResultData<Quality> updateQualitySS(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        Quality quality = new Quality();
-        quality.setId(id);
-        int i = qualityService.updateQualitySS(quality);
+        int i = qualityService.updateQualitySS(id);
         return Result.resultStatus(i);
     }
 
