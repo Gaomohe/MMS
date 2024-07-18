@@ -54,5 +54,4 @@ public class Vessel {
 
     public static MedicineDao medicineDao = new MedicineDaoImpl();
     public static MedicineService medicineService = new MedicineServiceImpl();
-
 }

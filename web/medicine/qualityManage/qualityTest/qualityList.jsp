@@ -102,7 +102,7 @@
                                     <div class="layui-inline">
                                         <input id="search" lay-event="enterSearch" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
                                     </div>
-                                    <c:forEach var="menu" items="${menuList}" varStatus="s">
+                                    <c:forEach var="menu" items="${menuList2}" varStatus="s">
                                         ${menu.resUrl}
                                     </c:forEach>
                                 </script>

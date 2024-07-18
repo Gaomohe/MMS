@@ -21,6 +21,14 @@ public class SalReturnDaoImpl implements SalReturnDao {
         return i;
     }
 
+    public int addSalReturnOne(SalReturn salReturn) {
+        String sql="INSERT INTO `salesreturn` (`returnId`,`address`,`shippingWay`,`shippingTime`,`consigner`,`consignee`,`oId`,`callNumber`,`state`,`mName`,`number`,`price`)\n" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        Object[] objects = new Object[]{salReturn.getReturnId(),salReturn.getAddress(),salReturn.getShippingWay(),salReturn.getShippingTime(),salReturn.getConsigner(),salReturn.getConsignee(),salReturn.getoId(),salReturn.getCallNumber(),salReturn.getState(),salReturn.getmName(),salReturn.getNumber(),salReturn.getPrice()};
+        int i = JDBC.update(sql, objects);
+        return i;
+    }
+
     @Override
     public int getAllSalReturn() {
         String sql="SELECT * FROM `salesreturn`";
@@ -293,6 +301,27 @@ public class SalReturnDaoImpl implements SalReturnDao {
         int i = 0;
         if (b){
             i = 1;
+        }
+        return i;
+    }
+
+    public double getPrice(int oId,int mId){
+        String sql ="select purchasePrice from apply\n" +
+                "where mId in (\n" +
+                "    select app_order.aId from app_order\n" +
+                "where oId = ?\n" +
+                "    )\n" +
+                "and mId = ?\n" +
+                "group by purchasePrice";
+        Object[] objects = new Object[]{oId,mId};
+        ResultSet resultSet = JDBC.select(sql, objects);
+        double i = 0;
+        try {
+            while (resultSet.next()){
+                i = resultSet.getDouble(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return i;
     }

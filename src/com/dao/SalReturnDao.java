@@ -8,6 +8,8 @@ public interface SalReturnDao {
 
     //添加退货单
     public int addSalReturn(SalReturn salReturn);
+    //添加单个商品退货单
+    public int addSalReturnOne(SalReturn salReturn);
     //查看所有订货单
     public int getAllSalReturn();
     public List<SalReturn> getSalReturn();
@@ -33,4 +35,5 @@ public interface SalReturnDao {
     public int updateAll(SalReturn salReturn);
     //删除退货单
     public int delSalReturn(int id);
+    public double getPrice(int oId,int mId);
 }

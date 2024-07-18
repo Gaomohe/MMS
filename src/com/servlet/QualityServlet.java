@@ -40,6 +40,7 @@ public class QualityServlet extends BaseServlet {
         HttpSession session2 = request.getSession();
         HttpSession session3 = request.getSession();
         HttpSession session4 = request.getSession();
+        HttpSession session5 = request.getSession();
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         List<Type> allGoodsType = typeService.getAllGoodsType();
@@ -47,12 +48,14 @@ public class QualityServlet extends BaseServlet {
         List<Type> allfreeType = typeService.getAllfreeType();
         List<Type> alldosage = typeService.getAlldosage();
         session.setAttribute("menuList",menuList);
+        session5.setAttribute("menuList2",menuList);
         session1.setAttribute("type1",allGoodsType);
         session2.setAttribute("type2",allMType);
         session3.setAttribute("type3",allfreeType);
         session4.setAttribute("type4",alldosage);
         return "medicine/qualityManage/qualityTest/qualityList";
     }
+
 
     //根据入库信息获取所有质检信息(主要显示)
     public LayuiTable<Quality> getQualityBySS(HttpServletRequest request, HttpServletResponse response){
@@ -184,10 +187,17 @@ public class QualityServlet extends BaseServlet {
     public ResultData<SalReturn> returnMedicine(HttpServletRequest request, HttpServletResponse response){
         int oId = Integer.parseInt(request.getParameter("oId"));
         int id = Integer.parseInt(request.getParameter("id"));
+        int num = Integer.parseInt(request.getParameter("num"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
-        int i = salReturnService.addSalReturn(oId, id,name);
+        int i =0;
+        if (num==1){
+            i = salReturnService.addSalReturn(oId, id,name);
+        }else {
+            i = salReturnService.addSalReturnOne(oId,id,name);
+        }
+
         return Result.resultStatus(i);
     }
 }
