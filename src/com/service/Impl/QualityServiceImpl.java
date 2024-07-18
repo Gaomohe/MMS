@@ -113,12 +113,12 @@ public class QualityServiceImpl implements QualityService {
     @Override
     public int updateQualityStatue(Quality quality) {
         Quality quality1 = qualityDao.getQualityByID(quality.getId());
+        quality1.setWarehousingRemarks(quality.getWarehousingRemarks());
         if (quality1.getStatue() == 0){
             quality1.setStatue(1);
         }else {
             quality1.setStatue(0);
         }
-        System.out.println(quality1.getStatue());
         return qualityDao.updateQualityStatue(quality1);
     }
 
@@ -134,7 +134,8 @@ public class QualityServiceImpl implements QualityService {
         }
         if (quality1.getStorageStatus().equals("未入库")){
             quality1.setStorageStatus("已入库");
-            ordersService.getOrder(quality1.getOrderId());
+            int orderId = quality1.getOrderId();
+            int order = ordersService.getOrder(quality1.getOrderId());
         }else {
             quality1.setStorageStatus("未入库");
         }
@@ -146,7 +147,6 @@ public class QualityServiceImpl implements QualityService {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
-        System.out.println(format);
         quality.setTime(format);
         return qualityDao.updateQualityTime(quality);
     }

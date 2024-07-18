@@ -32,7 +32,7 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
             }
             // 从 citysData 开始查找
             findLabel(citysData, value);
-            a +="/"+label;
+            a +=label+"-";
         });
         var address = $("#address").val();
         var shippingWay = $("#shippingWay").val();

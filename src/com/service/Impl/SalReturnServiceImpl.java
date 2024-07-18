@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static com.util.Vessel.ordersService;
+
 public class SalReturnServiceImpl implements SalReturnService {
 
     SalReturnDao salReturnDao = new SalReturnDaoImpl();
@@ -22,6 +24,7 @@ public class SalReturnServiceImpl implements SalReturnService {
 
     @Override
     public int addSalReturn(int oId, int id) {
+        ordersService.backOrder(oId);
         String[] SPECIAL_CHARACTERS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         List<String> usedNumbers = new ArrayList<>();
         UUID.randomUUID(); // 用于生成基础的唯一标识符

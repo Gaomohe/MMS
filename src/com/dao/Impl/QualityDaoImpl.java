@@ -286,10 +286,11 @@ public class QualityDaoImpl implements QualityDao {
     }
     @Override
     public int updateQualityStatue(Quality quality) {
-        String sql="UPDATE `quality` SET `statue` = ? WHERE `id` = ?";
-        Object[] objects = new Object[2];
+        String sql="UPDATE `quality` SET `statue` = ?,`warehousingRemarks`=? WHERE `id` = ?";
+        Object[] objects = new Object[3];
         objects[0] = quality.getStatue();
-        objects[1] = quality.getId();
+        objects[1] = quality.getWarehousingRemarks();
+        objects[2] = quality.getId();
         int i = JDBC.update(sql, objects);
         return i;
     }

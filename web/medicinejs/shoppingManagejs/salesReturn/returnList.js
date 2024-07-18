@@ -402,19 +402,17 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             maxmin: true, //开启最大化最小化按钮
             area: ['900px', '600px'],
             content:"medicine/shoppingManage/salesReturn/returnInfo.jsp?id="+id,
-
         });
     }
 
     function upReturn4(id){
         layer.open({
             type: 2,
-            title: '处理货单',
+            title: '添加收件人',
             shadeClose: true,
             maxmin: true, //开启最大化最小化按钮
             area: ['900px', '600px'],
             content:"medicine/shoppingManage/salesReturn/returnAddEE.jsp?id="+id,
-
         });
     }
     // 导出excel
