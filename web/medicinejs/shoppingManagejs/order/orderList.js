@@ -23,7 +23,7 @@ layui.extend({
             cellMinWidth : 95,
             page : true,
             toolbar: '#ordersDemo',
-            height : "full-125",
+            height : "600px",
             limit : 20,
             limits : [10,15,20,25],
             cols : [[
@@ -106,6 +106,7 @@ layui.extend({
                     getOrderDetails(data[0].oId);
                     break;
                 case 'search':
+                    console.log("sssssssssssssssss");
                     Search();
                     break;
 
@@ -253,7 +254,7 @@ layui.extend({
     }
 
     function Search(){
-        tableMain.reload({
+        mainTable.reload({
             url: "/orders?action=Search",
             where: {
                 "supplier": supplier,
@@ -262,6 +263,9 @@ layui.extend({
             },
             page: { curr: 1 }
         });
+        getSupplier();
+        getBuyUser();
+        getStatus();
     }
 
 });

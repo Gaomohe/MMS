@@ -81,17 +81,35 @@ public class OrdersServiceImpl implements OrdersService {
     //获取供应商列表
     @Override
     public List<Orders> getOrderList() {
-        return ordersDao.getOrderList();
+        int i = 0;
+        List<Orders> ordersList = ordersDao.getOrderList();
+        for (Orders orders : ordersList) {
+            orders.setoId(i);
+            i++;
+        }
+        return ordersList;
     }
 
     @Override
     public List<Orders> getOrderList1() {
-        return ordersDao.getOrderList1();
+        int i = 0;
+        List<Orders> ordersList = ordersDao.getOrderList1();
+        for (Orders orders : ordersList) {
+            orders.setoId(i);
+            i++;
+        }
+        return ordersList;
     }
 
     @Override
     public List<Orders> getOrderList2() {
-        return ordersDao.getOrderList2();
+        int i = 0;
+        List<Orders> ordersList = ordersDao.getOrderList2();
+        for (Orders orders : ordersList) {
+            orders.setoId(i);
+            i++;
+        }
+        return ordersList;
     }
 
     //条件查询订单表
@@ -99,7 +117,7 @@ public class OrdersServiceImpl implements OrdersService {
     public LayuiTable<Orders> Search(Orders order) {
         String[] keys = {"manufactor","statement","buyer"};
         Object[] values = {order.getManufactor(),order.getStatement(),order.getBuyer()};
-        String sql = SQLtoString.setSQL(keys, values, "orders");
+        String sql = SQLtoString.getSQL(keys, values, "orders");
         List<Orders> orders = ordersDao.Search(sql);
         LayuiTable<Orders> ordersLayuiTable = new LayuiTable<>();
         ordersLayuiTable.setMsg("");

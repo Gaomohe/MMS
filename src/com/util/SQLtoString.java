@@ -93,7 +93,5 @@ public class SQLtoString {
         String[] keys = {"applyId","applyUser","mName"};//这里是键
         Object[] values = {0,"张三",""};//这里是值
         getSQL(keys,values,"apply");//apply是表名
-
-        setSQL(keys,values,"apply");
     }
 }

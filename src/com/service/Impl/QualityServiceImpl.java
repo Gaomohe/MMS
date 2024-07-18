@@ -124,7 +124,7 @@ public class QualityServiceImpl implements QualityService {
 
     @Override
     //入库状态改变方法
-    public int updateQualitySS(int id) {
+    public int updateQualitySS(int id,String name) {
         Quality quality1 = qualityDao.getQualityByID(id);
         List<Integer> qualityOid = qualityDao.getQualityOid(quality1.getOrderId());
         for (int i:qualityOid){
@@ -135,7 +135,7 @@ public class QualityServiceImpl implements QualityService {
         if (quality1.getStorageStatus().equals("未入库")){
             quality1.setStorageStatus("已入库");
             int orderId = quality1.getOrderId();
-            int order = ordersService.getOrder(quality1.getOrderId());
+            int order = ordersService.getOrder(quality1.getOrderId(),name);
         }else {
             quality1.setStorageStatus("未入库");
         }

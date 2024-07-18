@@ -152,7 +152,10 @@ public class QualityServlet extends BaseServlet {
     //修改质检表入库状态
     public ResultData<Quality> updateQualitySS(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        int i = qualityService.updateQualitySS(id);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        int i = qualityService.updateQualitySS(id,name);
         return Result.resultStatus(i);
     }
 
@@ -181,7 +184,10 @@ public class QualityServlet extends BaseServlet {
     public ResultData<SalReturn> returnMedicine(HttpServletRequest request, HttpServletResponse response){
         int oId = Integer.parseInt(request.getParameter("oId"));
         int id = Integer.parseInt(request.getParameter("id"));
-        int i = salReturnService.addSalReturn(oId, id);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        int i = salReturnService.addSalReturn(oId, id,name);
         return Result.resultStatus(i);
     }
 }

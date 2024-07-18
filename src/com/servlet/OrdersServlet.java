@@ -214,7 +214,7 @@ public class OrdersServlet extends BaseServlet {
         order.setBuyer(buyUser);
         order.setStatement(status);
         LayuiTable<Orders> layuiTable = ordersService.Search(order);
-
+        ToJSON.toJson(response,layuiTable);
     }
 
 
