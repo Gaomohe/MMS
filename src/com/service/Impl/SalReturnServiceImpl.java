@@ -42,13 +42,19 @@ public class SalReturnServiceImpl implements SalReturnService {
         SalReturn salReturn = new SalReturn();
         salReturn.setReturnId(string);
         salReturn.setoId(oId);
-        salReturnDao.addSalReturn(salReturn);
-        return 0;
+        salReturn.setState("未到货");
+        int i = salReturnDao.addSalReturn(salReturn);
+        return i;
     }
 
     @Override
     public int getAllSalReturn() {
         return salReturnDao.getAllSalReturn();
+    }
+
+    @Override
+    public List<SalReturn> getSalReturn() {
+        return salReturnDao.getSalReturn();
     }
 
     @Override
@@ -69,7 +75,46 @@ public class SalReturnServiceImpl implements SalReturnService {
     }
 
     @Override
+    public List<SalReturn> getSalReturnByStatue(String state) {
+        return salReturnDao.getSalReturnByStatue(state);
+    }
+
+    @Override
+    public List<SalReturn> getSalReturnByEE(String consignee) {
+        return salReturnDao.getSalReturnByEE(consignee);
+    }
+
+    @Override
+    public List<SalReturn> getSalReturnByEr(String consigner) {
+        return salReturnDao.getSalReturnByEr(consigner);
+    }
+
+    @Override
+    public SalReturn getSalReturnByRId(String returnId) {
+        return salReturnDao.getSalReturnByRId(returnId);
+    }
+
+    @Override
+    public List<SalReturn> getSalReturnByCall(int callNumber) {
+        return salReturnDao.getSalReturnByCall(callNumber);
+    }
+
+    @Override
     public int updateConsignee(SalReturn salReturn) {
+
+        return salReturnDao.updateConsignee(salReturn);
+    }
+
+    @Override
+    public int updateStatue(SalReturn salReturn) {
+        SalReturn salReturnOne = salReturnDao.getSalReturnOne(salReturn.getId());
+        salReturnOne.setState(salReturn.getState());
+        return salReturnDao.updateStatue(salReturnOne);
+    }
+
+    @Override
+    public int updateAll(SalReturn salReturn) {
+
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
@@ -79,13 +124,7 @@ public class SalReturnServiceImpl implements SalReturnService {
         salReturnOne.setShippingWay(salReturn.getShippingWay());
         salReturnOne.setConsigner(salReturn.getConsigner());
         salReturnOne.setShippingTime(format);
-
-        return salReturnDao.updateConsignee(salReturnOne);
-    }
-
-    @Override
-    public int updateAll(SalReturn salReturn) {
-        return salReturnDao.updateAll(salReturn);
+        return salReturnDao.updateAll(salReturnOne);
     }
 
     @Override

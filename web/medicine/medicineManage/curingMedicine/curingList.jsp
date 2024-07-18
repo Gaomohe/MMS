@@ -96,7 +96,7 @@
 <!-- 表格状态列 -->
 <script type="text/html" id="tplStateTbAdv">
     <input type="checkbox" lay-filter="ckStateTbAdv" value="{{d.userId}}" lay-skin="switch"
-           lay-text="已养护|未养护" {{d.state==0?'checked':''}}/>
+           lay-text="已养护|未养护" {{d.state==0?'checked':''}} disabled/>
 </script>
 <!-- js部分 -->
 <script type="text/javascript" src="<%= path %>/iframe/assets/libs/layui/layui.js"></script>
