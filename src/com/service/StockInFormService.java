@@ -1,9 +1,6 @@
 package com.service;
 
-import com.pojo.Medicine;
-import com.pojo.Quality;
-import com.pojo.StockInForm;
-import com.pojo.StockInWithQuality;
+import com.pojo.*;
 import com.util.LayuiTable;
 
 import java.util.List;
@@ -24,9 +21,14 @@ public interface StockInFormService {
 
     public List<StockInForm> getStockInFormByQuery(String[] query);
 
-    public List<StockInForm> getManufactorWithNoRepeat();
+    //获得订单表里所有供应商名称
+    public List<Orders> getManufactorWithNoRepeat();
 
-    public LayuiTable<StockInWithQuality> getDrugNameByManufactor(int page, int limit);
-    //通过供应商名称查询对应的药品名称
-    public LayuiTable<StockInWithQuality> getDrugNameByManufactorName(int page, int limit,String manufactor);
+    //通过供应商和药品名称出对应的入库单（入库单表+质量检测表）
+    public LayuiTable<StockInWithQuality> getStockInFormByManufactorAndDrugName(int page, int limit,String manufactor,String rName);
+
+
+
+    //展示所有入库单
+    public LayuiTable<StockInWithQuality> getAllStockForm(int page, int limit);
 }

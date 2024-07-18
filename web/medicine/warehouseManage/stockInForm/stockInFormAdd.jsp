@@ -21,13 +21,6 @@
     <%--layui-form-item单独使用这个类会默认该元素独占一行--%>
         <div class="layui-form layui-row layui-col-space16">
 
-            <div class="layui-inline">
-                <label class="layui-form-label">单据日期</label>
-                <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="time" placeholder="yyyy-MM-dd HH:mm:ss">
-                </div>
-            </div>
-
 
             <%--单据编号是随机生成的--%>
             <div class="layui-input-inline">
@@ -46,6 +39,15 @@
                     </select>
                 </div>
             </div>
+
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">药品名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text"  id="rName" placeholder="请输入药品名称" class="layui-input">
+                    </div>
+                    <button type="button" class="layui-btn layui-bg-blue" id="search">查询</button>
+                    <button class="layui-btn layui-btn-primary layui-border" id="reset">重置</button>
+                </div>
         </div>
 </div>
 

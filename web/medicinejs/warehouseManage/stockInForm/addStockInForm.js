@@ -5,11 +5,6 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
     var $ = layui.jquery;
     var table  = layui.table;
 
-    laydate.render({
-        elem: '#time',
-        type: 'datetime'
-    });
-
     $(document).ready(function() {
         getLogAction();
     });
@@ -18,44 +13,49 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
 
     function getLogAction() {
         $.post("/StockInForm?action=getManufactorAll", function(res) {
+            //获取订单表里的所有供应商
             try {
-                var cs = JSON.parse(res)
+                var cs = JSON.parse(res);
                 var dom = $("#manuFactor").empty().html('<option value="0">请选择</option>');
                 $.each(cs, function(index, item) {
-                    dom.append('<option value="' + item.rId + '">' + item.manufactor + '</option>');
+                    dom.append('<option value="' + item.oId + '">' + item.manufactor + '</option>');
                 });
-                // 确保下拉框被正确渲染
                 form.render("select");
+
                 form.on('select(manuFactor)', function(data) {
-                    allManufactor = cs.find(item => item.rId == data.value)?.manufactor || '';
-                    console.log("选中动作动作：" + allManufactor);
-                    console.log(data.value)
-                    // 重新加载表格数据
-                    reloadTable(allManufactor);
+                    allManufactor = cs.find(item => item.oId == data.value)?.manufactor || '';
+                    console.log("供应商名称：" + allManufactor);
                 });
             } catch (e) {
                 console.error("Error parsing JSON:", e);
             }
         });
     }
-    function reloadTable(manufactorName) {
+    ////////////根据供应商名称和药品名称来查询并显示表格，状态为已入库
+    $("#search").click(function (){
+        var rName = $("#rName").val();
+        console.log(rName)
+        alert("ddd")
         tableIns.reload({
-            url: "/StockInForm?action=getDrugNameByManufactorName",
+            url: "/StockInForm?action=getStockInFormByManufactorAndDrugName",
             where: {
-                manufactorName: manufactorName
+                manufactorName: allManufactor,
+                rName:rName
             },
             page: {
                 curr: 1 // 重新从第 1 页开始
             }
         });
-    }
+    })
         // 表格渲染
         var tableIns = table.render({
             elem: '#addStockInFormList',
-            url : '/StockInForm?action=getDrugNameByManufactor',
+            url : '/StockInForm?action=getAllStockForm',
             type: "post",
             where: {
-                manufactorName: '' // 初始时默认不传递任何供应商名称
+                manufactorName: '',// 初始时默认不传递任何供应商名称
+
+
             },
             page : true,
             limit : 6,

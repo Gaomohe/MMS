@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Orders;
 import com.pojo.StockInForm;
 import com.pojo.StockInWithQuality;
 
@@ -22,13 +23,17 @@ public interface StockInFormDao {
     //根据入库单号，药品名称，入库日期区间查询
     public List<StockInForm> getStockInFormByQuery(String sql);
 
-    //查询所有生产厂家并排除重复
-    public List<StockInForm> getManufactorWithNoRepeat();
-    //根据质量检测表查询有哪些药品是要入库的
-    public List<StockInWithQuality> getDrugNameByManufactor(int page, int limit);
+    //查询所有供应商并排除重复
+    public List<Orders> getManufactorWithNoRepeat();
+    //连表查询（质量检测表+入库单表）并通过供应商和药品名称得出入库单表
+    public List<StockInWithQuality> getStockInFormByManufactorAndDrugName(int page, int limit,String manufactor,String rName);
     //获取上面这个表的长度
-    public List<StockInWithQuality> getDrugNameByManufactor();
-    public List<StockInWithQuality> getDrugNameByManufactorName(int page, int limit,String manufactorName);
+    public List<StockInWithQuality> getStockInFormByManufactorAndDrugName();
+
+
+
+    //显示所有已入库和未入库的表
+    public List<StockInWithQuality> getAllStockForm(int page, int limit);
     //获取上面这个表的长度
-    public List<StockInWithQuality> getDrugNameByManufactorName();
+    public List<StockInWithQuality> getAllStockForm();
 }

@@ -2,8 +2,8 @@ package com.servlet;
 
 import com.pojo.*;
 import com.util.BaseServlet;
+import com.util.GetTime;
 import com.util.LayuiTable;
-import com.util.Result;
 import com.util.ResultData;
 import com.util.init.StringDeal;
 import com.util.init.ToJSON;
@@ -29,22 +29,23 @@ public class StockInFormServlet extends BaseServlet {
 
     //获取所有供货商
     public void getManufactorAll(HttpServletRequest request, HttpServletResponse response){
-        List<StockInForm> stockInFormList = stockInFormService.getManufactorWithNoRepeat();
+        List<Orders> stockInFormList = stockInFormService.getManufactorWithNoRepeat();
         ToJSON.toJson(response,stockInFormList);
     }
     //获取所有供应商对应的药品名并分页显示
-    public void getDrugNameByManufactor(HttpServletRequest request, HttpServletResponse response){
+    public void getAllStockForm(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        ToJSON.toJson(response,stockInFormService.getDrugNameByManufactor(page,limit));
+        ToJSON.toJson(response,stockInFormService.getAllStockForm(page,limit));
     }
 
-    //通过供应商查询该供应商对应的药品名称
-    public void getDrugNameByManufactorName(HttpServletRequest request, HttpServletResponse response){
+    //通过供应商,药品名称和入库状态查询出入库单
+    public void getStockInFormByManufactorAndDrugName(HttpServletRequest request, HttpServletResponse response){
         String manufactorName = request.getParameter("manufactorName");
+        String rName = request.getParameter("rName");
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        ToJSON.toJson(response,stockInFormService.getDrugNameByManufactorName(page,limit,manufactorName));
+        ToJSON.toJson(response,stockInFormService.getStockInFormByManufactorAndDrugName(page,limit,manufactorName,rName));
     }
 
 
@@ -68,11 +69,11 @@ public class StockInFormServlet extends BaseServlet {
         stockInWithQuality.setBatchNumber(request.getParameter("batchNumber"));
         stockInWithQuality.setProductDate(request.getParameter("productDate"));
         stockInWithQuality.setExpiration(request.getParameter("expiration"));
-//        stockInWithQuality.setStockInTime(request.getParameter("stockInTime"));
+//        stockInWithQuality.setStockInTime(stockInTime);//直接在后端加入当前时间
         stockInWithQuality.setDepartment(request.getParameter("department"));
         stockInWithQuality.setTotlNumber(Integer.parseInt(request.getParameter("totlNumber")));
         stockInWithQuality.setStatue(Integer.parseInt(request.getParameter("statue")));
-        stockInWithQuality.setStorageStatus(("storageStatus"));
+//        stockInWithQuality.setStorageStatus(("已入库"));
         int i = stockInFormService.addDoStockInForm(stockInWithQuality);
         if (i>0){
             resultData.setStatus(200);
