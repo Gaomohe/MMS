@@ -1,10 +1,12 @@
 package com.service.Impl;
 
+import com.pojo.Apply;
 import com.pojo.Orders;
 import com.service.OrdersService;
 import com.util.LayuiTable;
 import com.util.ResultData;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.util.Vessel.ordersDao;
@@ -49,5 +51,22 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public int isUname(Orders orders) {
         return ordersDao.isUname(orders);
+    }
+
+    //获取订单详情
+    @Override
+    public List<Apply> getOrderDetails(int oId) {
+
+        return ordersDao.getOrderDetails(oId);
+    }
+
+    @Override
+    public int backOrder(int oId) {
+        return ordersDao.backOrder(oId);
+    }
+
+    @Override
+    public int getOrder(int oId) {
+        return ordersDao.getOrder(oId);
     }
 }

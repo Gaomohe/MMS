@@ -1,11 +1,13 @@
 package com.dao.Impl;
 
 import com.dao.OrdersDao;
+import com.pojo.Apply;
 import com.pojo.Orders;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OrdersDaoImpl implements OrdersDao{
@@ -211,5 +213,72 @@ public class OrdersDaoImpl implements OrdersDao{
             e.printStackTrace();
         }
         return count;
+    }
+
+    //获取订单详情
+    @Override
+    public List<Apply> getOrderDetails(int oId) {
+        String sql = "select * from apply\n" +
+                "left join app_order on apply.mId = app_order.aId\n" +
+                "where app_order.oId = ?";
+        Object[] objects = new Object[1];
+        objects[0]=oId;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<Apply> list = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                Apply apply=new Apply();
+                apply.setApplyId(resultSet.getInt(1));
+                apply.setmId(resultSet.getInt(2));
+                apply.setmName(resultSet.getString(3));
+                apply.setSpecification(resultSet.getString(4));
+                apply.setManufactor(resultSet.getString(5));
+                apply.setUnit(resultSet.getString(6));
+                apply.setDepartment(resultSet.getString(7));
+                apply.setNumber(resultSet.getInt(8));
+                apply.setApplyNumber(resultSet.getInt(9));
+                apply.setPurchasePrice(resultSet.getDouble(10));
+                apply.setCode(resultSet.getString(11));
+                apply.setmType(resultSet.getString(12));
+                apply.setSupplier(resultSet.getString(13));
+                apply.setApprovalNumber(resultSet.getString(14));
+                apply.setPlaceOrigin(resultSet.getString(15));
+                apply.setApplyUser(resultSet.getString(16));
+                apply.setApplyTime(resultSet.getString(17));
+                apply.setPharmacist(resultSet.getString(18));
+                apply.setPharmacistApprove(resultSet.getString(19));
+                apply.setPharmacistTime(resultSet.getString(20));
+                apply.setFinance(resultSet.getString(21));
+                apply.setFinanceApprove(resultSet.getString(22));
+                apply.setFinanceTime(resultSet.getString(23));
+                apply.setTableCoding(resultSet.getInt(24));
+                list.add(apply);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //订单退退货
+    @Override
+    public int backOrder(int oId) {
+        String sql = "update orders set statement='退货'\n" +
+                "where oId = ?;";
+        Object[] objects = new Object[1];
+        objects[0]=oId;
+        int result = JDBC.update(sql, objects);
+        return result;
+    }
+
+    //订单确认
+    @Override
+    public int getOrder(int oId) {
+        String sql = "update orders set statement='已完成'\n" +
+                "where oId = ?;";
+        Object[] objects = new Object[1];
+        objects[0]=oId;
+        int result = JDBC.update(sql, objects);
+        return result;
     }
 }

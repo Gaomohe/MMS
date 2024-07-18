@@ -9,6 +9,8 @@ public class SalReturn {
     private String consigner;
     private String consignee;
     private int oId;
+    private int callNumber;
+    private String state;
     public int getId() {
         return id;
     }
@@ -71,5 +73,21 @@ public class SalReturn {
 
     public void setoId(int oId) {
         this.oId = oId;
+    }
+
+    public int getCallNumber() {
+        return callNumber;
+    }
+
+    public void setCallNumber(int callNumber) {
+        this.callNumber = callNumber;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

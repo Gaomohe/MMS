@@ -119,7 +119,7 @@
                                     <div class="layui-form layui-row layui-col-space16">
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select21" lay-search="" lay-creatable="">
-                                                <option value="" hidden=""></option>
+                                                <option value=""></option>
                                                 <c:forEach var="type" items="${type1}" varStatus="s">
                                                     <option value="${type.typename}">${type.typename}</option>
                                                 </c:forEach>
@@ -127,7 +127,7 @@
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select22" lay-search="" lay-creatable="">
-                                                <option value="" hidden=""></option>
+                                                <option value=""></option>
                                                 <c:forEach var="type" items="${type2}" varStatus="s">
                                                     <option value="${type.typename}">${type.typename}</option>
                                                 </c:forEach>
@@ -135,7 +135,7 @@
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select23" lay-search="" lay-creatable="">
-                                                <option value="" hidden=""></option>
+                                                <option value=""></option>
                                                 <c:forEach var="type" items="${type3}" varStatus="s">
                                                     <option value="${type.typename}">${type.typename}</option>
                                                 </c:forEach>
@@ -143,7 +143,7 @@
                                         </div>
                                         <div class="layui-col-md6" style="width: 100px;margin-right: 5px">
                                             <select id="select24" lay-search="" lay-creatable="">
-                                                <option value="" hidden=""></option>
+                                                <option value=""></option>
                                                 <c:forEach var="type" items="${type4}" varStatus="s">
                                                     <option value="${type.typename}">${type.typename}</option>
                                                 </c:forEach>

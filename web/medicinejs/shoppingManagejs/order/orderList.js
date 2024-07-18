@@ -88,6 +88,11 @@ layui.extend({
             case 'addOrders':
                 addOrders();
                 break;
+            case 'details':
+                console.log("aaaaaaaaaaaaaaaaaaaaa");
+                console.log(data[0].oId);
+                getOrderDetails(data[0].oId);
+                break;
 
         };
     });
@@ -158,17 +163,13 @@ layui.extend({
         });
     }
 
-    function getOrderDetails(){
-        $.ajax({
-            url:"/orders?action=getOrderDetails",
-            type:"get",
-            data:{
-                "oId":oId,
-            },
-            success:function(data){
-
-            }
-        })
+    function getOrderDetails(oId){
+        layui.layer.open({
+            title : "订单详情",
+            type : 2,
+            content: "/patient?action=getMenuBtn1&oId=" + oId,
+            area:['1000px','600px']
+        });
     }
 
 })

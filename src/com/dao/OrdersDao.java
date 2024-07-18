@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Apply;
 import com.pojo.Orders;
 
 import java.util.List;
@@ -19,4 +20,13 @@ public interface OrdersDao {
     public int addOrders(Orders orders);
     //重名验证
     public int isUname(Orders orders);
+
+    //获取订单详情
+    public List<Apply> getOrderDetails(int oId);
+
+    //订单退款
+    public int backOrder(int oId);
+
+    //订单确认
+    public int getOrder(int oId);
 }

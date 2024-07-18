@@ -1,10 +1,7 @@
 package com.servlet;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud;
-import com.pojo.Menu;
-import com.pojo.Orders;
-import com.pojo.Role;
-import com.pojo.User;
+import com.pojo.*;
 import com.service.OrdersService;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
@@ -159,10 +156,12 @@ public class OrdersServlet extends BaseServlet {
         return resultData;
     }
 
+    //获取订单详情
     public void getOrderDetails(HttpServletRequest request,HttpServletResponse response){
         String oIdStr = request.getParameter("oId");
         int oId = Integer.parseInt(oIdStr);
-        Orders orders = ordersService.getOrdersById(oId);
+        List<Apply> applyList = ordersService.getOrderDetails(oId);
+        ToJSON.toJson(response,applyList);
     }
 
 

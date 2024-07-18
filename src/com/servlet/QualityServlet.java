@@ -176,10 +176,10 @@ public class QualityServlet extends BaseServlet {
     }
 
     //退货
-    public int returnMedicine(HttpServletRequest request, HttpServletResponse response){
+    public ResultData<SalReturn> returnMedicine(HttpServletRequest request, HttpServletResponse response){
         int oId = Integer.parseInt(request.getParameter("oId"));
         int id = Integer.parseInt(request.getParameter("id"));
         int i = salReturnService.addSalReturn(oId, id);
-        return i;
+        return Result.resultStatus(i);
     }
 }
