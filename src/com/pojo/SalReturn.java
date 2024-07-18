@@ -11,6 +11,9 @@ public class SalReturn {
     private int oId;
     private int callNumber;
     private String state;
+    private String mName;
+    private int number;
+    private double price;
     public int getId() {
         return id;
     }
@@ -89,5 +92,29 @@ public class SalReturn {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

@@ -146,13 +146,26 @@ public class OrdersServlet extends BaseServlet {
     public ResultData updateOrders(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         Orders orders = new Orders();
+        /*
+        * "oId": oId,
+                "manufactor": manufactor,
+                "shippingAddress": shippingAddress,"deliveryAddress": deliveryAddress,
+                "shippingTime": shippingTime,"shippingWay": shippingWay, "tempControlWay": tempControlWay,
+                "deliveryTime": deliveryTime,"deliveryTemp": deliveryTemp,"attachment": attachment,
+                "salesman": salesman,
+                "buyer": buyer,
+                "recipient": recipient,
+                "orderCondition": orderCondition,
+                "statement": statement,
+                "allPrice": allPrice,
+                "advance": advance,
+                "advanceStatus": advanceStatus,
+                "finals": finals,
+                "finalsStatus": finalsStatus,
+        * */
+
         orders.setoId(Integer.parseInt(request.getParameter("oId")));
-        orders.setoName(request.getParameter("oName")); // 药品名
-        orders.setSpecification(request.getParameter("specification")); // 规格
         orders.setManufactor(request.getParameter("manufactor")); // 生产企业
-        orders.setUnit(request.getParameter("unit")); // 单位
-        orders.setoNum(Integer.parseInt(request.getParameter("oNum"))); // 订单数量
-        orders.setSalePrice(Integer.parseInt(request.getParameter("salePrice"))); // 采购单价
         orders.setShippingAddress(request.getParameter("shippingAddress")); // 发货地址
         orders.setDeliveryAddress(request.getParameter("deliveryAddress")); // 收货地址
         orders.setShippingTime(request.getParameter("shippingTime")); // 发货时间
@@ -164,8 +177,13 @@ public class OrdersServlet extends BaseServlet {
         orders.setSalesman(request.getParameter("salesman")); // 供货单位业务员
         orders.setBuyer(request.getParameter("buyer")); // 采购人
         orders.setRecipient(request.getParameter("recipient")); // 收货人
-        orders.setOrderCondition(request.getParameter("orderCondition")); // 收货状态
+//        orders.setOrderCondition(request.getParameter("orderCondition")); // 收货状态
         orders.setStatement(request.getParameter("statement")); // 收货说明
+        orders.setAllPrice(Double.parseDouble(request.getParameter("allPrice")));
+        orders.setAdvance(Double.parseDouble(request.getParameter("advance")));
+        orders.setAdvanceStatus(request.getParameter("advanceStatus"));
+        orders.setFinals(Double.parseDouble(request.getParameter("finals")));
+        orders.setFinalsStatus(request.getParameter("finalsStatus"));
         int i = ordersService.updateDoOrders(orders);
         if (i>0){
             resultData.setStatus(200);

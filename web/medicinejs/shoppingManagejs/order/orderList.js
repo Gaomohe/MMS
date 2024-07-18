@@ -35,8 +35,8 @@ layui.extend({
                 // {field: 'unit', title:'单位' , width:100, align:"center"},
                 // {field: 'oNum', title:'订单数量' , width:100, align:"center"},
                 // {field: 'salePrice', title:'采购单价' , width:100, align:"center"},
-                {field: 'shippingAddress', title:'发货地址' , width:250, align:"center"},
-                {field: 'deliveryAddress', title:'收货地址' , width:250, align:"center"},
+                {field: 'shippingAddress', title:'发货地址' , width:300, align:"center"},
+                {field: 'deliveryAddress', title:'收货地址' , width:300, align:"center"},
                 {field: 'shippingTime', title:'发货时间' , width:150, align:"center"},
                 {field: 'allPrice', title:'订单总价格' , width:100, align:"center"},
                 {field: 'shippingWay', title:'发货方式' , width:150, align:"center"},
@@ -129,7 +129,8 @@ layui.extend({
         })
     }
 
-    function upOrders(oId){
+    //补完订单表信息
+    /*function upOrders(oId){
         layui.layer.open({
             title : "修改采购订单信息",
             type : 2,
@@ -145,12 +146,12 @@ layui.extend({
                         console.log(info);
                         var body = layui.layer.getChildFrame('body', index);
                         body.find("#oId").val(info.data.oId); // 采购单号
-                        body.find("#oName").val(info.data.oName); // 药品名
-                        body.find("#specification").val(info.data.specification); // 规格
+                        /!*body.find("#oName").val(info.data.oName); // 药品名
+                        body.find("#specification").val(info.data.specification); // 规格*!/
                         body.find("#manufactor").val(info.data.manufactor); // 生产企业
-                        body.find("#unit").val(info.data.unit); // 单位
+                        /!*body.find("#unit").val(info.data.unit); // 单位
                         body.find("#oNum").val(info.data.oNum); // 订单数量
-                        body.find("#salePrice").val(info.data.salePrice); // 采购单价
+                        body.find("#salePrice").val(info.data.salePrice); // 采购单价*!/
                         body.find("#shippingAddress").val(info.data.shippingAddress); // 发货地址
                         body.find("#deliveryAddress").val(info.data.deliveryAddress); // 收货地址
                         body.find("#shippingTime").val(info.data.shippingTime); // 发货时间
@@ -164,11 +165,66 @@ layui.extend({
                         body.find("#recipient").val(info.data.recipient); // 收货人
                         // body.find("#orderCondition").val(info.data.orderCondition); // 收货状态
                         body.find("#statement").val(info.data.statement); // 收货说明
+                        body.find("#allPrice").val(info.data.allPrice);
+                        body.find("#advance").val(info.data.advance);
+                        body.find("#advanceStatus").val(info.data.advanceStatus);
+                        body.find("#finals").val(info.data.finals);
+                        body.find("#finalsStatus").val(info.data.finalsStatus);
                     }
                 })
             }
         });
+    }*/
+    function upOrders(oId){
+        layui.layer.open({
+            title : "修改采购订单信息",
+            type : 2,
+            content : "medicine/shoppingManage/order/orderInfo.jsp",
+            area:['550px','500px'],
+            success:function(layero, index){
+                $.ajax({
+                    url:"/orders?action=selectOrdersById", // 根据id查询的方法
+                    type:"post",
+                    data:{"oId":oId},
+                    success:function(data){
+                        var info = JSON.parse(data);
+                        console.log(info);
+                        var body = layui.layer.getChildFrame('body', index);
+                        body.find("#oId").val(info.data.oId); // 采购单号
+                        body.find("#manufactor").val(info.data.manufactor); // 生产企业
+                        body.find("#shippingAddress").val(info.data.shippingAddress); // 发货地址
+                        body.find("#deliveryAddress").val(info.data.deliveryAddress); // 收货地址
+                        body.find("#shippingTime").val(info.data.shippingTime); // 发货时间
+                        body.find("#shippingWay").val(info.data.shippingWay); // 发货方式
+                        body.find("#tempControlWay").val(info.data.tempControlWay); // 温控方式
+                        body.find("#deliveryTime").val(info.data.deliveryTime); // 到货时间
+                        body.find("#deliveryTemp").val(info.data.deliveryTemp); // 到货温度
+                        body.find("#attachment").val(info.data.attachment); // 关联附件
+                        body.find("#salesman").val(info.data.salesman); // 供货单位业务员
+                        body.find("#buyer").val(info.data.buyer); // 采购人
+                        body.find("#recipient").val(info.data.recipient); // 收货人
+                        body.find("#statement").val(info.data.statement); // 收货说明
+                        body.find("#allPrice").val(info.data.allPrice);
+                        body.find("#advance").val(info.data.advance);
+                        body.find("#advanceStatus").val(info.data.advanceStatus);
+                        body.find("#finals").val(info.data.finals);
+                        body.find("#finalsStatus").val(info.data.finalsStatus);
+
+                        // 遍历所有input元素并设置只读属性
+                        var inputs = body.find('input');
+                        inputs.each(function() {
+                            if ($(this).val().trim() !== '') {
+                                $(this).prop('readonly', true); // 设置只读属性
+                            } else {
+                                $(this).prop('readonly', false); // 清除只读状态
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
+
 
     //新增经手人
     function addOrders(){
@@ -190,8 +246,6 @@ layui.extend({
             area:['1000px','600px']
         });
     }
-
-
 
     function getSupplier() {
         $.post("/orders?action=getOrderList", function(res) {

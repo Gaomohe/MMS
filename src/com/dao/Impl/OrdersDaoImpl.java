@@ -149,32 +149,31 @@ public class OrdersDaoImpl implements OrdersDao{
 
     @Override
     public int updateOrders(Orders orders) {
-        String sql="UPDATE orders SET oName = ?,specification=?,manufactor=?,unit=?,oNum=?,saleprice=?,\n" +
-                "shippingAddress=?,deliveryAddress=?,shippingTime=?,shippingWay=?,tempControlWay=?,\n" +
-                "deliveryTime=?,deliveryTemp=?,attachment=?,salesman=?,buyer=?,\n" +
-                "recipient=?,OrderCondition=?,statement=?\n" +
-                "WHERE oId = ?";
-        Object[] objects = new Object[20];
-        objects[0] = orders.getoName();
-        objects[1] = orders.getSpecification();
-        objects[2] = orders.getManufactor();
-        objects[3] = orders.getUnit();
-        objects[4] = orders.getoNum();
-        objects[5] = orders.getSalePrice();
-        objects[6] = orders.getShippingAddress();
-        objects[7] = orders.getDeliveryAddress();
-        objects[8] = orders.getShippingTime();
-        objects[9] = orders.getShippingWay();
-        objects[10] = orders.getTempControlWay();
-        objects[11] = orders.getDeliveryTime();
-        objects[12] = orders.getDeliveryTemp();
-        objects[13] = orders.getAttachment();
-        objects[14] = orders.getSalesman();
-        objects[15] = orders.getBuyer();
-        objects[16] = orders.getRecipient();
-        objects[17] = orders.getOrderCondition();
-        objects[18] = orders.getStatement();
-        objects[19] = orders.getoId();
+        String sql="UPDATE orders SET manufactor=?,shippingAddress=?,deliveryAddress=?,shippingTime=?,shippingWay=?,tempControlWay=?,\n" +
+                "deliveryTime=?,deliveryTemp=?,attachment=?,salesman=?,buyer=?,recipient=?,statement=?,allPrice=?,\n" +
+                "advance=?,advanceStatus=?,finals=?,finalsStatus=?\n" +
+                "WHERE oId = ?;";
+        Object[] objects = new Object[19];
+
+        objects[0] = orders.getManufactor();
+        objects[1] = orders.getShippingAddress();
+        objects[2] = orders.getDeliveryAddress();
+        objects[3] = orders.getShippingTime();
+        objects[4] = orders.getShippingWay();
+        objects[5] = orders.getTempControlWay();
+        objects[6] = orders.getDeliveryTime();
+        objects[7] = orders.getDeliveryTemp();
+        objects[8] = orders.getAttachment();
+        objects[9] = orders.getSalesman();
+        objects[10] = orders.getBuyer();
+        objects[11] = orders.getRecipient();
+        objects[12] = orders.getStatement();
+        objects[13] = orders.getAllPrice();
+        objects[14] = orders.getAdvance();
+        objects[15] = orders.getAdvanceStatus();
+        objects[16] = orders.getFinals();
+        objects[17] = orders.getFinalsStatus();
+        objects[18] = orders.getoId();
         int count= JDBC.update(sql,objects);
         return count;
     }

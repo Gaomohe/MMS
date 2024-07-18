@@ -56,7 +56,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">发货时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="shippingTime" id="shippingTime" lay-verify="required" placeholder="请输入发货时间" autocomplete="off" class="layui-input">
+            <input type="datetime-local" name="shippingTime" id="shippingTime" lay-verify="required" placeholder="请输入发货时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -77,7 +77,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">到货时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="deliveryTime" id="deliveryTime" lay-verify="required" placeholder="请输入到货时间" autocomplete="off" class="layui-input">
+            <input type="datetime-local" name="deliveryTime" id="deliveryTime" lay-verify="required" placeholder="请输入到货时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -116,12 +116,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">收货状态</label>
-        <div class="layui-input-inline">
-            <input type="text" name="orderCondition" id="orderCondition" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+
 
     <div class="layui-form-item">
         <label class="layui-form-label">收货说明</label>
@@ -130,11 +125,47 @@
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单总价格</label>
+        <div class="layui-input-inline">
+            <input type="text" name="allPrice" id="allPrice" lay-verify="required" placeholder="总价格" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">预付款</label>
+        <div class="layui-input-inline">
+            <input type="text" name="advance" id="advance" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">预付款状态</label>
+        <div class="layui-input-inline">
+            <input type="text" name="advanceStatus" id="advanceStatus" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">尾款</label>
+        <div class="layui-input-inline">
+            <input type="text" name="finals" id="finals" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">尾款状态</label>
+        <div class="layui-input-inline">
+            <input type="text" name="finalsStatus" id="finalsStatus" lay-verify="required" placeholder="请输入收货状态" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+
 
 
     <br/><br/>
     <div class="layui-form-item">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="upOrders">修改采购订单</button>
+        <button class="layui-btn layui-btn-fluid" id="update" lay-filter="upOrders">修改采购订单</button>
     </div>
 </form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
