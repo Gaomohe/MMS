@@ -13,6 +13,8 @@ import com.util.init.ToJSON;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @WebServlet("/gspReport")
@@ -37,7 +39,7 @@ public class GSPReportProServlet extends BaseServlet {
         return gspReportProService.getChoise02();
     }
     public ResultData<List<GetString>> getChoise03(HttpServletRequest request, HttpServletResponse response){
-        return null;
+        return gspReportProService.getChoise03();
     }
     public void search(HttpServletRequest request, HttpServletResponse response){
         String inputValue = request.getParameter("inputValue");

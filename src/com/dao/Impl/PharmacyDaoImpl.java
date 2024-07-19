@@ -87,7 +87,7 @@ public class PharmacyDaoImpl implements PharmacyDao {
     public List<Medicine> checkPharmacy(int phId, int page, int limit) {
         String sql = "select * from dictionary\n" +
                 "left join medicineorder on dictionary.mId = medicineorder.mId\n" +
-                "where orderId = ?\n" +
+                "where orderId = ? and status = '未取药'\n" +
                 "limit ?,?;";
         Object[] objects = new Object[3];
         objects[0] = phId;
@@ -137,5 +137,30 @@ public class PharmacyDaoImpl implements PharmacyDao {
             e.printStackTrace();
         }
         return medicines;
+    }
+
+    //患者取药
+    @Override
+    public int getMedicine(int mId, int pId) {
+        String sql = "update dic_num\n" +
+                "set statue = '已付款',time = NOW()\n" +
+                "where tableCoding = ? and patientId = ?";
+        Object[] objects = new Object[2];
+        objects[0] = mId;
+        objects[1] = pId;
+        int result = JDBC.update(sql,objects);
+        return result;
+    }
+
+    @Override
+    public int getMedicine1(int mId, int phId) {
+        String sql = "update medicineorder\n" +
+                "set status = '已取药'\n" +
+                "where mId = ? and orderId = ?;";
+        Object[] objects = new Object[2];
+        objects[0] = mId;
+        objects[1] = phId;
+        int result = JDBC.update(sql,objects);
+        return result;
     }
 }

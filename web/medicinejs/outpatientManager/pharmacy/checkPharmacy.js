@@ -194,9 +194,38 @@ layui.extend({
                     console.log(mIdList);
                     addMedicine();
                     break;
+                case 'getMedicine':
+                    if (files.length > 0) {
+                        files.forEach(function(file) {
+                            getMedicine(file.mId)
+                        });
+                    } else {
+                        layer.msg("未选择", {icon: 2});
+                    }
+                    break;
             }
         });
     });
+
+    function getMedicine(mId){
+        $.ajax({
+            url:"/pharmacy?action=getMedicine",
+            type:"post",
+            data:{"mId":mId},
+            success:function(data){
+                if (res.status==200){
+                    layer.msg("取药成功成功", { icon: 1 });
+                    tableMain.reload();
+                    parent.layer.close(window.currentLayerIndex);
+                    if (window.currentLayerIndex !== undefined) {
+                        parent.layer.close(window.currentLayerIndex);
+                    }
+                }else {
+                    layer.msg("删除失败", { icon: 2 });
+                }
+            }
+        })
+    }
 
     //刷新页面
     function winReload(){

@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,8 +27,16 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         GSPReportProServiceImpl gspReportProService = new GSPReportProServiceImpl();
-        List<String> day = StringDeal.getDay(6);
-        day.forEach(System.out::println);
+        LocalDate currentDate = LocalDate.now();
+
+        // 定义日期格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // 格式化日期
+        String formattedDate = currentDate.format(formatter);
+
+        // 输出当前日期
+        System.out.println("当前日期是: " + formattedDate);
 
     }
 

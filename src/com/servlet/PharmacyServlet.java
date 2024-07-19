@@ -4,6 +4,8 @@ package com.servlet;
 import com.pojo.*;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
+import com.util.Result;
+import com.util.ResultData;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
@@ -81,5 +83,19 @@ public class PharmacyServlet extends BaseServlet {
         int pId = pharmacyService.getpId(phId);
         Patient patient = outpatientService.backValues(pId);
         ToJSON.toJson(response,patient);
+    }
+
+    //患者取药
+    public ResultData getMedicine(HttpServletRequest request, HttpServletResponse response){
+        int mId = Integer.parseInt(request.getParameter("mId"));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int phId = (Integer)session.getAttribute("phId");
+        int pId = pharmacyService.getpId(phId);
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","门诊管理","患者取药--药师审查");
+        int i = pharmacyService.getMedicine(mId,pId,phId);
+        ResultData resultData = Result.resultStatus(i);
+        return resultData;
     }
 }

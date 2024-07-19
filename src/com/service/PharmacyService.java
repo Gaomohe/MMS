@@ -13,4 +13,7 @@ public interface PharmacyService {
 
     //获取处方中的具体药品
     public LayuiTable<Medicine> checkPharmacy(int phId,int page,int limit);
+
+    //患者取药
+    public int getMedicine(int mId,int pId,int phId);
 }

@@ -44,6 +44,14 @@ public class GSPReportProDaoImpl extends InitDaoImpl implements GSPReportProDao 
 
     @Override
     public ResultSet getChoise03(String mName) {
-        return null;
+        String sql = "select sum(applyNumber) from apply where mName = ?";
+        Object[] objects = new Object[]{mName};
+        return JDBC.select(sql,objects);
+    }
+
+    @Override
+    public ResultSet getChoiseKind03(String time) {
+        String sql = "select distinct mName from apply where applyTime like '"+time+"%'";
+        return JDBC.select(sql,new Object[1]);
     }
 }

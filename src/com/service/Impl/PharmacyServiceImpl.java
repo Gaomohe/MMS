@@ -50,4 +50,12 @@ public class PharmacyServiceImpl implements PharmacyService {
         layuiTable.setCount(medicineList.size());
         return layuiTable;
     }
+
+    //患者取药
+    @Override
+    public int getMedicine(int mId, int pId,int phId) {
+        int i = pharmacyDao.getMedicine(mId,pId);
+        int j = pharmacyDao.getMedicine1(mId,phId);
+        return i + j;
+    }
 }
