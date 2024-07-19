@@ -103,7 +103,7 @@
 
         // 默认加载主页
         index.loadHome({
-            menuPath: '../iframe/selectPages/所有首页可选择页面/welcome.html',
+            menuPath: '../iframe/selectPages/所有首页可选择页面/introduction.jsp',
             menuName: '<i class="layui-icon layui-icon-home"></i>'
         });
 
