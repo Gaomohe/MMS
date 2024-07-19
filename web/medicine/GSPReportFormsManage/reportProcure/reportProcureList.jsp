@@ -155,12 +155,12 @@
                 <div class="layui-tab-item">
                     <div class="container">
                         <div class="left-div">
-                            <label>供货商:</label>
-                            <select id="supply" name="interest" lay-filter="aihao" >
-                                <option value=""></option>
-                                <option value="a" selected>a</option>
-                                <option value="b">b</option>
-                                <option value="c">c</option>
+<%--                            <label>供货商:</label>--%>
+<%--                            <select id="supply" name="interest" lay-filter="aihao" >--%>
+<%--                                <option value=""></option>--%>
+<%--                                <option value="a" selected>a</option>--%>
+<%--                                <option value="b">b</option>--%>
+<%--                                <option value="c">c</option>--%>
                             </select>
                         </div>
                         <div id="pie" class="right-div" style="width: 600px;height:1000px;">

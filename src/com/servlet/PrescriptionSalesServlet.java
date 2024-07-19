@@ -18,4 +18,11 @@ public class PrescriptionSalesServlet extends BaseServlet {
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         return "medicine/GSPReportFormsManage/prescriptionSales/prescriptionSalesList";
     }
+
+    public void getAll(HttpServletRequest request, HttpServletResponse response){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+
+    }
 }
