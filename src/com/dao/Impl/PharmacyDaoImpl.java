@@ -3,6 +3,7 @@ package com.dao.Impl;
 import com.dao.PharmacyDao;
 import com.pojo.Medicine;
 import com.pojo.Pharmacy;
+import com.pojo.User;
 import com.util.JDBC;
 
 import java.sql.ResultSet;
@@ -163,4 +164,5 @@ public class PharmacyDaoImpl implements PharmacyDao {
         int result = JDBC.update(sql,objects);
         return result;
     }
+
 }

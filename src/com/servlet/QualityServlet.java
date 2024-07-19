@@ -140,6 +140,7 @@ public class QualityServlet extends BaseServlet {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","质量管理","药品质量检测");
         Quality quality = new Quality();
         quality.setId(id);
         quality.setWarehousingRemarks(name);

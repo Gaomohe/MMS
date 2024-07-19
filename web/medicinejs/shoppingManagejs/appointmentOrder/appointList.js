@@ -33,8 +33,8 @@ layui.extend({
             limits : [5,10,15,20,25],
             cols : [[
                 {fixed:"left",type: "checkbox", width:50},
-                {field: 'applyId', title: '申请编号',  align:'center',width:200},
-                {field: 'mId', title: '字典编号',  align:'center',width:200},
+                {field: 'applyId', title: '申请编号',  align:'center',width:200,hide:true},
+                {field: 'mId', title: '字典编号',  align:'center',width:200,hide:true},
                 {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200},
                 {field: 'specification', title: '规格', align:'center',width:200},
                 {field: 'manufactor', title: '生产企业', align:'center',width:200},
@@ -56,7 +56,7 @@ layui.extend({
                 {field: 'finance' ,title:'财务审批人', align:'center',width:200},
                 {field: 'financeApprove' ,title:'财务审批', align:'center',width:200},
                 {field: 'financeTime' ,title:'财务审批时间', align:'center',width:200},
-                {field: 'tableCoding' ,title:'自编码', align:'center',width:200}
+                {field: 'tableCoding' ,title:'自编码', align:'center',width:200,hide:true}
             ]]
         });
         tableMain = tableIns;

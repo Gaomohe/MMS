@@ -2,6 +2,7 @@ package com.service;
 
 import com.pojo.Medicine;
 import com.pojo.Pharmacy;
+import com.pojo.User;
 import com.util.LayuiTable;
 
 public interface PharmacyService {
@@ -15,5 +16,5 @@ public interface PharmacyService {
     public LayuiTable<Medicine> checkPharmacy(int phId,int page,int limit);
 
     //患者取药
-    public int getMedicine(int mId,int pId,int phId);
+    public int getMedicine(int mId, int pId, int phId);
 }

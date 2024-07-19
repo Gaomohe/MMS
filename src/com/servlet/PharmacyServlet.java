@@ -93,6 +93,7 @@ public class PharmacyServlet extends BaseServlet {
         int phId = (Integer)session.getAttribute("phId");
         int pId = pharmacyService.getpId(phId);
         String name = userService.getName(user.getId());
+        user.setUserName(name);
         logService.setLog(name,"点击","门诊管理","患者取药--药师审查");
         int i = pharmacyService.getMedicine(mId,pId,phId);
         ResultData resultData = Result.resultStatus(i);
