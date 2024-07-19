@@ -399,19 +399,23 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         break;
                     case 'issue':
                         var i = 0;
-                        for(i;i<data.length;i++){
-                            tableCoding = data[i].tableCoding;
-                            id = data[i].id;
-                            oId = data[i].orderId;
-                            layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                                addFunc(oId,id,2);
-                                issue(tableCoding);
-                                /*delFunc(id);*/
-                            }, function(){
-                                issue(tableCoding);
-                                /*delFunc(id);*/
-                            });
+                        if (data.length != 1){
+                            layer.msg("请选择一条数据")
+                        }else {
+                            for(i;i<data.length;i++){
+                                tableCoding = data[i].tableCoding;
+                                id = data[i].id;
+                                oId = data[i].orderId;
+                                layer.confirm('是否要单退此药品？', {icon: 3}, function(){
+                                    addFunc(oId,id,2);
+                                    issue(tableCoding);
+                                    /*delFunc(id);*/
+                                }, function(){
+                                    issue(tableCoding);
+                                    /*delFunc(id);*/
+                                });
 
+                            }
                         }
                         break;
                 };

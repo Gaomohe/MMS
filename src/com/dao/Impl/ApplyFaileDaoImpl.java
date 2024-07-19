@@ -349,4 +349,21 @@ public class ApplyFaileDaoImpl implements ApplyFailedDao {
         }
         return list;
     }
+
+    public int getLastApplyId(){
+        String sql = "SELECT applyId FROM `applyfailed` \n" +
+                "ORDER BY `applyId`  DESC\n" +
+                "LIMIT 1";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<ApplyFailed> list = new ArrayList<>();
+        int applyId = 0;
+        try {
+            while (resultSet.next()){
+                applyId = resultSet.getInt(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return applyId;
+    }
 }
