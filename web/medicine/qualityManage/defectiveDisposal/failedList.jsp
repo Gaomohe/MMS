@@ -86,7 +86,7 @@
 
                                                 <div class="layui-col-md6" style="width: 500px; margin-right: 5px;">
                                                     <div class="layui-inline" style="width: 100%;">
-                                                        <div class="layui-input-inline" style="width: calc(100% - 60px);">
+                                                        <div class="layui-input-inline" style="width: calc(100% - 60px);display: flex">
                                                             <select id="select2" lay-search="" lay-creatable="">
                                                                 <option value=""></option>
                                                                 <c:forEach var="manufactor" items="${manufactor}" varStatus="s">
