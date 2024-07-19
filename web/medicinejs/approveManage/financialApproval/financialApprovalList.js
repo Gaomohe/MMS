@@ -109,7 +109,9 @@ layui.extend({
                     if (files.length > 0) {
                         files.forEach(function(file) {
                             // 假设每个file对象都有一个id属性，用于标识用户
+                            console.log("=====================");
                             console.log(file.applyId);
+                            console.log("=====================");
                             total++;
                             setApprove(file.applyId);
                         });

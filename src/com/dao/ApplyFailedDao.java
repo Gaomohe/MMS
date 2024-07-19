@@ -29,4 +29,9 @@ public interface ApplyFailedDao {
     public int updateAppFailed(ApplyFailed applyFailed);
     //修改药品不合格原因
     public int updateCause(String cause,int applyId);
+
+    //原因表操作
+    public int addCause(int applyId,String date,String cause);
+    public int delCause(int applyId);
+    public List<ApplyFailed> getCause(int applyId);
 }

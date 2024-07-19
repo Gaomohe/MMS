@@ -58,31 +58,13 @@ layui.extend({
                         minWidth: 200,
                         align: 'center',
                     },
-                    /*{
-                        field: 'manufactor',
-                        title: '生产企业',
-                        minWidth: 400,
-                        align: 'center',
-                    },*/
                     {
                         field: 'unit',
                         title: '单位',
                         minWidth: 100,
                         align: "center",
                     },
-                    /*{
-                        field: 'department',
-                        title: '部门',
-                        minWidth: 200,
-                        align: 'center',
-                    },*/
-                    /*{
-                        field: 'position',
-                        title: '货位',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },*/
+
                     {
                         field: 'number',
                         title: '数量',
@@ -90,27 +72,6 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    /*{
-                        field: 'batchNumber',
-                        title: '批号',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'usefulLife',
-                        title: '有效期',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'purchasePrice',
-                        title: '采购价',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },*/
                     {
                         field: 'salePrice',
                         title: '销售价',
@@ -125,20 +86,6 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    /*{
-                        field: 'profits',
-                        title: '利润金额',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'code',
-                        title: '自编码',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },*/
                     {
                         field: 'goodsType',
                         title: '商品分类',
@@ -153,45 +100,6 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    /*{
-                        field: 'defined',
-                        title: '自定义类',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'supplier',
-                        title: '供货单位',
-                        minWidth: 200,
-                        align: 'center',
-                    },
-                    {
-                        field: 'warehousingDate',
-                        title: '入库日期',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'locationDescription',
-                        title: '货位说明',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'sign',
-                        title: '标志',
-                        minWidth: 200,
-                        align: 'center',
-                    },*/
-                    /*{
-                        field: 'warehousingRemarks',
-                        title: '入库备注',
-                        minWidth: 200,
-                        align: 'center',
-                    },*/
                     {
                         field: 'drugFrom',
                         title: '剂型',
@@ -199,12 +107,12 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                   /* {
-                        field: 'handlingInformation',
-                        title: '处理情况',
-                        minWidth: 200,
-                        align: 'center',
-                    },*/
+                    /* {
+                         field: 'handlingInformation',
+                         title: '处理情况',
+                         minWidth: 200,
+                         align: 'center',
+                     },*/
                     {
                         field: 'approvalNumber',
                         title: '批准文号',

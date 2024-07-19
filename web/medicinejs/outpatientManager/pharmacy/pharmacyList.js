@@ -16,30 +16,25 @@ layui.extend({
         });
 
         var tableIns = table.render({
-            elem: '#outpatientList',
+            elem: '#pharmacyList',
             cellMinWidth: 95,
             page: true,
-            url: '/patient?action=getPatientList',
-            toolbar: '#outpatientDemo',
+            url: '/pharmacy?action=getPharmacyList',
+            toolbar: '#pharmacyDemo',
             height: "800px",
             limit: 20,
             limits: [10, 15, 20, 25],
             cols: [[
                 {fixed:"left",type: "checkbox", width:50},
-                {field: 'pId', title: '患者卡号',  align:'center', width:200},
-                // {field: 'dId', title: '医生编号',  align:'center', width:200},
-                {field: 'mId', title: '处方编号', minWidth:100, align:"center",hide:true},
-                {field: 'name', title: '患者姓名', align:'center', width:200},
-                {field: 'sex', title: '性别', align:'center', width:200},
-                {field: 'age', title: '年龄', minWidth:100, align:"center"},
-                {field: 'weight', title: '体重/kg',  align:'center', width:200},
-                {field: 'address', title: '住址',  align:'center', width:200},
-                {field: 'phone', title: '联系方式',  align:'center', width:200},
-                {field: 'diagnosticTime', title: '就诊时间',  align:'center', width:200},
-                {field: 'allergy', title: '过敏史',  align:'center', width:200},
-                {field: 'doctorAdvice', title: '医嘱',  align:'center', width:200},
-                {field: 'dName', title: '医生姓名',  align:'center', width:200},
-                {field: 'lastDiaTime', title: '上次就诊时间',  align:'center', width:200}
+                {field: 'phId', title: '处方编号',  align:'center', width:200},
+                {field: 'pId', title: '患者编号', minWidth:100, align:"center"},
+                {field: 'pName', title: '患者姓名', align:'center', width:200},
+                {field: 'doctor', title: '开方医生', align:'center', width:200},
+                {field: 'isPharmacy', title: '是否含有处方药', minWidth:100, align:"center"},
+                {field: 'time', title: '开方时间',  align:'center', width:200},
+                {field: 'pharmacist', title: '药师',  align:'center', width:200},
+                {field: 'pharmacistApprove', title: '药师审核',  align:'center', width:200},
+                {field: 'pharmacistTime', title: '药师审核时间',  align:'center', width:200},
             ]],
         });
         tableMain = tableIns;
@@ -57,7 +52,7 @@ layui.extend({
         getTime();
         getStatus();
 
-        table.on('toolbar(outpatientList)', function(obj) {
+        table.on('toolbar(pharmacyList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
             var files = checkdata.data;
             var array = [];
@@ -95,9 +90,30 @@ layui.extend({
                         layer.msg("未选择", {icon: 2});
                     }
                     break;
+                case 'check':
+                    console.log("0000000000000000000000");
+                    console.log(files[0].pId);
+                    if (files.length > 0) {
+                        console.log(files[0].pId);
+                        Check(files[0].pId);
+                    } else {
+                        layer.msg("未选择", {icon: 2});
+                    }
+                    break;
             }
         });
     });
+
+
+    function Check(phId){
+        layui.layer.open({
+            title : "审核处方",
+            type : 2,
+            content : "/pharmacy?action=getMenuBtn1&phId=" + phId,
+            area:['1200px','675px']
+        });
+
+    }
 
     //打开开处方的界面
     function addMedicine(id){
@@ -289,4 +305,3 @@ layui.extend({
         });
     }
 });
-

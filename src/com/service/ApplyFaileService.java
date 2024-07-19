@@ -10,6 +10,7 @@ public interface ApplyFaileService {
     //获取所有不合格品订单信息
     public int getAll();
     public List<ApplyFailed> getAll(int page, int limit);
+    public List<ApplyFailed> getAllCase(int applyId);
     public List<ApplyFailed> getAll(int page,int limit,String title,String sort);
     //根据applyId获取不合格订单信息
     public ApplyFailed getApplyFailedByAId(int applyId);
