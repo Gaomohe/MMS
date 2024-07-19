@@ -80,6 +80,7 @@
 
                 <div class="layui-col-md2">
                     <button type="button" class="layui-btn layui-bg-red" id="findButton"><i class="layui-icon layui-icon-search"></i>查询</button>
+                    <button class="layui-btn layui-btn-primary layui-border" id="reset" style="background-color: white">重置</button>
                 </div>
             </div>
 

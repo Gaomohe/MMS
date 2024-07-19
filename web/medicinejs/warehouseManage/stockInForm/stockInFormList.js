@@ -187,24 +187,24 @@ layui.extend({
             dataType: "json",
             traditional: true,
             success:function(data){
-                var cs = JSON.parse(data)
-                console.log(cs)
                 count++
                 console.log(count)
-                if (count === total) {
+                if (count == total) {
                     console.log(total)
-                    if (cs.status===200) {
-                        console.log(cs.status)
-                        layer.msg("删除成功", { icon: 1 });
-                        location.reload();
+                    if (data.status==200) {
+                        console.log(data.status)
+                            layer.confirm('确认删除此入库单吗？', {
+                                btn: ['确定', '关闭'] //按钮
+                            }, function(){
+                                layer.msg('删除成功', {icon: 1});
+                                location.reload();
+                            })
+
                     } else {
                         layer.msg("删除失败", { icon: 2 });
                     }
+
                 }
-                // var info = JSON.parse(data);
-                // if(info.status == 200){
-                //     tableIns.reload("#stockInFormList");
-                // }
             }
         })
     }

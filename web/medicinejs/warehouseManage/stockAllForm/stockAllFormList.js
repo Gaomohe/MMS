@@ -188,6 +188,20 @@ layui.extend({
         });
     });
 
+    $("#findButton").click(function () {
+        select1 = $("#select1").val('');
+        select2 = $("#select2").val('');
+        select3 = $("#select3").val('');
+        select4 = $("#select4").val('');
+
+        tableIns.reload({
+            url:"/StockAllForm?action=selectStockAllForm",
+            page: {
+                curr:1
+            }
+        })
+    })
+
     //重新加载表格
     function reloadTable(data) {
         console.log(data)
