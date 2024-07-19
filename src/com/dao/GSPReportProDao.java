@@ -21,4 +21,5 @@ public interface GSPReportProDao {
     public ResultSet  getChoise02(String mName);
 
     public ResultSet getChoise03(String mName);
+    public ResultSet getChoiseKind03(String time);
 }

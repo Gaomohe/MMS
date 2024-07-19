@@ -11,6 +11,8 @@ import com.util.ResultData;
 import com.util.init.StringDeal;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,7 +122,32 @@ public class GSPReportProServiceImpl implements GSPReportProService {
 
     @Override
     public ResultData<List<GetString>> getChoise03() {
-        return null;
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+        ResultData<List<GetString>> resultData = new ResultData<List<GetString>>();
+        List<GetString> gspSupplies = new ArrayList<>();
+        ResultSet choiseKind03 = gspReportProDao.getChoiseKind03(formattedDate);
+        try {
+            while (choiseKind03.next()){
+                GetString getString = new GetString();
+                getString.setName(choiseKind03.getString(1));
+                ResultSet allSup = gspReportProDao.getChoise03(getString.getName());
+                if (allSup.next()){
+                    getString.setNumber(allSup.getInt(1));
+                }
+                gspSupplies.add(getString);
+            }
+            resultData.setData(gspSupplies);
+            resultData.setMsg("");
+            resultData.setStatus(200);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return resultData;
     }
 
     @Override

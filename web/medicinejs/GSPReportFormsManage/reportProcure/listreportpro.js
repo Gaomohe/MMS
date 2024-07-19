@@ -90,8 +90,9 @@ layui.extend({
                         getChoise02();
                         break;
                     case 4:
-                        //库存剩余
-                        // getChoise03();
+                        //今日销售
+                        getChoise03();
+
                         break;
                     default:
                         break
@@ -133,7 +134,7 @@ layui.extend({
                     xAxis[i]=parse[i].name;
                     series[i]=parse[i].number;
                 }
-                category("库存剩余",xAxis,series);
+                echartss('',xAxis,series);
             }
         })
     }
@@ -219,14 +220,14 @@ layui.extend({
         myChart.setOption(option);
     }
     // 柱状
-    function echartss(){
+    function echartss(title,Xdata,data){
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
 
         // 指定图表的配置项和数据
         var option = {
             title: {
-                text: '今日销售',  // 设置标题文本
+                text: title,  // 设置标题文本
                 left: 'center',   // 标题居中显示
                 top: 'top'        // 标题显示在顶部
             },
@@ -245,7 +246,7 @@ layui.extend({
             xAxis: [
                 {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    data: Xdata,
                     axisTick: {
                         alignWithLabel: true
                     }
@@ -261,7 +262,7 @@ layui.extend({
                     name: 'Direct',
                     type: 'bar',
                     barWidth: '60%',
-                    data: [10, 52, 200, 334, 390, 330, 220]
+                    data: data
                 }
             ]
         };
