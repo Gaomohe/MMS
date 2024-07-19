@@ -18,4 +18,8 @@ public interface PharmacyDao {
 
     //获取处方中的具体药品
     public List<Medicine> checkPharmacy(int phId, int page, int limit);
+
+    //患者取药
+    public int getMedicine(int mId, int pId);
+    public int getMedicine1(int mId, int phId);
 }

@@ -120,8 +120,8 @@ layui.extend({
                 console.log(info);
                 if (info.status===200){
                     layer.msg("开药方成功", { icon: 1 });
-                    tableMain.close();
-                    layui.layer.close();
+                    parent.layer.close(window.currentLayerIndex);
+                    parent.location.close();
                 }else {
                     layer.msg("失败", { icon: 2 });
                 }
