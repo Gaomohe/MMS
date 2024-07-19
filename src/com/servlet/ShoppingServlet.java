@@ -41,8 +41,11 @@ public class ShoppingServlet extends BaseServlet {
         User user = (User)session.getAttribute("user");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), Integer.parseInt(request.getParameter("resId")));
         List<Medicine> kindList = shoppingService.getKind();
+        List<Medicine> sup = shoppingService.getSup();
+
         session.setAttribute("menuList",menuList);
         session.setAttribute("kindList",kindList);
+        session.setAttribute("sup",sup);
 
         return "/medicine/shoppingManage/requestApply/shopList";
     }
@@ -124,5 +127,12 @@ public class ShoppingServlet extends BaseServlet {
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"添加","采购申请","添加药品计量描述");
         ToJSON.toJson(response,shoppingService.prescriptionDrug());
+    }
+    public void getSelectedSup(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","采购申请","获取所有药品规格");
+        ToJSON.toJson(response,shoppingService.getSelectedSup(request.getParameter("drugFrom")));
     }
 }

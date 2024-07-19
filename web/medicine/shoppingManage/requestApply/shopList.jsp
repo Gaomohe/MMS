@@ -69,10 +69,10 @@
                 </select>
             </div>
     <div class="layui-col-md2">
-        <select lay-filter="onChangeSelect" id="">
+        <select lay-filter="onChangeSelect01" id="">
             <option id="onChangeSelectValue" value="">选择供应商</option>
-            <c:forEach var="kindList" items="${kindList}" varStatus="s">
-                <option value="${kindList.drugFrom}">${kindList.drugFrom}</option>
+            <c:forEach var="sup" items="${sup}" varStatus="s">
+                <option value="${sup.supplier}">${sup.supplier}</option>
             </c:forEach>
 
         </select>

@@ -78,7 +78,7 @@ layui.extend({
                 var index = $(this).parent().index() + 1;
                 switch (index){
                     case 1:
-                       //采购记录
+                        //采购记录
                         getAjax(10)
                         break;
                     case 2:
@@ -226,43 +226,22 @@ layui.extend({
         // 指定图表的配置项和数据
         var option = {
             title: {
-                text: '今日销售',  // 设置标题文本
-                left: 'center',   // 标题居中显示
-                top: 'top'        // 标题显示在顶部
+                text: 'ECharts 入门示例'
             },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
+            tooltip: {},
+            legend: {
+                data: ['销量订单']
             },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
+            xAxis: {
+                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
             },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    axisTick: {
-                        alignWithLabel: true
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value'
-                }
-            ],
+            yAxis: {},
             series: [
                 {
-                    name: 'Direct',
+                    name: '销量订单',
                     type: 'bar',
-                    barWidth: '60%',
-                    data: [10, 52, 200, 334, 390, 330, 220]
-                }
+                    data: [5, 20, 36, 10, 10, 20]
+                },
             ]
         };
 
@@ -320,7 +299,7 @@ layui.extend({
     }
     var tableIns = table.render({
         elem: '#purchaseList',
-        url : '/appoint?action=getAllAppoint',
+        url : '/pharmaceuticalSales?action=getAll',
         cellMinWidth : 95,
         page : true,
         toolbar: '#purchaseDemo',
@@ -331,28 +310,25 @@ layui.extend({
             {fixed:"left",type: "checkbox", width:50},
             // {field: 'applyId', title: '申请编号',  align:'center'},
             // {field: 'mId', title: '字典编号',  align:'center'},
-            {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
+            {field: 'order', title: '批次', minWidth:100, align:"center"},
+            {field: 'mid', title: '药品编号', minWidth:100, align:"center"},
+            {field: 'name', title: '药品名称', minWidth:100, align:"center"},
             {field: 'specification', title: '规格', align:'center'},
-            {field: 'manufactor', title: '生产企业', align:'center'},
+            {field: 'department', title: '使用部门', align:'center'},
             {field: 'unit', title: '单位', minWidth:100, align:"center"},
             // {field: 'department', title: '部门',  align:'center'},
             // {field: 'number', title: '采购数量',  align:'center'},
-            {field: 'applyNumber', title: '采购数量',  align:'center'},
-            {field: 'purchasePrice', title: '采购价',  align:'center'},
-            {field: 'code', title: '批号',  align:'center'},
+            {field: 'number', title: '库存',  align:'center'},
+            {field: 'salenumber', title: '销售数量',  align:'center'},
+            {field: 'salePrice', title: '销售价格',  align:'center'},
+            {field: 'productDate', title: '生产日期',  align:'center'},
+            {field: 'goodsType', title: '药品类型',  align:'center'},
             {field: 'mType', title: '药品分类',  align:'center'},
-            {field: 'supplier', title: '供货单位',  align:'center'},
-            {field: 'approvalNumber', title: '准批文号',  align:'center'},
-            {field: 'placeOrigin', title: '产地',  align:'center'},
-            {field: 'applyUser' ,title:'申请人', align:'center'},
-            {field: 'applyTime' ,title:'申请时间', align:'center'},
-            {field: 'pharmacist' ,title:'药师审批人', align:'center'},
-            {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
-            {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
-            {field: 'finance' ,title:'财务审批人', align:'center'},
-            {field: 'financeApprove' ,title:'财务审批', align:'center'},
-            {field: 'financeTime' ,title:'财务审批时间', align:'center'},
-            {field: 'tableCoding' ,title:'自编码', align:'center'}
+            {field: 'defined', title: '处方',  align:'center'},
+            {field: 'supplier', title: '供应商',  align:'center'},
+            {field: 'drugFrom', title: '类型',  align:'center'},
+            {field: 'documentNumber', title: '产品编号',  align:'center'},
+
         ]],
         done:function (data){
             $('#search').on('click', function() {

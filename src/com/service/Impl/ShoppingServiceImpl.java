@@ -322,4 +322,52 @@ public class ShoppingServiceImpl implements ShoppingService {
         }
         return layuiTable;
     }
+
+    @Override
+    public List<Medicine> getSup() {
+        List<Medicine> medicineList = new ArrayList<>();
+        ResultSet kind = shoppingDao.getKind("supplier", "dictionary");
+        try {
+            while (kind.next()){
+                Medicine medicine = new Medicine();
+                medicine.setSupplier(kind.getString("supplier"));
+                medicineList.add(medicine);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return medicineList;
+    }
+
+    @Override
+    public LayuiTable<Medicine> getSelectedSup(String where) {
+        ResultSet dictionary = shoppingDao.getOne(where, "supplier", "dictionary");
+        List<Medicine> medicineList = new ArrayList<>();
+        int count = 0;
+        try {
+            while (dictionary.next()){
+                Medicine medicine = new Medicine();
+                medicine.setTableCoding(dictionary.getInt("tableCoding"));
+                medicine.setmName(dictionary.getString(2));
+                medicine.setSpecification(dictionary.getString(3));
+                medicine.setManufactor(dictionary.getString(4));
+                medicine.setNumber(dictionary.getInt("number"));
+                medicine.setPurchasePrice(dictionary.getDouble("purchasePrice"));
+                medicine.setProductDate(dictionary.getString("productDate"));
+                medicine.setDrugFrom(dictionary.getString("drugFrom"));
+                medicineList.add(medicine);
+                count++;
+            }
+            layuiTable.setData(medicineList);
+            layuiTable.setMsg("");
+            layuiTable.setCount(count);
+            layuiTable.setCode(0);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return layuiTable;
+    }
 }

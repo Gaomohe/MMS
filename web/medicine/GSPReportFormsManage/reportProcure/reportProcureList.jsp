@@ -133,7 +133,7 @@
                                 </li>
                                 <li class="layui-nav-item"><a href="javascript:;">采购类型</a></li>
                                 <li class="layui-nav-item"><a href="javascript:;">采购商品</a></li>
-<%--                                <li class="layui-nav-item"><a href="javascript:;">库存剩余</a></li>--%>
+                                <li class="layui-nav-item"><a href="javascript:;">今日销售</a></li>
 
                             </ul>
 <%--                            <label>采购数量:</label>--%>

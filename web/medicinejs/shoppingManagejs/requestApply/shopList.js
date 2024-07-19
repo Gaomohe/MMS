@@ -68,9 +68,24 @@ layui.extend({
     }
     initDatepicker();
     form.on('select(onChangeSelect)',function (data){
+
         var drugFrom = data.value;
         tableIns.reload({
             url : '/shopping?action=getSelectedValue', // 保持URL不变，除非你需要改变数据源
+            where: { // 新的查询参数
+                drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
+            },
+            type:'static',
+            page: false,
+            done:function (){
+
+            }
+        });
+    });
+    form.on('select(onChangeSelect01)',function (data){
+        var drugFrom = data.value;
+        tableIns.reload({
+            url : '/shopping?action=getSelectedSup', // 保持URL不变，除非你需要改变数据源
             where: { // 新的查询参数
                 drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
             },

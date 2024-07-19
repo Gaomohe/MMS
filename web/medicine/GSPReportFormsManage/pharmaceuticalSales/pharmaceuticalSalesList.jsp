@@ -176,7 +176,7 @@
 <script type="text/javascript" src="<%=basePath %>iframe/assets/libs/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js" charset="utf-8"></script>
 <%--<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.9.13/layui/layui.js" charset="utf-8"></script>--%>
-<script type="text/javascript" src="<%=basePath %>medicinejs/GSPReportFormsManage/reportProcure/listreportpro.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/GSPReportFormsManage/pharmaceuticalSales/ListpharmaceuticalSales.js" charset="utf-8"></script>
 </body>
 
 </html>
