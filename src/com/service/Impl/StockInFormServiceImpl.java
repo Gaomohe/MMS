@@ -46,12 +46,6 @@ public class StockInFormServiceImpl implements StockInFormService {
 
     @Override
     public int addDoStockInForm(StockInWithQuality stockInWithQuality) {
-        String time = GetTime.getTime();
-        int i = stockInFormDao.addStockInForm(stockInWithQuality);
-        if (i>0){
-            stockInWithQuality.setStockInTime(time);
-            stockInWithQuality.setStorageStatus("已入库");
-        }
         return stockInFormDao.addStockInForm(stockInWithQuality);
     }
 

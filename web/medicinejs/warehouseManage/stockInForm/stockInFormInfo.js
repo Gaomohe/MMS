@@ -8,6 +8,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
         var rId = $("#rId").val();
+        var stockInNum = $("#stockInNum").val();
         var rName = $("#rName").val();
         var standard = $("#standard").val();
         var manufactor = $("#manufactor").val();
@@ -21,6 +22,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var stockInTime = $("#stockInTime").val();
         var department = $("#department").val();
         var notes = $("#notes").val();
+        console.log(department)
         if(rName.length == "" ){
             layer.msg("药品名称不能为空")
             return false;
@@ -30,6 +32,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
             url:"/StockInForm?action=updateStockInForm",
             data:{
                 "rId":rId,
+                "stockInNum":stockInNum,
                 "rName": rName,
                 "standard": standard,
                 "manufactor": manufactor,

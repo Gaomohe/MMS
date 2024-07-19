@@ -28,6 +28,13 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">入库单号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="stockInNum" id="stockInNum" lay-verify="required" disabled="" placeholder="请输入入库单号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <label class="layui-form-label">入库药品</label>
         <div class="layui-input-inline">
             <input type="text" name="rName" id="rName" lay-verify="required" placeholder="请输入入库药品" autocomplete="off" class="layui-input">

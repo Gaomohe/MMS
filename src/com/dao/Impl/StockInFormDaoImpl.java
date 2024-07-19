@@ -113,7 +113,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
 
     @Override
     public int delStockInForm(int id) {
-        String sql=" delete from StockInForm where rId=?";
+        String sql="DELETE FROM StockInForm WHERE rId = ?";
         Object[] objects= new Object[1];
         objects[0]=id;
         int count= JDBC.update(sql,objects);
@@ -155,7 +155,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         objects[1] = stockInWithQuality.getStockInNum();
         objects[2] = stockInWithQuality.getStandard();//
         objects[3] = stockInWithQuality.getManufactor();
-        objects[4] = stockInWithQuality.getUnit();//
+        objects[4] = stockInWithQuality.getUnit();
         objects[5] = stockInWithQuality.getTotlNumber();
         objects[6] = stockInWithQuality.getCost();//
         objects[7] = stockInWithQuality.getSalePrice();

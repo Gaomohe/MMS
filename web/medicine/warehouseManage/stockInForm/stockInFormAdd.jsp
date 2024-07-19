@@ -23,7 +23,7 @@
 
 
             <%--单据编号是随机生成的--%>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="position: absolute;top: 1%;left: 0">
                 <label class="layui-form-label">单据编号</label>
                 <div class="layui-input-inline">
                     <input type="text"  id="stockInNum" disabled="" placeholder="请输入单据编号" class="layui-input">
@@ -31,7 +31,7 @@
             </div>
 
 
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="position: absolute;top: 1%;right: 45%">
                 <label class="layui-form-label">供应商</label>
                 <div class="layui-input-inline">
                     <select lay-search="" id="manuFactor" lay-event="manuFactor" lay-filter="manuFactor">
@@ -40,14 +40,18 @@
                 </div>
             </div>
 
-                <div class="layui-input-inline">
+                <div class="layui-input-inline" style="position: absolute;top: 1%;right: 20%">
                     <label class="layui-form-label">药品名称</label>
                     <div class="layui-input-inline">
                         <input type="text"  id="rName" placeholder="请输入药品名称" class="layui-input">
                     </div>
+                </div>
+
+                <div class="layui-input-inline" style="position:absolute;right: 5%;top: 1%">
                     <button type="button" class="layui-btn layui-bg-blue" id="search">查询</button>
                     <button class="layui-btn layui-btn-primary layui-border" id="reset">重置</button>
                 </div>
+
         </div>
 </div>
 

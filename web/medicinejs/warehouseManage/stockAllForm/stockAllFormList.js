@@ -102,6 +102,7 @@ layui.extend({
         };
     });
     function delStockAllForm(mId){
+        console.log(mId)
         $.ajax({
             url:"/StockAllForm?action=delStockAllForm",
             type:"post",
@@ -341,7 +342,23 @@ layui.extend({
                     {field: 'recordNumber', title: '记录号', width: 100, align: "center"},
                 ]],
                 done:function (data){
-                    console.log(data)
+                    // 重新绑定按钮事件,这样按钮就不会消失了
+                    // $("#searchIcon").off('click').on('click', function() {
+                    //     var mName = $("#mName").val();
+                    //     console.log(mName);
+                    //     $.ajax({
+                    //         url: "/StockAllForm?action=getStockAllFormByDrugName",
+                    //         type: "POST",
+                    //         data: { "mName": mName },
+                    //         dataType: "JSON",
+                    //         success: function(response) {
+                    //             console.log(response);
+                    //             var tableData = response.data;
+                    //             console.log(tableData);
+                    //             renderTable(tableData);
+                    //         }
+                    //     });
+                    // });
                 }
             })
         })

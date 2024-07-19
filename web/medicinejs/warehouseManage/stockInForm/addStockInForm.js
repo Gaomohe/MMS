@@ -35,7 +35,6 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
     $("#search").click(function (){
         var rName = $("#rName").val();
         console.log(rName)
-        alert("ddd")
         tableIns.reload({
             url: "/StockInForm?action=getStockInFormByManufactorAndDrugName",
             where: {
@@ -44,6 +43,22 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
             },
             page: {
                 curr: 1 // 重新从第 1 页开始
+            }
+        });
+    })
+    //重置按钮
+    $('#reset').click(function(){
+        alert("reset")
+        $("#manuFactor").val('0');
+        $("#rName").val('');
+        // 重新加载表格数据
+        table.reload('addStockInFormList', {
+            url: '/StockInForm?action=getAllStockForm', // 请替换为实际的数据接口
+            where: {
+                manufactorName: ''
+            },
+            page: {
+                curr: 1 // 重置到第一页
             }
         });
     })
@@ -63,18 +78,18 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
             cols : [[
                 {checkbox: true, rowspan: 2}, // 复选框列
                 {field:'rId', width:200, align:'center', hide:true, title:'药品编号', rowspan: 2}, // 药品编号列
-                {field:'rName', width:100, align:'center', title:'药品名', rowspan: 2}, // 药品名列
-                {field:'standard', width:150, align:'center', title:'药品规格', rowspan: 2}, // 药品名列
-                {field:'unit', width:100, align:'center', title:'单位', rowspan: 2}, // 药品名列
+                {field:'rName', width:200, align:'center', title:'药品名', rowspan: 2}, // 药品名列
+                {field:'standard', width:200, align:'center', title:'药品规格', rowspan: 2}, // 药品名列
+                {field:'unit', width:170, align:'center', title:'单位', rowspan: 2}, // 药品名列
                 {field:'cost', width:50, align:'center', title:'成本', hide:true,rowspan: 2}, // 药品名列
                 {field:'salePrice', width:50, align:'center', title:'销售价',hide:true, rowspan: 2}, // 药品名列
                 {field:'batchNumber', width:150, align:'center', title:'批号',hide:true, rowspan: 2}, // 药品名列
                 {field:'productDate', width:150, align:'center', title:'生产日期',hide:true, rowspan: 2}, // 药品名列
                 {field:'expiration', width:150, align:'center', title:'保质期', hide:true,rowspan: 2}, // 药品名列
-                {field:'department', width:150, align:'center', title:'部门', rowspan: 2}, // 药品名列
-                {field:'totlNumber', width:100, align:'center', title:'待入库药品数量', rowspan: 2}, // 药品名列
+                {field:'department', width:170, align:'center', title:'部门', rowspan: 2}, // 药品名列
+                {field:'totlNumber', width:150, align:'center', title:'待入库药品数量', rowspan: 2}, // 药品名列
                 {field:'statue', width:100, align:'center',hide:true, title:'质检状态', rowspan: 2}, // 药品名列
-                {field:'storageStatus', width:100, align:'center', title:'入库状态', rowspan: 2}, // 药品名列
+                {field:'storageStatus', width:200, align:'center', title:'入库状态', rowspan: 2}, // 药品名列
             ]],
             done:function (data){
                 console.log(data)
@@ -127,6 +142,8 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
         }
             return false;
     })
+
+
 
     $('#cancelButton').click(function() {
         var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引

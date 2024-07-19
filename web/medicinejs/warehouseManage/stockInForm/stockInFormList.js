@@ -56,7 +56,7 @@ layui.extend({
         var stockInNum = $("#stockInNum").val();
         var rName = $("#rName").val();
         var stockInTime = $("#stockInTime").val();
-        console.log(rName);
+        console.log(stockInTime)
         $.ajax({
             url:"/StockInForm?action=getStockInFormByQuery",
             type:"POST",
@@ -76,6 +76,9 @@ layui.extend({
     });
     //重置
     $("#resetButton").click(function() {
+        $("#stockInNum").val('');
+        $("#rName").val('');
+        $("#stockInTime").val('');
         tableIns.reload({
             url:"/StockInForm?action=selectStockInForm",
             page: {
@@ -135,9 +138,11 @@ layui.extend({
                         // 假设每个file对象都有一个id属性，用于标识用户
                         total++;
                         delStockInForm(data1.rId);
+                        console.log(data1.rId)
+                        console.log(total)
                     });
                 } else {
-                    layer.msg("you are not select", {icon: 2});
+                    layer.msg("请选择一行数据进行操作", {icon: 2});
                 }
                 break;
                 // if(data.length = 0){
@@ -179,20 +184,27 @@ layui.extend({
             url:"/StockInForm?action=delStockInForm",
             type:"post",
             data:{"rId":rId},
+            dataType: "json",
+            traditional: true,
             success:function(data){
+                var cs = JSON.parse(data)
+                console.log(cs)
                 count++
-                if (count == total) {
-                    if (res.status) {
+                console.log(count)
+                if (count === total) {
+                    console.log(total)
+                    if (cs.status===200) {
+                        console.log(cs.status)
                         layer.msg("删除成功", { icon: 1 });
                         location.reload();
                     } else {
                         layer.msg("删除失败", { icon: 2 });
                     }
                 }
-                var info = JSON.parse(data);
-                if(info.status == 200){
-                    tableIns.reload("#stockInFormList");
-                }
+                // var info = JSON.parse(data);
+                // if(info.status == 200){
+                //     tableIns.reload("#stockInFormList");
+                // }
             }
         })
     }
@@ -202,7 +214,7 @@ layui.extend({
             title : "修改入库单信息",
             type : 2,
             content : "medicine/warehouseManage/stockInForm/stockInFormInfo.jsp",
-            area:['550px','500px'],
+            area:['550px','550px'],
             success:function(layero, index){
                 $.ajax({
                     url:"/StockInForm?action=selectStockInFormById",//根据id查询的方法
@@ -224,6 +236,7 @@ layui.extend({
                         body.find("#productDate").val(info.data.productDate);
                         body.find("#expiration").val(info.data.expiration);
                         body.find("#stockInTime").val(info.data.stockInTime);
+                        body.find("#department").val(info.data.department);
                         body.find("#notes").val(info.data.notes);
                     }
                 })

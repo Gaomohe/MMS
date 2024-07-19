@@ -69,11 +69,10 @@ public class StockInFormServlet extends BaseServlet {
         stockInWithQuality.setBatchNumber(request.getParameter("batchNumber"));
         stockInWithQuality.setProductDate(request.getParameter("productDate"));
         stockInWithQuality.setExpiration(request.getParameter("expiration"));
-//        stockInWithQuality.setStockInTime(stockInTime);//直接在后端加入当前时间
+        stockInWithQuality.setStockInTime(GetTime.getTime());//直接在后端加入当前时间
         stockInWithQuality.setDepartment(request.getParameter("department"));
         stockInWithQuality.setTotlNumber(Integer.parseInt(request.getParameter("totlNumber")));
-        stockInWithQuality.setStatue(Integer.parseInt(request.getParameter("statue")));
-//        stockInWithQuality.setStorageStatus(("已入库"));
+        stockInWithQuality.setStorageStatus("已入库");
         int i = stockInFormService.addDoStockInForm(stockInWithQuality);
         if (i>0){
             resultData.setStatus(200);
