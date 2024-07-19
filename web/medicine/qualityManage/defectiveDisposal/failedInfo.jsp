@@ -34,7 +34,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">处理原因与过程</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea id="contentTextarea" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -44,6 +44,6 @@
 <script type="text/javascript" src="<%=basePath%>iframe/assets/libs/layui/layui.js"></script>
 <script type="text/javascript" src="<%=basePath%>iframe/assets/js/common.js"></script>
 <script type="text/javascript" src="<%=basePath%>iframe/assets/module/cascader/citys-data.js"></script>
-<script type="text/javascript" src="<%=basePath%>medicinejs/shoppingManagejs/salesReturn/returnAddEE.js"></script>
+<script type="text/javascript" src="<%=basePath%>medicinejs/qualityManage/defectiveDisposal/addFailed.js"></script>
 </body>
 </html>

@@ -318,4 +318,35 @@ public class ApplyFaileDaoImpl implements ApplyFailedDao {
         int i = JDBC.update(sql, objects);
         return i;
     }
+
+    public int addCause(int applyId,String date,String cause){
+        String sql = "INSERT INTO `cause` (`id`,`time`,`cause`) VALUES (?,?,?)";
+        Object[] objects = new Object[]{applyId,date,cause};
+        int i = JDBC.update(sql, objects);
+        return i;
+    }
+    public int delCause(int applyId){
+        String sql = "delete from cause where id = ?";
+        Object[] objects = new Object[]{applyId};
+        int i = JDBC.update(sql, objects);
+        return i;
+    }
+    public List<ApplyFailed> getCause(int applyId){
+        String sql = "SELECT * FROM `cause` where id = ?";
+        Object[] objects = new Object[]{applyId};
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<ApplyFailed> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                ApplyFailed applyFailed = new ApplyFailed();
+                applyFailed.setApplyId(resultSet.getInt(1));
+                applyFailed.setApplyTime(resultSet.getString(2));
+                applyFailed.setCause(resultSet.getString(3));
+                list.add(applyFailed);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

@@ -43,7 +43,7 @@ public class ApplyFailedServlet extends BaseServlet {
         session1.setAttribute("mType",mType);
         session2.setAttribute("manufactor",allManufactor);
         session.setAttribute("menuList",menuList);
-        return "页面";
+        return "medicine/qualityManage/defectiveDisposal/failedList";
     }
 
     //添加不合格处理数据
@@ -80,6 +80,12 @@ public class ApplyFailedServlet extends BaseServlet {
             layuiTable.setMsg("操作成功");
         }
         return layuiTable;
+    }
+
+    public ResultData<ApplyFailed> getCause(HttpServletRequest request, HttpServletResponse response){
+        int applyId = Integer.parseInt(request.getParameter("applyId"));
+        List<ApplyFailed> list = applyFaileService.getAllCase(applyId);
+        return Result.resultData(list);
     }
 
     //根据ID获取数据

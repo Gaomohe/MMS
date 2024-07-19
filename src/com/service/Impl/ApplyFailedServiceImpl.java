@@ -37,6 +37,7 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
         String format = simpleDateFormat.format(date);
         apply.setApplyTime(format);
         apply.setApplyUser(name);
+        applyFailedDao.addCause(apply.getApplyId(),apply.getApplyTime(),apply.getCause());
         return applyFailedDao.addFailed(apply);
     }
 
@@ -49,6 +50,10 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
     public List<ApplyFailed> getAll(int page, int limit) {
         page = (page-1)*limit;
         return applyFailedDao.getAll(page,limit);
+    }
+
+    public List<ApplyFailed> getAllCase(int applyId) {
+        return applyFailedDao.getCause(applyId);
     }
 
     @Override
@@ -89,6 +94,7 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
 
     @Override
     public int delApplyFailed(int applyId) {
+        applyFailedDao.delCause(applyId);
         return applyFailedDao.delApplyFailed(applyId);
     }
 
@@ -100,6 +106,7 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
         String format = simpleDateFormat.format(date);
         applyFailed.setPharmacistTime(format);
         applyFailed.setPharmacist(name);
+        applyFailedDao.addCause(applyId,format,"审阅完成！");
         return applyFailedDao.updateAppFailed(applyFailed);
     }
 
