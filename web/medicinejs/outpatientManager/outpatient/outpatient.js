@@ -268,6 +268,7 @@ layui.extend({
                 "pPhone": pPhone,
                 "pAllergy": pAllergy,
                 "doctorAdvice": doctorAdvice,
+                "disease":disease,
                 "lastTime": lastTime
             },
             type: "post",

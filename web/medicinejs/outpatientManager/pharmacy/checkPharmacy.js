@@ -17,11 +17,11 @@ layui.extend({
             elem: '#time'
         });
         var tableIns = table.render({
-            elem: '#addMedicineList',
+            elem: '#checkPharmacyList',
             cellMinWidth: 95,
             page: true,
-            url: '/medicine?action=getAllMedicine',
-            toolbar: '#addMedicineDemo',
+            url: '/pharmacy?action=Check',
+            toolbar: '#checkPharmacyDemo',
             height: "800px",
             limit: 20,
             limits: [10, 15, 20, 25],
@@ -84,6 +84,14 @@ layui.extend({
                         title: '生产日期',
                         minWidth: 200,
                         align: 'center',
+                        sort: true,
+                        hide:true
+                    },
+                    {
+                        field: 'defined',
+                        title: '药品类型',
+                        minWidth: 200,
+                        align: 'center',
                         sort: true
                     },
                     {
@@ -120,52 +128,7 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
-                    /*{
-                        field: 'lastCuringDate',
-                        title: '上次养护日期',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'timesStorage',
-                        title: '入库次数',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'documentNumber',
-                        title: '单据号码',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'placeOrigin',
-                        title: '产地',
-                        minWidth: 200,
-                        align: 'center',
-                    },
-                    {
-                        field: 'batchsNumber',
-                        title: '批次号',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'recordNumber',
-                        title: '记录号',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        title: '操作',
-                        width: 200,
-                        templet: '#barDemo',
-                    }*/
+
                 ]
             ],
         });
@@ -175,7 +138,7 @@ layui.extend({
         getmPower();
         getmName();
 
-        table.on('toolbar(addMedicineList)', function(obj) {
+        table.on('toolbar(checkPharmacyList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
             var files = checkdata.data;
             var array = [];
@@ -247,7 +210,7 @@ layui.extend({
     //病患信息回显
     function backValues(){
         $.ajax({
-            url:"/patient?action=backValues",
+            url:"/pharmacy?action=backValues",
             data: {
                 "patientId":patientId
             },

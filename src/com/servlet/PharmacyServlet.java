@@ -1,9 +1,7 @@
 package com.servlet;
 
 
-import com.pojo.Menu;
-import com.pojo.Pharmacy;
-import com.pojo.User;
+import com.pojo.*;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
 import com.util.init.ToJSON;
@@ -69,7 +67,19 @@ public class PharmacyServlet extends BaseServlet {
         int phId = (Integer)session.getAttribute("phId");
         String name = userService.getName(user.getId());
         logService.setLog(name,"点击","门诊管理","审查处方详情");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page - 1) * limit;
+        LayuiTable<Medicine> layuiTable = pharmacyService.checkPharmacy(phId,page,limit);
+        ToJSON.toJson(response,layuiTable);
+    }
 
-
+    //病患信息回显
+    public void backValues(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        int phId = (Integer)session.getAttribute("phId");
+        int pId = pharmacyService.getpId(phId);
+        Patient patient = outpatientService.backValues(pId);
+        ToJSON.toJson(response,patient);
     }
 }

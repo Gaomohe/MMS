@@ -199,7 +199,7 @@ layui.extend({
                                 layer.msg('删除成功', {icon: 1});
                                 location.reload();
                             })
-
+///
                     } else {
                         layer.msg("删除失败", { icon: 2 });
                     }

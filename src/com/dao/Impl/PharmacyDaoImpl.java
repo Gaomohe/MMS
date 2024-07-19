@@ -1,6 +1,7 @@
 package com.dao.Impl;
 
 import com.dao.PharmacyDao;
+import com.pojo.Medicine;
 import com.pojo.Pharmacy;
 import com.util.JDBC;
 
@@ -8,6 +9,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.util.Vessel.medicineCount;
 
 public class PharmacyDaoImpl implements PharmacyDao {
     //获取处方列表
@@ -59,5 +62,80 @@ public class PharmacyDaoImpl implements PharmacyDao {
         }
         isPharmacy = (isPharmacy1.equals("处方药"));
         return isPharmacy;
+    }
+
+    @Override
+    public int getpId(int phId) {
+        String sql = "select pId from morder\n" +
+                "where orderId = ?;";
+        Object[] objects = new Object[1];
+        objects[0] = phId;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        int pId = 0;
+        try{
+            while (resultSet.next()) {
+                pId = resultSet.getInt("pId");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pId;
+    }
+
+    //获取处方中的具体药品
+    @Override
+    public List<Medicine> checkPharmacy(int phId, int page, int limit) {
+        String sql = "select * from dictionary\n" +
+                "left join medicineorder on dictionary.mId = medicineorder.mId\n" +
+                "where orderId = ?\n" +
+                "limit ?,?;";
+        Object[] objects = new Object[3];
+        objects[0] = phId;
+        objects[1] = page;
+        objects[2] = limit;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<Medicine> medicines = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Medicine medicine = new Medicine();
+                medicine.setmId(resultSet.getInt("mId"));
+                medicine.setmName(resultSet.getString("mName"));
+                medicine.setSpecification(resultSet.getString("specification"));
+//                medicine.setManufactor(resultSet.getString(4));
+                medicine.setUnit(resultSet.getString("unit"));
+                /*medicine.setDepartment(resultSet.getString(6));
+                medicine.setPosition(resultSet.getString(7));*/
+                medicine.setNumber(resultSet.getInt("number"));
+                /*medicine.setBatchNumber(resultSet.getString(9));
+                medicine.setUsefulLife(resultSet.getString(10));
+                medicine.setPurchasePrice(resultSet.getInt(11));*/
+                medicine.setSalePrice(resultSet.getInt("salePrice"));
+                medicine.setProductDate(resultSet.getString("productDate"));
+                /*medicine.setProfits(resultSet.getString(14));
+                medicine.setCode(resultSet.getString(15));*/
+                medicine.setGoodsType(resultSet.getString("goodsType"));
+                medicine.setmType(resultSet.getString("mType"));
+                medicine.setDefined(resultSet.getString("defined"));
+                /*medicine.setSupplier(resultSet.getString(19));
+                medicine.setWarehousingDate(resultSet.getString(20));
+                medicine.setLocationDescription(resultSet.getString(21));
+                medicine.setSign(resultSet.getString(22));
+                medicine.setWarehousingRemarks(resultSet.getString(23));*/
+                medicine.setDrugFrom(resultSet.getString("drugFrom"));
+//                medicine.setHandlingInformation(resultSet.getString(25));
+                medicine.setApprovalNumber(resultSet.getString("approvalNumber"));
+                /*medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setTimesStorage(resultSet.getInt(28));
+                medicine.setDocumentNumber(resultSet.getString(29));
+                medicine.setPlaceOrigin(resultSet.getString(30));
+                medicine.setBatchsNumber(resultSet.getString(31));
+                medicine.setRecordNumber(resultSet.getInt(32));*/
+                medicine.setTableCoding(resultSet.getInt("tableCoding"));
+                medicines.add(medicine);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return medicines;
     }
 }

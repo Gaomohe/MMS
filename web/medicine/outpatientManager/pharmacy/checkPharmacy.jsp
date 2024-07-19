@@ -25,12 +25,12 @@
 <div class="layui-form">
     <div class="layuimini-container">
         <div class="layuimini-main">
-            <script type="text/html" id="addMedicineDemo">
+            <script type="text/html" id="checkPharmacyDemo">
                 <c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}
                 </c:forEach>
             </script>
-            <table id="addMedicineList" lay-filter="addMedicineList"></table>
+            <table id="checkPharmacyList" lay-filter="checkPharmacyList"></table>
         </div>
         <table id="addMedicineList2" lay-filter="addMedicineList2"></table>
     </div>

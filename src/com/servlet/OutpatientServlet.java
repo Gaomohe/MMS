@@ -164,6 +164,7 @@ public class OutpatientServlet extends BaseServlet {
         String pPhone = request.getParameter("pPhone");
         String pAllergy = request.getParameter("pAllergy");
         String doctorAdvice = request.getParameter("doctorAdvice");
+        String disease = request.getParameter("disease");
         String lastTime = request.getParameter("lastTime");
 
         Patient patient = new Patient();
@@ -176,6 +177,7 @@ public class OutpatientServlet extends BaseServlet {
         patient.setPhone(pPhone);
         patient.setAllergy(pAllergy);
         patient.setDoctorAdvice(doctorAdvice);
+        patient.setDisease(disease);
         patient.setdName(name);
         if (lastTime != null){
             patient.setLastDiaTime(lastTime);
