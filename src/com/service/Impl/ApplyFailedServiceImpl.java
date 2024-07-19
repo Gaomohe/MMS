@@ -114,6 +114,10 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
     public int updateCause(String cause, int applyId) {
         ApplyFailed applyFailed = applyFailedDao.getApplyFailedByAId(applyId);
         applyFailed.setCause(cause);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(date);
+        applyFailedDao.addCause(applyId,format,cause);
         return applyFailedDao.updateCause(cause,applyId);
     }
 }

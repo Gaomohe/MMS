@@ -56,11 +56,9 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
     table.on('toolbar(xTable1)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
-        var tableCoding = '';
         var applyId='';
-        var oId='';
         for(i=0;i<data.length;i++){
-            arr+=data[i].tableCoding+",";
+            applyId = data[i].applyId;
         }
         switch(obj.event){
             case 'time':	//按照养护时间查找
@@ -70,7 +68,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 var i = 0;
                 for(i=0;i<data.length;i++){
                     applyId = data[i].applyId;
-                    console.log(delFunc(id));
+                    delFunc(applyId);
                 }
                 if (i=data.length){
                     layer.msg("删除成功")
@@ -79,15 +77,10 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 break;
             case 'upFunc':
                 var i = 0;
-                for(i;i<data.length;i++){
-                    id = data[i].id;
-                    oId = data[i].orderId;
-                    addFunc(oId,id,1);
-                    delFuncByOid(oId)
-                }
-                if (i=data.length){
-                    layer.msg("删除成功")
-                    setTimeout(function (){location.reload()},2000);
+                if (data.length != 1){
+                    layer.msg("请选择一条数据")
+                }else {
+                    upFunc(applyId)
                 }
                 break;
         };
@@ -128,7 +121,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         });
     }
 
-    function delFuanc(applyId){
+    function delFunc(applyId){
         $.ajax({
             url: '/applyFailed?action=delApplyFailed', // 后端处理数据的URL
             type: "POST", // 或 'GET'，取决于后端接口的要求
@@ -137,11 +130,21 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             },
             dataType:"JSON",
             success: function(response) {
-                layer.msg("已删除")
             },
             error: function(error) {
                 console.error('Error:', error);
             }
+        });
+    }
+
+    function upFunc(applyId){
+        layer.open({
+            type: 2,
+            title: '更新原因',
+            shadeClose: true,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['900px', '600px'],
+            content:"medicine/qualityManage/defectiveDisposal/failedUp.jsp?applyId="+applyId,
         });
     }
     //搜索
