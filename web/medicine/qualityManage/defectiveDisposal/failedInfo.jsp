@@ -23,12 +23,14 @@
 <body class="childrenBody">
 <%
     String tableCoding = request.getParameter("tableCoding");
+    String id = request.getParameter("id");
 %>
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
     <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">药品数据编号</label>
         <div class="layui-input-inline">
             <input readonly type="text" name="id" id="id" value="<%=tableCoding%>" class="layui-input">
+            <input readonly type="text" name="id1" id="id1" value="<%=id%>" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">

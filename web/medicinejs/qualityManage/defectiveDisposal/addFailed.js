@@ -9,6 +9,7 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
         var tableCoding = $("#id").val();
+        var id = $("#id1").val();
         var cause = $('#contentTextarea').val();
         $.ajax({
             url:"/applyFailed?action=addFailed",
@@ -23,8 +24,9 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
                 if(info.status == 200){
                     layer.msg("修改成功")
                     setTimeout(function(){
+                        alert(id);
+                        delFunc(id);
                         layer.closeAll("iframe");
-                        //刷新父页面
                         parent.location.reload();
                     },1000);
                 }else{
@@ -34,5 +36,25 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
         })
         return false;
     })
+
+    function delFunc(id){
+        $.ajax({
+            url:"/quality?action=delQuality",
+            data:{
+                id
+            },
+            type:"POST",
+            dataType:"JSON",
+            success: function(date) {
+                var info = JSON.parse(date);
+                if (info.status == 200){
+                    return 1;
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        })
+    }
 
 });

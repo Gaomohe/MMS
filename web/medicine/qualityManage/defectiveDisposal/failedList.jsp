@@ -60,22 +60,47 @@
                 <div class="layui-card-header">不合格品处理</div>
                 <div class="layui-card-body">
                     <div class="split-group" style="height: 634px;flex-direction: row-reverse;">
-                        <div class="split-item" id="demoSplit1" style="width: calc(25% - -0.5px);">
-
-                        </div>
+                        <div class="split-item" id="demoSplit1" style="width: calc(25% - -0.5px);"></div>
                         <div class="split-item" id="demoSplit2">
                             <div class="layui-tab-item layui-show">
                                 <div class="layui-form toolbar">
                                     <div class="layui-form-item text-right">
                                         <script type="text/html" id="toolbarDemo">
+
                                             <div class="layui-form layui-row layui-col-space16">
-                                                <div class="layui-inline">
-                                                    <label style="width: auto" class="layui-form-label">质检时间:</label>
-                                                    <div class="layui-input-inline">
-                                                        <input type="text" lay-event="time" lay-filter="time" class="layui-input" id="time" placeholder="请选择时间">
+                                                <div class="layui-col-md6" style="width: 500px; margin-right: 5px;">
+                                                    <div class="layui-inline" style="width: 100%;">
+                                                        <div class="layui-input-inline" style="width: calc(100% - 60px);display: flex;">
+                                                            <select id="select1" lay-search="" lay-creatable="">
+                                                                <option value=""></option>
+                                                                <c:forEach var="type" items="${mType}" varStatus="s">
+                                                                    <option value="${type}">${type}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                            <button class="layui-btn icon-btn" id="searchByQuerys1" lay-event="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
+                                                                <i class="layui-icon">&#xe615;</i>搜索
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="layui-col-md6" style="width: 500px; margin-right: 5px;">
+                                                    <div class="layui-inline" style="width: 100%;">
+                                                        <div class="layui-input-inline" style="width: calc(100% - 60px);">
+                                                            <select id="select2" lay-search="" lay-creatable="">
+                                                                <option value=""></option>
+                                                                <c:forEach var="manufactor" items="${manufactor}" varStatus="s">
+                                                                    <option value="${manufactor}">${manufactor}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                            <button class="layui-btn icon-btn" id="searchByQuerys2" lay-event="searchByQuerys" lay-filter="formSubSearchTbBas" lay-submit>
+                                                                <i class="layui-icon">&#xe615;</i>搜索
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <hr class="layui-border-green">
                                             <div class="layui-inline">
                                                 <input id="search" lay-event="enterSearch" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>

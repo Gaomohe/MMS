@@ -82,6 +82,7 @@ public class ApplyFailedServlet extends BaseServlet {
         return layuiTable;
     }
 
+    //添加处理历史记录
     public ResultData<ApplyFailed> getCause(HttpServletRequest request, HttpServletResponse response){
         int applyId = Integer.parseInt(request.getParameter("applyId"));
         List<ApplyFailed> list = applyFaileService.getAllCase(applyId);

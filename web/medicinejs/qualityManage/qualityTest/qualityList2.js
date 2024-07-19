@@ -147,14 +147,14 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             arr+=data[i].tableCoding+",";
         }
         switch(obj.event){
-            case 'time2':	//按照养护时间查找
+            case 'time':	//按照养护时间查找
                 getTime();
                 break;
             case 'delFunc':
                 var i = 0;
                 for(i=0;i<data.length;i++){
                     id = data[i].id;
-                    console.log(delFunc(id));
+                    delFunc(id);
                 }
                 if (i=data.length){
                     layer.msg("删除成功")
@@ -163,19 +163,24 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 break;
             case 'issue':
                 var i = 0;
-                for(i;i<data.length;i++){
-                    tableCoding = data[i].tableCoding;
-                    id = data[i].id;
-                    oId = data[i].orderId;
-                    layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                        addFunc(oId,id,2);
-                        issue(tableCoding);
-                        /*delFunc(id);*/
-                    }, function(){
-                        issue(tableCoding);
-                        /*delFunc(id);*/
-                    });
+                if (data.length != 1){
+                    layer.msg("请选择一条数据")
+                }else {
+                    for(i;i<data.length;i++){
+                        tableCoding = data[i].tableCoding;
+                        id = data[i].id;
+                        oId = data[i].orderId;
+                        layer.confirm('是否要单退此药品？', {icon: 3}, function(){
+                            var a = addFunc(oId,id,2);
+                            issue(tableCoding);
+                            if (a = 1){
+                                delFunc(id);
+                            }
+                        }, function(){
+                            issue(tableCoding,id);
+                        });
 
+                    }
                 }
                 break;
         };
@@ -341,57 +346,51 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
                 var tableCoding = '';
+                var totlNumber="";
                 var id='';
                 var arr='';
+                var oId='';
                 for(i=0;i<data.length;i++){
-                    tableCoding = data[i].tableCoding;
                     arr+=data[i].tableCoding+",";
                 }
-                table.on('toolbar(xTable2)', function(obj){
-                    var checkStatus = table.checkStatus(obj.config.id);
-                    var data = checkStatus.data;
-                    var tableCoding = '';
-                    var totlNumber="";
-                    var id='';
-                    var arr='';
-                    var oId='';
-                    for(i=0;i<data.length;i++){
-                        arr+=data[i].tableCoding+",";
-                    }
-                    switch(obj.event){
-                        case 'time':	//按照养护时间查找
-                            getTime();
-                            break;
-                        case 'delFunc':
-                            var i = 0;
-                            for(i=0;i<data.length;i++){
-                                id = data[i].id;
-                                console.log(delFunc(id));
-                            }
-                            if (i=data.length){
-                                layer.msg("删除成功")
-                                setTimeout(function (){location.reload()},2000);
-                            }
-                            break;
-                        case 'issue':
-                            var i = 0;
+                switch(obj.event){
+                    case 'time':	//按照养护时间查找
+                        getTime();
+                        break;
+                    case 'delFunc':
+                        var i = 0;
+                        for(i=0;i<data.length;i++){
+                            id = data[i].id;
+                            delFunc(id);
+                        }
+                        if (i=data.length){
+                            layer.msg("删除成功")
+                            setTimeout(function (){location.reload()},2000);
+                        }
+                        break;
+                    case 'issue':
+                        var i = 0;
+                        if (data.length != 1){
+                            layer.msg("请选择一条数据")
+                        }else {
                             for(i;i<data.length;i++){
                                 tableCoding = data[i].tableCoding;
                                 id = data[i].id;
                                 oId = data[i].orderId;
                                 layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                                    addFunc(oId,id,2);
+                                    var a = addFunc(oId,id,2);
                                     issue(tableCoding);
-                                    /*delFunc(id);*/
+                                    if (a = 1){
+                                        delFunc(id);
+                                    }
                                 }, function(){
-                                    issue(tableCoding);
-                                    /*delFunc(id);*/
+                                    issue(tableCoding,id);
                                 });
 
                             }
-                            break;
-                    };
-                });
+                        }
+                        break;
+                };
             });
             $("#searchByQuerys2").click(function () {
                 select1 = $("#select21").val();
@@ -537,6 +536,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             area: ['900px', '600px'],
             content:"medicine/qualityManage/defectiveDisposal/failedInfo.jsp?tableCoding="+tableCoding,
         });
+        return 1;
     }
 
 });

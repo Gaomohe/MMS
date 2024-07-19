@@ -37,8 +37,8 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
         String format = simpleDateFormat.format(date);
         apply.setApplyTime(format);
         apply.setApplyUser(name);
-        applyFailedDao.addCause(applyFailedDao.getLastApplyId(),apply.getApplyTime(),apply.getCause());
-        return applyFailedDao.addFailed(apply);
+        applyFailedDao.addFailed(apply);
+        return applyFailedDao.addCause(applyFailedDao.getLastApplyId(),apply.getApplyTime(),apply.getCause());
     }
 
     @Override

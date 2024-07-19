@@ -196,7 +196,7 @@ public class ApplyFaileDaoImpl implements ApplyFailedDao {
         List<String> list = new ArrayList<>();
         try {
             while (resultSet.next()){
-                String mType = resultSet.getString(10);
+                String mType = resultSet.getString(1);
                 list.add(mType);
             }
         }catch (Exception e){
@@ -248,7 +248,7 @@ public class ApplyFaileDaoImpl implements ApplyFailedDao {
         List<String> list = new ArrayList<>();
         try {
             while (resultSet.next()){
-                String manufactor = resultSet.getString(10);
+                String manufactor = resultSet.getString(1);
                 list.add(manufactor);
             }
         }catch (Exception e){
