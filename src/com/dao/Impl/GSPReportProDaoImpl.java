@@ -23,6 +23,7 @@ public class GSPReportProDaoImpl extends InitDaoImpl implements GSPReportProDao 
 
     @Override
     public ResultSet getAllSup(String supply) {
+
         String sql = "select sum(applyNumber) from apply where supplier = ?";
         Object[] objects = new Object[]{supply};
         return JDBC.select(sql,objects);

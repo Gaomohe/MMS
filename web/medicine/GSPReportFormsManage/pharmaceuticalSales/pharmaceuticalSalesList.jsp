@@ -124,15 +124,15 @@
                             <br>
                             <ul id="nav" class="layui-nav layui-nav-tree" style="background-color: #000000;color: black">
                                 <li class="layui-nav-item">
-                                    <a href="javascript:;">采购记录</a>
+                                    <a href="javascript:;">药品销售记录</a>
                                     <dl class="layui-nav-child">
                                         <dd><a href="javascript:;">全部</a></dd>
                                         <dd><a href="javascript:;">最近三天</a></dd>
                                         <dd><a href="javascript:;">最近七天</a></dd>
                                     </dl>
                                 </li>
-                                <li class="layui-nav-item"><a href="javascript:;">采购类型</a></li>
-                                <li class="layui-nav-item"><a href="javascript:;">采购商品</a></li>
+                                <li class="layui-nav-item"><a href="javascript:;">销售类型</a></li>
+                                <li class="layui-nav-item"><a href="javascript:;">销售商品</a></li>
                                 <%--                                <li class="layui-nav-item"><a href="javascript:;">库存剩余</a></li>--%>
 
                             </ul>

@@ -16,6 +16,7 @@ public interface GSPReportProDao {
 
     public ResultSet getAllSup(String supply);
 
+
     public ResultSet getChoise01(String unit);
 
     public ResultSet  getChoise02(String mName);

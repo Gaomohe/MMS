@@ -86,7 +86,7 @@
             <ul class="layui-tab-title">
                 <li class="layui-this" lay-id="11">数据</li>
                 <li lay-id="22">图表1</li>
-                <li lay-id="33">图表2</li>
+<%--                <li lay-id="33">图表2</li>--%>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -124,15 +124,15 @@
                             <br>
                             <ul id="nav" class="layui-nav layui-nav-tree" style="background-color: #000000;color: black">
                                 <li class="layui-nav-item">
-                                    <a href="javascript:;">采购记录</a>
+                                    <a href="javascript:;">不合格审批记录</a>
                                     <dl class="layui-nav-child">
                                         <dd><a href="javascript:;">全部</a></dd>
                                         <dd><a href="javascript:;">最近三天</a></dd>
                                         <dd><a href="javascript:;">最近七天</a></dd>
                                     </dl>
                                 </li>
-                                <li class="layui-nav-item"><a href="javascript:;">采购类型</a></li>
-                                <li class="layui-nav-item"><a href="javascript:;">采购商品</a></li>
+                                <li class="layui-nav-item"><a href="javascript:;">不合格审批类型</a></li>
+                                <li class="layui-nav-item"><a href="javascript:;">不合格审批商品</a></li>
                                 <%--                                <li class="layui-nav-item"><a href="javascript:;">库存剩余</a></li>--%>
 
                             </ul>
@@ -152,21 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-tab-item">
-                    <div class="container">
-                        <div class="left-div">
-                            <%--                            <label>供货商:</label>--%>
-                            <%--                            <select id="supply" name="interest" lay-filter="aihao" >--%>
-                            <%--                                <option value=""></option>--%>
-                            <%--                                <option value="a" selected>a</option>--%>
-                            <%--                                <option value="b">b</option>--%>
-                            <%--                                <option value="c">c</option>--%>
-                            </select>
-                        </div>
-                        <div id="pie" class="right-div" style="width: 600px;height:1000px;">
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

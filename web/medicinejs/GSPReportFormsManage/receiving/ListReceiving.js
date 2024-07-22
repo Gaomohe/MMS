@@ -39,7 +39,7 @@ layui.extend({
     function pageTwo(){
         var datas = [];
         $.ajax({
-            url:"/gspReport?action=getAllSup",//根据id查询的方法
+            url:"/receiving?action=getAllSup",//根据id查询的方法
             type:"post",
             data:{},
             success:function (data){
@@ -65,7 +65,6 @@ layui.extend({
     function pageOne(){
         var days = 10;
         getAjax(days)
-        console.log("看看")
         $(document).ready(function() {
             // $("#buyNum").change(function() {
             //     var selectedValue = $(this).val();
@@ -124,7 +123,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getChoise03",//根据id查询的方法
+            url:"/receiving?action=getChoise03",//根据id查询的方法
             type:"post",
             data:{},
             success:function (data){
@@ -141,7 +140,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getChoise02",//根据id查询的方法
+            url:"/receiving?action=getChoise02",//根据id查询的方法
             type:"post",
             data:{},
             success:function (data){
@@ -158,7 +157,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getChoise01",//根据id查询的方法
+            url:"/receiving?action=getChoise01",//根据id查询的方法
             type:"post",
             data:{},
             success:function (data){
@@ -175,7 +174,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getll",//根据id查询的方法
+            url:"/receiving?action=getAll",
             type:"post",
             data:{day},
             success:function (data){
@@ -184,7 +183,7 @@ layui.extend({
                     xAxis[i]=parse[i].times;
                     series[i]=parse[i].number;
                 }
-                category("采购记录",xAxis,series);
+                category("收货记录",xAxis,series);
             }
         })
     }
@@ -308,7 +307,7 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'rId', title: '#',  align:'center',width:100},
+            // {field: 'rId', title: '#',  align:'center',width:100},
             {field: 'stockInNum', title: '入库单号',  align:'center',width:200},
             {field: 'rName', title: '入库药品',  align:'center',width:100},
             {field: 'standard', title: '规格', width:100, align:"center"},

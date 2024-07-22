@@ -92,7 +92,9 @@ layui.extend({
                     case 4:
                         //今日销售
                         getChoise03();
-
+                        break;
+                    case 5:
+                        getChoise04();
                         break;
                     default:
                         break
@@ -100,6 +102,7 @@ layui.extend({
                 }
 
             });
+
 
             //子菜单
             $('#nav .layui-nav-child a').on('click', function(event) {
@@ -120,6 +123,9 @@ layui.extend({
                 }
             });
         });
+    }
+    function getChoise04(){
+        pageTwo();
     }
     function getChoise03(){
         var xAxis=[];
@@ -271,7 +277,7 @@ layui.extend({
         myChart.setOption(option);
     }
     function pie(data){
-        var myChart = echarts.init(document.getElementById('pie'));
+        var myChart = echarts.init(document.getElementById('main'));
         option = {
             title: {
                 text: '供货商'

@@ -48,6 +48,7 @@ public class InitDaoImpl {
         return JDBC.select(sql,new Object[1]);
     }
 
+
     //搜索---------------------参数(列名数组,搜索值数组，表名)
     public ResultSet search(String[] keys,String[] values,String table){
         StringBuilder sqlbuild = new StringBuilder("select * from " + table + " where ");
