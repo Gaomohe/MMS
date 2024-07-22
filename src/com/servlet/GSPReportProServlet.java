@@ -25,6 +25,8 @@ public class GSPReportProServlet extends BaseServlet {
         return GSPReportProServlet.class;
     }
 
+
+
     public ResultData<List<Times>> getll(HttpServletRequest request, HttpServletResponse response){
         int day = Integer.parseInt(request.getParameter("day"));
         return gspReportProService.reTimes(day);

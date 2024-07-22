@@ -141,7 +141,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getChoise02",//根据id查询的方法
+            url:"/prescriptionSales?action=getChoise02",//根据id查询的方法
             type:"post",
             data:{},
             success:function (data){
@@ -158,7 +158,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getChoise01",//根据id查询的方法
+            url:"/prescriptionSales?action=getChoise01",//根据id查询的方法
             type:"post",
             data:{},
             success:function (data){
@@ -175,7 +175,7 @@ layui.extend({
         var xAxis=[];
         var series=[];
         $.ajax({
-            url:"/gspReport?action=getll",//根据id查询的方法
+            url:"/prescriptionSales?action=getAllDay",
             type:"post",
             data:{day},
             success:function (data){
