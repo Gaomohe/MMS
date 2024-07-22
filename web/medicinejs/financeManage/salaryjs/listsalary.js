@@ -4,6 +4,14 @@ layui.extend({
     var table = layui.table;
     var layer = parent.layer === undefined ? layui.layer : top.layer;
     var $ = layui.jquery;
+    layui.use(function() {
+        var laydate = layui.laydate;
+        // 日期范围 - 左右面板独立选择模式
+        laydate.render({
+            elem: '#ID-laydate-range',
+            range: ['#ID-laydate-start-date', '#ID-laydate-end-date']
+        });
+    });
 
     var tableIns = table.render({
         // 全部

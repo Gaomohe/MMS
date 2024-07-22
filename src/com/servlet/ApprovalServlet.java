@@ -108,8 +108,9 @@ public class ApprovalServlet extends BaseServlet {
         String name = userService.getName(user1.getId());
         logService.setLog(name,"点击","采购审批","反审批");
         String dataString = request.getParameter("dataString");
+        System.out.println("ok"+dataString);
         int[] ints = StringDeal.toArray(dataString);
-        return null;
+        return approvalService.noaudit(ints,name);
     }
     public ResultData<List<Apply>> getHistory(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
@@ -117,6 +118,9 @@ public class ApprovalServlet extends BaseServlet {
         String name = userService.getName(user1.getId());
         logService.setLog(name,"点击","采购审批","获取审批历史记录");
         return approvalService.getHistory();
+    }
+    public void delOK(HttpServletRequest request, HttpServletResponse response){
+        ToJSON.toJson(response,approvalService.delOK());
     }
 
 }

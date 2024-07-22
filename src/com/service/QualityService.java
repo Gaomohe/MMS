@@ -20,7 +20,7 @@ public interface QualityService {
     //修改质检表质检状态
     public int updateQualityStatue(Quality quality);
     //修改质检表入库状态
-    public int updateQualitySS(Quality quality);
+    public int updateQualitySS(int id,String name);
     //修改质检表时间（自动修改）
     public int updateQualityTime(Quality quality);
     //删除质检表

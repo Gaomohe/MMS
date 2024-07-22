@@ -37,5 +37,9 @@ public interface ShoppingService {
 
     public LayuiTable<Medicine> prescriptionDrug();
 
+    public List<Medicine> getSup();
+
+    public LayuiTable<Medicine> getSelectedSup(String where);
+
 
 }

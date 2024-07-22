@@ -19,6 +19,8 @@ public interface QualityDao {
     public List<Quality> getQualityByName(String sql,String mName);
     //根据查询获取质检表
     public List<Quality> getQualityByQuery(String sql);
+    //根据oId获取质检表
+    public List<Integer> getQualityOid(int oId);
     //修改质检表质检状态
     public int updateQualityStatue(Quality quality);
     //修改质检表入库状态

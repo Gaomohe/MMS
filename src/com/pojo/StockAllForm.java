@@ -33,9 +33,17 @@ public class StockAllForm {
         private String placeOrigin;//产地
         private String batchsNumber;//批次号
         private int recordNumber;//记录号
+        private int tableCoding;
 
+    public int getTableCoding() {
+        return tableCoding;
+    }
 
-        public int getmId() {
+    public void setTableCoding(int tableCoding) {
+        this.tableCoding = tableCoding;
+    }
+
+    public int getmId() {
             return mId;
         }
 

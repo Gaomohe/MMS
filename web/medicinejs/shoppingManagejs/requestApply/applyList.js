@@ -23,7 +23,6 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
         });
         var arrID = $.param({"arrID": arrID});
         var arrKu = $.param({"arrKu": arrKu});
-
         $.ajax({
             url:"/shopping?action=add",
             data:{
@@ -32,7 +31,8 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
             type:"post",
             success:function(data){
                 var info = JSON.parse(data);
-                console.log(info)
+                console.log("什么")
+                console.log(data)
                 if(info.status === 200){
                     layer.msg("申请成功")
                     setTimeout(function(){
@@ -40,6 +40,7 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
                         //刷新父页面
                         parent.location.reload();
                     },1000);
+                    insertApply();
                 }else{
                     layer.msg("系统异常");
                 }
@@ -47,6 +48,19 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
         })
         return false;
     })
+
+    function insertApply(){
+        $.ajax({
+            url:"/shopping?action=insertApply",
+            type:"post",
+            success:function (data){
+                if(data.status === 200){
+                    console.log("成功");
+                }
+
+            }
+        })
+    }
 
 })
 

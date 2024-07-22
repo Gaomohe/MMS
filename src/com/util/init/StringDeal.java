@@ -1,6 +1,8 @@
 package com.util.init;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,5 +59,18 @@ public class StringDeal {
         reTwo.add(keyList);
         reTwo.add(valuesList);
         return reTwo;
+    }
+
+    //获取前几天
+    public static List<String> getDay(int n){
+        LocalDate today = LocalDate.now(); // 获取当前日期
+        List<String> list = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 设置日期格式
+        for (int i = n; i >= 1; i--) {
+            LocalDate date = today.minusDays(i); // 获取过去第i天的日期
+            String dateString = date.format(formatter); // 将日期转换为字符串
+            list.add(dateString);
+        }
+            return list;
     }
 }

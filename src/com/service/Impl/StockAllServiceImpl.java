@@ -6,6 +6,7 @@ import com.util.LayuiTable;
 
 import java.util.List;
 
+import static com.util.SQLtoString.getSQL;
 import static com.util.Vessel.stockAllDao;
 
 public class StockAllServiceImpl implements StockAllService {
@@ -46,5 +47,21 @@ public class StockAllServiceImpl implements StockAllService {
     @Override
     public int addDoStockAllForm(StockAllForm stockAllForm) {
         return stockAllDao.addStockAllForm(stockAllForm);
+    }
+
+    @Override
+    public List<StockAllForm> getStockInFormByQuery(String[] query) {
+        String[] keys = {"goodsType","mType","supplier","drugFrom"};//这里是键
+        Object[] values = {query[0],query[1],query[2],query[3]};//这里是值
+        String dictionary = getSQL(keys, values, "dictionary");//apply是表名
+        return stockAllDao.getStockAllFormByQuery(dictionary);
+    }
+
+    @Override
+    public List<StockAllForm> getStockAllFormByDrugName(String[] query) {
+        String[] keys = {"mName"};//这里是键
+        Object[] values = {query[0]};//这里是值
+        String dictionary = getSQL(keys, values, "dictionary");//apply是表名
+        return stockAllDao.getStockAllFormByQuery(dictionary);
     }
 }

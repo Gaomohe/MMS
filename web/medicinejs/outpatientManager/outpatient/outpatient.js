@@ -28,7 +28,7 @@ layui.extend({
                 {fixed:"left",type: "checkbox", width:50},
                 {field: 'pId', title: '患者卡号',  align:'center', width:200},
                 // {field: 'dId', title: '医生编号',  align:'center', width:200},
-                {field: 'mId', title: '处方编号', minWidth:100, align:"center"},
+                {field: 'mId', title: '处方编号', minWidth:100, align:"center",hide:true},
                 {field: 'name', title: '患者姓名', align:'center', width:200},
                 {field: 'sex', title: '性别', align:'center', width:200},
                 {field: 'age', title: '年龄', minWidth:100, align:"center"},
@@ -268,6 +268,7 @@ layui.extend({
                 "pPhone": pPhone,
                 "pAllergy": pAllergy,
                 "doctorAdvice": doctorAdvice,
+                "disease":disease,
                 "lastTime": lastTime
             },
             type: "post",

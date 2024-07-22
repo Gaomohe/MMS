@@ -17,11 +17,13 @@ import java.util.Date;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
+import static com.util.Vessel.ordersService;
 
 public class QualityServiceImpl implements QualityService {
 
     QualityDao qualityDao = new QualityDaoImpl();
     MedicineDao medicineDao = new MedicineDaoImpl();
+
     @Override
     public int addQuality(Quality quality) {
         Medicine medicine = medicineDao.getMedicine(quality.getTableCoding());
@@ -111,20 +113,29 @@ public class QualityServiceImpl implements QualityService {
     @Override
     public int updateQualityStatue(Quality quality) {
         Quality quality1 = qualityDao.getQualityByID(quality.getId());
+        quality1.setWarehousingRemarks(quality.getWarehousingRemarks());
         if (quality1.getStatue() == 0){
             quality1.setStatue(1);
         }else {
             quality1.setStatue(0);
         }
-        System.out.println(quality1.getStatue());
         return qualityDao.updateQualityStatue(quality1);
     }
 
     @Override
-    public int updateQualitySS(Quality quality) {
-        Quality quality1 = qualityDao.getQualityByID(quality.getId());
+    //入库状态改变方法
+    public int updateQualitySS(int id,String name) {
+        Quality quality1 = qualityDao.getQualityByID(id);
+        List<Integer> qualityOid = qualityDao.getQualityOid(quality1.getOrderId());
+        for (int i:qualityOid){
+            if (i==0){
+                return i;
+            }
+        }
         if (quality1.getStorageStatus().equals("未入库")){
             quality1.setStorageStatus("已入库");
+            int orderId = quality1.getOrderId();
+            int order = ordersService.getOrder(quality1.getOrderId(),name);
         }else {
             quality1.setStorageStatus("未入库");
         }
@@ -136,7 +147,6 @@ public class QualityServiceImpl implements QualityService {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
-        System.out.println(format);
         quality.setTime(format);
         return qualityDao.updateQualityTime(quality);
     }

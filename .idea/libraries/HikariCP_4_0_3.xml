@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="HikariCP-4.0.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/HikariCP-4.0.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/HikariCP-4.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

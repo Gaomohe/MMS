@@ -47,10 +47,9 @@
         </div>
         <%--可根据入库日期查询药品入库单信息--%>
                 <div class="layui-inline">
-<%--                    <label class="layui-form-label">入库日期</label>--%>
                         <label class="layui-form-label">入库日期</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="MainTime" placeholder="yyyy-MM-dd HH:mm:ss">
+                            <input type="text" class="layui-input" id="stockInTime" placeholder="yyyy-MM-dd HH:mm:ss">
                         </div>
                             <button type="button" class="layui-btn layui-bg-blue" id="queryButton">查询</button>
                             <button class="layui-btn layui-btn-primary layui-border" id="resetButton" type="reset">重置</button>

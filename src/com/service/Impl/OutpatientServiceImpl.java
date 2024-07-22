@@ -67,6 +67,7 @@ public class OutpatientServiceImpl implements OutpatientService {
         return outpatientDao.addPatient(patient);
     }
 
+    //条件查询药品列表
     @Override
     public LayuiTable<Medicine> getMedicineList(Medicine medicine) {
         LayuiTable<Medicine> layuiTable = new LayuiTable<>();

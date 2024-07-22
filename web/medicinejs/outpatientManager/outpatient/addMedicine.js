@@ -35,14 +35,16 @@ layui.extend({
                         title: '数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide:true
                     },
                     {
                         field: 'mId',
                         title: '药品编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide:true
                     },
                     {
                         field: 'mName',

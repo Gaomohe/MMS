@@ -1,10 +1,7 @@
 package com.servlet;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud;
-import com.pojo.Menu;
-import com.pojo.Orders;
-import com.pojo.Role;
-import com.pojo.User;
+import com.pojo.*;
 import com.service.OrdersService;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
@@ -18,11 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.util.Vessel.menuService;
-import static com.util.Vessel.ordersService;
+import static com.util.Vessel.*;
+import static com.util.Vessel.logService;
 
 @WebServlet("/orders")
 public class OrdersServlet extends BaseServlet {
+
+    @Override
+    public Class getServlet() {
+        return OrdersServlet.class;
+    }
+
     public String getMenuBtn(HttpServletRequest request, HttpServletResponse response){
         int resId = Integer.parseInt(request.getParameter("resId"));
         HttpSession session = request.getSession();
@@ -31,6 +34,19 @@ public class OrdersServlet extends BaseServlet {
         session.setAttribute("menuList",menuList);
         return "/medicine/shoppingManage/order/orderList";
     }
+
+    public String getMenuBtn1(HttpServletRequest request, HttpServletResponse response){
+        String oIdStr = request.getParameter("oId");
+        int theoId = Integer.parseInt(oIdStr);
+        int resId = 288;
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
+        session.setAttribute("menuList",menuList);
+        session.setAttribute("theoId",theoId);
+        return "/medicine/shoppingManage/order/orderDetail";
+    }
+
     //获取所有订单
     public void selectOrders(HttpServletRequest request, HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
@@ -130,13 +146,26 @@ public class OrdersServlet extends BaseServlet {
     public ResultData updateOrders(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         Orders orders = new Orders();
+        /*
+        * "oId": oId,
+                "manufactor": manufactor,
+                "shippingAddress": shippingAddress,"deliveryAddress": deliveryAddress,
+                "shippingTime": shippingTime,"shippingWay": shippingWay, "tempControlWay": tempControlWay,
+                "deliveryTime": deliveryTime,"deliveryTemp": deliveryTemp,"attachment": attachment,
+                "salesman": salesman,
+                "buyer": buyer,
+                "recipient": recipient,
+                "orderCondition": orderCondition,
+                "statement": statement,
+                "allPrice": allPrice,
+                "advance": advance,
+                "advanceStatus": advanceStatus,
+                "finals": finals,
+                "finalsStatus": finalsStatus,
+        * */
+
         orders.setoId(Integer.parseInt(request.getParameter("oId")));
-        orders.setoName(request.getParameter("oName")); // 药品名
-        orders.setSpecification(request.getParameter("specification")); // 规格
         orders.setManufactor(request.getParameter("manufactor")); // 生产企业
-        orders.setUnit(request.getParameter("unit")); // 单位
-        orders.setoNum(Integer.parseInt(request.getParameter("oNum"))); // 订单数量
-        orders.setSalePrice(Integer.parseInt(request.getParameter("salePrice"))); // 采购单价
         orders.setShippingAddress(request.getParameter("shippingAddress")); // 发货地址
         orders.setDeliveryAddress(request.getParameter("deliveryAddress")); // 收货地址
         orders.setShippingTime(request.getParameter("shippingTime")); // 发货时间
@@ -148,8 +177,13 @@ public class OrdersServlet extends BaseServlet {
         orders.setSalesman(request.getParameter("salesman")); // 供货单位业务员
         orders.setBuyer(request.getParameter("buyer")); // 采购人
         orders.setRecipient(request.getParameter("recipient")); // 收货人
-        orders.setOrderCondition(request.getParameter("orderCondition")); // 收货状态
+//        orders.setOrderCondition(request.getParameter("orderCondition")); // 收货状态
         orders.setStatement(request.getParameter("statement")); // 收货说明
+        orders.setAllPrice(Double.parseDouble(request.getParameter("allPrice")));
+        orders.setAdvance(Double.parseDouble(request.getParameter("advance")));
+        orders.setAdvanceStatus(request.getParameter("advanceStatus"));
+        orders.setFinals(Double.parseDouble(request.getParameter("finals")));
+        orders.setFinalsStatus(request.getParameter("finalsStatus"));
         int i = ordersService.updateDoOrders(orders);
         if (i>0){
             resultData.setStatus(200);
@@ -159,9 +193,47 @@ public class OrdersServlet extends BaseServlet {
         return resultData;
     }
 
-
-    @Override
-    public Class getServlet() {
-        return OrdersServlet.class;
+    //获取订单详情
+    public void getOrderDetails(HttpServletRequest request,HttpServletResponse response){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+        HttpSession session = request.getSession();
+        int oId = (Integer) session.getAttribute("theoId");
+        LayuiTable<Apply> layuiTable = ordersService.getOrderDetails(oId,page,limit);
+        ToJSON.toJson(response,layuiTable);
     }
+
+    //获取供应商
+    public void getOrderList(HttpServletRequest request,HttpServletResponse response){
+        List<Orders> orderList = ordersService.getOrderList();
+        ToJSON.toJson(response,orderList);
+    }
+    public void getOrderList1(HttpServletRequest request,HttpServletResponse response){
+        List<Orders> orderList = ordersService.getOrderList1();
+        ToJSON.toJson(response,orderList);
+    }
+    public void getOrderList2(HttpServletRequest request,HttpServletResponse response){
+        List<Orders> orderList = ordersService.getOrderList2();
+        ToJSON.toJson(response,orderList);
+    }
+
+    //条件查询表
+    public void Search(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        logService.setLog(name,"点击","采购管理","条件查询所有采购订单");
+        String supplier = request.getParameter("supplier");
+        String buyUser = request.getParameter("buyUser");
+        String status = request.getParameter("status");
+        Orders order = new Orders();
+        order.setManufactor(supplier);
+        order.setBuyer(buyUser);
+        order.setStatement(status);
+        LayuiTable<Orders> layuiTable = ordersService.Search(order);
+        ToJSON.toJson(response,layuiTable);
+    }
+
+
 }

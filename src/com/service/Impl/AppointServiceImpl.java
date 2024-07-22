@@ -78,6 +78,8 @@ public class AppointServiceImpl implements AppointService {
     //生成订单
     @Override
     public int addAppoint(List<Integer> idList) {
+        Orders orders = new Orders();
+        buyOrder buyorder = new buyOrder();
         double allPrice = 0;
         Appointment appointment = new Appointment();
         int count = idList.size();
@@ -88,17 +90,30 @@ public class AppointServiceImpl implements AppointService {
             appointment = appointDao.getAppoint(id);
             allPrice = appointment.getNumber() * appointment.getPurchasePrice();
             int number = appointDao.getNumber(id);
+            Apply apply = appointDao.getManufactor(id);
+            orders.setManufactor(apply.getManufactor());
+            orders.setBuyer(apply.getApplyUser());
+            orders.setShippingAddress(apply.getManufactor());
+
             Quality quality = new Quality();
             quality.setTableCoding(id);
             quality.setTotlNumber(number);
             qualityService.addQuality(quality);
         }
-        buyOrder buyorder = new buyOrder();
+
+        orders.setAllPrice(allPrice);
+        double advance = allPrice * 0.3;
+        double finals = allPrice - advance;
+        orders.setAdvance(advance);
+        orders.setFinals(finals);
+
         buyorder.setAllPrice(allPrice);
         int i1 = appointDao.addOrder(buyorder);
         int bId = appointDao.getOrderId();
+        orders.setoId(bId);
         for(int id : idList){
-            int i = appointDao.addAppoint(id,bId);
+            appointment = appointDao.getAppoint(id);
+            int i = appointDao.addAppoint(id,bId,appointment.getApplyNumber());
             if (i > 0){
                 num++;
             }
@@ -106,6 +121,10 @@ public class AppointServiceImpl implements AppointService {
         if (num==count){
             m = 1;
         }
+
+        //获取订单id，供应商名称
+
+        int i = this.insertOrder(orders);
         return m;
     }
 
@@ -189,5 +208,11 @@ public class AppointServiceImpl implements AppointService {
         layuiTable.setCount(searchLogList.size());
         layuiTable.setData(searchLogList);
         return layuiTable;
+    }
+
+    //订单信息填充
+    @Override
+    public int insertOrder(Orders orders) {
+        return appointDao.insertOrder(orders);
     }
 }

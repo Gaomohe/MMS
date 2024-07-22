@@ -20,15 +20,15 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {fixed:"left",type: "checkbox", width:50},
-            {field: 'tableCoding', title: '药品编号',  align:'center'},
-            {field: 'mName', title: '药品名称',  align:'center'},
+            {field: 'tableCoding', title: '药品编号',  align:'center',hide:true},
+            {field: 'mName', title: '药品名称',  align:'center',width:100},
             {field: 'specification', title: '规格',  align:'center'},
             {field: 'number', title: '库存',  align:'center'},
             {field: 'purchasePrice', title: '价格',  align:'center'},
-            {field: 'manufactor', title: '供应商',  align:'center'},
+            {field: 'manufactor', title: '供应商',  align:'center',width:300},
             {field: 'drugFrom', title: '类别',  align:'center'},
             {field: 'goodsType', title: '种类',  align:'center'},
-            {field: 'productDate', title: '生产日期',  align:'center'},
+            {field: 'productDate', title: '生产日期',  align:'center',hide: true},
             {field: 'approvalNumber', title: '注册批号',  align:'center'},
             {field: 'documentNumber', title: '商品编号',  align:'center'},
             {field: 'opera', title: '操作',  align:'center',templet:function (d){
@@ -68,9 +68,24 @@ layui.extend({
     }
     initDatepicker();
     form.on('select(onChangeSelect)',function (data){
+
         var drugFrom = data.value;
         tableIns.reload({
             url : '/shopping?action=getSelectedValue', // 保持URL不变，除非你需要改变数据源
+            where: { // 新的查询参数
+                drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
+            },
+            type:'static',
+            page: false,
+            done:function (){
+
+            }
+        });
+    });
+    form.on('select(onChangeSelect01)',function (data){
+        var drugFrom = data.value;
+        tableIns.reload({
+            url : '/shopping?action=getSelectedSup', // 保持URL不变，除非你需要改变数据源
             where: { // 新的查询参数
                 drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
             },

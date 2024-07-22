@@ -1,9 +1,6 @@
 package com.service;
 
-import com.pojo.Apply;
-import com.pojo.Appointment;
-import com.pojo.Log;
-import com.pojo.Medicine;
+import com.pojo.*;
 import com.util.LayuiTable;
 
 import java.util.List;
@@ -32,4 +29,7 @@ public interface AppointService {
 
     //条件查询预购订单表
     public LayuiTable<Apply> Search(Apply apply,int page, int limit);
+
+    //订单信息填充
+    public int insertOrder(Orders orders);
 }

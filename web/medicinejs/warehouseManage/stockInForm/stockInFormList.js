@@ -8,7 +8,8 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
-
+    var total = 0;
+    var count = 0;
     layui.use(function () {
         laydate.render({
             elem: '#MainTime',
@@ -55,7 +56,7 @@ layui.extend({
         var stockInNum = $("#stockInNum").val();
         var rName = $("#rName").val();
         var stockInTime = $("#stockInTime").val();
-        console.log(rName);
+        console.log(stockInTime)
         $.ajax({
             url:"/StockInForm?action=getStockInFormByQuery",
             type:"POST",
@@ -75,6 +76,9 @@ layui.extend({
     });
     //重置
     $("#resetButton").click(function() {
+        $("#stockInNum").val('');
+        $("#rName").val('');
+        $("#stockInTime").val('');
         tableIns.reload({
             url:"/StockInForm?action=selectStockInForm",
             page: {
@@ -93,7 +97,7 @@ layui.extend({
                 data:data,
                 cols : [[
                     {type: "checkbox", fixed:"left", width:50},
-                    // {field: 'rId', title: '#',  align:'center',width:100},
+                    {field: 'rId', title: '#',  align:'center',width:100},
                     {field: 'stockInNum', title: "入库单号",  align:'center',width:100},
                     {field: 'rName', title: '入库药品',  align:'center',width:100},
                     {field: 'standard', title: '规格', width:100, align:"center"},
@@ -122,33 +126,43 @@ layui.extend({
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var rId = '';
-        var id = [];
         for(i=0;i<data.length;i++){
             rId = data[i].rId;
-            id.push(rId)
         }
-        console.log(id)
+        console.log(rId)
         console.log(data)
         switch(obj.event){
             case 'delStockInForm':
-                if(data.length = 0){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }else if (data.length>=1){
-                    layer.confirm('确定删除此入库单吗?', {icon: 3, title:'提示'}, function(index){
-                        for(i=0;i<id.length;i++){
-                            delStockInForm(id[i]);
-                        }
-
-                        layer.close(index);
-                        setTimeout(function(){
-                            layer.closeAll("iframe");
-                            //刷新父页面
-                            parent.location.reload();
-                        },1000);
+                if (data.length > 0) {
+                    data.forEach(function(data1) {
+                        // 假设每个file对象都有一个id属性，用于标识用户
+                        total++;
+                        delStockInForm(data1.rId);
+                        console.log(data1.rId)
+                        console.log(total)
                     });
-                    break;
+                } else {
+                    layer.msg("请选择一行数据进行操作", {icon: 2});
                 }
+                break;
+                // if(data.length = 0){
+                //     layer.msg("请选择一行数据进行操作")
+                //     return false;
+                // }else if (data.length>=1){
+                //     layer.confirm('确定删除此入库单吗?', {icon: 3, title:'提示'}, function(index){
+                //         for(i=0;i<id.length;i++){
+                //             delStockInForm(id[i]);
+                //         }
+                //
+                //         layer.close(index);
+                //         setTimeout(function(){
+                //             layer.closeAll("iframe");
+                //             //刷新父页面
+                //             parent.location.reload();
+                //         },1000);
+                //     });
+                //     break;
+                // }
             case 'updateStockInForm':
                 if(data.length != 1){
                     layer.msg("请选择一行数据进行操作")
@@ -165,17 +179,31 @@ layui.extend({
         };
     });
 
-    function delStockInForm(id){
+    function delStockInForm(rId){
         $.ajax({
             url:"/StockInForm?action=delStockInForm",
             type:"post",
-            data:{"id":id},
+            data:{"rId":rId},
+            dataType: "json",
+            traditional: true,
             success:function(data){
-                console.log(data)
-                var info = JSON.parse(data);
-                if(info.status == 200){
-                    layer.msg("删除成功");
-                    tableIns.reload("#stockInFormList");
+                count++
+                console.log(count)
+                if (count == total) {
+                    console.log(total)
+                    if (data.status==200) {
+                        console.log(data.status)
+                            layer.confirm('确认删除此入库单吗？', {
+                                btn: ['确定', '关闭'] //按钮
+                            }, function(){
+                                layer.msg('删除成功', {icon: 1});
+                                location.reload();
+                            })
+///
+                    } else {
+                        layer.msg("删除失败", { icon: 2 });
+                    }
+
                 }
             }
         })
@@ -186,7 +214,7 @@ layui.extend({
             title : "修改入库单信息",
             type : 2,
             content : "medicine/warehouseManage/stockInForm/stockInFormInfo.jsp",
-            area:['550px','500px'],
+            area:['550px','550px'],
             success:function(layero, index){
                 $.ajax({
                     url:"/StockInForm?action=selectStockInFormById",//根据id查询的方法
@@ -208,6 +236,7 @@ layui.extend({
                         body.find("#productDate").val(info.data.productDate);
                         body.find("#expiration").val(info.data.expiration);
                         body.find("#stockInTime").val(info.data.stockInTime);
+                        body.find("#department").val(info.data.department);
                         body.find("#notes").val(info.data.notes);
                     }
                 })

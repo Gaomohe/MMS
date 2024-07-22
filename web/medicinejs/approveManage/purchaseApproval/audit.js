@@ -43,18 +43,21 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
     $("#isok").click(function(){
         // 获取所有选中的复选框
         var checkedCheckboxes = $('input[type="checkbox"]:checked');
-
         // 创建一个数组来存储选中的数据
         var selectedData = [];
 
         // 遍历选中的复选框
-        checkedCheckboxes.each(function() {
-            var applyId = $(this).val(); // 获取复选框的value值，即applyId
+        checkedCheckboxes.each(function(index) {
+            var id = $(this).attr('id'); // 获取当前复选框的 ID
+            // var value = $(this).val(); // 获取当前复选框的值
+
+            // console.log('Checkbox #' + (index + 1) + ' ID: ' + id + ', Value: ' + value);
             // 将数据存储到数组中
             selectedData.push({
-                applyId: applyId,
+                applyId: id,
             });
         });
+
         if (selectedData.length===0){
             layer.msg('请选择一列');
             return ;
@@ -102,10 +105,11 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
 
         // 遍历选中的复选框
         checkedCheckboxes.each(function() {
-            var applyId = $(this).val(); // 获取复选框的value值，即applyId
+            // var applyId = $(this).val(); // 获取复选框的value值，即applyId
+            var id = $(this).attr('id'); // 获取当前复选框的 ID
             // 将数据存储到数组中
             selectedData.push({
-                applyId: applyId,
+                applyId: id,
             });
         });
         if (selectedData.length===0){
@@ -124,8 +128,9 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
 
 // 遍历所有input元素
         allInputs.each(function() {
-            var inputValue = $(this).val(); // 获取当前input元素的value
-            inputValues.push(inputValue); // 将value添加到数组中
+            // var inputValue = $(this).val(); // 获取当前input元素的value
+            var id = $(this).attr('id');
+            inputValues.push(id); // 将value添加到数组中
         });
 
         var dataString = $.param({"inputValues": inputValues});
@@ -164,7 +169,6 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
         var index = parent.layer.getFrameIndex(window.name); // 获取弹出层索引
         parent.layer.close(index); // 关闭弹出层
     });
-
     //取消事件
     $("#out_1").click(function (){
         $('#dialogBox').hide();
