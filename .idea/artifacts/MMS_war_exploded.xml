@@ -20,6 +20,7 @@
           <element id="library" level="project" name="jackson-databind-2.12.3" />
           <element id="library" level="project" name="jackson-annotations-2.12.1" />
           <element id="library" level="project" name="mysql-connector-j-8.4.0" />
+          <element id="library" level="project" name="mybatis-3.5.16" />
         </element>
       </element>
     </root>

@@ -14,17 +14,20 @@
     <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" charset="utf-8" media="all" />
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.css" charset="utf-8">
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css" charset="utf-8">
+    <link rel="stylesheet" href="<%= path %>iframe/assets/css/vendors_css.css">
+    <link rel="stylesheet" href="<%= path %>iframe/assets/css/style.css">
+    <link rel="stylesheet" href="<%= path %>iframe/assets/css/skin_color.css">
 </head>
 <body class="childrenBody">
 
 <div class="layuimini-container">
-    <div class="layuimini-main">
+    <div class="layuimini-main multinav-scroll">
         <script type="text/html" id="appointDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
             </c:forEach>
         </script>
-        <table id="appointList" lay-filter="appointList"></table>
+        <table id="appointList" lay-filter="appointList" class="table table-hover" ></table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

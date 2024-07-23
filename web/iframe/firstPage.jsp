@@ -33,6 +33,7 @@
     <div class="layui-body">
         <div class="content-wrapper" style="width: 100%;margin-left: 0" >
             <div class="container-full">
+                <%--仓库容量显示--%>
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
