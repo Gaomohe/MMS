@@ -362,7 +362,9 @@ layui.extend({
             {field: 'tableCoding' ,title:'自编码', align:'center'}
         ]],
         done:function (data){
+            console.log("成功")
             $('#search').on('click', function() {
+                console.log("执行")
                 search();
                 // 这里可以添加搜索相关的代码
             });
@@ -370,13 +372,13 @@ layui.extend({
     });
     function search(){
         var inputValue = $('#input').val(); // 获取输入框的值
-        $.ajax({
-            url:"/gspReport?action=search",//根据id查询的方法
-            type:"post",
-            data:{inputValue},
-            success:function (data){
-
-            }
-        })
+        tableIns.reload({
+            url : '/gspReport?action=search',
+            where: {
+                inputValue
+            },
+            type:'static',
+            page: false,
+        });
     }
 })
