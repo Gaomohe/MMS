@@ -1,3 +1,4 @@
+/*
 ({
     optimize: "none",
     preserveLicenseComments: false,
@@ -53,3 +54,4 @@
     </script>
 </body>
 </html>
+*/
