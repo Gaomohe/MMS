@@ -10,16 +10,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="">
-    <link href="<%= path %>/iframe/assets/images/favicon.ico" rel="icon">
+    <%--<link href="<%= path %>/iframe/assets/images/favicon.ico" rel="icon">--%>
     <title>医药管理系统</title>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/module/admin.css?v=314"/>
-    <link rel="stylesheet" href="<%= basePath %>iframe/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+    <!-- Vendors Style-->
+    <%--<link rel="stylesheet" href="<%= path %>/Deposito/main/css/vendors_css.css">
+    <!-- Style-->
+    <link rel="stylesheet" href="<%= path %>/Deposito/main/css/style.css">
+    <link rel="stylesheet" href="<%= path %>/Deposito/main/css/skin_color.css">
+--%>
+<%--<link rel="stylesheet" href="<%= basePath %>iframe/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="<%= basePath %>iframe/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
     <link rel="stylesheet" href="<%= basePath %>iframe/assets/vendor/remixicon/fonts/remixicon.css">
-    <link rel="stylesheet" href="<%= basePath %>iframe/assets/css/vendors_css.css">
-    <link rel="stylesheet" href="<%= basePath %>iframe/assets/css/style.css">
-    <link rel="stylesheet" href="<%= basePath %>iframe/assets/css/skin_color.css">
+    <link rel="stylesheet" href="<%= basePath %>iframe/assets/css/vendors_css.css">--%>
+    <%--<link rel="stylesheet" href="<%= path %>iframe/assets/css/style.css">--%>
+<%--    <link rel="stylesheet" href="<%= basePath %>iframe/assets/css/skin_color.css">--%>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -1538,7 +1544,6 @@
             </div>
         </div>
     </div>
-
     <!-- 底部 -->
     <div class="layui-footer">
         copyright © 2019 <a href="http://easyweb.vip" target="_blank">医药系统</a> all rights reserved.
@@ -1554,35 +1559,34 @@
 </div>
 
 <!-- js部分 -->
-<script src="<%= basePath %>iframe/assets/js/vendors.min.js"></script>
-<script src="<%= basePath %>iframe/assetsjs/pages/chat-popup.js"></script>
-<script src="<%= basePath %>iframe/assets/icons/feather-icons/feather.min.js"></script>
-
-<script src="<%= basePath %>iframe/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
-<script src="<%= basePath %>iframe/assets/vendor_components/progressbar.js-master/dist/progressbar.js"></script>
+<script type="application/javascript" src="<%= path %>/iframe/assets/libs/layui/layui.js"></script>
+<script type="application/javascript" src="<%= path %>/iframe/assets/js/common.js?v=314"></script>
+<!-- Vendor JS -->
+<%--<script type="application/javascript" src="<%= path%>/Deposito/main/js/vendors.min.js"></script>
+<script type="application/javascript" src="<%= path%>/Deposito/main/js/pages/chat-popup.js"></script>
+<script type="application/javascript" src="<%= path%>/Deposito/assets/icons/feather-icons/feather.min.js"></script>
+<script type="application/javascript" src="<%= path%>/Deposito/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></script>
+<script type="application/javascript" src="<%= path%>/Deposito/assets/vendor_components/progressbar.js-master/dist/progressbar.js"></script>
 <script>
     document.getElementById('e').value = new Date().toISOString().substring(0, 10);
 </script>
-
 <!-- Deposito Admin App -->
-<script src="<%= basePath %>iframe/assets/js/template.js"></script>
-<script src="<%= basePath %>iframe/assets/js/pages/dashboard.js"></script>
-<script type="text/javascript" src="<%= path %>/iframe/assets/libs/layui/layui.js"></script>
-<script type="text/javascript" src="<%= path %>/iframe/assets/js/common.js?v=314"></script>
+<script type="application/javascript" src="<%= path%>/Deposito/main/js/template.js"></script>
+<script type="application/javascript" src="<%= path%>/Deposito/main/js/pages/dashboard.js"></script>--%>
 <script>
-    // layui.use(['index'], function () {
-    //     var $ = layui.jquery;
-    //     var index = layui.index;
-    //
-    //     // 默认加载主页
-    //     index.loadHome({
-    //         menuPath: '../iframe/selectPages/所有首页可选择页面/introduction.jsp',
-    //         menuName: '<i class="layui-icon layui-icon-home"></i>'
-    //     });
-    //
-    // });
+    layui.use(['index'], function () {
+        var $ = layui.jquery;
+        var index = layui.index;
+
+        // 默认加载主页
+        index.loadHome({
+            menuPath: '../iframe/selectPages/所有首页可选择页面/introduction.jsp',
+            menuName: '<i class="layui-icon layui-icon-home"></i>'
+        });
+
+    });
 </script>
-<script src="../iframe/assets/libs/jquery/jquery-3.2.1.min.js"></script>
+<script type="application/javascript" src="<%= path %>/iframe/assets/libs/jquery/jquery-3.2.1.min.js"></script>
 <script>
     // 获取菜单数据并渲染
     $.ajax({
