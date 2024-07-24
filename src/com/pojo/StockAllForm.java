@@ -25,8 +25,17 @@ public class StockAllForm {
         private String sign;//标志
         private String warehousingRemarks;//入库备注
         private String drugFrom;//剂型
-        private String handlingInformation;//处理情况
-        private String approvalNumber;//批准文号
+        private String handingInformation;//处理情况
+
+    public String getHandingInformation() {
+        return handingInformation;
+    }
+
+    public void setHandingInformation(String handingInformation) {
+        this.handingInformation = handingInformation;
+    }
+
+    private String approvalNumber;//批准文号
         private String LastCuringDate;//上次养护日期
         private int timesStorage;//入库次数
         private String documentNumber;//单据号码
@@ -235,13 +244,6 @@ public class StockAllForm {
             this.drugFrom = drugFrom;
         }
 
-        public String getHandlingInformation() {
-            return handlingInformation;
-        }
-
-        public void setHandlingInformation(String handlingInformation) {
-            this.handlingInformation = handlingInformation;
-        }
 
         public String getApprovalNumber() {
             return approvalNumber;

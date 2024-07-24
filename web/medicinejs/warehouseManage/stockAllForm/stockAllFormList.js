@@ -47,17 +47,18 @@ layui.extend({
             {field: 'supplier', title:'供货商' , width:100, align:"center"},
             {field: 'warehousingDate', title:'入库日期' , width:100, align:"center"},
             {field: 'locationDescription', title:'货位说明' , hide:true,width:100, align:"center"},
-            {field: 'sign', title:'标志' , width:100, align:"center"},
+            {field: 'sign', title:'标志', hide:true , width:100, align:"center"},
             {field: 'warehousingRemarks', title:'入库备注' , width:100, align:"center"},
             {field: 'drugFrom', title:'剂型' , width:100, align:"center"},
-            {field: 'handlingInformation', title:'处理情况' ,hide:true, width:100, align:"center"},
+            {field: 'handingInformation', title:'处理情况' ,hide:true, width:100, align:"center"},
             {field: 'approvalNumber', title:'批准文号' , width:100, align:"center"},
-            {field: 'LastCuringDate', title:'上次养护日期' , hide:true,width:100, align:"center"},
+            {field: 'LastCuringDate', title:'上次养护日期' ,width:100, align:"center"},
             {field: 'timesStorage', title:'入库次数' , width:100, align:"center"},
             {field: 'documentNumber', title:'单据号码' , hide:true,width:100, align:"center"},
             {field: 'placeOrigin', title:'产地' , width:100, align:"center"},
             {field: 'batchsNumber', title:'批次号' ,hide:true, width:100, align:"center"},
             {field: 'recordNumber', title:'记录号' , width:100, align:"center"},
+            {field: 'tableCoding', title:'id',hide:true , width:100, align:"center"},
 
         ]],
         done:function (data){
@@ -66,14 +67,13 @@ layui.extend({
     });
     //工具栏事件
     table.on('toolbar(stockAllFormList)', function(obj){
-        console.log(obj)
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
-        var mId = '';
+        var tableCoding = '';
         for(i=0;i<data.length;i++){
-            mId = data[i].mId;
+            tableCoding = data[i].tableCoding;
         }
-        console.log(mId)
+        console.log(tableCoding)
         switch(obj.event){
             case 'delStockAllForm':
                 if(data.length != 1){
@@ -81,7 +81,7 @@ layui.extend({
                     return false;
                 }
                 layer.confirm('确定删除此库存单吗?', {icon: 3, title:'提示'}, function(index){
-                    delStockAllForm(mId);
+                    delStockAllForm(tableCoding);
                     layer.close(index);
                 });
                 break;
@@ -91,7 +91,7 @@ layui.extend({
                     layer.msg("请选择一行数据进行操作")
                     return false;
                 }else{
-                    upStockAllForm(rId);
+                    upStockAllForm(tableCoding);
                 }
                 break;
 
@@ -101,12 +101,12 @@ layui.extend({
 
         };
     });
-    function delStockAllForm(mId){
-        console.log(mId)
+    function delStockAllForm(tableCoding){
+        console.log(tableCoding)
         $.ajax({
             url:"/StockAllForm?action=delStockAllForm",
             type:"post",
-            data:{"mId":mId},
+            data:{"tableCoding":tableCoding},
             success:function(data){
                 console.log(data)
                 var info = JSON.parse(data);
@@ -118,32 +118,56 @@ layui.extend({
         })
     }
 
-    function upStockAllForm(rId){
+    function upStockAllForm(tableCoding){
         layui.layer.open({
             title : "修改药品库存单信息",
             type : 2,
-            content : "medicine/warehouseManage/stockInForm/stockInFormInfo.jsp",
+            content : "medicine/warehouseManage/stockAllForm/stockAllFormInfo.jsp",
             area:['550px','500px'],
             success:function(layero, index){
                 $.ajax({
-                    url:"/StockInForm?action=selectStockInFormById",//根据id查询的方法
+                    url:"/StockAllForm?action=selectStockAllFormById",//根据id查询的方法
                     type:"post",
-                    data:{"rId":rId},
+                    data:{"tableCoding":tableCoding},
                     success:function(data){
                         var info = JSON.parse(data);
                         var body = layui.layer.getChildFrame('body', index);
-                        body.find("#rId").val(info.data.rId);
-                        body.find("#rName").val(info.data.rName);
-                        body.find("#standard").val(info.data.standard);
+                        body.find("#mId").val(info.data.rId);
+                        body.find("#mName").val(info.data.mName);
+                        body.find("#specification").val(info.data.specification);
                         body.find("#manufactor").val(info.data.manufactor);
                         body.find("#unit").val(info.data.unit);
-                        body.find("#rNum").val(info.data.rNum);
-                        body.find("#cost").val(info.data.cost);
-                        body.find("#salePrice").val(info.data.salePrice);
-                        body.find("#batchNumber").val(info.data.batchNumber);
-                        body.find("#productDate").val(info.data.productDate);
-                        body.find("#expiration").val(info.data.expiration);
                         body.find("#department").val(info.data.department);
+                        body.find("#position").val(info.data.position);
+                        body.find("#number").val(info.data.number);
+                        body.find("#batchNumber").val(info.data.batchNumber);
+                        body.find("#usefulLife").val(info.data.usefulLife);
+                        body.find("#purchasePrice").val(info.data.purchasePrice);
+                        body.find("#salePrice").val(info.data.salePrice);
+                        body.find("#productDate").val(info.data.productDate);
+                        body.find("#salePrice").val(info.data.salePrice);
+                        body.find("#productDate").val(info.data.productDate);
+                        body.find("#profits").val(info.data.profits);
+                        body.find("#code").val(info.data.code);
+                        body.find("#goodsType").val(info.data.goodsType);
+                        body.find("#mType").val(info.data.mType);
+                        body.find("#defined").val(info.data.defined);
+                        body.find("#supplier").val(info.data.supplier);
+                        body.find("#warehousingDate").val(info.data.warehousingDate);
+                        body.find("#locationDescription").val(info.data.locationDescription);
+                        body.find("#sign").val(info.data.sign);
+                        body.find("#warehousingRemarks").val(info.data.warehousingRemarks);
+                        body.find("#drugFrom").val(info.data.drugFrom);
+                        body.find("#handingInformation").val(info.data.handingInformation);
+                        body.find("#approvalNumber").val(info.data.approvalNumber);
+                        body.find("#LastCuringDate").val(info.data.LastCuringDate);
+                        body.find("#timesStorage").val(info.data.timesStorage);
+                        body.find("#documentNumber").val(info.data.documentNumber);
+                        body.find("#placeOrigin").val(info.data.placeOrigin);
+                        body.find("#batchsNumber").val(info.data.batchsNumber);
+                        body.find("#recordNumber").val(info.data.recordNumber);
+                        body.find("#tableCoding").val(info.data.tableCoding);
+                        console.log(tableCoding)
                     }
                 })
             }
@@ -188,7 +212,8 @@ layui.extend({
         });
     });
 
-    $("#findButton").click(function () {
+    $("#reset").click(function () {
+        alert("ddd")
         select1 = $("#select1").val('');
         select2 = $("#select2").val('');
         select3 = $("#select3").val('');
@@ -201,6 +226,8 @@ layui.extend({
             }
         })
     })
+
+
 
     //重新加载表格
     function reloadTable(data) {
@@ -241,7 +268,7 @@ layui.extend({
                     {field: 'sign', title: '标志', width: 100, align: "center"},
                     {field: 'warehousingRemarks', title: '入库备注', width: 100, align: "center"},
                     {field: 'drugFrom', title: '剂型', width: 100, align: "center"},
-                    {field: 'handlingInformation', title: '处理情况', hide: true, width: 100, align: "center"},
+                    {field: 'handingInformation', title: '处理情况', hide: true, width: 100, align: "center"},
                     {field: 'approvalNumber', title: '批准文号', width: 100, align: "center"},
                     {field: 'LastCuringDate', title: '上次养护日期', hide: true, width: 100, align: "center"},
                     {field: 'timesStorage', title: '入库次数', width: 100, align: "center"},
@@ -251,7 +278,7 @@ layui.extend({
                     {field: 'recordNumber', title: '记录号', width: 100, align: "center"},
                 ]],
             })
-         //重新绑定工具栏,因为我们需要查很多次但上面只能查一次
+            //重新绑定工具栏,因为我们需要查很多次但上面只能查一次
             table.on('toolbar(stockAllFormList)',function (obj){
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
@@ -346,7 +373,7 @@ layui.extend({
                     {field: 'sign', title: '标志', width: 100, align: "center"},
                     {field: 'warehousingRemarks', title: '入库备注', width: 100, align: "center"},
                     {field: 'drugFrom', title: '剂型', width: 100, align: "center"},
-                    {field: 'handlingInformation', title: '处理情况', hide: true, width: 100, align: "center"},
+                    {field: 'handingInformation', title: '处理情况', hide: true, width: 100, align: "center"},
                     {field: 'approvalNumber', title: '批准文号', width: 100, align: "center"},
                     {field: 'LastCuringDate', title: '上次养护日期', hide: true, width: 100, align: "center"},
                     {field: 'timesStorage', title: '入库次数', width: 100, align: "center"},
@@ -355,25 +382,6 @@ layui.extend({
                     {field: 'batchsNumber', title: '批次号', hide: true, width: 100, align: "center"},
                     {field: 'recordNumber', title: '记录号', width: 100, align: "center"},
                 ]],
-                done:function (data){
-                    // 重新绑定按钮事件,这样按钮就不会消失了
-                    // $("#searchIcon").off('click').on('click', function() {
-                    //     var mName = $("#mName").val();
-                    //     console.log(mName);
-                    //     $.ajax({
-                    //         url: "/StockAllForm?action=getStockAllFormByDrugName",
-                    //         type: "POST",
-                    //         data: { "mName": mName },
-                    //         dataType: "JSON",
-                    //         success: function(response) {
-                    //             console.log(response);
-                    //             var tableData = response.data;
-                    //             console.log(tableData);
-                    //             renderTable(tableData);
-                    //         }
-                    //     });
-                    // });
-                }
             })
         })
     }

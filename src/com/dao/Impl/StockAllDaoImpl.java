@@ -43,7 +43,7 @@ public class StockAllDaoImpl implements StockAllDao {
                 stockAllForm.setSign(resultSet.getString(22));
                 stockAllForm.setWarehousingRemarks(resultSet.getString(23));
                 stockAllForm.setDrugFrom(resultSet.getString(24));
-                stockAllForm.setHandlingInformation(resultSet.getString(25));
+                stockAllForm.setHandingInformation(resultSet.getString(25));
                 stockAllForm.setApprovalNumber(resultSet.getString(26));
                 stockAllForm.setLastCuringDate(resultSet.getString(27));
                 stockAllForm.setTimesStorage(resultSet.getInt(28));
@@ -95,7 +95,7 @@ public class StockAllDaoImpl implements StockAllDao {
                 stockAllForm.setSign(resultSet.getString(22));
                 stockAllForm.setWarehousingRemarks(resultSet.getString(23));
                 stockAllForm.setDrugFrom(resultSet.getString(24));
-                stockAllForm.setHandlingInformation(resultSet.getString(25));
+                stockAllForm.setHandingInformation(resultSet.getString(25));
                 stockAllForm.setApprovalNumber(resultSet.getString(26));
                 stockAllForm.setLastCuringDate(resultSet.getString(27));
                 stockAllForm.setTimesStorage(resultSet.getInt(28));
@@ -113,10 +113,10 @@ public class StockAllDaoImpl implements StockAllDao {
     }
 
     @Override
-    public StockAllForm getStockAllFormById(int mid) {
-        String sql=" select * from dictionary where mId=?";
+    public StockAllForm getStockAllFormById(int tableCoding) {
+        String sql=" select * from dictionary where tableCoding=?";
         Object[]  objects= new Object[1];
-        objects[0]=mid;
+        objects[0]=tableCoding;
         ResultSet resultSet = JDBC.select(sql,objects);
         StockAllForm stockAllForm = new StockAllForm();
         try {
@@ -145,7 +145,7 @@ public class StockAllDaoImpl implements StockAllDao {
                 stockAllForm.setSign(resultSet.getString(22));
                 stockAllForm.setWarehousingRemarks(resultSet.getString(23));
                 stockAllForm.setDrugFrom(resultSet.getString(24));
-                stockAllForm.setHandlingInformation(resultSet.getString(25));
+                stockAllForm.setHandingInformation(resultSet.getString(25));
                 stockAllForm.setApprovalNumber(resultSet.getString(26));
                 stockAllForm.setLastCuringDate(resultSet.getString(27));
                 stockAllForm.setTimesStorage(resultSet.getInt(28));
@@ -192,7 +192,7 @@ public class StockAllDaoImpl implements StockAllDao {
                 stockAllForm.setSign(resultSet.getString(22));
                 stockAllForm.setWarehousingRemarks(resultSet.getString(23));
                 stockAllForm.setDrugFrom(resultSet.getString(24));
-                stockAllForm.setHandlingInformation(resultSet.getString(25));
+                stockAllForm.setHandingInformation(resultSet.getString(25));
                 stockAllForm.setApprovalNumber(resultSet.getString(26));
                 stockAllForm.setLastCuringDate(resultSet.getString(27));
                 stockAllForm.setTimesStorage(resultSet.getInt(28));
@@ -220,8 +220,8 @@ public class StockAllDaoImpl implements StockAllDao {
 
     @Override
     public int updateStockAllForm(StockAllForm stockAllForm) {
-        String sql="UPDATE dictionary SET mName = ?, specification = ?, manufactor = ?, unit = ?, department = ?, position = ?, number = ?, batchNumber = ?, usefulLife = ?, purchasePrice = ?, salePrice = ?, productDate = ?, profits = ?, code = ?, goodsType = ?, mType = ?, defined = ?, supplier = ?, warehousingDate = ?, locationDescription = ?, sign = ?, warehousingRemarks = ?, drugFrom = ?, handlingInformation = ?, approvalNumber = ?, LastCuringDate = ?, timesStorage = ?, documentNumber = ?, placeOrigin = ?, batchsNumber = ?, recordNumber = ? WHERE mId = ?;";
-        Object[] objects = new Object[33];
+        String sql="UPDATE dictionary SET mName = ?, specification = ?, manufactor = ?, unit = ?, department = ?, position = ?, number = ?, batchNumber = ?, usefulLife = ?, purchasePrice = ?, salePrice = ?, productDate = ?, profits = ?, code = ?, goodsType = ?, mType = ?, defined = ?, supplier = ?, warehousingDate = ?, locationDescription = ?, sign = ?, warehousingRemarks = ?, drugFrom = ?, handingInformation = ?, approvalNumber = ?, LastCuringDate = ?, timesStorage = ?, documentNumber = ?, placeOrigin = ?, batchsNumber = ?, recordNumber = ? WHERE tableCoding = ?;";
+        Object[] objects = new Object[32];
         objects[0] = stockAllForm.getmName();
         objects[1] = stockAllForm.getSpecification();
         objects[2] = stockAllForm.getManufactor();
@@ -245,7 +245,7 @@ public class StockAllDaoImpl implements StockAllDao {
         objects[20] = stockAllForm.getSign();
         objects[21] = stockAllForm.getWarehousingRemarks();
         objects[22] = stockAllForm.getDrugFrom();
-        objects[23] = stockAllForm.getHandlingInformation();
+        objects[23] = stockAllForm.getHandingInformation();
         objects[24] = stockAllForm.getApprovalNumber();
         objects[25] = stockAllForm.getLastCuringDate();
         objects[26] = stockAllForm.getTimesStorage();
@@ -254,7 +254,7 @@ public class StockAllDaoImpl implements StockAllDao {
         objects[29] = stockAllForm.getBatchsNumber();
         objects[30] = stockAllForm.getRecordNumber();
         objects[31] = stockAllForm.getTableCoding();
-        objects[32] = stockAllForm.getmId();
+
         int count = JDBC.update(sql, objects);
         return count;
     }
@@ -304,7 +304,7 @@ public class StockAllDaoImpl implements StockAllDao {
         objects[20] = stockAllForm.getSign();
         objects[21] = stockAllForm.getWarehousingRemarks();
         objects[22] = stockAllForm.getDrugFrom();
-        objects[23] = stockAllForm.getHandlingInformation();
+        objects[23] = stockAllForm.getHandingInformation();
         objects[24] = stockAllForm.getApprovalNumber();
         objects[25] = stockAllForm.getLastCuringDate();
         objects[26] = stockAllForm.getTimesStorage();

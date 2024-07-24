@@ -3,7 +3,6 @@ package com.servlet;
 import com.pojo.*;
 import com.util.BaseServlet;
 import com.util.LayuiTable;
-import com.util.Result;
 import com.util.ResultData;
 import com.util.init.ToJSON;
 
@@ -97,7 +96,7 @@ public class StockAllFormServlet extends BaseServlet {
         stockAllForm.setSign(request.getParameter("sign"));
         stockAllForm.setWarehousingRemarks(request.getParameter("warehousingRemarks"));
         stockAllForm.setDrugFrom(request.getParameter("drugFrom"));//剂型
-        stockAllForm.setHandlingInformation(request.getParameter("handlingInformation"));
+//        stockAllForm.setHandingInformation(request.getParameter("handlingInformation"));
         stockAllForm.setApprovalNumber(request.getParameter("approvalNumber"));
         stockAllForm.setLastCuringDate(request.getParameter("lastCuringDate"));
         stockAllForm.setTimesStorage(Integer.parseInt(request.getParameter("timesStorage")));
@@ -115,11 +114,11 @@ public class StockAllFormServlet extends BaseServlet {
     }
 
     public ResultData delStockAllForm(HttpServletRequest request, HttpServletResponse response){
-        int mId = Integer.parseInt(request.getParameter("mId"));
+        int tableCoding = Integer.parseInt(request.getParameter("tableCoding"));
         ResultData resultData = new ResultData();
-        int i = stockAllService.delStockAllFormById(mId);
+        int i = stockAllService.delStockAllFormById(tableCoding);
         StockAllForm stockAllForm = new StockAllForm();
-        stockAllForm.setmId(mId);
+        stockAllForm.setmId(tableCoding);
         if (i>0){
             resultData.setMsg("删除成功");
             resultData.setStatus(200);
@@ -130,9 +129,9 @@ public class StockAllFormServlet extends BaseServlet {
 
     public ResultData selectStockAllFormById(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
-        int mId =Integer.parseInt(request.getParameter("mId"));
-        StockAllForm stockAllForm = stockAllService.getStockAllFormById(mId);
-        if (mId>0){
+        int tableCoding =Integer.parseInt(request.getParameter("tableCoding"));
+        StockAllForm stockAllForm = stockAllService.getStockAllFormById(tableCoding);
+        if (tableCoding>0){
             resultData.setStatus(200);
             resultData.setMsg("");
             resultData.setData(stockAllForm);
@@ -167,7 +166,7 @@ public class StockAllFormServlet extends BaseServlet {
         stockAllForm.setSign(request.getParameter("sign"));
         stockAllForm.setWarehousingRemarks(request.getParameter("warehousingRemarks"));
         stockAllForm.setDrugFrom(request.getParameter("drugFrom"));
-        stockAllForm.setHandlingInformation(request.getParameter("handlingInformation"));
+//        stockAllForm.setHandingInformation(request.getParameter("handlingInformation"));
         stockAllForm.setApprovalNumber(request.getParameter("approvalNumber"));
         stockAllForm.setLastCuringDate(request.getParameter("lastCuringDate"));
         stockAllForm.setTimesStorage(Integer.parseInt(request.getParameter("timesStorage")));
@@ -175,6 +174,7 @@ public class StockAllFormServlet extends BaseServlet {
         stockAllForm.setPlaceOrigin(request.getParameter("placeOrigin"));
         stockAllForm.setBatchsNumber(request.getParameter("batchsNumber"));
         stockAllForm.setRecordNumber(Integer.parseInt(request.getParameter("recordNumber")));
+        stockAllForm.setTableCoding(Integer.parseInt(request.getParameter("tableCoding")));
         int i = stockAllService.updateDoStockAllForm(stockAllForm);
         if (i>0){
             resultData.setStatus(200);
