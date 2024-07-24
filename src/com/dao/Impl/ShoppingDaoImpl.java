@@ -27,8 +27,14 @@ public class ShoppingDaoImpl extends InitDaoImpl implements ShoppingDao {
     public ResultSet memoryList() {
         String sql = "SELECT d.*\n" +
                 "FROM dictionary d\n" +
-                "JOIN sub_apply sa ON d.tableCoding = sa.mId\n" +
-                "WHERE sa.approve = ?";
+                "         JOIN sub_apply sa ON d.tableCoding = sa.mId\n" +
+                "         JOIN (\n" +
+                "    SELECT applytime\n" +
+                "    FROM sub_apply\n" +
+                "    ORDER BY applytime DESC\n" +
+                "    LIMIT 1\n" +
+                ") latest ON sa.applytime = latest.applytime\n" +
+                "WHERE sa.approve = ?;";
         Object[] objects = new Object[1];
         objects[0] = 0;
         return JDBC.select(sql,objects);
@@ -37,7 +43,15 @@ public class ShoppingDaoImpl extends InitDaoImpl implements ShoppingDao {
     //生成转存表2
     @Override
     public ResultSet subApplyList() {
-        String sql = "select * from sub_apply where approve = ?";
+        String sql = "SELECT sa.*\n" +
+                "FROM sub_apply sa\n" +
+                "         JOIN (\n" +
+                "    SELECT applytime\n" +
+                "    FROM sub_apply\n" +
+                "    ORDER BY applytime DESC\n" +
+                "    LIMIT 1\n" +
+                ") latest ON sa.applytime = latest.applytime\n" +
+                "WHERE sa.approve = ?;";
         Object[] objects = new Object[1];
         objects[0] = 0;
         return JDBC.select(sql,objects);
