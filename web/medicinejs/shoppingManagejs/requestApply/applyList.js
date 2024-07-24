@@ -89,6 +89,10 @@ $(document).ready(function (){
                                 '      </div>';
                         }
                     },
+
+
+
+
                     {field: 'beiZhu',
                         align: 'center',
                         title: '备注',
