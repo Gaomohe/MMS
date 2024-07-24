@@ -10,18 +10,22 @@ public interface WarnDao {
     //添加预警数据
     public int addWarn(Warn warn);
     public int addWarnDetail(WarnDetail warnDetail);
-    public int addWarn_detail(int wId, int wdId);
     //获取所有预警数据(Warn)
     public List<Warn> getWarns();
     //获取所有预警数据（WarnDetail）
     public List<WarnDetail> getWarnDetails();
     //根据条件获取预警数据
-    public List<Warn> getWarnsByQuery(String[] title,String[] values);
-    public List<WarnDetail> getWarnDetailsByQuery(String[] title,String[] values);
+    public Warn getWarnsById(int id);
+    public List<WarnDetail> getWarnDetailsByWId(int wid);
     //删除预警
     public int delWarn(int id);
     public int delWarnDetail(int id);
-    public int delWarn_detail(int id);
+
+    //获取最新预警id
+    public int getLastWarnId();
     //根据条件修改预警
-    public int upWarn(String[] title,String[] values);
+    public int upWarnTime(Warn warn);
+    public int upWarnWNumber(Warn warn);
+    public int upWarnTotlNumber(Warn warn);
+
 }

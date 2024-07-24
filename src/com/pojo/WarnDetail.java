@@ -5,6 +5,9 @@ public class WarnDetail {
     private String time;
     private int number;
     private String usefulLife;
+    private int uId;
+    private String uName;
+    private int wid;
 
     public int getId() {
         return id;
@@ -36,5 +39,29 @@ public class WarnDetail {
 
     public void setUsefulLife(String usefulLife) {
         this.usefulLife = usefulLife;
+    }
+
+    public int getuId() {
+        return uId;
+    }
+
+    public void setuId(int uId) {
+        this.uId = uId;
+    }
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
+
+    public int getWid() {
+        return wid;
+    }
+
+    public void setWid(int wid) {
+        this.wid = wid;
     }
 }
