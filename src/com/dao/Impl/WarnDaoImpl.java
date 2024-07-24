@@ -15,31 +15,23 @@ public class WarnDaoImpl implements WarnDao {
     public int addWarn(Warn warn) {
         String sql = "INSERT INTO `warn` (`tableCoding`,`mName`,`tolNumber`,`warnNumber`,`name`,`time`,`uId`)\n" +
                 "VALUES (?,?,?,?,?,?,?)";
-        Object[] objects = new Object[]{warn.getTableCoding(),warn,warn.getmName(),warn.getTolNumber(),warn.getWarnNumber(),warn.getName(),warn.getTime(),warn.getuId()};
+        Object[] objects = new Object[]{warn.getTableCoding(),warn.getmName(),warn.getTolNumber(),warn.getWarnNumber(),warn.getName(),warn.getTime(),warn.getuId()};
         int i = JDBC.update(sql, objects);
         return i;
     }
 
     @Override
     public int addWarnDetail(WarnDetail warnDetail) {
-        String sql = "INSERT INTO `warndetail` (`time`,`number`,`usefulLife`)\n" +
-                "VALUES (?,?,?)";
-        Object[] objects = new Object[]{warnDetail.getTime(),warnDetail.getNumber(),warnDetail.getUsefulLife()};
-        int i = JDBC.update(sql, objects);
-        return i;
-    }
-
-    public int addWarn_detail(int wId, int wdId) {
-        String sql = "INSERT INTO `warn_detail` (`wId`,`wdId`)\n" +
-                "VALUES (?,?)";
-        Object[] objects = new Object[]{wId,wdId};
+        String sql = "INSERT INTO `warndetail` (`time`,`number`,`usefulLife`,`uId`,`uName`,`wid`)\n" +
+                "VALUES (?,?,?,?,?,?)";
+        Object[] objects = new Object[]{warnDetail.getTime(),warnDetail.getNumber(),warnDetail.getUsefulLife(),warnDetail.getuId(),warnDetail.getuName(),warnDetail.getWid()};
         int i = JDBC.update(sql, objects);
         return i;
     }
 
     @Override
     public List<Warn> getWarns() {
-        String sql = select(new String[1], new String[1], "warn");
+        String sql = "SELECT * FROM `warn`";
         ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<Warn> list = new ArrayList<>();
         try {
@@ -63,7 +55,7 @@ public class WarnDaoImpl implements WarnDao {
 
     @Override
     public List<WarnDetail> getWarnDetails() {
-        String sql = select(new String[1], new String[1], "warndetail");
+        String sql = "SELECT * FROM `warndetail`";
         ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<WarnDetail> list = new ArrayList<>();
         try {
@@ -73,6 +65,9 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setTime(resultSet.getString(2));
                 warn.setNumber(resultSet.getInt(3));
                 warn.setUsefulLife(resultSet.getString(4));
+                warn.setuId(resultSet.getInt(5));
+                warn.setuName(resultSet.getString(6));
+                warn.setWid(resultSet.getInt(7));
                 list.add(warn);
             }
         }catch (Exception e){
@@ -81,14 +76,14 @@ public class WarnDaoImpl implements WarnDao {
         return list;
     }
 
-    @Override
-    public List<Warn> getWarnsByQuery(String[] title, String[] values) {
-        String sql = select(title, values, "warn");
-        ResultSet resultSet = JDBC.select(sql, new Object[1]);
-        List<Warn> list = new ArrayList<>();
+    public Warn getWarnsById(int id) {
+        String sql = "SELECT * FROM `warn` WHERE `id`=?";
+        Object[] objects = new Object[]{id};
+        ResultSet resultSet = JDBC.select(sql, objects);
+        Warn warn = new Warn();
         try {
             while (resultSet.next()){
-                Warn warn = new Warn();
+
                 warn.setId(resultSet.getInt(1));
                 warn.setTableCoding(resultSet.getInt(2));
                 warn.setmName(resultSet.getString(3));
@@ -97,18 +92,17 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setName(resultSet.getString(6));
                 warn.setTime(resultSet.getString(7));
                 warn.setuId(resultSet.getInt(8));
-                list.add(warn);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return list;
+        return warn;
     }
 
-    @Override
-    public List<WarnDetail> getWarnDetailsByQuery(String[] title, String[] values) {
-        String sql = select(title, values, "warndetail");
-        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+    public List<WarnDetail> getWarnDetailsByWId(int wid) {
+        String sql = "SELECT * FROM `warndetail` WHERE `wid`=?";
+        Object[] objects = new Object[]{wid};
+        ResultSet resultSet = JDBC.select(sql,objects);
         List<WarnDetail> list = new ArrayList<>();
         try {
             while (resultSet.next()){
@@ -117,6 +111,9 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setTime(resultSet.getString(2));
                 warn.setNumber(resultSet.getInt(3));
                 warn.setUsefulLife(resultSet.getString(4));
+                warn.setuId(resultSet.getInt(5));
+                warn.setuName(resultSet.getString(6));
+                warn.setWid(resultSet.getInt(7));
                 list.add(warn);
             }
         }catch (Exception e){
@@ -136,52 +133,42 @@ public class WarnDaoImpl implements WarnDao {
     }
     public int delWarnDetail(int id) {
         InitDaoImpl initDao = new InitDaoImpl();
-        boolean b = initDao.delOne(id, "id", "warndetail");
+        boolean b = initDao.delOne(id, "wid", "warndetail");
         if (b){
             return 1;
         }
         return 0;
     }
-    public int delWarn_detail(int id) {
-        InitDaoImpl initDao = new InitDaoImpl();
-        boolean b = initDao.delOne(id, "id", "warn_detail");
-        if (b){
-            return 1;
+    public int getLastWarnId(){
+        String sql = "SELECT id FROM `warn` ORDER BY `id` DESC LIMIT 1";
+        ResultSet select = JDBC.select(sql, new Object[1]);
+        int id = 0;
+        try {
+            while (select.next()){
+                id = select.getInt(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return 0;
+        return id;
     }
 
-    @Override
-    public int upWarn(String[] title, String[] values) {
-        return 0;
+    public int upWarnTime(Warn warn) {
+        String sql = "UPDATE `warn` SET `time`=?,`name`=?,`uId`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warn.getTime(),warn.getName(),warn.getuId(),warn.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
     }
-
-    public String select(String[] title, String[] values,String table){
-        StringBuilder sqlBuilder = new StringBuilder("select * from "+table);
-        if (title[0]==null){
-            System.out.println(sqlBuilder.toString());
-        }
-        for (int i = 0; i < title.length; i++) {
-            sqlBuilder.append(" ").append(title[i]).append(" = ").append(values[i]).append(",");
-        }
-        if (sqlBuilder.length() > 0 && sqlBuilder.charAt(sqlBuilder.length() - 1) == ',') {
-            sqlBuilder.deleteCharAt(sqlBuilder.length() - 1);
-        }
-        String sql = sqlBuilder.toString();
-        return sql;
+    public int upWarnWNumber(Warn warn) {
+        String sql = "UPDATE `warn` SET `warnNumber`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warn.getWarnNumber(),warn.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
     }
-    public String update(String[] title, String[] values,String table){
-        StringBuilder sqlBuilder = new StringBuilder("update "+table+" set");
-        if (title[0]==null){
-            System.out.println(sqlBuilder.toString());
-        }
-        for (int i = 0; i < title.length; i++) {
-            sqlBuilder.append(" ").append(title[i]).append(" = ").append(values[i]).append(",");
-        }
-        if (sqlBuilder.length() > 0 && sqlBuilder.charAt(sqlBuilder.length() - 1) == ',') {
-            sqlBuilder.deleteCharAt(sqlBuilder.length() - 1);
-        }
-        String sql = sqlBuilder.toString();
-        return sql;
+    public int upWarnTotlNumber(Warn warn) {
+        String sql = "UPDATE `warn` SET `tolNumber`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warn.getTolNumber(),warn.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
     }
 }

@@ -98,9 +98,9 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     @Override
     public int insertApply(Apply apply) {
         String sql = "insert into apply(mId,mName,specification,manufactor,unit,\n" +
-                "                  department,number,applyNumber,purchasePrice,\n" +
-                "                  code,mType,supplier,approvalNumber,placeOrigin,\n" +
-                "                  applyUser,applyTime,tableCoding)\n" +
+                "department,number,applyNumber,purchasePrice,\n" +
+                "code,mType,supplier,approvalNumber,placeOrigin,\n" +
+                "applyUser,applyTime,tableCoding)\n" +
                 "value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         Object[] objects = new Object[17];
         objects[0] = apply.getmId();
@@ -128,7 +128,7 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     @Override
     public List<Apply> getSupplier() {
         String sql = "select supplier from apply\n" +
-                "where applyId > ?\n" +
+                "where applyId > ? and financeApprove = '已审阅通过'\n" +
                 "group by supplier";
         Object[] objects = new Object[1];
         objects[0] = 0;
@@ -282,5 +282,45 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
         objects[6] = orders.getShippingAddress();
         int result = JDBC.update(sql, objects);
         return result;
+    }
+
+    @Override
+    public Appointment selectAppoint(int id) {
+        String sql = "select * from apply where mId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        ResultSet resultSet = JDBC.select(sql, objects);
+        Appointment appointment = new Appointment();
+        try {
+            while (resultSet.next()) {
+                appointment.setApplyId(resultSet.getInt(1));
+                appointment.setmId(resultSet.getInt(2));
+                appointment.setmName(resultSet.getString(3));
+                appointment.setSpecification(resultSet.getString(4));
+                appointment.setManufactor(resultSet.getString(5));
+                appointment.setUnit(resultSet.getString(6));
+                appointment.setDepartment(resultSet.getString(7));
+                appointment.setNumber(resultSet.getInt(8));
+                appointment.setApplyNumber(resultSet.getInt(9));
+                appointment.setPurchasePrice(resultSet.getDouble(10));
+                appointment.setCode(resultSet.getString(11));
+                appointment.setmType(resultSet.getString(12));
+                appointment.setSupplier(resultSet.getString(13));
+                appointment.setApprovalNumber(resultSet.getString(14));
+                appointment.setPlaceOrigin(resultSet.getString(15));
+                appointment.setApplyUser(resultSet.getString(16));
+                appointment.setApplyTime(resultSet.getString(17));
+                appointment.setPharmacist(resultSet.getString(18));
+                appointment.setPharmacistApprove(resultSet.getString(19));
+                appointment.setPharmacistTime(resultSet.getString(20));
+                appointment.setFinance(resultSet.getString(21));
+                appointment.setFinanceApprove(resultSet.getString(22));
+                appointment.setFinanceTime(resultSet.getString(23));
+                appointment.setTableCoding(resultSet.getInt(24));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return appointment;
     }
 }

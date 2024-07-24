@@ -32,4 +32,10 @@ public interface AppointService {
 
     //订单信息填充
     public int insertOrder(Orders orders);
+
+    //预购信息回显
+    public LayuiTable<Appointment> selectAppoint(List<Integer> idList);
+
+    //确认生成订单
+    public int Submit(int[] idsList);
 }

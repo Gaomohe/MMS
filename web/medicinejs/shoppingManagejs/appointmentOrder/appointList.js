@@ -79,22 +79,33 @@ layui.extend({
                     }
                     break;
                 case 'addAppoint':
+                    var firstManufacturer = "";
+                    var idList = new Set(); // 确保 idList 是一个 Set
                     if (files.length > 0) {
-                        files.forEach(function(file) {
-                            // 假设每个file对象都有一个id属性，用于标识用户
+                        firstManufacturer = files[0].manufactor;
+                        var allSameManufacturer = true; // 标志变量
+                        for (let i = 0; i < files.length; i++) {
+                            const file = files[i];
                             total++;
-                            idList.add(file.mId)
-                        });
-                        console.log("aaaaaaa");
-                        console.log(idList);
-                        console.log("aaaaaaa");
-                        let idListArray = Array.from(idList);
-                        console.log(idListArray); // 输出：[1, 2]
-                        addAppoint(idListArray);
-
+                            if (file.financeApprove!='已审阅通过'){
+                                layer.msg("审核未通过");
+                                break; // 这里会真正停止循环
+                            }
+                            if (firstManufacturer !== file.manufactor) {
+                                allSameManufacturer = false;
+                                layer.msg("供应商不同");
+                                break; // 这里会真正停止循环
+                            }
+                            idList.add(file.mId);
+                        }
+                        if (allSameManufacturer && idList.size > 0) {
+                            let idListArray = Array.from(idList);
+                            addAppoint(idListArray);
+                        }
                     } else {
                         layer.msg("请选择要添加的预约", {icon: 2});
                     }
+
                     break;
                 case 'upAppoint':
                     // selectByIdUser(files[0].id,files[0].name);
@@ -175,10 +186,21 @@ layui.extend({
 
     //新增订单
     function addAppoint(idsList){
+        const serializedIds = encodeURIComponent(JSON.stringify(idsList));
         console.log("ssssssssssssssss");
         console.log(idsList);
         console.log("ssssssssssssssss");
-        $.ajax({
+        layer.open({
+            type: 2, // page 层类型
+            area: ['900px', '600px'],
+            title: '预购订单信息',
+            shade: 0.6, // 遮罩透明度
+            shadeClose: true, // 点击遮罩区域，关闭弹层
+            maxmin: true, // 允许全屏最小化
+            anim: 0, // 0-6 的动画形式，-1 不开启
+            content: "medicine/shoppingManage/appointmentOrder/appointAdd.jsp?idsList=" + serializedIds,
+        });
+        /*$.ajax({
             url: "/appoint?action=addAppoint",
             data: { "idsList": idsList },
             type: "post",
@@ -201,7 +223,7 @@ layui.extend({
                     layer.msg("添加失败", { icon: 2 });
                 }
             }
-        });
+        });*/
     }
 
     //修改回显

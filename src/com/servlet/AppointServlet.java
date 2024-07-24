@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.pojo.Apply;
+import com.pojo.Appointment;
 import com.pojo.Menu;
 import com.pojo.User;
 import com.service.AppointService;
@@ -61,6 +62,48 @@ public class AppointServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
 
+    //订单详情数据回显
+    public void selectAppoint(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        try {
+            // 获取 idsList 参数
+            String[] idStrArray = request.getParameterValues("idsList");
+            List<Integer> idList = new ArrayList<>();
+
+            // 如果 idStrArray 不为空，处理单一字符串
+            if (idStrArray != null && idStrArray.length > 0) {
+                String idStr = idStrArray[0]; // 获取第一个（也是唯一一个）参数值
+                String[] ids = idStr.split(","); // 按逗号分割
+
+                for (String id : ids) {
+                    try {
+                        idList.add(Integer.parseInt(id.trim())); // 将字符串转换为整数
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace(); // 打印解析异常
+                    }
+                }
+            }
+            session.setAttribute("addIdsList",idList);
+
+            // 获取数据
+            LayuiTable<Appointment> appointmentList = appointService.selectAppoint(idList);
+
+            // 返回 JSON 响应
+            ToJSON.toJson(response, appointmentList);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // 打印异常
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            try {
+                response.getWriter().write("An error occurred while processing the request.");
+            } catch (Exception ioException) {
+                ioException.printStackTrace(); // 处理写入响应时的异常
+            }
+        }
+    }
+
+
+
     //采购申请
     public ResultData addAppoint(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
@@ -108,5 +151,16 @@ public class AppointServlet extends BaseServlet {
         page = (page-1)*limit;
         LayuiTable<Apply> search = appointService.Search(apply, page, limit);
         ToJSON.toJson(response,search);
+    }
+
+    //确认添加预购订单
+    public ResultData Submit(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        int[] idsList = (int[])session.getAttribute("addIdsList");
+        int i = appointService.Submit(idsList);
+
+        ResultData resultData = Result.resultStatus(i);
+
+        return resultData;
     }
 }

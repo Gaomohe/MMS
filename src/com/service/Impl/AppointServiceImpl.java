@@ -215,4 +215,26 @@ public class AppointServiceImpl implements AppointService {
     public int insertOrder(Orders orders) {
         return appointDao.insertOrder(orders);
     }
+
+    //订单信息回显
+    @Override
+    public LayuiTable<Appointment> selectAppoint(List<Integer> idList) {
+        List<Appointment> appointmentList = new ArrayList<>();
+        int count = 0;
+        for (int id : idList){
+            Appointment appointment = appointDao.selectAppoint(id);
+            appointmentList.add(appointment);
+        }
+        LayuiTable<Appointment> layuiTable = new LayuiTable<>();
+        layuiTable.setMsg("");
+        layuiTable.setCode(0);
+        layuiTable.setCount(count);
+        layuiTable.setData(appointmentList);
+        return layuiTable;
+    }
+
+    @Override
+    public int Submit(int[] idsList) {
+        return 0;
+    }
 }

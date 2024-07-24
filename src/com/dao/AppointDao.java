@@ -48,4 +48,7 @@ public interface AppointDao {
 
     //订单信息填充
     public int insertOrder(Orders orders);
+
+    //订单详情回显
+    public Appointment selectAppoint(int id);
 }
