@@ -1,19 +1,22 @@
 package com.pojo;
 
 public class StockOutForm {
-    private int outId;//出库单号
-    private String outStatus ;//出库单状态
-    private String oDate;//出库日期
-    private String oManufactor;//往来单位
-    private String oType;//出库类型
-    private int oNum;//出库明细数
-    private int oSalePrice;//销售金额
-    private int oAmount;//出库总金额
-    private int oCost;//成本金额
-    private String operator;//操作员
-    private String auditor;//审核人
-    private String auditTime;//审核时间
-    private String department;//部门
+    private int outId;//出库单id
+    private String outNum ;//出库单号
+    private int tableCoding ;//出库单id
+    private String oName ;//药品名称
+    private String standard ;//规格
+    private String manufactor ;//供货商
+    private String unit ;//单位
+    private int oNum ;//出库数量
+    private int cost ;//成本
+    private int salePrice ;//销售价
+    private String batchNumber ;//批号
+    private String productDate ;//生产日期
+    private String expiration ;//有效期
+    private String stockOutTime ;//出库时间
+    private String department ;//部门
+    private String notes ;//出库状态
 
     public int getOutId() {
         return outId;
@@ -23,36 +26,52 @@ public class StockOutForm {
         this.outId = outId;
     }
 
-    public String getOutStatus() {
-        return outStatus;
+    public String getOutNum() {
+        return outNum;
     }
 
-    public void setOutStatus(String outStatus) {
-        this.outStatus = outStatus;
+    public void setOutNum(String outNum) {
+        this.outNum = outNum;
     }
 
-    public String getoDate() {
-        return oDate;
+    public int getTableCoding() {
+        return tableCoding;
     }
 
-    public void setoDate(String oDate) {
-        this.oDate = oDate;
+    public void setTableCoding(int tableCoding) {
+        this.tableCoding = tableCoding;
     }
 
-    public String getoManufactor() {
-        return oManufactor;
+    public String getoName() {
+        return oName;
     }
 
-    public void setoManufactor(String oManufactor) {
-        this.oManufactor = oManufactor;
+    public void setoName(String oName) {
+        this.oName = oName;
     }
 
-    public String getoType() {
-        return oType;
+    public String getStandard() {
+        return standard;
     }
 
-    public void setoType(String oType) {
-        this.oType = oType;
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public String getManufactor() {
+        return manufactor;
+    }
+
+    public void setManufactor(String manufactor) {
+        this.manufactor = manufactor;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public int getoNum() {
@@ -63,52 +82,52 @@ public class StockOutForm {
         this.oNum = oNum;
     }
 
-    public int getoSalePrice() {
-        return oSalePrice;
+    public int getCost() {
+        return cost;
     }
 
-    public void setoSalePrice(int oSalePrice) {
-        this.oSalePrice = oSalePrice;
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
-    public int getoAmount() {
-        return oAmount;
+    public int getSalePrice() {
+        return salePrice;
     }
 
-    public void setoAmount(int oAmount) {
-        this.oAmount = oAmount;
+    public void setSalePrice(int salePrice) {
+        this.salePrice = salePrice;
     }
 
-    public int getoCost() {
-        return oCost;
+    public String getBatchNumber() {
+        return batchNumber;
     }
 
-    public void setoCost(int oCost) {
-        this.oCost = oCost;
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getProductDate() {
+        return productDate;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setProductDate(String productDate) {
+        this.productDate = productDate;
     }
 
-    public String getAuditor() {
-        return auditor;
+    public String getExpiration() {
+        return expiration;
     }
 
-    public void setAuditor(String auditor) {
-        this.auditor = auditor;
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
 
-    public String getAuditTime() {
-        return auditTime;
+    public String getStockOutTime() {
+        return stockOutTime;
     }
 
-    public void setAuditTime(String auditTime) {
-        this.auditTime = auditTime;
+    public void setStockOutTime(String stockOutTime) {
+        this.stockOutTime = stockOutTime;
     }
 
     public String getDepartment() {
@@ -117,5 +136,13 @@ public class StockOutForm {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

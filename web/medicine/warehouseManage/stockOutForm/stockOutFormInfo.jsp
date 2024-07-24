@@ -16,7 +16,7 @@
 <body>
 
 <div style="position: absolute;left: 1%">
-    <table class="layui-table" id="NormalStockOutList"></table>`
+    <table class="layui-table" id="qualityFailedList"></table>`
 </div>
 <button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="confirm" style="position:absolute;bottom: 10%;right: 10%">返回</button>
 
@@ -24,6 +24,6 @@
 
 <script src="//cdn.staticfile.net/layui/2.9.13/layui.js"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockOutForm/addStockOutForm.js"></script>
+<script type="text/javascript" src="<%=basePath %>medicinejs/warehouseManage/stockOutForm/stockOutFormInfo.js"></script>
 </body>
 </html>
