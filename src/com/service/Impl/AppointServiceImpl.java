@@ -245,6 +245,7 @@ public class AppointServiceImpl implements AppointService {
         double allPrices = 0;
         List<Apply> applyList = new ArrayList<>();
         int num = 0;
+        int mum = 0;
 
         // 创建 Apply 对象并添加到列表中
         for (int id : idsList){
@@ -308,10 +309,14 @@ public class AppointServiceImpl implements AppointService {
             apporder.setaId(apply.getmId());
             apporder.setApplyBuyNumber(apply.getApplyNumber());
             num = session.getMapper(ApplyDao.class).addAppOrder(apporder);
+            //添加订单后删除
+            mum = session.getMapper(ApplyDao.class).delApply(apply);
         }
+
+
         session.commit(); // 提交事务
         session.close(); // 关闭会话
-        return num;
+        return num + mum;
     }
 
 }

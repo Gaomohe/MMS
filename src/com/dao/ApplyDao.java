@@ -15,4 +15,7 @@ public interface ApplyDao {
 
     //将订单表与订单详情表一一对应
     public int addAppOrder(Apporder apporder);
+
+    //删除已经加入订单的apply订单的表
+    public int delApply(Apply apply);
 }

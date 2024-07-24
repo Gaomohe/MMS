@@ -19,5 +19,9 @@
         VALUES (#{oId},#{aId},#{applyBuyNumber})
     </insert>
 
+    <delete id="delApply">
+        DELETE FROM apply WHERE applyId = #{applyId};
+    </delete>
+
 </mapper>
 
