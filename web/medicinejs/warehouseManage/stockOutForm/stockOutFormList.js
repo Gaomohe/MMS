@@ -9,6 +9,15 @@ layui.extend({
         table = layui.table;
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
 
+    layui.use(function(){
+        var laydate = layui.laydate;
+        // 日期时间选择器
+        laydate.render({
+            elem: '#stockOutTime',
+            type: 'datetime'
+        });
+    });
+
     //表格渲染
     var tableIns = table.render({
         elem: '#stockOutFormList',
@@ -21,25 +30,99 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'outId', title: '出库单号',  align:'center',width:100},
-            {field: 'outStatus', title: '出库单状态',  align:'center',width:100},
-            {field: 'oDate', title: '出库日期', width:100, align:"center"},
-            {field: 'oManufactor', title:'往来单位' , width:100, align:"center"},
-            {field: 'oType', title:'出库类型' , width:100, align:"center"},
-            {field: 'oNum', title:'出库明细数' , width:100, align:"center"},
-            {field: 'oSalePrice', title:'销售金额' , width:100, align:"center"},
-            {field: 'oAmount', title:'出库总金额' , width:100, align:"center"},
-            {field: 'oCost', title:'成本金额' , width:100, align:"center"},
-            {field: 'operator', title:'操作员' , width:100, align:"center"},
-            {field: 'auditor', title:'审核人' , width:100, align:"center"},
-            {field: 'auditTime', title:'审核时间' , width:100, align:"center"},
+            {field: 'outId', title: '#', hide:true, align:'center',width:170},
+            {field: 'outNum', title: '出库单号',  align:'center',width:200},
+            {field: 'tableCoding', title: '出库单id', hide:true, width:100, align:"center"},
+            {field: 'oName', title:'药品名称' , width:200, align:"center"},
+            {field: 'standard', title:'规格' , width:200, align:"center"},
+            {field: 'manufactor', title:'供货商' , width:200, align:"center"},
+            {field: 'unit', title:'单位' , width:100, align:"center"},
+            {field: 'oNum', title:'出库数量' , width:100, align:"center"},
+            {field: 'cost', title:'成本' , width:100, align:"center"},
+            {field: 'salePrice', title:'销售价' , width:100, align:"center"},
+            {field: 'batchNumber', title:'批号' , width:200, align:"center"},
+            {field: 'productDate', title:'生产日期' , width:200, align:"center"},
+            {field: 'expiration', title:'有效期' , width:200, align:"center"},
+            {field: 'stockOutTime', title:'出库时间' , width:200, align:"center"},
             {field: 'department', title:'部门' , width:100, align:"center"},
+            {field: 'notes', title:'出库状态' , width:100, align:"center"},
 
         ]],
         done:function (data){
             console.log(data)
         }
     });
+
+    //根据入库单号/药品信息/入库日期查询和重置的事件
+    // 绑定“查询”点击事件
+    $("#search").click(function() {
+        var outNum = $("#outNum").val();
+        var oName = $("#oName").val();
+        var stockOutTime = $("#stockOutTime").val();
+        console.log(outNum)
+        console.log(oName)
+        console.log(stockOutTime)
+        $.ajax({
+            url:"/StockOutForm?action=getStockOutFormByQuery",
+            type:"POST",
+            data:{
+                "outNum":outNum,
+                "oName":oName,
+                "stockOutTime":stockOutTime
+            },
+            dataType:"JSON",
+            success:function (response){
+                console.log(response);
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                console.log(tableData)
+                renderTable(tableData); // 渲染表格数据
+            },
+        })
+    });
+    function renderTable(data){
+        console.log(data)
+        layui.use('table',function (){
+            var table = layui.table;
+            table.render({
+                elem: '#stockOutFormList',
+                data:data,
+                cols : [[
+                    {type: "checkbox", fixed:"left", width:50},
+                    {field: 'outId', title: '#', hide:true, align:'center',width:170},
+                    {field: 'outNum', title: '出库单号',  align:'center',width:200},
+                    {field: 'tableCoding', title: '出库单id', hide:true, width:100, align:"center"},
+                    {field: 'oName', title:'药品名称' , width:200, align:"center"},
+                    {field: 'standard', title:'规格' , width:200, align:"center"},
+                    {field: 'manufactor', title:'供货商' , width:200, align:"center"},
+                    {field: 'unit', title:'单位' , width:100, align:"center"},
+                    {field: 'oNum', title:'出库数量' , width:100, align:"center"},
+                    {field: 'cost', title:'成本' , width:100, align:"center"},
+                    {field: 'salePrice', title:'销售价' , width:100, align:"center"},
+                    {field: 'batchNumber', title:'批号' , width:200, align:"center"},
+                    {field: 'productDate', title:'生产日期' , width:200, align:"center"},
+                    {field: 'expiration', title:'有效期' , width:200, align:"center"},
+                    {field: 'stockOutTime', title:'出库时间' , width:200, align:"center"},
+                    {field: 'department', title:'部门' , width:100, align:"center"},
+                    {field: 'notes', title:'出库状态' , width:100, align:"center"},
+                ]],
+                done:function (data){
+                    console.log(data)
+                }
+            })
+        })
+    }
+    //重置
+    $("#reset").click(function() {
+        $("#outNum").val('');
+        $("#oName").val('');
+        $("#stockOutTime").val('');
+        tableIns.reload({
+            url:"/StockOutForm?action=selectStockOutForm",
+            page: {
+                curr:1
+            }
+        })
+    })
 
     //工具栏事件
     table.on('toolbar(stockOutFormList)', function(obj){
@@ -64,12 +147,7 @@ layui.extend({
                 break;
 
             case 'updateStockOutForm':
-                if(data.length != 1){
-                    layer.msg("请选择一行数据进行操作")
-                    return false;
-                }else{
-                    updateStockOutForm(outId);
-                }
+                    updateStockOutForm();
                 break;
 
             case 'addStockOutForm':
@@ -95,57 +173,26 @@ layui.extend({
         })
     }
 
-    function updateStockOutForm(outId){
-        layui.layer.open({
-            title : "修改入库单信息",
-            type : 2,
-            content : "medicine/warehouseManage/stockInForm/stockInFormInfo.jsp",
-            area:['550px','500px'],
-            success:function(layero, index){
-                $.ajax({
-                    url:"/StockOutForm?action=selectStockInFormById",//根据id查询的方法
-                    type:"post",
-                    data:{"outId":outId},
-                    success:function(data){
-                        var info = JSON.parse(data);
-                        var body = layui.layer.getChildFrame('body', index);
-                        body.find("#rId").val(info.data.rId);
-                        body.find("#rName").val(info.data.rName);
-                        body.find("#standard").val(info.data.standard);
-                        body.find("#manufactor").val(info.data.manufactor);
-                        body.find("#unit").val(info.data.unit);
-                        body.find("#rNum").val(info.data.rNum);
-                        body.find("#cost").val(info.data.cost);
-                        body.find("#salePrice").val(info.data.salePrice);
-                        body.find("#batchNumber").val(info.data.batchNumber);
-                        body.find("#productDate").val(info.data.productDate);
-                        body.find("#expiration").val(info.data.expiration);
-                        body.find("#department").val(info.data.department);
-                    }
-                })
-            }
-        });
+    function updateStockOutForm(){
+        layer.open({
+            type: 2,
+            content : "medicine/warehouseManage/stockOutForm/stockOutFormInfo.jsp",
+            area: ['1200px', '520px'],
+            fixed: false, // 不固定
+            maxmin: true,
+            shadeClose: true,
+            btnAlign: 'c',
+        })
     }
     function addStockOutForm(){
         layer.open({
             type: 2,
             content : "medicine/warehouseManage/stockOutForm/stockOutFormAdd.jsp",
-            area: ['720px', '520px'],
+            area: ['1200px', '520px'],
             fixed: false, // 不固定
             maxmin: true,
             shadeClose: true,
-            btn: ['保存并审核', '取消'],
             btnAlign: 'c',
-            yes: function (index, layero) {
-                // 获取 iframe 的窗口对象
-                var iframeWin = window[layero.find('iframe')[0]['name']];
-                var elemMark = iframeWin.$('#mark'); // 获得 iframe 中某个输入框元素
-                var value = elemMark.val();
-
-                if ($.trim(value) === '') return elemMark.focus();
-                // 显示获得的值
-                layer.msg('获得 iframe 中的输入框标记值：' + value);
-            }
         })
     }
 

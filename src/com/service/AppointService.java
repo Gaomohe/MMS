@@ -37,5 +37,5 @@ public interface AppointService {
     public LayuiTable<Appointment> selectAppoint(List<Integer> idList);
 
     //确认生成订单
-    public int Submit(int[] idsList);
+    public int Submit(List<Integer> idsList);
 }

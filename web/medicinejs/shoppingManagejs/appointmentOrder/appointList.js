@@ -96,7 +96,7 @@ layui.extend({
                                 layer.msg("供应商不同");
                                 break; // 这里会真正停止循环
                             }
-                            idList.add(file.mId);
+                            idList.add(file.applyId);
                         }
                         if (allSameManufacturer && idList.size > 0) {
                             let idListArray = Array.from(idList);

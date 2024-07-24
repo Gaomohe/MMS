@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ApplyDao">
+    <select id="getApplyPrice" parameterType="Apply" resultType="Apply">
+        SELECT *
+        FROM apply
+        WHERE applyId = #{applyId} AND financeApprove='已审阅通过';
+    </select>
+
+    <insert id="addApply" parameterType="Orders" useGeneratedKeys="true" keyProperty="oId">
+        INSERT INTO orders (manufactor, shippingAddress, buyer, allPrice, advance, finals)
+        VALUES (#{manufactor}, #{shippingAddress}, #{buyer}, #{allPrice}, #{advance}, #{finals});
+    </insert>
+
+    <insert id="addAppOrder">
+        INSERT INTO app_order(oId,aId,applyBuyNumber)
+        VALUES (#{oId},#{aId},#{applyBuyNumber})
+    </insert>
+
+</mapper>
+

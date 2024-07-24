@@ -83,6 +83,7 @@ public class AppointServlet extends BaseServlet {
                     }
                 }
             }
+            applyIdsList = idList;
             session.setAttribute("addIdsList",idList);
 
             // 获取数据
@@ -155,9 +156,8 @@ public class AppointServlet extends BaseServlet {
 
     //确认添加预购订单
     public ResultData Submit(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session = request.getSession();
-        int[] idsList = (int[])session.getAttribute("addIdsList");
-        int i = appointService.Submit(idsList);
+
+        int i = appointService.Submit(applyIdsList);
 
         ResultData resultData = Result.resultStatus(i);
 

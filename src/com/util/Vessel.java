@@ -57,4 +57,6 @@ public class Vessel {
 
     public static PharmacyDao pharmacyDao = new PharmacyDaoImpl();
     public static PharmacyService pharmacyService = new PharmacyServiceImpl();
+
+    public static List<Integer> applyIdsList;
 }

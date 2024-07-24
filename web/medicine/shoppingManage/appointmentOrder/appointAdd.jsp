@@ -23,18 +23,21 @@
 </head>
 <body class="childrenBody">
 
-<div class="layuimini-container">
-    <div class="layuimini-main">
-        <%--<script type="text/html" id="medicineDemo">
-            <c:forEach var="menu" items="${menuList}" varStatus="s">
-                ${menu.resUrl}
-            </c:forEach>
-        </script>--%>
-        <table id="medicineList" lay-filter="medicineList"></table>
-        <button id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon">&#xe697;</i>确认</button>
-        <button id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon">&#xe693;</i>取消</button>
+<form action="javascript:void(0)">
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <script type="text/html" id="medicineDemo">
+                <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
+                    ${menu.resUrl}
+                </c:forEach>--%>
+                <button id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon">&#xe697;</i>确认</button>
+                <button id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon">&#xe693;</i>取消</button>
+            </script>
+            <table id="medicineList" lay-filter="medicineList"></table>
+
+        </div>
     </div>
-</div>
+</form>
 
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.js" charset="utf-8"></script>

@@ -286,7 +286,7 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
 
     @Override
     public Appointment selectAppoint(int id) {
-        String sql = "select * from apply where mId = ?";
+        String sql = "select * from apply where applyId = ?";
         Object[] objects = new Object[1];
         objects[0] = id;
         ResultSet resultSet = JDBC.select(sql, objects);
