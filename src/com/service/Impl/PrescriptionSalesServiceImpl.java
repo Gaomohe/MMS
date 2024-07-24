@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 import com.dao.Impl.PrescriptionSalesDaoImpl;
+import com.pojo.StockInForm;
 import com.pojo.echarts.GetString;
 import com.pojo.echarts.Sale;
 import com.pojo.echarts.Times;
@@ -129,5 +130,45 @@ public class PrescriptionSalesServiceImpl implements PrescriptionSalesService {
             e.printStackTrace();
         }
         return resultData;
+    }
+
+    @Override
+    public LayuiTable<Sale> search(String[] key, String[] value) {
+        LayuiTable<Sale> saleLayuiTable = new LayuiTable<>();
+        String table = "select * from medicineorder left join dictionary dic on dic.mId=medicineorder.mId where status = '已取药'";
+        ResultSet all = prescriptionSalesDao.searchCustomize(key, value, table, 1);
+        List<Sale> Sale = new ArrayList<>();
+        int row = prescriptionSalesDao.getRow(table, 1);
+        try {
+
+            while (all.next()){
+                Sale sale = new Sale();
+                sale.setOrder(all.getInt(2));
+                sale.setMid(all.getInt(1));
+                sale.setName(all.getString("mName"));
+                sale.setSpecification(all.getString("specification"));
+                sale.setUnit(all.getString("unit"));
+                sale.setDepartment(all.getString("department"));
+                sale.setNumber(all.getInt("dic.number"));
+                sale.setSalenumber(all.getInt(4));
+                sale.setSalePrice(all.getDouble("salePrice"));
+                sale.setProductDate(all.getString("productDate"));
+                sale.setGoodsType(all.getString("goodsType"));
+                sale.setmType(all.getString("mType"));
+                sale.setDefined(all.getString("defined"));
+                sale.setSupplier(all.getString("supplier"));
+                sale.setDrugFrom(all.getString("drugFrom"));
+                sale.setDocumentNumber(all.getString("documentNumber"));
+                Sale.add(sale);
+            }
+
+            saleLayuiTable.setCount(row);
+            saleLayuiTable.setCode(0);
+            saleLayuiTable.setMsg("");
+            saleLayuiTable.setData(Sale);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return saleLayuiTable;
     }
 }

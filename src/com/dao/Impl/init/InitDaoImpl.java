@@ -41,6 +41,11 @@ public class InitDaoImpl {
         Object[] objects = new Object[]{other};
         return JDBC.select(sql,objects);
     }
+    public ResultSet getOne(String other,String otherName,String tableName,int pages,int limits){
+        String sql = "select * from "+tableName+" where "+otherName+" = ? limit ?,?";
+        Object[] objects = new Object[]{other,pages,limits};
+        return JDBC.select(sql,objects);
+    }
 
     //查看种类
     public ResultSet getKind(String columnName,String tableName){

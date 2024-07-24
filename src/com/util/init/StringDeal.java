@@ -73,4 +73,22 @@ public class StringDeal {
         }
             return list;
     }
+
+    public static long getNowTimes(){
+        // 获取当前时间
+        Date currentDate = new Date();
+
+        // 创建一个日期格式化对象，设置格式为年月日时分秒
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+        // 将当前时间格式化为字符串
+        String formattedDate = dateFormat.format(currentDate);
+
+        // 打印格式化后的日期字符串
+        System.out.println("格式化的日期：" + formattedDate);
+
+        // 如果需要将日期转换为整数，可以去掉格式化字符串中的分隔符
+        SimpleDateFormat dateFormatToInt = new SimpleDateFormat("yyyyMMddHHmmss");
+        return Long.parseLong(dateFormatToInt.format(currentDate));
+    }
 }

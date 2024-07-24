@@ -85,7 +85,7 @@
                                     <form class="layui-card-body layui-form layui-form-pane">
                                     <div class="col-lg-7 align-self-center">
                                         <div class="p-3">
-                                            <h2 class="mb-2">登录</h2>
+                                            <h2 class="mb-2">欢迎登录</h2>
                                             <p>Login to stay connected.</p>
                                             <form>
                                                 <div class="row">
@@ -105,10 +105,10 @@
                                                     <div class="col-lg-12">
                                                         <div class="layui-row inline-block">
                                                             <div class="layui-col-xs7" style="width: 70%;border-top-left-radius:50px;border-bottom-left-radius:50px;" >
-                                                                <input type = "text" id = "input" style="width:200px;height:37px;border: 1px solid #cccccc;" placeholder="请输入验证码" lay-verify="required" required/>
+                                                                <input type = "text" id = "input" style="width:150px;height:37px;border: 1px solid #cccccc;" placeholder="请输入验证码" lay-verify="required" required/>
                                                             </div>
                                                             <div class="layui-col-xs5" style="padding-left: 6px;width: 30%">
-                                                                <input type = "button" id="code" name="code" style="position:absolute;right:-120px;cursor:pointer;height:38px;width: 125px; border:1px solid #e6e6e6;" onclick="createCode()" required="required" value="点击获取验证码">
+                                                                <input type = "button" id="code" name="code" style="position:absolute;right:-120px;cursor:pointer;height:38px;width: 125px; border:1px solid #E9F0FE;" onclick="createCode()" required="required" value="点击获取验证码">
                                                             </div>
                                                         </div>
                                                     </div>

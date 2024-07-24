@@ -1,11 +1,13 @@
 package com.service.Impl;
 
 import com.dao.Impl.ReceivingDaoImpl;
+import com.pojo.StockInForm;
 import com.pojo.echarts.GSPSupply;
 import com.pojo.echarts.GetString;
 import com.pojo.echarts.Times;
 import com.service.ReceivingService;
 import com.util.JDBC;
+import com.util.LayuiTable;
 import com.util.ResultData;
 import com.util.init.StringDeal;
 
@@ -90,6 +92,48 @@ public class ReceivingServiceImpl implements ReceivingService {
             e.printStackTrace();
         }
         return resultData;
+    }
+
+    @Override
+    public LayuiTable<StockInForm> search(String[] key, String[] value) {
+        LayuiTable<StockInForm> stockInFormLayuiTable = new LayuiTable<>();
+        ResultSet resultSet = receivingDao.search(key, value, "stockinform");
+        List<StockInForm> stockInFormList = new ArrayList<>();
+        int count = 0;
+        try {
+            ResultSet userDaoAll = receivingDao.getAll("stockinform");
+            while (userDaoAll.next()){
+                count++;
+            }
+            while (resultSet.next()){
+                StockInForm stockInForm = new StockInForm();
+                stockInForm.setrId(resultSet.getInt(1));
+                stockInForm.setStockInNum(resultSet.getString(2));
+                stockInForm.setTableCoding(resultSet.getInt(3));
+                stockInForm.setrName(resultSet.getString(4));
+                stockInForm.setStandard(resultSet.getString(5));
+                stockInForm.setManufactor(resultSet.getString(6));
+                stockInForm.setUnit(resultSet.getString(7));
+                stockInForm.setrNum(resultSet.getInt(8));
+                stockInForm.setCost(resultSet.getInt(9));
+                stockInForm.setSalePrice(resultSet.getInt(10));
+                stockInForm.setBatchNumber(resultSet.getString(11));
+                stockInForm.setProductDate(resultSet.getString(12));
+                stockInForm.setExpiration(resultSet.getString(13));
+                stockInForm.setStockInTime(resultSet.getString(14));
+                stockInForm.setDepartment(resultSet.getString(15));
+                stockInForm.setNotes(resultSet.getString(16));
+                stockInFormList.add(stockInForm);
+            }
+
+            stockInFormLayuiTable.setCount(count);
+            stockInFormLayuiTable.setCode(0);
+            stockInFormLayuiTable.setMsg("");
+            stockInFormLayuiTable.setData(stockInFormList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return stockInFormLayuiTable;
     }
 
 }

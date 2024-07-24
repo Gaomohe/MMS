@@ -2,12 +2,21 @@ package com.pojo;
 
 
 public class Sub_Apply {
-    private int applyid;
-    private int mid;
-    private int applynum;
-    private String applytime;
-    private int applyuserid;
+    private int applyid; //申请唯一编号
+    private int mid;        //药品编号
+    private int applynum;   //药品名称
+    private String applytime;  //申请时间
+    private int applyuserid;  //申请人id
     private int approve;
+    private long batch_num;  //唯一批次编号
+
+    public long getBatch_num() {
+        return batch_num;
+    }
+
+    public void setBatch_num(long batch_num) {
+        this.batch_num = batch_num;
+    }
 
     public int getApprove() {
         return approve;

@@ -43,7 +43,7 @@ public class ShoppingServiceImpl implements ShoppingService {
                 medicine.setPurchasePrice(dictionary.getDouble("purchasePrice"));
                 medicine.setProductDate(dictionary.getString("productDate"));
                 medicine.setDrugFrom(dictionary.getString("drugFrom"));
-                medicine.setGoodsType(dictionary.getString("goodsType"));
+                medicine.setGoodsType(dictionary.getString("defined"));
                 medicine.setSupplier(dictionary.getString("supplier"));
                 medicine.setApprovalNumber(dictionary.getString("approvalNumber"));
                 medicine.setDocumentNumber(dictionary.getString("documentNumber"));
@@ -287,9 +287,10 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public LayuiTable<Medicine> prescriptionDrug() {
-        ResultSet dictionary = shoppingDao.getOne("处方药", "goodsType", "dictionary");
-        int count = 0;
+    public LayuiTable<Medicine> prescriptionDrug(int pages,int limits) {
+        ResultSet dictionary = shoppingDao.getOne("处方药", "defined", "dictionary",pages,limits);
+        String table = "select tableCoding from dictionary where defined = '处方药'";
+        int row = shoppingDao.getRow(table, 1);
         List<Medicine> medicineList = new ArrayList<>();
 
         try {
@@ -303,18 +304,17 @@ public class ShoppingServiceImpl implements ShoppingService {
                 medicine.setPurchasePrice(dictionary.getDouble("purchasePrice"));
                 medicine.setProductDate(dictionary.getString("productDate"));
                 medicine.setDrugFrom(dictionary.getString("drugFrom"));
-                medicine.setGoodsType(dictionary.getString("goodsType"));
+                medicine.setGoodsType(dictionary.getString("defined"));
                 medicine.setSupplier(dictionary.getString("supplier"));
                 medicine.setApprovalNumber(dictionary.getString("approvalNumber"));
                 medicine.setDocumentNumber(dictionary.getString("documentNumber"));
                 medicine.setRecordNumber(dictionary.getInt("recordNumber"));
                 medicine.setBatchsNumber(dictionary.getString("batchsNumber"));
-                count++;
                 medicineList.add(medicine);
             }
             layuiTable.setData(medicineList);
             layuiTable.setMsg("");
-            layuiTable.setCount(count);
+            layuiTable.setCount(row);
             layuiTable.setCode(0);
 
         }catch (Exception e){

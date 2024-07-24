@@ -1,10 +1,13 @@
 package com.servlet;
 
 
+import com.pojo.StockInForm;
 import com.pojo.echarts.GetString;
+import com.pojo.echarts.Sale;
 import com.pojo.echarts.Times;
 import com.service.Impl.PrescriptionSalesServiceImpl;
 import com.util.BaseServlet;
+import com.util.LayuiTable;
 import com.util.ResultData;
 import com.util.init.ToJSON;
 
@@ -42,5 +45,13 @@ public class PrescriptionSalesServlet extends BaseServlet {
 
     public ResultData<List<GetString>> getChoise02(HttpServletRequest request, HttpServletResponse response){
         return prescriptionSalesService.getChoise02();
+    }
+    public void search(HttpServletRequest request, HttpServletResponse response){
+        String inputValue = request.getParameter("inputValue");
+        String[] keys = {"mName"};
+        String[] values = {inputValue};
+
+        LayuiTable<Sale> search = prescriptionSalesService.search(keys, values);
+        ToJSON.toJson(response,search);
     }
 }

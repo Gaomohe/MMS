@@ -35,7 +35,7 @@ public interface ShoppingService {
     //生成转存表2
     public List<Apply> subApplyList();
 
-    public LayuiTable<Medicine> prescriptionDrug();
+    public LayuiTable<Medicine> prescriptionDrug(int pages,int limits);
 
     public List<Medicine> getSup();
 

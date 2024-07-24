@@ -65,7 +65,6 @@ layui.extend({
     function pageOne(){
         var days = 10;
         getAjax(days)
-        console.log("看看")
         $(document).ready(function() {
             // $("#buyNum").change(function() {
             //     var selectedValue = $(this).val();
@@ -339,13 +338,13 @@ layui.extend({
     });
     function search(){
         var inputValue = $('#input').val(); // 获取输入框的值
-        $.ajax({
-            url:"/gspReport?action=search",//根据id查询的方法
-            type:"post",
-            data:{inputValue},
-            success:function (data){
-
-            }
-        })
+        tableIns.reload({
+            url : '/prescriptionSales?action=search',
+            where: {
+                inputValue
+            },
+            type:'static',
+            page: false,
+        });
     }
 })

@@ -27,22 +27,33 @@ public class GSPReportProServlet extends BaseServlet {
 
 
 
+    //获取不同天数的数据
     public ResultData<List<Times>> getll(HttpServletRequest request, HttpServletResponse response){
         int day = Integer.parseInt(request.getParameter("day"));
         return gspReportProService.reTimes(day);
     }
+
+//    返回供应商
     public ResultData<List<GSPSupply>> getAllSup(HttpServletRequest request, HttpServletResponse response){
         return gspReportProService.getAllSup();
     }
+
+    //返回规格
     public ResultData<List<GetString>> getChoise01(HttpServletRequest request, HttpServletResponse response){
         return gspReportProService.getChoise01();
     }
+
+    //返回种类
     public ResultData<List<GetString>> getChoise02(HttpServletRequest request, HttpServletResponse response){
         return gspReportProService.getChoise02();
     }
+
+    //返回供应商
     public ResultData<List<GetString>> getChoise03(HttpServletRequest request, HttpServletResponse response){
         return gspReportProService.getChoise03();
     }
+
+    //搜索
     public void search(HttpServletRequest request, HttpServletResponse response){
         String inputValue = request.getParameter("inputValue");
         String[] keys = {"mName"};

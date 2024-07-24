@@ -325,18 +325,21 @@ layui.extend({
 
         ]],
         done:function (data){
-            console.log(data)
+            $('#search').on('click', function() {
+                search();
+                // 这里可以添加搜索相关的代码
+            });
         }
     });
     function search(){
         var inputValue = $('#input').val(); // 获取输入框的值
-        $.ajax({
-            url:"/gspReport?action=search",//根据id查询的方法
-            type:"post",
-            data:{inputValue},
-            success:function (data){
-
-            }
-        })
+        tableIns.reload({
+            url : '/receiving?action=search',
+            where: {
+                inputValue
+            },
+            type:'static',
+            page: false,
+        });
     }
 })

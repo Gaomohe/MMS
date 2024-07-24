@@ -16,6 +16,7 @@ import com.util.ResultData;
 import com.util.init.StringDeal;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,17 +27,24 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        GSPReportProServiceImpl gspReportProService = new GSPReportProServiceImpl();
-        LocalDate currentDate = LocalDate.now();
+        // 获取当前时间
+        Date currentDate = new Date();
 
-        // 定义日期格式
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // 创建一个日期格式化对象，设置格式为年月日时分秒
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
-        // 格式化日期
-        String formattedDate = currentDate.format(formatter);
+        // 将当前时间格式化为字符串
+        String formattedDate = dateFormat.format(currentDate);
 
-        // 输出当前日期
-        System.out.println("当前日期是: " + formattedDate);
+        // 打印格式化后的日期字符串
+        System.out.println("格式化的日期：" + formattedDate);
+
+        // 如果需要将日期转换为整数，可以去掉格式化字符串中的分隔符
+        SimpleDateFormat dateFormatToInt = new SimpleDateFormat("yyyyMMddHHmmss");
+        long formattedDateToInt = Long.parseLong(dateFormatToInt.format(currentDate));
+
+        // 打印转换为整数的日期
+        System.out.println("转换为整数的日期：" + formattedDateToInt);
 
     }
 

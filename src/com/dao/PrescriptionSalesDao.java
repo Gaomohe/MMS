@@ -13,4 +13,6 @@ public interface PrescriptionSalesDao {
 
     public ResultSet getKing01();
     public ResultSet getKing02();
+
+    public ResultSet getAll(String sql);
 }

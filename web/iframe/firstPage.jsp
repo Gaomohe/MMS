@@ -105,7 +105,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-9 col-12">
-                            <%--<div class="box position-static">
+                            <div class="box position-static">
                                 <div class="box-header">
                                     <h4 class="box-title">Section Overview</h4>
                                     <div class="box-controls pull-right">
@@ -1078,7 +1078,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>--%>
+                            </div>
                             <div class="row">
                                 <div class="col-xl-6 col-12">
                                     <div class="box">
@@ -1223,7 +1223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-12" >
+                        <div class="col-xl-3 col-12">
                             <div class="box bg-success">
                                 <div class="box-header">
                                     <h4 class="box-title text-white">Section 5 usage</h4>

@@ -91,20 +91,20 @@
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
                     <script type="text/html" id="purchaseDemo">
-                        <div class="layui-row">
-                            <div class="layui-col-xs3">
-                                <input id="input" type="text" name="" placeholder="请输入" class="layui-input">
-                            </div>
-                            <div class="layui-col-xs3">
-                                <button id="search" type="button" class="layui-btn"><i class="layui-icon layui-icon-search"></i> 搜索</button>
-                            </div>
-                            <div class="layui-col-xs3">
-                                <%--                                <div class="grid-demo grid-demo-bg1">3/12</div>--%>
-                            </div>
-                            <div class="layui-col-xs3">
-                                <%--                                <div class="grid-demo">3/12</div>--%>
-                            </div>
-                        </div>
+<%--                        <div class="layui-row">--%>
+<%--                            <div class="layui-col-xs3">--%>
+<%--                                <input id="input" type="text" name="" placeholder="请输入" class="layui-input">--%>
+<%--                            </div>--%>
+<%--                            <div class="layui-col-xs3">--%>
+<%--                                <button id="search" type="button" class="layui-btn"><i class="layui-icon layui-icon-search"></i> 搜索</button>--%>
+<%--                            </div>--%>
+<%--                            <div class="layui-col-xs3">--%>
+<%--                                &lt;%&ndash;                                <div class="grid-demo grid-demo-bg1">3/12</div>&ndash;%&gt;--%>
+<%--                            </div>--%>
+<%--                            <div class="layui-col-xs3">--%>
+<%--                                &lt;%&ndash;                                <div class="grid-demo">3/12</div>&ndash;%&gt;--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </script>
                     <table id="purchaseList" lay-filter="purchaseList"></table>
                 </div>

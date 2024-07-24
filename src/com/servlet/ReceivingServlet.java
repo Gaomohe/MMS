@@ -1,11 +1,14 @@
 package com.servlet;
 
 
+import com.pojo.StockInForm;
 import com.pojo.echarts.GetString;
 import com.pojo.echarts.Times;
 import com.service.Impl.ReceivingServiceImpl;
 import com.util.BaseServlet;
+import com.util.LayuiTable;
 import com.util.ResultData;
+import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,5 +37,12 @@ public class ReceivingServlet extends BaseServlet {
 
     public ResultData<List<GetString>> getChoise02(HttpServletRequest request, HttpServletResponse response){
         return receivingService.getChoise02();
+    }
+    public void search(HttpServletRequest request, HttpServletResponse response){
+        String inputValue = request.getParameter("inputValue");
+        String[] keys = {"mName"};
+        String[] values = {inputValue};
+        LayuiTable<StockInForm> search = receivingService.search(keys, values);
+        ToJSON.toJson(response,search);
     }
 }

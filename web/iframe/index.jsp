@@ -140,7 +140,7 @@
             });
             html += '</dl>';
         } else {
-            html += '<a lay-href="' + item.href + '" target="' + item.target + '">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>' + item.title + '</cite></a>';
+            html += '<a lay-href="' + item.href + '" target="' + item.target + '">' + (item.icon ? '<i class="' + item.icon + '"></i>' : '') + '<cite>'  +item.title + '</cite></a>';
         }
         html += '</li>';
         return html;

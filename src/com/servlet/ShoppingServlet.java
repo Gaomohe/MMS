@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -42,10 +43,10 @@ public class ShoppingServlet extends BaseServlet {
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), Integer.parseInt(request.getParameter("resId")));
         List<Medicine> kindList = shoppingService.getKind();
         List<Medicine> sup = shoppingService.getSup();
-
         session.setAttribute("menuList",menuList);
         session.setAttribute("kindList",kindList);
         session.setAttribute("sup",sup);
+        session.setAttribute("name9",name9);
 
         return "/medicine/shoppingManage/requestApply/shopList";
     }
@@ -104,6 +105,7 @@ public class ShoppingServlet extends BaseServlet {
         int[] intKU = StringDeal.toArray(arrKu);
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        long nowTimes = StringDeal.getNowTimes();
         for (int i = 0; i < intID.length; i++) {
             System.out.println("用户id"+user.getId()+"时间"+GetTime.getTime());
             Sub_Apply sub_apply = new Sub_Apply();
@@ -111,6 +113,7 @@ public class ShoppingServlet extends BaseServlet {
             sub_apply.setApplynum(intKU[i]);
             sub_apply.setApplyuserid(user.getId());
             sub_apply.setApplytime(GetTime.getTime());
+            sub_apply.setBatch_num(nowTimes);
             resultData = shoppingService.addSub_Apply(sub_apply);
         }
         return resultData;
@@ -121,12 +124,16 @@ public class ShoppingServlet extends BaseServlet {
         ResultData resultData = Result.resultStatus(i);
         return resultData;
     }
+    //处方药
     public void prescriptionDrug(HttpServletRequest request, HttpServletResponse response){
         HttpSession session9 = request.getSession();
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"添加","采购申请","添加药品计量描述");
-        ToJSON.toJson(response,shoppingService.prescriptionDrug());
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page = (page-1)*limit;
+        ToJSON.toJson(response,shoppingService.prescriptionDrug(page,limit));
     }
     public void getSelectedSup(HttpServletRequest request, HttpServletResponse response){
         HttpSession session9 = request.getSession();

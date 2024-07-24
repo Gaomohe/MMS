@@ -18,8 +18,8 @@ public class ShoppingDaoImpl extends InitDaoImpl implements ShoppingDao {
 
     @Override
     public boolean addSub_Apply(Sub_Apply sub_apply) {
-        String sql = "insert into sub_apply(mid, applynum, applytime, applyuserid) values (?,?,?,?)";
-        Object[] objects = new Object[]{sub_apply.getMid(),sub_apply.getApplynum(),sub_apply.getApplytime(),sub_apply.getApplyuserid()};
+        String sql = "insert into sub_apply(mid, applynum, applytime, applyuserid,batch_num) values(?,?,?,?,?)";
+        Object[] objects = new Object[]{sub_apply.getMid(),sub_apply.getApplynum(),sub_apply.getApplytime(),sub_apply.getApplyuserid(),sub_apply.getBatch_num()};
         return JDBC.update(sql,objects) > 0;
     }
 

@@ -19,21 +19,21 @@ layui.extend({
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
-            {fixed:"left",type: "checkbox", width:50},
-            {field: 'tableCoding', title: '药品编号',  align:'center',hide:true},
-            {field: 'mName', title: '药品名称',  align:'center',width:100},
-            {field: 'specification', title: '规格',  align:'center'},
-            {field: 'number', title: '库存',  align:'center'},
-            {field: 'purchasePrice', title: '价格',  align:'center'},
+            {fixed:"left",type: "checkbox",sort: true, width:50},
+            {field: 'tableCoding', title: '药品编号',sort: true,  align:'center',hide:true},
+            {field: 'mName', title: '药品名称',  align:'center',sort: true,width:100},
+            {field: 'specification', title: '规格',  align:'center',sort: true},
+            {field: 'number', title: '库存',  align:'center',sort: true},
+            {field: 'purchasePrice', title: '价格',  align:'center',sort: true},
             {field: 'manufactor', title: '供应商',  align:'center',width:300},
             {field: 'drugFrom', title: '类别',  align:'center'},
             {field: 'goodsType', title: '种类',  align:'center'},
             {field: 'productDate', title: '生产日期',  align:'center',hide: true},
             {field: 'approvalNumber', title: '注册批号',  align:'center'},
             {field: 'documentNumber', title: '商品编号',  align:'center'},
-            {field: 'opera', title: '操作',  align:'center',templet:function (d){
-                    return '<a href="/shopping?action=select&mId=' + d.mId + '" class="layui-btn layui-btn-xs">详情</a>';
-                }},
+            // {field: 'opera', title: '操作',  align:'center',templet:function (d){
+            //         return '<a href="/shopping?action=select&mId=' + d.mId + '" class="layui-btn layui-btn-xs">详情</a>';
+            //     }},
 
         ]],
         done:function (){
@@ -118,7 +118,12 @@ layui.extend({
                 add(array);
                 break;
             case 'submit':
+                //搜索
                 var searchValue = document.getElementById('searchInput').value;
+                if (searchValue==null || searchValue===''){
+                    // 空
+                    return ;
+                }
                 tableIns.reload({
                     url : '/shopping?action=search',
                     where: { // 新的查询参数
@@ -140,7 +145,8 @@ layui.extend({
                     where: { // 新的查询参数
                     },
                     type:'static',
-                    page: false,
+                    page: true,
+                    height:800
                 });
                 break;
             case 'explain':
@@ -192,29 +198,19 @@ layui.extend({
     function add(array){
         var dataString = $.param({"array": array});
         layui.layer.open({
-            title : "申请",
+            title : "申请表",
             type : 2,
-            content : "medicine/shoppingManage/requestApply/applyList.jsp",
+            content : "medicine/shoppingManage/requestApply/applyPro.jsp",
             area:['800px','500px'],
             success:function(layero, index){
+                var $iframes = layero.find('iframe')[0];
                 $.ajax({
                     url:"/shopping?action=selectById",//根据id查询的方法
                     type:"post",
                     data:{dataString},
                     success:function(data){
-                        var info = JSON.parse(data).data;
-                        var iframe = layer.getChildFrame('body', index);
-                        var rowsHtml = '';
-                        $.each(info, function(i, item) {
-                            rowsHtml += '<tr>';
-                            rowsHtml += '<td>' + item.tableCoding + '</td>';
-                            rowsHtml += '<td>' + item.mName + '</td>';
-                            rowsHtml += '<td>' + item.number + '</td>';
-                            rowsHtml += '<td><input type="text" class="form-control" value="' + 0 + '"></td>';
-                            rowsHtml += '</tr>';
-                        });
-                        // 更新iframe窗口中的表格body
-                        $(iframe).find('#table-body').html(rowsHtml);
+                        $iframes.contentWindow.postMessage(data, '*');
+
                     }
                 })
             }

@@ -17,6 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.5.5/css/layui.css" media="all" />
     <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
+<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">--%>
     <style>
         table {
             width: 100%;
@@ -35,33 +36,14 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
-<%--    <c:forEach var="menu" items="${ooo}" varStatus="s">--%>
-<%--        <div class="layui-form-item">--%>
-<%--            <label class="layui-form-label" style="width: 400px;">药品编号:药品编号-药品名称:药品名称-药品剩余:药品剩余</label>--%>
-<%--            <div class="layui-input-inline">--%>
-<%--                <input style="width: 60%" type="text" name="id" id="id" lay-verify="required" placeholder="请输入申请数量" autocomplete="off" class="layui-input">--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </c:forEach>--%>
-    <table id="tableID">
-        <thead>
-        <tr>
-            <th>药品编号</th>
-            <th>药品名称</th>
-            <th>药品库存</th>
-            <th>添加数量</th>
-        </tr>
-        </thead>
-        <tbody id="table-body">
-        <!-- 动态填充数据的地方 -->
-        </tbody>
-    </table>
+    <table class="layui-table" id="tableTbBas" lay-filter="tableTbBas"></table>
 
-    <br/><br/>
-    <div class="layui-form-item" style="width: 50%;margin: auto">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="add">申请</button>
+    <div style="display: flex; justify-content: center;">
+        <button class="layui-btn" style="width: 200px;" id="tijiao" lay-filter="add">申请</button>
     </div>
 </form>
+<%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--%>
+<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-7ymO4nGrkm372HoSbq1OY2DP4pEZnMiA+E0F3zPr+JQQtQ82gQ1HPY3QIVtztVua" crossorigin="anonymous"></script>--%>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/shoppingManagejs/requestApply/applyList.js"></script>
