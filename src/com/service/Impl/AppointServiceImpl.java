@@ -309,8 +309,12 @@ public class AppointServiceImpl implements AppointService {
             apporder.setaId(apply.getmId());
             apporder.setApplyBuyNumber(apply.getApplyNumber());
             num = session.getMapper(ApplyDao.class).addAppOrder(apporder);
-            //添加订单后删除
-            mum = session.getMapper(ApplyDao.class).delApply(apply);
+            //添加订单后将其从apply表转移至appoint表
+            int i = session.getMapper(ApplyDao.class).shiftApply(apply);
+            //转移完成后删除
+            if (i > 0) {
+                mum = session.getMapper(ApplyDao.class).delApply(apply);
+            }
         }
 
 

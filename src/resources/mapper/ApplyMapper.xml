@@ -23,5 +23,12 @@
         DELETE FROM apply WHERE applyId = #{applyId};
     </delete>
 
+    <insert id="shiftApply">
+        INSERT INTO appoint(applyId,mId,mName,specification,manufactor,unit,department,number,applyNumber,purchasePrice,code,mType,supplier,approvalNumber,placeOrigin,applyUser,applyTime,pharmacist,pharmacistApprove,pharmacistTime,finance,financeApprove,financeTime,tableCoding)
+        VALUES (#{applyId},#{mId},#{mName},#{specification},#{manufactor},#{unit},#{department},#{number},#{applyNumber},#{purchasePrice},#{code},#{mType},#{supplier},#{approvalNumber},#{placeOrigin},#{applyUser},#{applyTime},#{pharmacist},#{pharmacistApprove},#{pharmacistTime},#{finance},#{financeApprove},#{financeTime},#{tableCoding})
+    </insert>
+
+
+
 </mapper>
 

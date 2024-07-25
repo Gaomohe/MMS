@@ -4,9 +4,7 @@ import com.dao.Impl.MedicineDaoImpl;
 import com.dao.Impl.QualityDaoImpl;
 import com.dao.MedicineDao;
 import com.dao.QualityDao;
-import com.pojo.Curing;
-import com.pojo.Medicine;
-import com.pojo.Quality;
+import com.pojo.*;
 import com.service.QualityService;
 
 import java.text.ParseException;
@@ -17,7 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
-import static com.util.Vessel.ordersService;
+import static com.util.Vessel.*;
+import static com.util.Vessel.medicineDao;
 
 public class QualityServiceImpl implements QualityService {
 
@@ -49,7 +48,6 @@ public class QualityServiceImpl implements QualityService {
             int i = (int) Math.ceil(totlNumber/50);
             quality.setSurveyNumber(3+i);
         }
-        quality.setWarehousingRemarks(medicine.getWarehousingRemarks());
         quality.setOrderId(qualityDao.getOid());
         return qualityDao.addQuality(quality);
     }
@@ -124,7 +122,7 @@ public class QualityServiceImpl implements QualityService {
 
     @Override
     //入库状态改变方法
-    public int updateQualitySS(int id,String name) {
+    public int updateQualitySS(int id,String name,User user) {
         Quality quality1 = qualityDao.getQualityByID(id);
         List<Integer> qualityOid = qualityDao.getQualityOid(quality1.getOrderId());
         for (int i:qualityOid){
@@ -132,12 +130,21 @@ public class QualityServiceImpl implements QualityService {
                 return i;
             }
         }
-        if (quality1.getStorageStatus().equals("未入库")){
+        if (quality1.getStorageStatus().equals("未入库")) {
             quality1.setStorageStatus("已入库");
             int orderId = quality1.getOrderId();
-            int order = ordersService.getOrder(quality1.getOrderId(),name);
+            int order = ordersService.getOrder(quality1.getOrderId(), name);
+        }
+        Warn warn = new Warn();
+        warn.setTableCoding(quality1.getTableCoding());
+        warn.setuId(user.getId());
+        warn.setName(user.getUserName());
+        warn.setTolNumber(quality1.getTotlNumber());
+        Warn warnsByTableCoding = warnDao.getWarnsByTableCoding(quality1.getTableCoding());
+        if (warnsByTableCoding.getmName() != null ){
+            warnService.upWarnTotlNumber(warn,quality1.getUsefulLife());
         }else {
-            quality1.setStorageStatus("未入库");
+            warnService.addWarn(warn,quality1.getUsefulLife());
         }
         return qualityDao.updateQualitySS(quality1);
     }
@@ -156,4 +163,5 @@ public class QualityServiceImpl implements QualityService {
 
         return qualityDao.delQuality(id);
     }
+
 }

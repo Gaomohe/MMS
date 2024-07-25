@@ -102,9 +102,13 @@ layui.extend({
         });
     });
 
-    // 提交函数
-    function submit() {
-        var ids=1;
+    // 提交
+    var index; // 将 index 声明在全局作用域，但是仅仅供下面提交与取消使用
+    $("#submit").click(function() {
+        console.log("aaaaaaaaaaaaaaaaaaa");
+        var ids = 1;
+        index = parent.layer.getFrameIndex(window.name); // 在这里获取 index
+
         $.ajax({
             url: '/appoint?action=Submit',
             data: { "ids": ids },
@@ -113,9 +117,11 @@ layui.extend({
             traditional: true,
             success: function(res) {
                 if (res.status == 200) {
+                    tableIns.reload();
                     layer.msg("提交成功", { icon: 1 });
-                    // 关闭父页面
-                    var index = parent.layer.getFrameIndex(window.name);
+                    // 刷新父页面
+                    window.parent.location.reload(true);
+                    // 关闭当前弹出层
                     parent.layer.close(index);
                 } else {
                     layer.msg("提交失败", { icon: 2 });
@@ -125,7 +131,13 @@ layui.extend({
                 layer.msg("提交出错", { icon: 2 });
             }
         });
-    }
+    });
+
+    //取消生成预购订单
+    $("#cancel").click(function() {
+        parent.layer.close(index); // 使用之前获取的 index 关闭弹出层
+    });
+
 
     // 删除函数
     function del(mId) {

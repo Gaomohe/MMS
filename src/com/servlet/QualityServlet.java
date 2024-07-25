@@ -159,7 +159,7 @@ public class QualityServlet extends BaseServlet {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
-        int i = qualityService.updateQualitySS(id,name);
+        int i = qualityService.updateQualitySS(id,name,user);
         return Result.resultStatus(i);
     }
 

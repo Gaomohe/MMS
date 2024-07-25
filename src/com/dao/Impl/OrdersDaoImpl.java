@@ -227,8 +227,8 @@ public class OrdersDaoImpl implements OrdersDao{
     //获取订单详情
     @Override
     public List<Apply> getOrderDetails(int oId,int page,int limit) {
-        String sql = "select * from apply\n" +
-                "left join app_order on apply.mId = app_order.aId\n" +
+        String sql = "select * from appoint\n" +
+                "left join app_order on appoint.mId = app_order.aId\n" +
                 "where app_order.oId = ?\n" +
                 "limit ?,?;";
         Object[] objects = new Object[3];

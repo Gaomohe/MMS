@@ -26,14 +26,18 @@
 <form action="javascript:void(0)">
     <div class="layuimini-container">
         <div class="layuimini-main">
+            <table id="medicineList" lay-filter="medicineList"></table>
             <script type="text/html" id="medicineDemo">
+
                 <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}
                 </c:forEach>--%>
-                <button id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon">&#xe697;</i>确认</button>
-                <button id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon">&#xe693;</i>取消</button>
+
             </script>
-            <table id="medicineList" lay-filter="medicineList"></table>
+            <button id="submit" lay-event="submit" lay-filter="submit" class="layui-btn" lay-submit>确认</button>
+            <button id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn" lay-submit>取消</button>
+
+
 
         </div>
     </div>

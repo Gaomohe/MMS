@@ -132,6 +132,14 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     sort: true,
                     hide: true,
                 },
+                {
+                    field: 'usefulLife',
+                    title: '有效期',
+                    minWidth: 200,
+                    align: 'center',
+                    sort: true,
+                    hide: true,
+                },
             ]
         ],
     });
@@ -615,19 +623,22 @@ layui.use(['form'], function(){
     form.on('switch(ckStateTbAdv)', function(data){
         var id = data.value; // 获取复选框的值
         var isChecked = data.elem.checked; // 获取复选框的选中状态
-        // 发送AJAX请求到服务器
+        console.log(data);
+    });
+
+    function change(id){
         $.ajax({
             url: '/quality?action=updateQualityStatue',
             type: 'POST',
             data: {id: id},
             success: function(data){
                 var info = JSON.parse(data);
-               if (info.status == 200){
-                   layer.msg("变化成功")
-                   setTimeout(function (){location.reload()}, 2000);
-               }else {
-                   layer.msg("变化失败")
-               }
+                if (info.status == 200){
+                    layer.msg("变化成功")
+                    setTimeout(function (){location.reload()}, 2000);
+                }else {
+                    layer.msg("变化失败")
+                }
 
             },
             error: function(xhr, status, error){
@@ -635,5 +646,5 @@ layui.use(['form'], function(){
                 console.error('Error:', error);
             }
         });
-    });
+    }
 });

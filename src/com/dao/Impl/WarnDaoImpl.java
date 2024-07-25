@@ -29,10 +29,23 @@ public class WarnDaoImpl implements WarnDao {
         return i;
     }
 
-    @Override
-    public List<Warn> getWarns() {
-        String sql = "SELECT * FROM `warn`";
+    public int getWarns() {
+        String sql = "SELECT id FROM `warn`";
         ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        int i = 0;
+        try {
+            while (resultSet.next()){
+                i++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return i;
+    }
+    @Override
+    public List<Warn> getWarns(int page,int limit) {
+        String sql = "SELECT * FROM `warn` limit ?,?";
+        ResultSet resultSet = JDBC.select(sql, new Object[]{page,limit});
         List<Warn> list = new ArrayList<>();
         try {
             while (resultSet.next()){
@@ -54,9 +67,94 @@ public class WarnDaoImpl implements WarnDao {
     }
 
     @Override
-    public List<WarnDetail> getWarnDetails() {
-        String sql = "SELECT * FROM `warndetail`";
+    public List<Warn> getWarnsByTime(String time) {
+        String sql = "SELECT * FROM `warn` where time like ?";
+        ResultSet resultSet = JDBC.select(sql, new Object[]{"%"+time+"%"});
+        List<Warn> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Warn warn = new Warn();
+                warn.setId(resultSet.getInt(1));
+                warn.setTableCoding(resultSet.getInt(2));
+                warn.setmName(resultSet.getString(3));
+                warn.setTolNumber(resultSet.getInt(4));
+                warn.setWarnNumber(resultSet.getInt(5));
+                warn.setName(resultSet.getString(6));
+                warn.setTime(resultSet.getString(7));
+                warn.setuId(resultSet.getInt(8));
+                list.add(warn);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Warn> getWarnsByMname(String name) {
+        String sql = "SELECT * FROM `warn` where mName like ?";
+        ResultSet resultSet = JDBC.select(sql, new Object[]{"%"+name+"%"});
+        List<Warn> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Warn warn = new Warn();
+                warn.setId(resultSet.getInt(1));
+                warn.setTableCoding(resultSet.getInt(2));
+                warn.setmName(resultSet.getString(3));
+                warn.setTolNumber(resultSet.getInt(4));
+                warn.setWarnNumber(resultSet.getInt(5));
+                warn.setName(resultSet.getString(6));
+                warn.setTime(resultSet.getString(7));
+                warn.setuId(resultSet.getInt(8));
+                list.add(warn);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public Warn getWarnsByTableCoding(int tableCoding) {
+        String sql = "SELECT * FROM `warn` where tableCoding = ?";
+        ResultSet resultSet = JDBC.select(sql, new Object[]{tableCoding});
+        Warn warn = new Warn();
+        try {
+            while (resultSet.next()){
+
+                warn.setId(resultSet.getInt(1));
+                warn.setTableCoding(resultSet.getInt(2));
+                warn.setmName(resultSet.getString(3));
+                warn.setTolNumber(resultSet.getInt(4));
+                warn.setWarnNumber(resultSet.getInt(5));
+                warn.setName(resultSet.getString(6));
+                warn.setTime(resultSet.getString(7));
+                warn.setuId(resultSet.getInt(8));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return warn;
+    }
+
+    public int getWarnDetails() {
+        String sql = "SELECT id FROM `warndetail`";
         ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        int i = 0;
+        try {
+            while (resultSet.next()){
+                i++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @Override
+    public List<WarnDetail> getWarnDetails(int page,int limit) {
+        String sql = "SELECT * FROM `warndetail` limit ?,?";
+        ResultSet resultSet = JDBC.select(sql, new Object[]{page,limit});
         List<WarnDetail> list = new ArrayList<>();
         try {
             while (resultSet.next()){
