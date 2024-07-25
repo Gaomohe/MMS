@@ -6,7 +6,7 @@
     <select id="getApplyPrice" parameterType="Apply" resultType="Apply">
         SELECT *
         FROM apply
-        WHERE applyId = #{applyId} AND financeApprove='已审阅通过';
+        WHERE applyId = #{applyId} AND financeApprove='未审阅';
     </select>
 
     <insert id="addApply" parameterType="Orders" useGeneratedKeys="true" keyProperty="oId">

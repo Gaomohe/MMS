@@ -36,6 +36,8 @@ layui.extend({
                 {field: 'applyId', title: '申请编号',  align:'center',width:200,hide:true,sort:true},
                 {field: 'mId', title: '字典编号',  align:'center',width:200,hide:true,sort:true},
                 {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200,sort:true},
+                {field: 'pharmacistApprove' ,title:'药师审批', align:'center',width:200,sort:true},
+                {field: 'financeApprove' ,title:'财务审批', align:'center',width:200,sort:true},
                 {field: 'specification', title: '规格', align:'center',width:200,sort:true},
                 {field: 'manufactor', title: '生产企业', align:'center',width:200,sort:true},
                 {field: 'unit', title: '单位', minWidth:100, align:"center",width:200,sort:true},
@@ -51,10 +53,10 @@ layui.extend({
                 {field: 'applyUser' ,title:'申请人', align:'center',width:200,sort:true},
                 {field: 'applyTime' ,title:'申请时间', align:'center',width:200,sort:true},
                 {field: 'pharmacist' ,title:'药师审批人', align:'center',width:200,sort:true},
-                {field: 'pharmacistApprove' ,title:'药师审批', align:'center',width:200,sort:true},
+
                 {field: 'pharmacistTime' ,title:'药师审批时间', align:'center',width:200,sort:true},
                 {field: 'finance' ,title:'财务审批人', align:'center',width:200,sort:true},
-                {field: 'financeApprove' ,title:'财务审批', align:'center',width:200,sort:true},
+
                 {field: 'financeTime' ,title:'财务审批时间', align:'center',width:200,sort:true},
                 {field: 'tableCoding' ,title:'自编码', align:'center',width:200,hide:true,sort:true}
             ]]

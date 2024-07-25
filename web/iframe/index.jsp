@@ -14,7 +14,7 @@
     <title>医药管理系统</title>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%= path %>/iframe/assets/module/admin.css?v=314"/>
-    <link rel="stylesheet" href="<%= path %>iframe/assets/css/style.css">
+    <link rel="stylesheet" href="<%= path %>/iframe/assets/css/style.css">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
