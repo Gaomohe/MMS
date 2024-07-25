@@ -138,7 +138,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     minWidth: 200,
                     align: 'center',
                     sort: true,
-                    hide: true,
                 },
             ]
         ],
@@ -202,6 +201,17 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                             issue(tableCoding,id);
                         });
 
+                    }
+                }
+                break;
+            case 'addFunc2':
+                var i = 0;
+                if (data.length != 1){
+                    layer.msg("请选择一条数据")
+                }else {
+                    for(i;i<data.length;i++){
+                        id = data[i].id;
+                        addFunc2(id);
                     }
                 }
                 break;
@@ -613,17 +623,48 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             content:"medicine/qualityManage/defectiveDisposal/failedInfo.jsp?tableCoding="+tableCoding+"&id="+id,
         });
     }
+    //添加有效期
+    function addFunc2(id){
+        layer.open({
+            type: 2,
+            title: '添加有效日期',
+            shadeClose: true,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['350px','430px'],
+            content:"medicine/qualityManage/qualityTest/qualityInfo.jsp?id="+id,
+        });
+    }
 });
 
 layui.use(['form'], function(){
     var form = layui.form;
     var $ = layui.jquery;
+    var userfulLife = null;
 
     // 监听指定复选框
     form.on('switch(ckStateTbAdv)', function(data){
         var id = data.value; // 获取复选框的值
         var isChecked = data.elem.checked; // 获取复选框的选中状态
-        console.log(data);
+        $.ajax({
+            url: '/quality?action=getQualityById',
+            type: 'POST',
+            data: {id: id},
+            success: function(data){
+                var info = JSON.parse(data);
+                userfulLife = info.data.usefulLife;
+                console.log(info.data);
+                if (userfulLife != null){
+                    change(id);
+                }else {
+                    layer.msg("请添加有效日期");
+                }
+
+            },
+            error: function(xhr, status, error){
+                // 处理错误
+                console.error('Error:', error);
+            }
+        });
     });
 
     function change(id){

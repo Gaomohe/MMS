@@ -17,7 +17,7 @@ public interface StockInFormService {
     //更新入库单
     public int updateDoStockInForm(StockInForm stockInForm);
     //新增入库单
-    public int addDoStockInForm(StockInWithQuality stockInWithQuality);
+    public int addDoStockInForm(StockInWithQuality stockInWithQuality,String name,User user);
 
     public List<StockInForm> getStockInFormByQuery(String[] query);
 

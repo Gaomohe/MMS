@@ -17,6 +17,7 @@ public class StockInWithQuality {
     private int statue;
     private String storageStatus;
     private String stockInTime;
+    private int id;
 
     public String getStockInTime() {
         return stockInTime;
@@ -144,5 +145,13 @@ public class StockInWithQuality {
 
     public void setStorageStatus(String storageStatus) {
         this.storageStatus = storageStatus;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -108,6 +108,10 @@ public class QualityServiceImpl implements QualityService {
         return qualityDao.getQualityByQuery(sql1);
     }
 
+    public Quality getQualityByID(Quality quality) {
+        Quality quality1 = qualityDao.getQualityByID(quality.getId());
+        return quality1;
+    }
     @Override
     public int updateQualityStatue(Quality quality) {
         Quality quality1 = qualityDao.getQualityByID(quality.getId());
@@ -119,6 +123,7 @@ public class QualityServiceImpl implements QualityService {
         }
         return qualityDao.updateQualityStatue(quality1);
     }
+
 
     @Override
     //入库状态改变方法
@@ -132,13 +137,12 @@ public class QualityServiceImpl implements QualityService {
         }
         if (quality1.getStorageStatus().equals("未入库")) {
             quality1.setStorageStatus("已入库");
-            int orderId = quality1.getOrderId();
-            int order = ordersService.getOrder(quality1.getOrderId(), name);
+            ordersService.getOrder(quality1.getOrderId(), name);
         }
         Warn warn = new Warn();
         warn.setTableCoding(quality1.getTableCoding());
         warn.setuId(user.getId());
-        warn.setName(user.getUserName());
+        warn.setName(name);
         warn.setTolNumber(quality1.getTotlNumber());
         Warn warnsByTableCoding = warnDao.getWarnsByTableCoding(quality1.getTableCoding());
         if (warnsByTableCoding.getmName() != null ){
@@ -146,6 +150,9 @@ public class QualityServiceImpl implements QualityService {
         }else {
             warnService.addWarn(warn,quality1.getUsefulLife());
         }
+        Medicine medicine = medicineDao.getMedicine(quality1.getTableCoding());
+        medicine.setUsefulLife(quality1.getUsefulLife());
+        medicineDao.updateMedicineBasic(medicine);
         return qualityDao.updateQualitySS(quality1);
     }
 
@@ -162,6 +169,11 @@ public class QualityServiceImpl implements QualityService {
     public int delQuality(int id) {
 
         return qualityDao.delQuality(id);
+    }
+
+    @Override
+    public int upUsefulLife(Quality quality) {
+        return qualityDao.upUsefulLife(quality);
     }
 
 }

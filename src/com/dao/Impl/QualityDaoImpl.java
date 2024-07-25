@@ -64,6 +64,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -96,6 +97,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -130,6 +132,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -164,6 +167,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -174,7 +178,7 @@ public class QualityDaoImpl implements QualityDao {
 
     @Override
     public List<Quality> getQualityByTime(String sql, String time) {
-        String sql1="SELECT * FROM ("+sql+") WHERE `time` like ?;";
+        String sql1="SELECT * FROM "+sql+" WHERE `time` like ?;";
         List<Quality> list = new ArrayList<>();
         Object[] objects = new Object[]{"%"+time+"%"};
         ResultSet resultSet = JDBC.select(sql1, objects);
@@ -197,6 +201,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -207,7 +212,8 @@ public class QualityDaoImpl implements QualityDao {
 
     @Override
     public List<Quality> getQualityByName(String sql, String mName) {
-        String sql1="SELECT * FROM ("+sql+") WHERE `mNme` like ?;";
+        System.out.println(sql);
+        String sql1="SELECT * FROM "+sql+" WHERE `mNme` like ?;";
         List<Quality> list = new ArrayList<>();
         Object[] objects = new Object[]{"%"+mName+"%"};
         ResultSet resultSet = JDBC.select(sql1, objects);
@@ -230,6 +236,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -261,6 +268,7 @@ public class QualityDaoImpl implements QualityDao {
                 quality.setTime(resultSet.getString(14));
                 quality.setSupplier(resultSet.getString(15));
                 quality.setOrderId(resultSet.getInt(16));
+                quality.setUsefulLife(resultSet.getString(17));
                 list.add(quality);
             }
         }catch (Exception e){
@@ -341,5 +349,15 @@ public class QualityDaoImpl implements QualityDao {
             e.printStackTrace();
         }
         return oid;
+    }
+
+    //更新保质期
+    public int upUsefulLife(Quality quality){
+        String sql="UPDATE `quality` SET `usefulLife` = ? WHERE `id` = ?";
+        Object[] objects = new Object[2];
+        objects[0] = quality.getUsefulLife();
+        objects[1] = quality.getId();
+        int i = JDBC.update(sql, objects);
+        return i;
     }
 }

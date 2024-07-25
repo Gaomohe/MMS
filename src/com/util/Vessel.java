@@ -62,4 +62,7 @@ public class Vessel {
 
     public static WarnDao warnDao = new WarnDaoImpl();
     public static WarnService warnService = new WarnServiceImpl();
+
+    public static QualityService qualityService = new QualityServiceImpl();
+    public static QualityDao qualityDao = new QualityDaoImpl();
 }

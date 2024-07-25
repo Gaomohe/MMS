@@ -174,6 +174,10 @@
                         <div id="xTable2" lay-filter="xTable2"></div>
                     </div>
 
+                    <script type="text/html" id="tplStateTbAdv2">
+                        <input type="checkbox" lay-filter="ckStateTbAdv2" value="{{d.id}}" lay-skin="switch"
+                               lay-text="已质检|未质检" {{d.statue==1?'checked':''}}/>
+                    </script>
                     <script type="text/html" id="tplStateTbAdv">
                         <input type="checkbox" lay-filter="ckStateTbAdv" value="{{d.id}}" lay-skin="switch"
                                lay-text="已质检|未质检" {{d.statue==1?'checked':''}}/>

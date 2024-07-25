@@ -3,12 +3,15 @@ package com.service.Impl;
 import com.pojo.Orders;
 import com.pojo.StockInForm;
 import com.pojo.StockInWithQuality;
+import com.pojo.User;
+import com.service.QualityService;
 import com.service.StockInFormService;
 import com.util.GetTime;
 import com.util.LayuiTable;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
+import static com.util.Vessel.qualityService;
 import static com.util.Vessel.stockInFormDao;
 
 public class StockInFormServiceImpl implements StockInFormService {
@@ -45,7 +48,11 @@ public class StockInFormServiceImpl implements StockInFormService {
     }
 
     @Override
-    public int addDoStockInForm(StockInWithQuality stockInWithQuality) {
+    public int addDoStockInForm(StockInWithQuality stockInWithQuality,String name, User user) {
+        int i = qualityService.updateQualitySS(stockInWithQuality.getId(), name, user);
+        if (i==0){
+            return i;
+        }
         return stockInFormDao.addStockInForm(stockInWithQuality);
     }
 
