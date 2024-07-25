@@ -37,7 +37,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     minWidth: 200,
                     align: 'center',
                     sort: true,
-                    templet: '#tplStateTbAdv',
+                    templet: '#tplStateTbAdv2',
                 },
                 {
                     field: 'tableCoding',
@@ -532,9 +532,10 @@ layui.use(['form'], function(){
     var $ = layui.jquery;
 
     // 监听指定复选框
-    form.on('switch(ckStateTbAdv)', function(data){
+    form.on('switch(ckStateTbAdv2)', function(data){
         var id = data.value; // 获取复选框的值
         var isChecked = data.elem.checked; // 获取复选框的选中状态
+        console.log(data);
         // 发送AJAX请求到服务器
         $.ajax({
             url: '/quality?action=updateQualityStatue',

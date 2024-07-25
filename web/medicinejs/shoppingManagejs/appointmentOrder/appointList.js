@@ -87,8 +87,8 @@ layui.extend({
                         for (let i = 0; i < files.length; i++) {
                             const file = files[i];
                             total++;
-                            if (file.financeApprove!='已审阅通过'){
-                                layer.msg("审核未通过");
+                            if (file.financeApprove=='已审阅通过'){
+                                layer.msg("已审核...请选择未审核申请药品");
                                 break; // 这里会真正停止循环
                             }
                             if (firstManufacturer !== file.manufactor) {
@@ -357,8 +357,6 @@ layui.extend({
             }
         })
     }
-
-
 
     //分配生产企业
     function supplier() {

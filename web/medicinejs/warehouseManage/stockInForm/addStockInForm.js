@@ -69,8 +69,6 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
             type: "post",
             where: {
                 manufactorName: '',// 初始时默认不传递任何供应商名称
-
-
             },
             page : true,
             limit : 6,
@@ -90,6 +88,7 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                 {field:'totlNumber', width:150, align:'center', title:'待入库药品数量', rowspan: 2}, // 药品名列
                 {field:'statue', width:100, align:'center',hide:true, title:'质检状态', rowspan: 2}, // 药品名列
                 {field:'storageStatus', width:200, align:'center', title:'入库状态', rowspan: 2}, // 药品名列
+                {field:'id', width:200, align:'center', title:'质量编号', rowspan: 2,hide: true}, // 药品名列
             ]],
             done:function (data){
                 console.log(data)
@@ -121,7 +120,8 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                     "rName":data[i].rName,
                     "totlNumber":data[i].totlNumber,
                     "statue":data[i].statue,
-                    "storageStatus":data[i].storageStatus
+                    "storageStatus":data[i].storageStatus,
+                    "id":data[i].id
                 },
                 type:"post",
                 success:function(data){
@@ -135,7 +135,7 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                             parent.location.reload();
                         },1000);
                     }else{
-                        layer.msg("系统异常");
+                        layer.msg("此订单还有未质检药品");
                     }
                 }
             })

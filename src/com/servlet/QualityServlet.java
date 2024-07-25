@@ -133,6 +133,15 @@ public class QualityServlet extends BaseServlet {
         List<Quality> quality = qualityService.getQualityByQuery(sql,queries);
         return Result.resultData(quality);
     }
+    //根据id获取质检表
+    public ResultData<Quality> getQualityById(HttpServletRequest request, HttpServletResponse response){
+        String id = request.getParameter("id");
+        String sql = request.getParameter("sql");
+        Quality quality = new Quality();
+        quality.setId(Integer.parseInt(id));
+        Quality qualityByID = qualityService.getQualityByID(quality);
+        return Result.resultData(qualityByID);
+    }
 
     //修改质检表质检状态
     public ResultData<Quality> updateQualityStatue(HttpServletRequest request, HttpServletResponse response){
@@ -199,6 +208,16 @@ public class QualityServlet extends BaseServlet {
             i = salReturnService.addSalReturnOne(oId,id,name);
         }
 
+        return Result.resultStatus(i);
+    }
+    //更新有效期
+    public ResultData<Quality> upUsefulLife(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String usefulLife = request.getParameter("usefulLife");
+        Quality quality = new Quality();
+        quality.setId(id);
+        quality.setUsefulLife(usefulLife);
+        int i = qualityService.upUsefulLife(quality);
         return Result.resultStatus(i);
     }
 }

@@ -31,4 +31,6 @@ public interface QualityDao {
     public int delQuality(int id);
     //获取采购oid
     public int getOid();
+    //更新保质期
+    public int upUsefulLife(Quality quality);
 }

@@ -239,9 +239,10 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 "    s.expiration,\n" +
                 "    s.manufactor,\n" +
                 "    s.department,\n" +
-                "    q.totlNumber, \n" +
-                "    q.statue,      \n" +
-                "    q.storageStatus        \n" +
+                "    q.totlNumber,\n" +
+                "    q.statue,\n" +
+                "    q.storageStatus,\n" +
+                "    q.id \n" +
                 "FROM stockinform AS s\n" +
                 "JOIN quality AS q \n" +
                 "ON s.tablecoding = q.tablecoding\n" +
@@ -273,6 +274,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 stockInWithQuality.setTotlNumber(resultSet.getInt(12));
                 stockInWithQuality.setStatue(resultSet.getInt(13));
                 stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                stockInWithQuality.setId(resultSet.getInt(15));
                 qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){
@@ -295,9 +297,10 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 "    s.expiration,\n" +
                 "    s.manufactor,\n" +
                 "    s.department,\n" +
-                "    q.totlNumber, \n" +
-                "    q.statue,      \n" +
-                "    q.storageStatus        \n" +
+                "    q.totlNumber,\n" +
+                "    q.statue,\n" +
+                "    q.storageStatus,\n" +
+                "    q.id \n" +
                 "FROM stockinform AS s\n" +
                 "JOIN quality AS q \n" +
                 "ON s.tablecoding = q.tablecoding\n" +
@@ -324,6 +327,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 stockInWithQuality.setTotlNumber(resultSet.getInt(12));
                 stockInWithQuality.setStatue(resultSet.getInt(13));
                 stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                stockInWithQuality.setId(resultSet.getInt(15));
                 qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){
@@ -346,9 +350,10 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 "    s.expiration,\n" +
                 "    s.manufactor,\n" +
                 "    s.department,\n" +
-                "    q.totlNumber, \n" +
-                "    q.statue,      \n" +
-                "    q.storageStatus        \n" +
+                "    q.totlNumber,\n" +
+                "    q.statue,\n" +
+                "    q.storageStatus,\n" +
+                "    q.id \n" +
                 "FROM stockinform AS s\n" +
                 "JOIN quality AS q \n" +
                 "ON s.tablecoding = q.tablecoding\n" +
@@ -375,6 +380,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 stockInWithQuality.setTotlNumber(resultSet.getInt(12));
                 stockInWithQuality.setStatue(resultSet.getInt(13));
                 stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                stockInWithQuality.setId(resultSet.getInt(15));
                 qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){
@@ -397,9 +403,10 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 "    s.expiration,\n" +
                 "    s.manufactor,\n" +
                 "    s.department,\n" +
-                "    q.totlNumber, \n" +
-                "    q.statue,      \n" +
-                "    q.storageStatus        \n" +
+                "    q.totlNumber,\n" +
+                "    q.statue,\n" +
+                "    q.storageStatus,\n" +
+                "    q.id \n" +
                 "FROM stockinform AS s\n" +
                 "JOIN quality AS q \n" +
                 "ON s.tablecoding = q.tablecoding\n" +
@@ -423,6 +430,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 stockInWithQuality.setTotlNumber(resultSet.getInt(12));
                 stockInWithQuality.setStatue(resultSet.getInt(13));
                 stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                stockInWithQuality.setId(resultSet.getInt(15));
                 qualityList.add(stockInWithQuality);
             }
         }catch (Exception e){

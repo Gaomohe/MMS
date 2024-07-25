@@ -73,7 +73,11 @@ public class StockInFormServlet extends BaseServlet {
         stockInWithQuality.setDepartment(request.getParameter("department"));
         stockInWithQuality.setTotlNumber(Integer.parseInt(request.getParameter("totlNumber")));
         stockInWithQuality.setStorageStatus("已入库");
-        int i = stockInFormService.addDoStockInForm(stockInWithQuality);
+        stockInWithQuality.setId(Integer.parseInt(request.getParameter("id")));
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        int i = stockInFormService.addDoStockInForm(stockInWithQuality,name,user);
         if (i>0){
             resultData.setStatus(200);
             resultData.setMsg("添加成功");
