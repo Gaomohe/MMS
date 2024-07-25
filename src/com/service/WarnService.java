@@ -11,9 +11,15 @@ public interface WarnService {
     //添加预警数据
     public int addWarn(Warn warn,String usefulLife);
     //获取所有预警数据(Warn)
-    public List<Warn> getWarns();
+    public int getWarns();
+    public List<Warn> getWarns(int page,int limit);
+    //按照时间获取
+    public List<Warn> getWarnsByTime(String time);
+    //按照药品获取
+    public List<Warn> getWarnsByMname(String name);
     //获取所有预警数据（WarnDetail）
-    public List<WarnDetail> getWarnDetails();
+    public int getWarnDetails();
+    public List<WarnDetail> getWarnDetails(int page,int limit);
     //根据条件获取预警数据
     public Warn getWarnsById(int id);
     public List<WarnDetail> getWarnDetailsByWId(int wid);

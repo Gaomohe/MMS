@@ -48,13 +48,35 @@ public class WarnServiceImpl implements WarnService {
     }
 
     @Override
-    public List<Warn> getWarns() {
+    public int getWarns() {
         return warnDao.getWarns();
     }
 
     @Override
-    public List<WarnDetail> getWarnDetails() {
+    public List<Warn> getWarns(int page,int limit) {
+        page = (page-1)*limit;
+        return warnDao.getWarns(page,limit);
+    }
+
+    @Override
+    public List<Warn> getWarnsByTime(String time) {
+        return warnDao.getWarnsByTime(time);
+    }
+
+    @Override
+    public List<Warn> getWarnsByMname(String name) {
+        return warnDao.getWarnsByMname(name);
+    }
+
+    @Override
+    public int getWarnDetails() {
         return warnDao.getWarnDetails();
+    }
+
+    @Override
+    public List<WarnDetail> getWarnDetails(int page,int limit) {
+        page = (page-1)*limit;
+        return warnDao.getWarnDetails(page,limit);
     }
 
     @Override

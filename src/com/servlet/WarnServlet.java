@@ -38,20 +38,38 @@ public class WarnServlet extends BaseServlet {
         logService.setLog(name,"点击","临期预警","获取界面所有按钮");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
-        return "界面";
+        return "medicine/qualityManage/imminentWarning/warnList";
     }
 
     //获取所有Warn值
     public LayuiTable<Warn> getWarnAll(HttpServletRequest request,HttpServletResponse response){
-        List<Warn> warns = warnService.getWarns();
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        List<Warn> warns = warnService.getWarns(page,limit);
         LayuiTable<Warn> layuiTable = new LayuiTable<>();
+        layuiTable.setCount(warnService.getWarns());
         layuiTable.setData(warns);
         return layuiTable;
     }
+    //根据时间获取
+    public ResultData<Warn> getWarnsByTime(HttpServletRequest request,HttpServletResponse response){
+        String time = request.getParameter("time");
+        List<Warn> warns = warnService.getWarnsByTime(time);
+        return Result.resultData(warns);
+    }
+    //根据药品名称获取
+    public ResultData<Warn> getWarnsByMname(HttpServletRequest request,HttpServletResponse response){
+        String mName = request.getParameter("mName");
+        List<Warn> warns = warnService.getWarnsByMname(mName);
+        return Result.resultData(warns);
+    }
     //获取所有WarnDetails
     public LayuiTable<WarnDetail> getWarnDatailAll(HttpServletRequest request,HttpServletResponse response){
-        List<WarnDetail> warns = warnService.getWarnDetails();
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        List<WarnDetail> warns = warnService.getWarnDetails(page,limit);
         LayuiTable<WarnDetail> layuiTable = new LayuiTable<>();
+        layuiTable.setCount(warnService.getWarnDetails());
         layuiTable.setData(warns);
         return layuiTable;
     }
