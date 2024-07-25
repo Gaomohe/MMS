@@ -66,7 +66,7 @@ public class FinancialDaoImpl implements FinancialDao {
                 "WHERE applyId = ?;";
         Object[] obj = new Object[3];
         obj[0] = apply.getFinanceTime();
-        obj[1] = apply.getApplyUser();
+        obj[1] = apply.getFinance();
         obj[2] = apply.getApplyId();
         int update = JDBC.update(sql, obj);
         return update;

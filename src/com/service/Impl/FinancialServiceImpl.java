@@ -48,7 +48,7 @@ public class FinancialServiceImpl implements FinancialService {
         apply.setApplyId(id);
         apply.setFinanceTime(GetTime.getTime());
         String userName = userDao.getUserName(user.getId());
-        apply.setApplyUser(userName);
+        apply.setFinance(userName);
         return financialDao.setApply(apply);
     }
 

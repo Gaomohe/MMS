@@ -171,11 +171,8 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     @Override
     public List<Apply> getmName() {
         String sql = "select mName from apply\n" +
-                "where applyId > ?\n" +
                 "group by mName";
-        Object[] objects = new Object[1];
-        objects[0] = 0;
-        ResultSet resultSet = JDBC.select(sql, objects);
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<Apply> list = new ArrayList<>();
         try{
             while (resultSet.next()) {

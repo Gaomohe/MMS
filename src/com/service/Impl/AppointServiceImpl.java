@@ -311,6 +311,12 @@ public class AppointServiceImpl implements AppointService {
             num = session.getMapper(ApplyDao.class).addAppOrder(apporder);
             //添加订单后将其从apply表转移至appoint表
             int i = session.getMapper(ApplyDao.class).shiftApply(apply);
+
+            //将药品加入质量检测表
+            Quality quality = new Quality();
+            quality.setTableCoding(apply.getTableCoding());
+            quality.setTotlNumber(apply.getApplyNumber());
+            qualityService.addQuality(quality);
             //转移完成后删除
             if (i > 0) {
                 mum = session.getMapper(ApplyDao.class).delApply(apply);
