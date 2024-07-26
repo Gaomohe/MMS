@@ -143,10 +143,11 @@ public class QualityDaoImpl implements QualityDao {
 
     @Override
     public List<Quality> getQualityBySS(String storageStatus, int index, int limit, String order, String title) {
-        String sql="SELECT * FROM (SELECT * FROM `quality` ORDER BY "+title+" "+order+" LIMIT ?,?) AS a \n" +
-                "WHERE `storageStatus`=?";
+        String sql = "SELECT  *  FROM `quality` WHERE `storageStatus` = ?  \n" +
+                "ORDER BY "+title+"  "+order+" \n"+
+                "LIMIT ?,?;";
         List<Quality> list = new ArrayList<>();
-        Object[] objects = new Object[]{index,limit,storageStatus};
+        Object[] objects = new Object[]{storageStatus,index,limit};
         ResultSet resultSet = JDBC.select(sql, objects);
         try {
             while (resultSet.next()){

@@ -132,11 +132,13 @@ public class SalReturnServlet extends BaseServlet {
         String address = request.getParameter("address");
         String shippingWay = request.getParameter("shippingWay");
         String consigner = request.getParameter("consigner");
+        String phone = request.getParameter("phone");
         SalReturn salReturn = new SalReturn();
         salReturn.setId(Integer.parseInt(id));
         salReturn.setAddress(address);
         salReturn.setShippingWay(shippingWay);
         salReturn.setConsigner(consigner);
+        salReturn.setCallNumber(phone);
         int i = salReturnService.updateAll(salReturn);
         return Result.resultStatus(i);
     }

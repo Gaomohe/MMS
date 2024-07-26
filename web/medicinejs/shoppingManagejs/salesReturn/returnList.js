@@ -53,7 +53,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var id='';
-        var state='';
+        var id1='';
         for(i=0;i<data.length;i++){
             id = data[i].id;
         }
@@ -70,11 +70,10 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                 }
                 break;
             case 'upFunc1':
-                var i;
+                var i=0;
                 for(i;i<data.length;i++){
-                    id = data[i].id;
-                    state = data[i].state;
-                    upReturn1(id);
+                    id1 = data[i].id;
+                    upReturn1(id1);
                 }
                 if (i=data.length){
                     layer.msg("操作成功")
@@ -82,10 +81,10 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                 }
                 break;
             case 'upFunc2':
-                var i;
+                var i=0;
                 for(i;i<data.length;i++){
-                    id = data[i].id;
-                    upReturn2(id);
+                    id1 = data[i].id;
+                    upReturn2(id1);
                 }
                 if (i=data.length){
                     layer.msg("操作成功")
@@ -400,7 +399,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             title: '处理货单',
             shadeClose: true,
             maxmin: true, //开启最大化最小化按钮
-            area: ['900px', '600px'],
+            area: ['448px', '458px'],
             content:"medicine/shoppingManage/salesReturn/returnInfo.jsp?id="+id,
         });
     }
@@ -411,7 +410,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             title: '添加收件人',
             shadeClose: true,
             maxmin: true, //开启最大化最小化按钮
-            area: ['900px', '600px'],
+            area: ['449px', '180px'],
             content:"medicine/shoppingManage/salesReturn/returnAddEE.jsp?id="+id,
         });
     }

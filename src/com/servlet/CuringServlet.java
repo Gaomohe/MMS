@@ -164,6 +164,11 @@ public class CuringServlet extends BaseServlet {
         curing.setTableCoding(Integer.parseInt(request.getParameter("tableCoding")));
         curing.setmId(Integer.parseInt(request.getParameter("mId")));
         curing.setContent(request.getParameter("content"));
+        HttpSession session = request.getSession();
+        User user =(User)session.getAttribute("user");
+        String userName = userDao.getUserName(user.getId());
+        curing.setuName(userName);
+        curing.setuId(user.getId());
         int i = curingService.addCuring(curing);
         return Result.resultStatus(i);
     }

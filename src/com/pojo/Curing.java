@@ -6,8 +6,9 @@ public class Curing {
     private int mId;
     private String content;
     private String time;
-
     private int state;
+    private String uName;
+    private int uId;
 
     public int getId() {
         return id;
@@ -55,5 +56,21 @@ public class Curing {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
+
+    public int getuId() {
+        return uId;
+    }
+
+    public void setuId(int uId) {
+        this.uId = uId;
     }
 }

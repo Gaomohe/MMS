@@ -69,6 +69,13 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     sort: true
                 },
                 {
+                    field: 'usefulLife',
+                    title: '有效期',
+                    minWidth: 200,
+                    align: 'center',
+                    sort: true,
+                },
+                {
                     field: 'surveyNumber',
                     title: '抽样数量',
                     minWidth: 200,

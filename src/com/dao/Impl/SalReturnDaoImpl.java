@@ -78,7 +78,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }
@@ -104,7 +104,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }
@@ -129,7 +129,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
 
             }
@@ -155,7 +155,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }
@@ -181,7 +181,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }
@@ -208,7 +208,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }
@@ -233,7 +233,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
 
             }
@@ -259,7 +259,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setoId(resultSet.getInt(8));
-                salReturn.setCallNumber(resultSet.getInt(9));
+                salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }

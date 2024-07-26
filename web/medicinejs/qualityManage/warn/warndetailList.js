@@ -13,6 +13,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
     // 前端分页
     var tableIns=tableX.render({
         elem: '#xTable2',
+        height: 600,
+        page:true,
         url: '/warning?action=getWarnDatailByWid&wId=1',
         cols: [
             [{fixed: "left",
@@ -24,42 +26,36 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '数据编号',
                     minWidth: 200,
                     align: 'center',
-                    hide: true,
                 },
                 {
                     field: 'number',
                     title: '此批次总数',
                     minWidth: 200,
                     align: 'center',
-                    sort: true,
                 },
                 {
                     field: 'usefulLife',
                     title: '有效期',
                     minWidth: 200,
                     align: 'center',
-                    sort: true,
                 },
                 {
                     field: 'uName',
-                    title: '操作人',
+                    title: '入库操作人',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
                 },
                 {
                     field: 'time',
                     title: '操作时间',
                     minWidth: 200,
                     align: 'center',
-                    sort: true,
                 },
                 {
                     field: 'uId',
                     title: '操作人id',
                     minWidth: 200,
                     align: 'center',
-                    sort: true,
                     hide: true,
                 },
                 {
@@ -67,7 +63,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '总表Id',
                     minWidth: 200,
                     align: 'center',
-                    sort: true,
                     hide: true,
                 },
             ]

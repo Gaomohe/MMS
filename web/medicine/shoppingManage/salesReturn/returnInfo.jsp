@@ -62,6 +62,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">到货联系方式</label>
+        <div class="layui-input-inline">
+            <input type="text" name="phone" id="phone" placeholder="请输入联系方式" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="addRole">完成</button>
     </div>
 </form>

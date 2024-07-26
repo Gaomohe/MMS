@@ -96,20 +96,23 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                         title: '数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide:true
                     },
                     {
                         field: 'tableCoding',
                         title: '药品数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide: true
                     },
                     {
                         field: 'mId',
                         title: '药品编号',
                         minWidth: 400,
                         align: "center",
+                        hide: true
                     },
                     {
                         field: 'content',
@@ -122,6 +125,19 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                         title: '养护时间',
                         minWidth: 200,
                         align: 'center',
+                    },
+                    {
+                        field: 'uName',
+                        title: '养护人',
+                        minWidth: 200,
+                        align: 'center',
+                    },
+                    {
+                        field: 'uId',
+                        title: '养护人Id',
+                        minWidth: 200,
+                        align: 'center',
+                        hide: true
                     },
                     {
                         title:'操作',
@@ -157,10 +173,5 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                 }
             }
         })
-    }
-
-
-
-
-
+    };
 });

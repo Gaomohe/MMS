@@ -9,7 +9,7 @@ public class SalReturn {
     private String consigner;
     private String consignee;
     private int oId;
-    private int callNumber;
+    private String callNumber;
     private String state;
     private String mName;
     private int number;
@@ -78,11 +78,11 @@ public class SalReturn {
         this.oId = oId;
     }
 
-    public int getCallNumber() {
+    public String getCallNumber() {
         return callNumber;
     }
 
-    public void setCallNumber(int callNumber) {
+    public void setCallNumber(String callNumber) {
         this.callNumber = callNumber;
     }
 

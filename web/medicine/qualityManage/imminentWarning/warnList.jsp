@@ -2,6 +2,7 @@
 <%
 String path = request.getContextPath();
 %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
 <head>
@@ -65,40 +66,40 @@ String path = request.getContextPath();
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
-                    药品总数<span class="layui-badge layui-bg-blue pull-right">个</span>
+                    药品总数<span class="layui-badge-rim">个</span>
                 </div>
                 <div class="layui-card-body">
-                    <p class="lay-big-font">？</p>
+                    <p class="lay-big-font">${mTotl}</p>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
-                    昨日入库药品<span class="layui-badge layui-bg-black pull-right">个</span>
+                    昨日入库药品<span class="layui-badge-rim">个</span>
                 </div>
                 <div class="layui-card-body">
-                    <p class="lay-big-font">？</p>
+                    <p class="lay-big-font">${yesterday}</p>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
-                    已过期药品<span class="layui-badge layui-bg-green pull-right">种</span>
+                    已过期药品<span class="layui-badge-rim">种</span>
                 </div>
                 <div class="layui-card-body">
-                    <p class="lay-big-font">？</p>
+                    <p class="lay-big-font">${out}</p>
                 </div>
             </div>
         </div>
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
-                    需采购药品<span class="layui-badge layui-bg-orange pull-right">种</span>
+                    需采购药品<span class="layui-badge-rim">种</span>
                 </div>
                 <div class="layui-card-body">
-                    <p class="lay-big-font">？</p>
+                    <p class="lay-big-font">${need}</p>
                 </div>
             </div>
         </div>
@@ -117,7 +118,7 @@ String path = request.getContextPath();
                                 </div>
                                 <input id="search" lay-event="enterSearch" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
                             </div>
-                            <c:forEach var="menu" items="${menuList2}" varStatus="s">
+                            <c:forEach var="menu" items="${menuList}" varStatus="s">
                                 ${menu.resUrl}
                             </c:forEach>
                         </script>
@@ -131,132 +132,6 @@ String path = request.getContextPath();
                 <table id="xTable2" lay-filter="xTable2" style="background-color: white"></table>
             </div>
         </div>
-        <%--<div class="layui-col-lg4 layui-col-md5" style="width: 23.333%;">
-            <div class="layui-card">
-                <div class="layui-card-header">前端框架</div>
-                <div class="layui-card-body">
-                    <table class="layui-table layui-text">
-                        <colgroup>
-                            <col width="100">
-                            <col>
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <td>基础框架</td>
-                            <td><a href="http://www.layui.com/" target="_blank">layui-v2.5.3</a></td>
-                        </tr>
-                        <tr>
-                            <td>路由框架</td>
-                            <td>
-                                lay-Router（基于<a href="https://github.com/itorr/q.js" target="_blank">q.js</a>进行改进封装）
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>主要特色</td>
-                            <td>单页面 / 响应式 / 简约 / 易上手</td>
-                        </tr>
-                        <tr>
-                            <td>获取源码</td>
-                            <td>
-                                <a href="https://easyweb.vip" target="_blank" class="layui-btn layui-btn-sm">前往官网</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="layui-card">
-                <div class="layui-card-header">前端框架</div>
-                <div class="layui-card-body">
-                    <table class="layui-table layui-text">
-                        <colgroup>
-                            <col width="100">
-                            <col>
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <td>基础框架</td>
-                            <td><a href="http://www.layui.com/" target="_blank">layui-v2.5.3</a></td>
-                        </tr>
-                        <tr>
-                            <td>路由框架</td>
-                            <td>
-                                lay-Router（基于<a href="https://github.com/itorr/q.js" target="_blank">q.js</a>进行改进封装）
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>主要特色</td>
-                            <td>单页面 / 响应式 / 简约 / 易上手</td>
-                        </tr>
-                        <tr>
-                            <td>获取源码</td>
-                            <td>
-                                <a href="https://easyweb.vip" target="_blank" class="layui-btn layui-btn-sm">前往官网</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            &lt;%&ndash;<div class="layui-card">
-                <div class="layui-card-header">后台框架</div>
-                <div class="layui-card-body">
-                    <table class="layui-table layui-text">
-                        <colgroup>
-                            <col width="100">
-                            <col>
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <td>核心框架</td>
-                            <td>Spring、Spring MVC、Spring Boot</td>
-                        </tr>
-                        <tr>
-                            <td>持久层</td>
-                            <td>MyBatis、Druid、<a href="http://mp.baomidou.com" target="_blank">MyBatis-Plus</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>权限框架</td>
-                            <td>Shiro、<a href="https://easyweb.vip" target="_blank">JwtPermission</a>(API接口权限)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>其他</td>
-                            <td>IDEA(开发工具)、MySQL(数据库)</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="layui-card">
-                <div class="layui-card-header">友情链接</div>
-                <div class="layui-card-body">
-                    <div class="layui-carousel admin-carousel admin-news">
-                        <div carousel-item>
-                            <div>
-                                <a href="http://www.layui.com/" target="_blank" class="layui-bg-green">
-                                    layui - 经典模块化前端框架
-                                </a>
-                            </div>
-                            <div>
-                                <a href="http://fly.layui.com/extend/" target="_blank" class="layui-bg-cyan">
-                                    layui第三方组件平台
-                                </a>
-                            </div>
-                            <div>
-                                <a href="http://fly.layui.com/case/2018/" target="_blank" class="layui-bg-blue">
-                                    发现layui年度最佳案例
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>&ndash;%&gt;
-        </div>--%>
     </div>
 </div>
 

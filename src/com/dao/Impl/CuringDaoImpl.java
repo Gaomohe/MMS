@@ -44,6 +44,8 @@ public class CuringDaoImpl implements CuringDao {
                 curing.setmId(resultSet.getInt(3));
                 curing.setContent(resultSet.getString(4));
                 curing.setTime(resultSet.getString(5));
+                curing.setuName(resultSet.getString(6));
+                curing.setuId(resultSet.getInt(7));
                 list.add(curing);
             }
         }catch (Exception e){
@@ -64,6 +66,8 @@ public class CuringDaoImpl implements CuringDao {
                 curing.setmId(resultSet.getInt(3));
                 curing.setContent(resultSet.getString(4));
                 curing.setTime(resultSet.getString(5));
+                curing.setuName(resultSet.getString(6));
+                curing.setuId(resultSet.getInt(7));
                 list.add(curing);
             }
         }catch (Exception e){
@@ -86,6 +90,8 @@ public class CuringDaoImpl implements CuringDao {
                 curing.setmId(resultSet.getInt(3));
                 curing.setContent(resultSet.getString(4));
                 curing.setTime(resultSet.getString(5));
+                curing.setuName(resultSet.getString(6));
+                curing.setuId(resultSet.getInt(7));
                 list.add(curing);
             }
         }catch (Exception e){
@@ -104,8 +110,8 @@ public class CuringDaoImpl implements CuringDao {
 
     @Override
     public int addCuring(Curing curing) {
-        String sql = "INSERT INTO `drugcuring`(`tableCoding`,`mId`,`content`,`time`) VALUES (?,?,?,?);";
-        Object[] objects = new Object[]{curing.getTableCoding(),curing.getmId(),curing.getContent(),curing.getTime()};
+        String sql = "INSERT INTO `drugcuring`(`tableCoding`,`mId`,`content`,`time`,`uName`,`uId`) VALUES (?,?,?,?,?,?);";
+        Object[] objects = new Object[]{curing.getTableCoding(),curing.getmId(),curing.getContent(),curing.getTime(),curing.getuName(),curing.getuId()};
         int i = JDBC.update(sql, objects);
         return i;
     }

@@ -37,32 +37,44 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
         var address = $("#address").val();
         var shippingWay = $("#shippingWay").val();
         var consigner = $("#consigner").val();
-
-        a +="/"+address
-        $.ajax({
-            url:"/returnSal?action=updateAll",
-            data:{
-                id,
-                address:a,
-                shippingWay,
-                consigner
-            },
-            tyep:"post",
-            success:function(data){
-                var info = JSON.parse(data);
-                console.log(info);
-                if(info.status == 200){
-                    layer.msg("修改成功")
-                    setTimeout(function(){
-                        layer.closeAll("iframe");
-                        //刷新父页面
-                        parent.location.reload();
-                    },1000);
-                }else{
-                    layer.msg("系统异常");
+        var phone = $("#phone").val();
+        if (!address || !demoCascader11Value){
+            layer.msg("请输入地址")
+        }else if (!shippingWay){
+            layer.msg("请输入邮寄方式")
+        }else if (!consigner ){
+            layer.msg("请输入发货人")
+        }else if (!phone){
+            layer.msg("请输入收获联系方式")
+        }else{
+            a +="/"+address
+            $.ajax({
+                url:"/returnSal?action=updateAll",
+                data:{
+                    id,
+                    address:a,
+                    shippingWay,
+                    consigner,
+                    phone
+                },
+                tyep:"post",
+                success:function(data){
+                    console.log(data);
+                    var info = JSON.parse(data);
+                    console.log(info);
+                    if(info.status == 200){
+                        layer.msg("修改成功")
+                        setTimeout(function(){
+                            layer.closeAll("iframe");
+                            //刷新父页面
+                            parent.location.reload();
+                        },1000);
+                    }else{
+                        layer.msg("系统异常");
+                    }
                 }
-            }
-        })
+            })
+        }
         return false;
     })
 

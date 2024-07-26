@@ -34,6 +34,7 @@
         <mapper resource="mapper/ApplyMapper.xml"></mapper>
         <mapper resource="mapper/UserMapper.xml"></mapper>
         <mapper resource="mapper/AppointMapper.xml"></mapper>
+        <mapper resource="mapper/MessageMapper.xml"></mapper>
     </mappers>
 
 </configuration>

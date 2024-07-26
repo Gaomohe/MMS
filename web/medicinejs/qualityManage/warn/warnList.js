@@ -88,13 +88,11 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
     table.on('toolbar(xTable1)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
-        var tableCoding = '';
-        var totlNumber="";
         var id='';
-        var arr='';
-        var oId='';
+        var warnNumber='';
         for(i=0;i<data.length;i++){
-            arr+=data[i].tableCoding+",";
+           id = data[i].id;
+           warnNumber = data[i].warnNumber;
         }
         switch(obj.event){
             case 'time':	//按照时间查找
@@ -111,39 +109,20 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     setTimeout(function (){location.reload()},2000);
                 }
                 break;
-            case 'addFunc':
-                var i = 0;
-                for(i;i<data.length;i++){
-                    id = data[i].id;
-                    oId = data[i].orderId;
-                    addFunc(oId,id,1);
-                    delFuncByOid(oId)
-                }
-                if (i=data.length){
-                    layer.msg("删除成功")
-                    setTimeout(function (){location.reload()},2000);
-                }
-                break;
-            case 'issue':
+            case 'upFunc':
                 var i = 0;
                 if (data.length != 1){
                     layer.msg("请选择一条数据")
                 }else {
-                    for(i;i<data.length;i++){
-                        tableCoding = data[i].tableCoding;
-                        id = data[i].id;
-                        oId = data[i].orderId;
-                        layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                            var a = addFunc(oId,id,2);
-                            issue(tableCoding);
-                            if (a = 1){
-                                delFunc(id);
-                            }
-                        }, function(){
-                            issue(tableCoding,id);
-                        });
-
-                    }
+                    upFunc(id,warnNumber)
+                }
+                break;
+            case 'addFunc':
+                var i = 0;
+                if (data.length != 1){
+                    layer.msg("请选择一条数据")
+                }else {
+                    addFunc(id);
                 }
                 break;
         };
@@ -337,6 +316,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             var table = layui.table;
             table.render({
                 elem: '#xTable2',
+                height: 600,
+                page:true,
                 data: data, // 使用从后端获取的数据渲染表格
                 cols: [
                     [{fixed: "left",
@@ -355,35 +336,30 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                             title: '此批次总数',
                             minWidth: 200,
                             align: 'center',
-                            sort: true,
                         },
                         {
                             field: 'usefulLife',
                             title: '有效期',
                             minWidth: 200,
                             align: 'center',
-                            sort: true,
                         },
                         {
                             field: 'uName',
-                            title: '操作人',
+                            title: '入库操作人',
                             minWidth: 200,
                             align: 'center',
-                            sort: true
                         },
                         {
                             field: 'time',
                             title: '操作时间',
                             minWidth: 200,
                             align: 'center',
-                            sort: true,
                         },
                         {
                             field: 'uId',
                             title: '操作人id',
                             minWidth: 200,
                             align: 'center',
-                            sort: true,
                             hide: true,
                         },
                         {
@@ -391,7 +367,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                             title: '总表Id',
                             minWidth: 200,
                             align: 'center',
-                            sort: true,
                             hide: true,
                         },
                     ]
@@ -455,30 +430,24 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         })
     }
     //删
-    function delFunc(id){
-        $.ajax({
-            url:"/quality?action=delQuality",
-            data:{
-                id
-            },
-            type:"POST",
-            dataType:"JSON",
-            success: function(date) {
-                var info = JSON.parse(date);
-                if (info.status == 200){
-                    return 1;
-                }
-                /*if (info.status == 200){
-                    layer.msg("删除成功")
-                    setTimeout(function (){location.reload()}, 2000);
-                }else {
-                    layer.msg("删除失败")
-                }*/
-            },
-            error: function(error) {
-                console.error('Error:', error);
-            }
-        })
+    function upFunc(id,warnNumber){
+        layer.open({
+            type: 2,
+            area: ['420px', '240px'], // 宽高
+            title: false,
+            content:"medicine/qualityManage/imminentWarning/warnInfo.jsp?id="+id+"&warnNumber="+warnNumber,
+            move: '#test-page-move'
+        });
+    }
+    //发出信息
+    function addFunc(wId){
+        layer.open({
+            type: 2,
+            area: ['420px', '240px'], // 宽高
+            title: false,
+            content:"medicine/qualityManage/imminentWarning/massageAdd.jsp?wId="+wId,
+            move: '#test-page-move'
+        });
     }
 
 });

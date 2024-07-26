@@ -1,9 +1,6 @@
 package com.servlet;
 
-import com.pojo.Menu;
-import com.pojo.User;
-import com.pojo.Warn;
-import com.pojo.WarnDetail;
+import com.pojo.*;
 import com.service.Impl.WarnServiceImpl;
 import com.service.WarnService;
 import com.util.BaseServlet;
@@ -15,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.util.Vessel.*;
@@ -38,17 +36,35 @@ public class WarnServlet extends BaseServlet {
         logService.setLog(name,"点击","临期预警","获取界面所有按钮");
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
+        getTitle(request,response);
         return "medicine/qualityManage/imminentWarning/warnList";
     }
 
     //获取所有Warn值
     public LayuiTable<Warn> getWarnAll(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session9 = request.getSession();
+        User user9 = (User)session9.getAttribute("user");
+        String name9 = userService.getName(user9.getId());
+        logService.setLog(name9,"点击","临期预警","获取药品数据");
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        List<Warn> warns = warnService.getWarns(page,limit);
+        String sort = request.getParameter("sort");
+        String order = request.getParameter("order");
+        int i = warnService.getWarns();
         LayuiTable<Warn> layuiTable = new LayuiTable<>();
-        layuiTable.setCount(warnService.getWarns());
-        layuiTable.setData(warns);
+        if (order==null){
+            List<Warn> allMedicine = warnService.getWarns(page,limit);
+            layuiTable.setCode(0);
+            layuiTable.setCount(i);
+            layuiTable.setData(allMedicine);
+            layuiTable.setMsg("操作成功");
+        }else {
+            List<Warn> allMedicine = warnService.getWarns(page,limit,order,sort);
+            layuiTable.setCode(0);
+            layuiTable.setCount(i);
+            layuiTable.setData(allMedicine);
+            layuiTable.setMsg("操作成功");
+        }
         return layuiTable;
     }
     //根据时间获取
@@ -67,10 +83,23 @@ public class WarnServlet extends BaseServlet {
     public LayuiTable<WarnDetail> getWarnDatailAll(HttpServletRequest request,HttpServletResponse response){
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        List<WarnDetail> warns = warnService.getWarnDetails(page,limit);
+        String sort = request.getParameter("sort");
+        String order = request.getParameter("order");
+        int i = warnService.getWarnDetails();
         LayuiTable<WarnDetail> layuiTable = new LayuiTable<>();
-        layuiTable.setCount(warnService.getWarnDetails());
-        layuiTable.setData(warns);
+        if (order==null){
+            List<WarnDetail> allMedicine = warnService.getWarnDetails(page,limit);
+            layuiTable.setCode(0);
+            layuiTable.setCount(i);
+            layuiTable.setData(allMedicine);
+            layuiTable.setMsg("操作成功");
+        }else {
+            List<WarnDetail> allMedicine = warnService.getWarnDetails(page,limit,order,sort);
+            layuiTable.setCode(0);
+            layuiTable.setCount(i);
+            layuiTable.setData(allMedicine);
+            layuiTable.setMsg("操作成功");
+        }
         return layuiTable;
     }
     //根据id获取预警数据（总表）
@@ -123,11 +152,12 @@ public class WarnServlet extends BaseServlet {
         user.setUserName("李四");*/
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
         Warn warn = new Warn();
         warn.setId(Integer.parseInt(id));
         warn.setWarnNumber(Integer.parseInt(warnNumber));
         warn.setuId(user.getId());
-        warn.setName(user.getUserName());
+        warn.setName(name);
         int i = warnService.upWarnWNumber(warn);
         return Result.resultStatus(i);
     }
@@ -149,4 +179,21 @@ public class WarnServlet extends BaseServlet {
         int i = warnService.upWarnTotlNumber(warn,usefulLife);
         return Result.resultStatus(i);
     }
+    public void getTitle(HttpServletRequest request, HttpServletResponse response){
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        int allMedicine = medicineDao.getAllMedicine();
+        List<Warn> warnsByTime = warnService.getWarnsByTime(yesterday.toString());
+        int outUserfulLife = warnService.getOutUserfulLife();
+        int needBuy = warnService.getNeedBuy();
+        session.setAttribute("mTotl",allMedicine);
+        session1.setAttribute("yesterday",warnsByTime.size());
+        session2.setAttribute("out",outUserfulLife);
+        session3.setAttribute("need",needBuy);
+    }
+
 }

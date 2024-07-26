@@ -12,7 +12,9 @@ public interface WarnDao {
     public int addWarnDetail(WarnDetail warnDetail);
     //获取所有预警数据(Warn)
     public int getWarns();
+    public List<Warn> getWarnsAll();
     public List<Warn> getWarns(int page,int limit);
+    public List<Warn> getWarns(int page,int limit,String title,String order);
     //根据时间获取
     public List<Warn> getWarnsByTime(String time);
     //根据药品名称获取
@@ -21,10 +23,13 @@ public interface WarnDao {
     public Warn getWarnsByTableCoding(int tableCoding);
     //获取所有预警数据（WarnDetail）
     public int getWarnDetails();
+    public List<WarnDetail> getWarnDetails(int page,int limit,String title,String order);
     public List<WarnDetail> getWarnDetails(int page,int limit);
     //根据条件获取预警数据
     public Warn getWarnsById(int id);
     public List<WarnDetail> getWarnDetailsByWId(int wid);
+    //获取所有预警细节
+    public List<WarnDetail> getWarndetailsAll();
     //删除预警
     public int delWarn(int id);
     public int delWarnDetail(int id);

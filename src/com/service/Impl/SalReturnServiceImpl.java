@@ -157,6 +157,7 @@ public class SalReturnServiceImpl implements SalReturnService {
         salReturnOne.setAddress(salReturn.getAddress());
         salReturnOne.setShippingWay(salReturn.getShippingWay());
         salReturnOne.setConsigner(salReturn.getConsigner());
+        salReturnOne.setCallNumber(salReturn.getCallNumber());
         salReturnOne.setShippingTime(format);
         return salReturnDao.updateAll(salReturnOne);
     }
