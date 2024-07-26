@@ -65,23 +65,42 @@ layui.extend({
         getStatus();
 
         //工具栏事件
+        table.on('row(ordersList)', function(obj){
+            var data = obj.data; // 获得当前行数据
+            var tr = obj.tr; // 获得当前行的 tr 元素
+            var checkbox = tr.find('input[type="checkbox"]'); // 获取复选框元素
+
+            // 使用事件参数来判断实际点击的位置
+            var event = window.event || arguments.callee.caller.arguments[0];
+            var target = event.target || event.srcElement;
+
+            // 判断点击的是否是复选框
+            if (target === checkbox[0] || $(target).closest('td').find('input[type="checkbox"]').length > 0) {
+                // 如果点击的是复选框列，不执行行点击的逻辑
+                return;
+            }
+
+            console.log("点击了表格行");
+            console.log(data.oId);
+            getOrderDetails(data.oId);
+            // 高亮选中行样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+
+
         table.on('toolbar(ordersList)', function(obj){
-            console.log(obj)
             var checkStatus = table.checkStatus(obj.config.id);
             var data = checkStatus.data;
-            var oId = '';
-            for(var i=0; i<data.length; i++){
-                oId = data[i].oId;
+
+            if (data.length === 0) {
+                layer.msg("请选择一行数据进行操作");
+                return;
             }
-            console.log(checkStatus)
-            console.log(data)
-            console.log(oId)
+
+            var oId = data[0].oId;
+
             switch(obj.event){
                 case 'delOrders':
-                    if(data.length != 1){
-                        layer.msg("请选择一行数据进行操作")
-                        return false;
-                    }
                     layer.confirm('确定删除此订单吗?', {icon: 3, title:'提示'}, function(index){
                         delOrders(oId);
                         layer.close(index);
@@ -89,29 +108,26 @@ layui.extend({
                     break;
 
                 case 'upOrders':
-                    if(data.length != 1){
-                        layer.msg("请选择一行数据进行操作")
-                        return false;
-                    }else{
-                        upOrders(oId);
-                    }
+                    upOrders(oId);
                     break;
 
                 case 'addOrders':
                     addOrders();
                     break;
-                case 'details':
+                /*case 'details':
                     console.log("aaaaaaaaaaaaaaaaaaaaa");
                     console.log(data[0].oId);
                     getOrderDetails(data[0].oId);
-                    break;
+                    break;*/
                 case 'search':
                     console.log("sssssssssssssssss");
                     Search();
                     break;
-
             };
         });
+
+
+
     });
 
     function delOrders(oId){
@@ -239,6 +255,18 @@ layui.extend({
     function getOrderDetails(oId){
         console.log("99999999999999999");
         console.log(oId);
+        layui.layer.open({
+            title : "订单详情",
+            type : 2,
+            content: "/orders?action=getMenuBtn1&oId=" + oId,
+            area:['1000px','600px']
+        });
+    }
+    function openDetail(data){
+        console.log("+++++++++++++++++++++-------------------------");
+        console.log(data);
+        console.log("+++++++++++++++++++++-------------------------");
+        let oId = data.oId;
         layui.layer.open({
             title : "订单详情",
             type : 2,

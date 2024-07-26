@@ -260,11 +260,11 @@ public class AppointServiceImpl implements AppointService {
 
         List<Apply> manufactorList = session.getMapper(ApplyDao.class).getManufactor(idsList);
         for (Apply applyManufactor : manufactorList){
-            String ManufactorName = applyManufactor.getmName();
+            String ManufactorName = applyManufactor.getManufactor();
             // 从数据库获取 Apply 对象的详细信息
             for (Apply apply : applyList){
                 Apply apply1 = session.getMapper(ApplyDao.class).getApplyPrice(apply);
-                if (apply1 != null && apply1.getManufactor() == ManufactorName) {
+                if (apply1 != null && apply1.getManufactor().equals(ManufactorName)) {
                     apply.setApplyId(apply1.getApplyId());
                     apply.setmId(apply1.getmId());
                     apply.setmName(apply1.getmName());
@@ -314,7 +314,7 @@ public class AppointServiceImpl implements AppointService {
             apporder.setoId(orders.getoId());
             for (Apply apply : applyList){
                 Apply apply2 = session.getMapper(ApplyDao.class).getApplyPrice(apply);
-                if (apply2 != null && apply2.getManufactor() == ManufactorName){
+                if (apply2 != null && apply2.getManufactor().equals(ManufactorName)){
                     apporder.setaId(apply.getmId());
                     apporder.setApplyBuyNumber(apply.getApplyNumber());
                     num = session.getMapper(ApplyDao.class).addAppOrder(apporder);

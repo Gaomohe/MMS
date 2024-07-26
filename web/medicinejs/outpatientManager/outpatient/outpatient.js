@@ -57,7 +57,47 @@ layui.extend({
         getTime();
         getStatus();
 
+        table.on('row(outpatientList)', function(obj){
+            var data = obj.data; // 获得当前行数据
+            var tr = obj.tr; // 获得当前行的 tr 元素
+            var checkbox = tr.find('input[type="checkbox"]'); // 获取复选框元素
+
+            // 使用事件参数来判断实际点击的位置
+            var event = window.event || arguments.callee.caller.arguments[0];
+            var target = event.target || event.srcElement;
+
+            // 判断点击的是否是复选框
+            if (target === checkbox[0] || $(target).closest('td').find('input[type="checkbox"]').length > 0) {
+                // 如果点击的是复选框列，不执行行点击的逻辑
+                return;
+            }
+
+            console.log("点击了表格行");
+            console.log(data.pId);
+            addMedicine(data.pId);
+            // 高亮选中行样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
+
         table.on('toolbar(outpatientList)', function(obj) {
+
+            var data = obj.data; // 获得当前行数据
+            var tr = obj.tr; // 获得当前行的 tr 元素
+            var checkbox = tr.find('input[type="checkbox"]'); // 获取当前行的复选框
+            console.log("+++++++++++++++++++++-------------------------");
+            console.log(data);
+            console.log("+++++++++++++++++++++-------------------------");
+            // 检查是否是点击了复选框
+            if (checkbox.is(':checked') || checkbox.is(':focus')) {
+                // 如果复选框被勾选或获得焦点，不执行行点击的逻辑
+                return;
+            }
+            console.log("+++++++++++++++++++++-------------------------");
+            console.log(data);
+            console.log("+++++++++++++++++++++-------------------------");
+            openDetail(data);
+            // 这里可以执行你的业务逻辑，比如打开一个模态框显示详情等
+
             var checkdata = table.checkStatus(obj.config.id)
             var files = checkdata.data;
             var array = [];
@@ -87,20 +127,33 @@ layui.extend({
                 case 'addPatient':
                     addPatient();
                     break;
-                case 'addMedicine':
+                /*case 'addMedicine':
                     if (files.length > 0) {
                         console.log(files[0].pId);
                         addMedicine(files[0].pId);
                     } else {
                         layer.msg("未选择", {icon: 2});
                     }
-                    break;
+                    break;*/
             }
         });
     });
 
     //打开开处方的界面
     function addMedicine(id){
+        layui.layer.open({
+            title : "开设处方",
+            type : 2,
+            content : "/patient?action=getAddMenuBtn&pId=" + id,
+            area:['1200px','675px']
+        });
+    }
+
+    function openDetail(data){
+        console.log("+++++++++++++++++++++-------------------------");
+        console.log(data);
+        console.log("+++++++++++++++++++++-------------------------");
+        let id = data.pId;
         layui.layer.open({
             title : "开设处方",
             type : 2,
