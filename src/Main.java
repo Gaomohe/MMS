@@ -27,24 +27,20 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        // 获取当前时间
-        Date currentDate = new Date();
+        int[] arr = {1,1,1,2,2,3,4,4,4,5,5,6};
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]);
+            for (int j = i+1; j < arr.length; j++) {
+                if (arr[i]==arr[j]){
+                    System.out.print(arr[j]);
+                }else {
+                    i = j-1;
+                    System.out.println("");
+                    break;
+                }
+            }
+        }
 
-        // 创建一个日期格式化对象，设置格式为年月日时分秒
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-        // 将当前时间格式化为字符串
-        String formattedDate = dateFormat.format(currentDate);
-
-        // 打印格式化后的日期字符串
-        System.out.println("格式化的日期：" + formattedDate);
-
-        // 如果需要将日期转换为整数，可以去掉格式化字符串中的分隔符
-        SimpleDateFormat dateFormatToInt = new SimpleDateFormat("yyyyMMddHHmmss");
-        long formattedDateToInt = Long.parseLong(dateFormatToInt.format(currentDate));
-
-        // 打印转换为整数的日期
-        System.out.println("转换为整数的日期：" + formattedDateToInt);
 
     }
 

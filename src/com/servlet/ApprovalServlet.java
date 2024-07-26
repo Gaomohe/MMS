@@ -1,9 +1,6 @@
 package com.servlet;
 
-import com.pojo.Apply;
-import com.pojo.Appointment;
-import com.pojo.Sub_Apply;
-import com.pojo.User;
+import com.pojo.*;
 import com.service.Impl.ApprovalServiceImpl;
 import com.service.Impl.UserServiceImpl;
 import com.util.BaseServlet;
@@ -40,15 +37,16 @@ public class ApprovalServlet extends BaseServlet {
     public void getAll(HttpServletRequest request, HttpServletResponse response){
         ToJSON.toJson(response,null);
     }
-    public ResultData<List<Appointment>> getAuditId(HttpServletRequest request, HttpServletResponse response){
+    public ResultData<List<Purchase>> getAuditId(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         User user1 = (User)session.getAttribute("user");
         String name = userService.getName(user1.getId());
         logService.setLog(name,"点击","采购审批","获取所有采购申请信息");
         int[] dataStrings = StringDeal.toArray(request.getParameter("dataString"));
-        ResultData<List<Appointment>> auditId = approvalService.getAuditId(dataStrings);
-        session.setAttribute("applies",auditId.getData());
-        return auditId;
+
+//        ResultData<List<Purchase>> auditId = approvalService.getAuditId(dataStrings);
+//        session.setAttribute("applies",auditId.getData());
+        return null;
     }
     public ResultData<List<Appointment>> getRecord(HttpServletRequest request, HttpServletResponse response){
         return null;

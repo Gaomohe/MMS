@@ -20,4 +20,10 @@ public interface ApplyDao {
 
     //删除已经加入订单的apply订单的表
     public int delApply(Apply apply);
+
+    //获取供应商
+    public List<Apply> getStatistics(Apply apply);
+
+    //获取已批供货商
+    public List<Apply> getAppointStatistics(Apply apply);
 }

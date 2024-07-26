@@ -38,4 +38,7 @@ public interface AppointService {
 
     //确认生成订单
     public int Submit(List<Integer> idsList);
+
+    //获取供应商
+    public List<Apply> getStatistics();
 }

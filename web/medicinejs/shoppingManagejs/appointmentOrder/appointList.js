@@ -1,6 +1,6 @@
 layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
-}).use(['form','layer','laydate','table','laytpl','dtree'],function(){
+}).use(['form', 'layer', 'laydate', 'table', 'laytpl', 'dtree'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
@@ -17,121 +17,396 @@ layui.extend({
     var mTypeName;
     var mNameName;
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         supplier();
         mType();
         mName();
+        loadTable();
+        loadChart();
+    });
 
-        /*------------- 加载用户数据 --------------------------------*/
-        var tableIns = table.render({
+    function loadTable() {
+        tableMain = table.render({
             elem: '#appointList',
-            url : '/appoint?action=getAllAppoint',
+            url: '/appoint?action=getAllAppoint',
             toolbar: '#appointDemo',
-            page : true,
+            page: true,
             height: '600px',
-            limit : 10,
-            limits : [5,10,15,20,25],
-            cols : [[
-                {fixed:"left",type: "checkbox", width:50},
-                {field: 'applyId', title: '申请编号',  align:'center',width:200,hide:true,sort:true},
-                {field: 'mId', title: '字典编号',  align:'center',width:200,hide:true,sort:true},
-                {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200,sort:true},
-                {field: 'pharmacistApprove' ,title:'药师审批', align:'center',width:200,sort:true},
-                {field: 'financeApprove' ,title:'财务审批', align:'center',width:200,sort:true},
-                {field: 'specification', title: '规格', align:'center',width:200,sort:true},
-                {field: 'manufactor', title: '生产企业', align:'center',width:200,sort:true},
-                {field: 'unit', title: '单位', minWidth:100, align:"center",width:200,sort:true},
-                {field: 'department', title: '部门',  align:'center',width:200,sort:true},
-                // {field: 'number', title: '采购数量',  align:'center'},
-                {field: 'applyNumber', title: '采购数量',  align:'center',width:200,sort:true},
-                {field: 'purchasePrice', title: '采购价',  align:'center',width:200,sort:true},
-                {field: 'code', title: '批号',  align:'center',width:200,sort:true},
-                {field: 'mType', title: '药品分类',  align:'center',width:200,sort:true},
-                {field: 'supplier', title: '供货单位',  align:'center',width:200,sort:true},
-                {field: 'approvalNumber', title: '准批文号',  align:'center',width:200,sort:true},
-                {field: 'placeOrigin', title: '产地',  align:'center',width:200,sort:true},
-                {field: 'applyUser' ,title:'申请人', align:'center',width:200,sort:true},
-                {field: 'applyTime' ,title:'申请时间', align:'center',width:200,sort:true},
-                {field: 'pharmacist' ,title:'药师审批人', align:'center',width:200,sort:true},
-
-                {field: 'pharmacistTime' ,title:'药师审批时间', align:'center',width:200,sort:true},
-                {field: 'finance' ,title:'财务审批人', align:'center',width:200,sort:true},
-
-                {field: 'financeTime' ,title:'财务审批时间', align:'center',width:200,sort:true},
-                {field: 'tableCoding' ,title:'自编码', align:'center',width:200,hide:true,sort:true}
+            limit: 10,
+            limits: [5, 10, 15, 20, 25],
+            cols: [[
+                { fixed: "left", type: "checkbox", width: 50 },
+                { field: 'applyId', title: '申请编号', align: 'center', width: 200, hide: true, sort: true },
+                { field: 'mId', title: '字典编号', align: 'center', width: 200, hide: true, sort: true },
+                { field: 'mName', title: '药品名称', minWidth: 100, align: "center", width: 160, sort: true },
+                { field: 'pharmacistApprove', title: '药师审批', align: 'center', width: 110, sort: true },
+                { field: 'financeApprove', title: '财务审批', align: 'center', width: 110, sort: true },
+                { field: 'purchasePrice', title: '采购价/￥', align: 'center', width: 110, sort: true },
+                { field: 'applyNumber', title: '采购数量', align: 'center', width: 110, sort: true },
+                { field: 'specification', title: '规格', align: 'center', width: 200, sort: true },
+                { field: 'manufactor', title: '生产企业', align: 'center', width: 200, sort: true },
+                { field: 'unit', title: '单位', minWidth: 100, align: "center", width: 200, sort: true },
+                { field: 'department', title: '部门', align: 'center', width: 200, sort: true },
+                { field: 'code', title: '批号', align: 'center', width: 200, sort: true },
+                { field: 'mType', title: '药品分类', align: 'center', width: 200, sort: true },
+                { field: 'supplier', title: '供货单位', align: 'center', width: 200, sort: true },
+                { field: 'approvalNumber', title: '准批文号', align: 'center', width: 200, sort: true },
+                { field: 'placeOrigin', title: '产地', align: 'center', width: 200, sort: true },
+                { field: 'applyUser', title: '申请人', align: 'center', width: 200, sort: true },
+                { field: 'applyTime', title: '申请时间', align: 'center', width: 200, sort: true },
+                { field: 'pharmacist', title: '药师审批人', align: 'center', width: 200, sort: true },
+                { field: 'pharmacistTime', title: '药师审批时间', align: 'center', width: 200, sort: true },
+                { field: 'finance', title: '财务审批人', align: 'center', width: 200, sort: true },
+                { field: 'financeTime', title: '财务审批时间', align: 'center', width: 200, sort: true },
+                { field: 'tableCoding', title: '自编码', align: 'center', width: 200, hide: true, sort: true }
             ]]
         });
-        tableMain = tableIns;
-        /*------------- 加载用户数据 --end------------------------------*/
+    }
 
-        table.on('toolbar(appointList)',function (obj) {
-            var checkdata= table.checkStatus(obj.config.id)
-            var files= checkdata.data;
-            console.log(obj);
-            switch (obj.event) {
-                case 'delAppoint':
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            // 假设每个file对象都有一个id属性，用于标识用户
-                            total++;
-                            del(file.mId);
-                        });
-                    } else {
-                        layer.msg("you are not select", {icon: 2});
-                    }
-                    break;
-                case 'addAppoint':
-                    var firstManufacturer = "";
-                    var idList = new Set(); // 确保 idList 是一个 Set
-                    if (files.length > 0) {
-                        firstManufacturer = files[0].manufactor;
-                        var allSameManufacturer = true; // 标志变量
-                        for (let i = 0; i < files.length; i++) {
-                            const file = files[i];
-                            total++;
-                            if (file.financeApprove=='已审阅通过'){
-                                layer.msg("已审核...请选择未审核申请药品");
-                                break; // 这里会真正停止循环
-                            }
-                            if (firstManufacturer !== file.manufactor) {
-                                allSameManufacturer = false;
-                                layer.msg("供应商不同");
-                                break; // 这里会真正停止循环
-                            }
-                            idList.add(file.applyId);
-                        }
-                        if (allSameManufacturer && idList.size > 0) {
-                            let idListArray = Array.from(idList);
-                            addAppoint(idListArray);
-                        }
-                    } else {
-                        layer.msg("请选择要添加的预约", {icon: 2});
-                    }
-
-                    break;
-                case 'upAppoint':
-                    // selectByIdUser(files[0].id,files[0].name);
-                    upAppoint(files[0].id);
-                    break;
-                case 'selectDesc':
-
-                    break;
-                case 'uploadUser':
-                    upLoad();
-                    break;
-                case 'reload':
-                    winReload();
-                    break;
-                case 'search':
-                    search();
-                    break;
-                case 'download':
-                    downloads();
-                    break;
+    function loadChart() {
+        function getLastSevenDays() {
+            var dates = [];
+            for (var i = 6; i >= 0; i--) {
+                var date = new Date();
+                date.setDate(date.getDate() - i);
+                dates.push(date.toISOString().split('T')[0]);
             }
-        });
-    })
+            return dates;
+        }
 
+        var lastSevenDays = getLastSevenDays();
+
+        var chartDom = document.getElementById('main');
+        if (chartDom) {
+            var myChart = echarts.init(chartDom);
+
+            $.ajax({
+                url: '/appoint?action=getStatistics',
+                method: 'GET',
+                success: function(data) {
+                    console.log("+++++++++++++++++++++++++++++++++++");
+                    console.log(data);
+                    console.log("+++++++++++++++++++++++++++++++++++");
+
+                    // 解析 JSON 数据
+                    data = JSON.parse(data);
+
+                    // 确保 data 是一个数组
+                    if (!Array.isArray(data)) {
+                        console.error("数据格式错误，期望一个数组。", data);
+                        return;
+                    }
+
+                    // 获取最近7天的日期
+                    var datasetSource = [['近七天时间'].concat(lastSevenDays)];
+                    var series = [];
+                    var supplierData = {};
+
+                    // 处理数据
+                    data.forEach(function(res) {
+                        var dateIndex = lastSevenDays.indexOf(res.applyTime);
+                        if (dateIndex !== -1) {
+                            if (!supplierData[res.manufactor]) {
+                                supplierData[res.manufactor] = new Array(7).fill(0);
+                            }
+                            supplierData[res.manufactor][dateIndex] += res.applyNumber;
+                        }
+                    });
+
+                    // 生成数据源
+                    var pieData = []; // 保存饼状图数据
+                    for (var supplier in supplierData) {
+                        datasetSource.push([supplier].concat(supplierData[supplier]));
+                        series.push({
+                            type: 'line',
+                            smooth: true,
+                            seriesLayoutBy: 'row',
+                            emphasis: { focus: 'series' },
+                            name: supplier
+                        });
+
+                        // 计算饼状图数据
+                        var total = supplierData[supplier].reduce((a, b) => a + b, 0);
+                        pieData.push({
+                            name: supplier,
+                            value: total
+                        });
+                    }
+
+                    // 添加饼状图系列
+                    series.push({
+                        type: 'pie',
+                        id: 'pie',
+                        radius: '30%',
+                        center: ['50%', '25%'],
+                        emphasis: {
+                            focus: 'self'
+                        },
+                        label: {
+                            formatter: '{b}: {c} ({d}%)'
+                        },
+                        data: pieData
+                    });
+
+                    // 配置 ECharts 选项
+                    var option = {
+                        legend: {
+                            data: Object.keys(supplierData)
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        dataset: {
+                            source: datasetSource
+                        },
+                        xAxis: { type: 'category' },
+                        yAxis: { gridIndex: 0 },
+                        grid: { top: '55%' },
+                        series: series
+                    };
+
+                    myChart.setOption(option);
+
+                    // 监听折线图的鼠标悬停事件，动态更新饼状图
+                    myChart.on('updateAxisPointer', function (event) {
+                        const xAxisInfo = event.axesInfo[0];
+                        if (xAxisInfo) {
+                            const dimension = xAxisInfo.value + 1;
+                            var selectedDate = lastSevenDays[dimension - 1];
+
+                            // 更新饼状图数据
+                            var updatedPieData = pieData.map(function (item) {
+                                var value = supplierData[item.name][dimension - 1];
+                                return {
+                                    name: item.name,
+                                    value: value
+                                };
+                            });
+
+                            myChart.setOption({
+                                series: [{
+                                    id: 'pie',
+                                    data: updatedPieData
+                                }]
+                            });
+                        }
+                    });
+                },
+                error: function(err) {
+                    console.error("Chart data load error:", err);
+                }
+            });
+        }
+    }
+
+    function loadChart() {
+        function getLastSevenDays() {
+            var dates = [];
+            for (var i = 6; i >= 0; i--) {
+                var date = new Date();
+                date.setDate(date.getDate() - i);
+                dates.push(date.toISOString().split('T')[0]);
+            }
+            return dates;
+        }
+
+        var lastSevenDays = getLastSevenDays();
+
+        var chartDom = document.getElementById('main');
+        if (chartDom) {
+            var myChart = echarts.init(chartDom);
+
+            $.ajax({
+                url: '/appoint?action=getStatistics',
+                method: 'GET',
+                success: function(data) {
+                    console.log("+++++++++++++++++++++++++++++++++++");
+                    console.log(data);
+                    console.log("+++++++++++++++++++++++++++++++++++");
+
+                    // 解析 JSON 数据
+                    data = JSON.parse(data);
+
+                    // 获取最近7天的日期
+                    var datasetSource = [['近七天时间'].concat(lastSevenDays)];
+                    var series = [];
+                    var supplierData = {};
+                    var colorMapping = {}; // 颜色映射
+
+                    // 处理数据
+                    data.forEach(function(res) {
+                        var dateIndex = lastSevenDays.indexOf(res.applyTime);
+                        if (dateIndex !== -1) {
+                            if (!supplierData[res.manufactor]) {
+                                supplierData[res.manufactor] = new Array(7).fill(0);
+                            }
+                            supplierData[res.manufactor][dateIndex] += res.applyNumber;
+                        }
+                    });
+
+                    // 生成数据源和颜色映射
+                    var pieData = []; // 保存饼状图数据
+                    var colorList = ['#5470C6', '#91CC75', '#FAC858', '#EE6666', '#73C0DE', '#3BA272', '#FC8452', '#9A60B4', '#EA7CCC'];
+                    var colorIndex = 0;
+
+                    for (var supplier in supplierData) {
+                        datasetSource.push([supplier].concat(supplierData[supplier]));
+                        colorMapping[supplier] = colorList[colorIndex++ % colorList.length]; // 颜色映射
+
+                        series.push({
+                            type: 'line',
+                            smooth: true,
+                            seriesLayoutBy: 'row',
+                            emphasis: { focus: 'series' },
+                            name: supplier,
+                            lineStyle: {
+                                color: colorMapping[supplier]
+                            },
+                            itemStyle: {
+                                color: colorMapping[supplier]
+                            },
+                            show:false
+                        });
+
+                        // 计算饼状图数据
+                        var total = supplierData[supplier].reduce((a, b) => a + b, 0);
+                        pieData.push({
+                            name: supplier,
+                            value: total,
+                            itemStyle: {
+                                color: colorMapping[supplier]
+                            }
+                        });
+                    }
+
+                    // 添加饼状图系列
+                    series.push({
+                        type: 'pie',
+                        id: 'pie',
+                        radius: '30%',
+                        center: ['50%', '25%'],
+                        emphasis: {
+                            focus: 'self'
+                        },
+                        label: {
+                            formatter: '{b}: {c} ({d}%)'
+                        },
+                        data: pieData
+                    });
+
+                    // 配置 ECharts 选项
+                    var option = {
+                        color: colorList, // 全局颜色设置
+                        legend: {
+                            data: Object.keys(supplierData),
+                            show:false
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        dataset: {
+                            source: datasetSource
+                        },
+                        xAxis: { type: 'category' },
+                        yAxis: { gridIndex: 0 },
+                        grid: { top: '55%' },
+                        series: series
+                    };
+
+                    myChart.setOption(option);
+
+                    // 监听折线图的鼠标悬停事件，动态更新饼状图
+                    myChart.on('updateAxisPointer', function(event) {
+                        const xAxisInfo = event.axesInfo[0];
+                        if (xAxisInfo) {
+                            const dimension = xAxisInfo.value + 1;
+                            var selectedDate = lastSevenDays[dimension - 1];
+
+                            // 更新饼状图数据
+                            var updatedPieData = pieData.map(function(item) {
+                                var value = supplierData[item.name][dimension - 1];
+                                return value > 0 ? {
+                                    name: item.name,
+                                    value: value,
+                                    itemStyle: {
+                                        color: colorMapping[item.name]
+                                    }
+                                } : null;
+                            }).filter(item => item !== null);
+
+                            myChart.setOption({
+                                series: [{
+                                    id: 'pie',
+                                    data: updatedPieData
+                                }]
+                            });
+                        }
+                    });
+                },
+                error: function(err) {
+                    console.error("Chart data load error:", err);
+                }
+            });
+        }
+    }
+
+
+    // 操作选择
+    table.on('toolbar(appointList)', function (obj) {
+        var checkdata = table.checkStatus(obj.config.id);
+        var files = checkdata.data;
+        console.log(obj);
+        switch (obj.event) {
+            case 'delAppoint':
+                if (files.length > 0) {
+                    files.forEach(function (file) {
+                        total++;
+                        del(file.mId);
+                    });
+                } else {
+                    layer.msg("请选中要删除的数据", { icon: 2 });
+                }
+                break;
+            case 'addAppoint':
+                var firstManufacturer = "";
+                var idList = new Set(); // 确保 idList 是一个 Set
+                if (files.length > 0) {
+                    firstManufacturer = files[0].manufactor;
+                    var allSameManufacturer = true; // 标志变量
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        total++;
+                        if (file.financeApprove == '已审阅通过') {
+                            layer.msg("已审核...请选择未审核申请药品");
+                            break; // 这里会真正停止循环
+                        }
+                        if (firstManufacturer !== file.manufactor) {
+                            allSameManufacturer = false;
+                            layer.msg("不同厂家药品无法同时操作");
+                            return; // 这里会退出整个 switch
+                        }
+                        idList.add(file.mId);
+                    }
+                    if (allSameManufacturer) {
+                        // 执行一些操作，比如提交选择的数据
+                        console.log("要处理的数据:", Array.from(idList));
+                        // 这里可以调用你的后台接口来处理这些数据
+                    }
+                } else {
+                    layer.msg("请选中要操作的数据", { icon: 2 });
+                }
+                break;
+            case 'search':
+                search();
+                break;
+            case 'reload':
+                winReload();
+                break;
+            case 'download':
+                downloads();
+                break;
+        }
+    });
 
     /*-------- 搜索用户 ----------------------------*/
     $("#doSubmit").click(function(){
@@ -202,30 +477,6 @@ layui.extend({
             anim: 0, // 0-6 的动画形式，-1 不开启
             content: "medicine/shoppingManage/appointmentOrder/appointAdd.jsp?idsList=" + serializedIds,
         });
-        /*$.ajax({
-            url: "/appoint?action=addAppoint",
-            data: { "idsList": idsList },
-            type: "post",
-            dataType: "json",
-            traditional: true,
-            success: function(res) {
-                console.log("res");
-                console.log(res);
-                console.log(res.status);
-                counts++;
-                console.log(counts);
-                console.log(total);
-                if (counts == total) {
-
-                }
-                if (res.status==200) {
-                    layer.msg("添加成功", { icon: 1 });
-                    tableIns.reload();
-                } else {
-                    layer.msg("添加失败", { icon: 2 });
-                }
-            }
-        });*/
     }
 
     //修改回显
@@ -455,7 +706,5 @@ layui.extend({
         mType();
         mName();
     }
+});
 
-
-
-})

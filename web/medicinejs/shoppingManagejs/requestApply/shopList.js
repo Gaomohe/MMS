@@ -1,3 +1,4 @@
+
 layui.extend({
     dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
 }).use(['form','layer','laydate','table','upload','dtree','element', 'jquery'],function(){
@@ -161,35 +162,7 @@ layui.extend({
                 });
                 break;
             case 'history':
-                layui.layer.open({
-                    title : "历史记录",
-                    type : 2,
-                    content : "medicine/shoppingManage/requestApply/history.jsp",
-                    area:['600px','500px'],
-                    success:function(layero, index){
-                        $.ajax({
-                            url:"/approval?action=getHistory",//湖区历史记录
-                            type:"post",
-                            data:{},
-                            success:function(data){
-                                var parse = JSON.parse(data).data;
-                                var iframe = layer.getChildFrame('body', index);
-                                var html = '';
-                                for (let i = 0; i < 20; i++) {
-                                    html+= ' <div class="layui-timeline-item">\n' +
-                                        '        <i class="layui-icon layui-timeline-axis layui-icon-circle"></i>\n' +
-                                        '        <div class="layui-timeline-content layui-text">\n' +
-                                        '            <div class="layui-timeline-title">申请时间:'+parse[i].applyTime+'----申请药品:'+parse[i].mName+'----状态:'+parse[i].pharmacistApprove+'</div>\n' +
-                                        '        </div>\n' +
-                                        '    </div>';
-
-                                }
-                                $(iframe).find('.layui-timeline').html(html);
-
-                            }
-                        })
-                    }
-                });
+                history();
                 break;
             default:
                 break;
@@ -210,6 +183,53 @@ layui.extend({
                     data:{dataString},
                     success:function(data){
                         $iframes.contentWindow.postMessage(data, '*');
+
+                    }
+                })
+            }
+        });
+    }
+    function history(){
+        layui.layer.open({
+            title : "历史记录",
+            type : 2,
+            content : "medicine/shoppingManage/requestApply/history.jsp",
+            area:['600px','500px'],
+            success:function(layero, index){
+                $.ajax({
+                    url:"/approval?action=getHistory",//湖区历史记录
+                    type:"post",
+                    data:{},
+                    success:function(data){
+                        var parse = JSON.parse(data).data;
+                        var iframe = layer.getChildFrame('body', index);
+                        var html = '';
+                        var insert = '';
+                        var count = 0;
+                            for (let j = 0; j < parse.length; j++) {
+                                insert = '<p>药品编号:'+parse[j].mId+'药品名称:'+parse[j].mName+'申请数量:'+parse[j].applyNumber+'状态:'+parse[j].pharmacistApprove+'</p>';
+                                for (let k = j+1; k < parse.length; k++) {
+                                    if (parse[j].applyTime===parse[k].applyTime){
+                                        insert += '<p>药品编号:'+parse[k].mId+'药品名称:'+parse[k].mName+'申请数量:'+parse[k].applyNumber+'状态:'+parse[k].pharmacistApprove+'</p>'
+                                    }else {
+                                        j = k - 1;
+                                        html+= '<div class="layui-timeline-item">\n' +
+                                            '    <i class="layui-icon layui-timeline-axis"></i>\n' +
+                                            '    <div class="layui-timeline-content layui-text">\n' +
+                                            '      <h3 class="layui-timeline-title">申请时间:'+parse[j].applyTime+'</h3>\n' +
+                                            '      <p></p>\n' +insert+
+                                            '    </div>\n' +
+                                            '  </div>';
+                                        count++;
+                                        break;
+                                    }
+                                }
+                                if (count===10){
+                                    //控制条数
+                                    break;
+                                }
+                            }
+                        $(iframe).find('.layui-timeline').html(html);
 
                     }
                 })

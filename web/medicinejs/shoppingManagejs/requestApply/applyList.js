@@ -2,7 +2,6 @@ var datas;
 function tijiao(){
     var arrID = new Array();
     var arrKu = new Array();
-    console.log("来")
     var count = 0;
     var firstTbody = $('tbody:first');
     firstTbody.find('tr').each(function() {
@@ -29,11 +28,11 @@ function tijiao(){
             var info = JSON.parse(data);
             if(info.status === 200){
                 layer.msg("申请成功")
-                setTimeout(function(){
-                    layer.closeAll("iframe");
-                    //刷新父页面
-                    parent.location.reload();
-                },1000);
+                // setTimeout(function(){
+                //     layer.closeAll("iframe");
+                //     //刷新父页面
+                //     parent.location.reload();
+                // },1000);
                 insertApply();
             }else{
                 layer.msg("系统异常");
@@ -58,7 +57,6 @@ function insertApply(){
 }
 $(document).ready(function (){
     layui.use(['form', 'layedit', 'laydate','table'], function(){
-        console.log("已经加载")
         var form = layui.form
             ,layer = layui.layer
             ,layedit = layui.layedit

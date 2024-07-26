@@ -128,7 +128,7 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     @Override
     public List<Apply> getSupplier() {
         String sql = "select supplier from apply\n" +
-                "where applyId > ? and financeApprove = '已审阅通过'\n" +
+                "where applyId > ? and financeApprove = '未审阅'\n" +
                 "group by supplier";
         Object[] objects = new Object[1];
         objects[0] = 0;
@@ -189,10 +189,10 @@ public class AppointDaoImpl extends InitDaoImpl implements AppointDao {
     //条件查询预购订单表
     @Override
     public List<Apply> Search(String sql) {
-        sql += " AND applyId > ? AND pharmacistApprove = '已审阅通过' AND financeApprove = '已审阅通过'";
+        /*sql += " AND applyId > ? AND pharmacistApprove = '已审阅通过' AND financeApprove = '已审阅通过'";
         Object[] objects = new Object[1];
-        objects[0] = 0;
-        ResultSet resultSet = JDBC.select(sql, objects);
+        objects[0] = 0;*/
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
         List<Apply> list = new ArrayList<>();
         try {
             while (resultSet.next()) {

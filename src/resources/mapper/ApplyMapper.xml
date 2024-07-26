@@ -28,6 +28,18 @@
         VALUES (#{applyId},#{mId},#{mName},#{specification},#{manufactor},#{unit},#{department},#{number},#{applyNumber},#{purchasePrice},#{code},#{mType},#{supplier},#{approvalNumber},#{placeOrigin},#{applyUser},#{applyTime},#{pharmacist},#{pharmacistApprove},#{pharmacistTime},#{finance},#{financeApprove},#{financeTime},#{tableCoding})
     </insert>
 
+    <select id="getStatistics" resultType="Apply">
+        SELECT manufactor,COUNT(manufactor) AS applyNumber FROM apply
+        WHERE applyTime LIKE #{applyTime}
+        GROUP BY manufactor;
+    </select>
+
+    <select id="getAppointStatistics" resultType="Apply">
+        SELECT manufactor,COUNT(manufactor) AS applyNumber FROM appoint
+        WHERE applyTime LIKE #{applyTime}
+        GROUP BY manufactor;
+    </select>
+
 
 
 </mapper>

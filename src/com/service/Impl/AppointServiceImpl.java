@@ -9,6 +9,7 @@ import com.service.QualityService;
 import com.service.ShoppingService;
 import com.sun.java.browser.plugin2.DOM;
 import com.util.BaseDao;
+import com.util.GetTime;
 import com.util.LayuiTable;
 import com.util.SQLtoString;
 import org.apache.ibatis.session.SqlSession;
@@ -323,10 +324,38 @@ public class AppointServiceImpl implements AppointService {
             }
         }
 
-
         session.commit(); // 提交事务
         session.close(); // 关闭会话
         return num + mum;
+    }
+
+    //获取供应商
+    @Override
+    public List<Apply> getStatistics() {
+        SqlSession session = BaseDao.getSqlSession();
+        List<Apply> applyList = new ArrayList<>();
+        List<String> weekDay = GetTime.getWeekDay();
+        for (String day : weekDay){
+            Apply apply = new Apply();
+            apply.setApplyTime("%" + day + "%");
+            List<Apply> list = session.getMapper(ApplyDao.class).getStatistics(apply);
+            if (list != null && list.size() > 0){
+                for (Apply apply1 : list){
+                    apply1.setApplyTime(day);
+                    applyList.add(apply1);
+                }
+            }
+            List<Apply> list1 = session.getMapper(ApplyDao.class).getAppointStatistics(apply);
+            if (list1 != null && list1.size() > 0){
+                for (Apply apply1 : list1){
+                    apply1.setApplyTime(day);
+                    applyList.add(apply1);
+                }
+            }
+        }
+        session.commit(); // 提交事务
+        session.close(); // 关闭会话
+        return applyList;
     }
 
 }

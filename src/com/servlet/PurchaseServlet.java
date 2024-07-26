@@ -6,6 +6,8 @@ import com.pojo.User;
 import com.service.Impl.PurchaseServiceImpl;
 import com.service.PurchaseService;
 import com.util.BaseServlet;
+import com.util.ResultData;
+import com.util.init.StringDeal;
 import com.util.init.ToJSON;
 
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +34,16 @@ public class PurchaseServlet extends BaseServlet {
         int limit = Integer.parseInt(request.getParameter("limit"));
         page = (page-1)*limit;
         ToJSON.toJson(response,purchaseService.getAppointList(page,limit));
+    }
+
+    public void getId(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("oId"));
+        ToJSON.toJson(response,purchaseService.getId(id));
+    }
+    public ResultData<Integer> isOk(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        int[] ints = StringDeal.toArray(dataString);
+        return purchaseService.isok(ints);
     }
 
 

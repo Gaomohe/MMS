@@ -46,7 +46,7 @@ String path = request.getContextPath();
 
             <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
                 <div carousel-item>
-                    <div>
+                    <div id="step01">
 
                         <form class="layui-form layui-form-pane" action="Javascript:void(0)">
                             <table class="layui-table" id="tableTbBas" lay-filter="tableTbBas"></table>
@@ -54,48 +54,54 @@ String path = request.getContextPath();
 <%--                            <div style="display: flex; justify-content: center;">--%>
 <%--                                <button class="layui-btn" style="width: 200px;" id="tijiao" lay-filter="add">申请</button>--%>
 <%--                            </div>--%>
-                        </form>
-                        <hr>
-                        <div style="display: flex; justify-content: center;" class="layui-form-item">
-                            <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="formDemo">&emsp;下一步&emsp;</button>
+
+                            <div style="display: flex;margin-top: 50px; justify-content: center;" class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button id="return" class="layui-btn layui-btn-primary layui-border">&emsp;取消&emsp;</button>
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">&emsp;下一步&emsp;</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+
+
 
 
                     </div>
-                    <div>
+                    <div id="step02">
 
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">申请人:</label>
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid layui-word-aux">${name9}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">申请类型:</label>
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid layui-word-aux">药品</div>
+                            </div>
+                        </div>
                         <form class="layui-form" style="margin: 0 auto;max-width: 550px;padding-top: 60px;">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">申请人:</label>
-                                <div class="layui-input-block">
-                                    <div class="layui-form-mid layui-word-aux">${name9}</div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">申请类型:</label>
-                                <div class="layui-input-block">
-                                    <div class="layui-form-mid layui-word-aux">药品</div>
-                                </div>
-                            </div>
                             <table  class="layui-table" id="tableTrue" lay-filter="tableTrue"></table>
                             <br>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">总金额:</label>
-                                <div class="layui-input-block">
-                                    <div class="layui-form-mid layui-word-aux">
-                                        <span id="total" style="font-size: 18px;color: #333;"></span>（￥人民币）
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                    <button class="layui-btn" id="tijiao" lay-submit lay-filter="formDemo2">&emsp;提交&emsp;</button>
-                                </div>
-                            </div>
                         </form>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">总金额:</label>
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid layui-word-aux">
+                                    <span id="total" style="font-size: 18px;color: #333;"></span>（￥人民币）
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                <button class="layui-btn" id="tijiao" lay-submit lay-filter="formDemo2">&emsp;提交&emsp;</button>
+                            </div>
+                        </div>
+
 
                     </div>
                     <div>
@@ -105,12 +111,12 @@ String path = request.getContextPath();
                                style="color: white;font-size:30px;font-weight:bold;background: #52C41A;padding: 20px;line-height: 80px;">&#xe605;</i>
                             <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">操作成功
                             </div>
-                            <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
+                            <div style="font-size: 14px;color: #666;margin-top: 20px;">正在等待审批</div>
                         </div>
 
                         <div style="text-align: center;margin-top: 50px;">
-                            <button class="layui-btn next">再转一笔</button>
-                            <button class="layui-btn layui-btn-primary">查看账单</button>
+                            <button class="layui-btn next">继续申请</button>
+                            <button id="checkCP" class="layui-btn layui-btn-primary">查看审批</button>
                         </div>
 
                     </div>
@@ -119,7 +125,7 @@ String path = request.getContextPath();
 
             <hr>
 
-            <div style="color: #666;margin-top: 30px;margin-bottom: 40px;padding-left: 30px;">
+            <div id="textT" style="color: #666;margin-bottom: 40px;padding-left: 30px;">
                 <h3>说明</h3><br>
                 <h4>药品申请数量</h4>
                 <p>关于药品的申请数量，用户选择最小值是0,即不能输入负数作为申请数量,负数在实际应用中没有意义。且输入的药品申请数量不能超过100,由于库存限制、订单处理能力和其他业务规则。用户在系统中输入的申请数量必须是一个不超过100的数字。</p>
@@ -164,9 +170,8 @@ String path = request.getContextPath();
         form.on('submit(formDemo)', function (data) {
             var myData = datas.data;
             var tatol=0;
-            console.log(myData)
             var count = 0.0;
-            $('tbody tr').each(function() {
+            $('tbody').first().find('tr').each(function() {
                 var tr = this;
                 var inputElement = $(tr).find('td').eq(4).find('input');
                 var inputValue = $(tr).find('td').eq(5).find('input');
@@ -179,7 +184,7 @@ String path = request.getContextPath();
             });
             var totalElement = document.getElementById('total');
             // 设置元素的文本内容
-            totalElement.textContent = tatol;
+            totalElement.textContent = tatol.toFixed(2);
 
 
             step.next('#stepForm');
@@ -219,12 +224,76 @@ String path = request.getContextPath();
         });
 
         $('.pre').click(function () {
+
             step.pre('#stepForm');
         });
 
         $('.next').click(function () {
             step.next('#stepForm');
         });
+        $('#return').click(function (){
+            console.log("取消")
+            setTimeout(function(){
+                layer.closeAll("iframe");
+                layer.msg("未申请！")
+                //刷新父页面
+                parent.location.reload();
+
+            },1);
+
+        })
+        $('#checkCP').click(function (){
+            history();
+        })
+        function history(){
+            layui.layer.open({
+                title : "历史记录",
+                type : 2,
+                content : "medicine/shoppingManage/requestApply/history.jsp",
+                area:['600px','500px'],
+                success:function(layero, index){
+                    $.ajax({
+                        url:"/approval?action=getHistory",//湖区历史记录
+                        type:"post",
+                        data:{},
+                        success:function(data){
+                            var parse = JSON.parse(data).data;
+                            var iframe = layer.getChildFrame('body', index);
+                            console.log("数据")
+                            console.log(parse)
+                            var html = '';
+                            var insert = '';
+                            var count = 0;
+                            for (let j = 0; j < parse.length; j++) {
+                                insert = '<p>药品编号:'+parse[j].mId+'药品名称:'+parse[j].mName+'申请数量:'+parse[j].applyNumber+'状态:'+parse[j].pharmacistApprove+'</p>';
+                                for (let k = j+1; k < parse.length; k++) {
+                                    if (parse[j].applyTime===parse[k].applyTime){
+                                        insert += '<p>药品编号:'+parse[k].mId+'药品名称:'+parse[k].mName+'申请数量:'+parse[k].applyNumber+'状态:'+parse[k].pharmacistApprove+'</p>'
+                                    }else {
+                                        j = k - 1;
+                                        html+= '<div class="layui-timeline-item">\n' +
+                                            '    <i class="layui-icon layui-timeline-axis"></i>\n' +
+                                            '    <div class="layui-timeline-content layui-text">\n' +
+                                            '      <h3 class="layui-timeline-title">申请时间:'+parse[j].applyTime+'</h3>\n' +
+                                            '      <p></p>\n' +insert+
+                                            '    </div>\n' +
+                                            '  </div>';
+                                        count++;
+                                        break;
+                                    }
+                                }
+                                if (count===10){
+                                    //控制条数
+                                    break;
+                                }
+                            }
+                            $(iframe).find('.layui-timeline').html(html);
+
+                        }
+                    })
+                }
+            });
+        }
     });
 </script>
 </body>

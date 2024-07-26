@@ -20,11 +20,30 @@
     <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.css">
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
+    <style>
+        #main{
+            width: 570px;
+            height: 600px;
+            left: 660px;
+            top:-600px;
+            background-color: #ffffff;
+            position: relative;
+            margin-right: 0;
+            margin-top: 0;
+            z-index: 999;
+        }
+        #body1{
+            width: 654px;
+            height: 600px;
+            margin-top: 0;
+            margin-left: 0;
+        }
+    </style>
 </head>
 <body class="childrenBody">
 
-<div class="layuimini-container">
-    <div class="layuimini-main multinav-scroll">
+<div class="layuimini-container" style="height: 620px">
+    <div class="layuimini-main multinav-scroll" id="body1" >
         <script type="text/html" id="appointDemo">
             <c:forEach var="menu" items="${menuList}" varStatus="s">
                 ${menu.resUrl}
@@ -32,9 +51,13 @@
         </script>
         <table id="appointList" lay-filter="appointList" class="table table-hover"></table>
     </div>
+    <div id="main" class="right-div" ><%--style="width: 50%;height: 500px;background-color: #0bb2d4"--%>
+
+    </div>
 </div>
 
 <script type="text/javascript" src="<%=basePath%>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js" charset="utf-8"></script>
 <script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/shoppingManagejs/appointmentOrder/appointList.js" charset="UTF-8"></script>
 </body>
 </html>

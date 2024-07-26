@@ -163,4 +163,10 @@ public class AppointServlet extends BaseServlet {
 
         return resultData;
     }
+
+    //获取供应商
+    public void getStatistics(HttpServletRequest request, HttpServletResponse response){
+        List<Apply> applyList = appointService.getStatistics();
+        ToJSON.toJson(response,applyList);
+    }
 }
