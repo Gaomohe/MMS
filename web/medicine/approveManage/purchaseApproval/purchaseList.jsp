@@ -56,47 +56,47 @@
 </div>
 <hr class="layui-border-green">
 <%--            申请人--%>
-<div class="layui-form layui-row layui-col-space16">
-    <div class="layui-col-md2">
-        <select id="applyuser">
-            <option value="">申请人</option>
-            <c:forEach var="applyUser" items="${applyUser}" varStatus="s">
-                <option value="${applyUser.userName}">${applyUser.userName}</option>
-            </c:forEach>
-        </select>
-    </div>
-    <div class="layui-col-md2">
-        <select id="state">
-            <option value="">状态</option>
-                <option value="未审批">未审阅</option>
-                <option value="已审批">已审阅通过</option>
-                <option value="已审批">已审阅未通过</option>
-        </select>
-    </div>
-    <div class="layui-col-md2">
-        <select id="macuser">
-            <option value="">药师</option>
-            <c:forEach var="phaName" items="${phaName}" varStatus="s">
-                <option value="${phaName.userName}">${phaName.userName}</option>
-            </c:forEach>
-        </select>
-    </div>
-    <div class="layui-col-md2">
-        <select id="cw">
-            <option value="">财务</option>
-            <c:forEach var="finName" items="${finName}" varStatus="s">
-                <option value="${finName.userName}">${finName.userName}</option>
-            </c:forEach>
-        </select>
-    </div>
-    <div class="layui-col-md4">
-        <button type="button" lay-event="query" class="layui-btn layui-bg-blue">查询</button>
-        <button lay-event="reset" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
-    </div>
+<%--<div class="layui-form layui-row layui-col-space16">--%>
+<%--    <div class="layui-col-md2">--%>
+<%--        <select id="applyuser">--%>
+<%--            <option value="">申请人</option>--%>
+<%--            <c:forEach var="applyUser" items="${applyUser}" varStatus="s">--%>
+<%--                <option value="${applyUser.userName}">${applyUser.userName}</option>--%>
+<%--            </c:forEach>--%>
+<%--        </select>--%>
+<%--    </div>--%>
+<%--    <div class="layui-col-md2">--%>
+<%--        <select id="state">--%>
+<%--            <option value="">状态</option>--%>
+<%--                <option value="未审批">未审阅</option>--%>
+<%--                <option value="已审批">已审阅通过</option>--%>
+<%--                <option value="已审批">已审阅未通过</option>--%>
+<%--        </select>--%>
+<%--    </div>--%>
+<%--    <div class="layui-col-md2">--%>
+<%--        <select id="macuser">--%>
+<%--            <option value="">药师</option>--%>
+<%--            <c:forEach var="phaName" items="${phaName}" varStatus="s">--%>
+<%--                <option value="${phaName.userName}">${phaName.userName}</option>--%>
+<%--            </c:forEach>--%>
+<%--        </select>--%>
+<%--    </div>--%>
+<%--    <div class="layui-col-md2">--%>
+<%--        <select id="cw">--%>
+<%--            <option value="">财务</option>--%>
+<%--            <c:forEach var="finName" items="${finName}" varStatus="s">--%>
+<%--                <option value="${finName.userName}">${finName.userName}</option>--%>
+<%--            </c:forEach>--%>
+<%--        </select>--%>
+<%--    </div>--%>
+<%--    <div class="layui-col-md4">--%>
+<%--        <button type="button" lay-event="query" class="layui-btn layui-bg-blue">查询</button>--%>
+<%--        <button lay-event="reset" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>--%>
+<%--    </div>--%>
 
 
 
-</div>
+<%--</div>--%>
 
 <hr class="layui-border-green">
 <button lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>

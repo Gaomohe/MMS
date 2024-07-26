@@ -11,7 +11,7 @@ layui.extend({
     //表格渲染
     var tableIns = table.render({
         elem: '#purchaseList',
-        url : '/appoint?action=getAllAppoint',
+        url : '/orders?action=selectOrders',
         cellMinWidth : 95,
         page : true,
         toolbar: '#purchaseDemo',
@@ -19,35 +19,72 @@ layui.extend({
         limit : 20,
         limits : [10,15,20,25],
         cols : [[
-            {fixed:"left",type: "checkbox", width:50},
-            {field: 'applyId', title: '申请编号',  align:'center'},
-            // {field: 'mId', title: '字典编号',  align:'center'},
-            {field: 'mName', title: '药品名称', minWidth:100, align:"center"},
-            {field: 'specification', title: '规格', align:'center'},
-            {field: 'manufactor', title: '生产企业', align:'center'},
-            {field: 'unit', title: '单位', minWidth:100, align:"center"},
-            {field: 'department', title: '部门',  align:'center'},
-            // {field: 'number', title: '采购数量',  align:'center'},
-            {field: 'applyNumber', title: '采购数量',  align:'center'},
-            {field: 'purchasePrice', title: '采购价',  align:'center'},
-            {field: 'code', title: '批号',  align:'center'},
-            {field: 'mType', title: '药品分类',  align:'center'},
-            {field: 'supplier', title: '供货单位',  align:'center'},
-            {field: 'approvalNumber', title: '准批文号',  align:'center'},
-            {field: 'placeOrigin', title: '产地',  align:'center'},
-            {field: 'applyUser' ,title:'申请人', align:'center'},
-            {field: 'applyTime' ,title:'申请时间', align:'center'},
-            {field: 'pharmacist' ,title:'药师审批人', align:'center'},
-            {field: 'pharmacistApprove' ,title:'药师审批', align:'center'},
-            {field: 'pharmacistTime' ,title:'药师审批时间', align:'center'},
-            {field: 'finance' ,title:'财务审批人', align:'center'},
-            {field: 'financeApprove' ,title:'财务审批', align:'center'},
-            {field: 'financeTime' ,title:'财务审批时间', align:'center'},
-            {field: 'tableCoding' ,title:'自编码', align:'center'}
+            {type: "checkbox", fixed:"left", width:50},
+            {field: 'oId', title: '采购单号',  align:'center',width:100,sort:true},
+            {field: 'oName', title: '订单状态',  align:'center',width:100},
+            // {field: 'specification', title: '规格', width:100, align:"center"},
+            {field: 'manufactor', title:'生产企业' , width:250, align:"center"},
+            // {field: 'unit', title:'单位' , width:100, align:"center"},
+            // {field: 'oNum', title:'订单数量' , width:100, align:"center"},
+            // {field: 'salePrice', title:'采购单价' , width:100, align:"center"},
+            {field: 'shippingAddress', title:'发货地址' , width:300, align:"center"},
+            {field: 'deliveryAddress', title:'收货地址' , width:300, align:"center"},
+            {field: 'shippingTime', title:'发货时间' , width:150, align:"center"},
+            {field: 'allPrice', title:'订单总价格' , width:100, align:"center"},
+            {field: 'shippingWay', title:'发货方式' , width:150, align:"center"},
+            {field: 'tempControlWay', title:'温控方式' , width:100, align:"center"},
+            {field: 'deliveryTime', title:'到货时间' , width:100, align:"center"},
+            {field: 'deliveryTemp', title:'到货温度' , width:100, align:"center"},
+            {field: 'attachment', title:'关联附件' , width:100, align:"center"},
+            {field: 'salesman', title:'供货单位业务员' , width:100, align:"center"},
+            {field: 'buyer', title:'采购人' , width:100, align:"center"},
+            {field: 'recipient', title:'收货人' , width:100, align:"center"},
+            // {field: 'orderCondition', title:'收货状态' , width:100, align:"center"},
+            // {field: 'statement', title:'收货状态' , width:100, align:"center"},
+
+            {field: 'advance', title:'订单预付款' , width:150, align:"center"},
+            {field: 'advanceStatus', title:'订单预付款状态' , width:200, align:"center"},
+            {field: 'finals', title:'订单尾款' , width:150, align:"center"},
+            {field: 'finalsStatus', title:'订单尾款状态' , width:200, align:"center"},
         ]],
         done:function (data){
         }
     });
+    table.on('row(purchaseList)',function (obj){
+        var data = obj.data; // 获得当前行数据
+        var tr = obj.tr; // 获得当前行的 tr 元素
+        var checkbox = tr.find('input[type="checkbox"]'); // 获取当前行的复选框
+
+        // 检查是否是点击了复选框
+        if (checkbox.is(':checked') || checkbox.is(':focus')) {
+            // 如果复选框被勾选或获得焦点，不执行行点击的逻辑
+            return;
+        }
+        openDetail(data);
+        // 这里可以执行你的业务逻辑，比如打开一个模态框显示详情等
+    });
+
+    //打开详情页
+    function openDetail(data){
+        let oId = data.oId;
+        layui.layer.open({
+            title : "详情",
+            type : 2,
+            content : "medicine/approveManage/purchaseApproval/detailData.jsp",
+            area:['700px','450px'],
+            success:function (layero, index){
+                var $iframes = layero.find('iframe')[0];
+                $.ajax({
+                    url:"/purchase?action=getId",//根据id查询的方法
+                    type:"post",
+                    data:{oId},
+                    success:function(data){
+                        $iframes.contentWindow.postMessage(data, '*');
+                    }
+                })
+            }
+        })
+    }
     layui.use(function() {
         var laydate = layui.laydate;
         laydate.render({
@@ -60,13 +97,13 @@ layui.extend({
         var data = checkStatus.data;
         var purchId = '';
         for(i=0;i<data.length;i++){
-            purchId = data[i].applyId;//这里得和上面的field里的id名对应
+            purchId = data[i].oId;//这里得和上面的field里的id名对应
         }
         var array = [];
         var state = [];
         for (let i = 0;i<data.length;i++){
-            array[i]=data[i].applyId;
-            state[i]=data[i].pharmacistApprove
+            array[i]=data[i].oId;
+            state[i]=data[i].oName;
         }
         switch(obj.event){
             case 'time':
@@ -116,7 +153,6 @@ layui.extend({
             layer.msg('未导出');
         });
         var checkRows = table.checkStatus('purchaseList');
-        console.log(checkRows);
         if (checkRows.data.length === 0) {
             layer.msg('请选择要导出的数据', {icon: 2});
         } else {
@@ -171,33 +207,59 @@ layui.extend({
             return ;
         }
         for (let i = 0; i < state.length; i++) {
-            if (state[i]==="已审阅通过" || state[i]==="已审阅未通过"){
+            if (state[i] !== '未审阅'){
                 layer.alert("单据"+array[i]+"已审阅,请取消！");
                 return ;
             }
         }
+        layer.confirm('是否通过？', {
+            btn: ['确定', '取消'] //按钮
+        }, function(){
+            shengyue(array);
+        }, function(){
+            layer.msg('未审阅！请重新选择！', {
+                time: 20000, // 20s 后自动关闭
+                btn: [ '知道了']
+            });
+        });
+        // //获取复选框选中的数据
+        // var checkRows = table.checkStatus('purchaseList');
+        // var oId = 10;
+        // layui.layer.open({
+        //     title : "审批",
+        //     type : 2,
+        //     content : "medicine/approveManage/purchaseApproval/audit.jsp",
+        //     area:['900px','500px'],
+        //     success:function (layero, index){
+        //         var $iframes = layero.find('iframe')[0];
+        //         $.ajax({
+        //             url:"/purchase?action=getId",//根据id查询的方法
+        //             type:"post",
+        //             data:{oId},
+        //             success:function(){
+        //                 $iframes.contentWindow.postMessage(checkRows.data, '*');
+        //             }
+        //         })
+        //     }
+        // })
 
-        var dataString = $.param({"array": array});
-        layui.layer.open({
-            title : "审批",
-            type : 2,
-            content : "medicine/approveManage/purchaseApproval/audit.jsp",
-            area:['900px','500px'],
-            success:function (layero, index){
-                var $iframe = layero.find('iframe')[0]; // jQuery 对象
-                $.ajax({
-                    url:"/approval?action=getAuditId",//根据id将状态改成“以审批”
-                    type:"post",
-                    data:{dataString},
-                    success:function (data){
-                        // 操作iframe
-                        $iframe.contentWindow.postMessage(data, '*');
-                    }
-
-                })
-            }
-        })
-
+    }
+    function shengyue(array){
+        layer.alert('');
+        var dataString = $.param({"purchId": array});
+        console.log(dataString)
+        $.ajax({
+                        url:"/purchase?action=isOk",//根据id查询的方法
+                        type:"post",
+                        data:{dataString},
+                        success:function(data){
+                            let parse = JSON.parse(data);
+                            if (parse.status===200){
+                                layer.msg('审阅完成', {icon: 1});
+                                location.reload()
+                            }
+                        }
+                    })
     }
 
     function query(){

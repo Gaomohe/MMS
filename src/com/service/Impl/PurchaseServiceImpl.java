@@ -1,11 +1,14 @@
 package com.service.Impl;
 
 import com.dao.Impl.AppointDaoImpl;
+import com.dao.Impl.PurchaseDaoImpl;
 import com.pojo.Apply;
 import com.pojo.Appointment;
+import com.pojo.Purchase;
 import com.pojo.Role;
 import com.service.PurchaseService;
 import com.util.LayuiTable;
+import com.util.ResultData;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import static com.util.Vessel.purchaseDao;
 public class PurchaseServiceImpl implements PurchaseService {
     AppointDaoImpl appointDaoImpl = new AppointDaoImpl();
     LayuiTable<Appointment> layuiTable = new LayuiTable();
+    PurchaseDaoImpl purchaseDao = new PurchaseDaoImpl();
     @Override
     public LayuiTable<Appointment> getAppointList(int page, int limit) {
         ResultSet resultSet = appointDaoImpl.getAll(page, limit, "apply");
@@ -62,6 +66,56 @@ public class PurchaseServiceImpl implements PurchaseService {
             e.printStackTrace();
         }
         return layuiTable;
+    }
+
+    @Override
+    public LayuiTable<Purchase> getId(int id) {
+        List<Purchase> purchaseList = new ArrayList<>();
+        LayuiTable<Purchase> layuiTable = new LayuiTable<>();
+        ResultSet idres = purchaseDao.getId(id);
+        try {
+            while (idres.next()){
+                Purchase purchase = new Purchase();
+                purchase.setmId(idres.getInt(1));
+                purchase.setApplyBuyNumber(idres.getInt(2));
+                purchase.setmName(idres.getString(3));
+                purchase.setSpecification(idres.getString(4));
+                purchase.setManufactor(idres.getString(5));
+                purchase.setUnit(idres.getString(6));
+                purchase.setDepartment(idres.getString(7));
+                purchase.setPurchasePrice(idres.getDouble(8));
+                purchase.setSalePrice(idres.getDouble(9));
+                purchase.setProductDate(idres.getString(10));
+                purchase.setGoodsType(idres.getString(11));
+                purchase.setmType(idres.getString(12));
+                purchase.setDefined(idres.getString(13));
+                purchaseList.add(purchase);
+            }
+            layuiTable.setData(purchaseList);
+            layuiTable.setCode(0);
+            layuiTable.setMsg("");
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return layuiTable;
+    }
+
+    @Override
+    public ResultData<Integer> isok(int[] ins) {
+        ResultData<Integer> resultData = new ResultData<>();
+        for (int id:ins) {
+            if (purchaseDao.isok(id)){
+                resultData.setStatus(200);
+                resultData.setData(1);
+            }else {
+                resultData.setStatus(400);
+                resultData.setData(0);
+            }
+        }
+        return resultData;
     }
 
 

@@ -4,20 +4,19 @@ layui.use(['form', 'layedit', 'laydate','table'], function(){
         ,layedit = layui.layedit
         ,laydate = layui.laydate;
     var $ = layui.$;
-
     window.addEventListener('message', function(event) {
         // 检查 event.origin 以确保消息来自可信源
         // if (event.origin !== "http://yourtrusteddomain.com") return;
 
         // 获取父页面发送的消息内容
-        var messageData = event.data;
-        var otg = JSON.parse(messageData).data;
+        var otg = event.data;
+        console.log(otg)
         var htmlString = ''
 // 可以创建多个行的HTML字符串
         for (var i = 0; i < otg.length; i++) {
             htmlString+='<tr>';
-            htmlString+='<td><input type="checkbox" id="'+otg[i].applyId+'" name="" value="'+otg[i].mName+'"></td>'
-            htmlString+='<td>'+otg[i].applyId+'</td>'
+            htmlString+='<td><input type="checkbox" id="'+otg[i].oId+'" name="" value="'+otg[i].oId+'"></td>'
+            htmlString+='<td>'+otg[i].oId+'</td>'
             htmlString+='<td>'+otg[i].mName+'</td>'
             htmlString+='<td>'+otg[i].number+'</td>'
             htmlString+='<td>'+otg[i].unit+'</td>'
