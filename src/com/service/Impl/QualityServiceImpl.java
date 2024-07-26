@@ -145,6 +145,7 @@ public class QualityServiceImpl implements QualityService {
         warn.setName(name);
         warn.setTolNumber(quality1.getTotlNumber());
         Warn warnsByTableCoding = warnDao.getWarnsByTableCoding(quality1.getTableCoding());
+        warn.setId(warnsByTableCoding.getId());
         if (warnsByTableCoding.getmName() != null ){
             warnService.upWarnTotlNumber(warn,quality1.getUsefulLife());
         }else {

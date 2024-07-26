@@ -139,7 +139,7 @@ public class MedicineDaoImpl implements MedicineDao {
                 "`position`=?,`number`=?,`batchNumber`=?,`usefulLife`=?,`purchasePrice`=?,`salePrice`=?,\n" +
                 "`productDate`=?,`profits`=?,`code`=?,`goodsType`=?,`mType`=?,`defined`=?,\n" +
                 "`supplier`=?,`warehousingDate`=?,`locationDescription`=?,`sign`=?,`warehousingRemarks`=?,`drugFrom`=?,\n" +
-                "`handlingInformation`=?,`approvalNumber`=?,`LastCuringDate`=?,`timesStorage`=?,`documentNumber`=?,`placeOrigin`=?,\n" +
+                "`handingInformation`=?,`approvalNumber`=?,`LastCuringDate`=?,`timesStorage`=?,`documentNumber`=?,`placeOrigin`=?,\n" +
                 "`batchsNumber`=?,`recordNumber`=?,`mId`=?\n" +
                 "WHERE `tableCoding` =?";
         Object[] objects = new Object[33];
