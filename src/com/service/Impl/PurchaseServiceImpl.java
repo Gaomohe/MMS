@@ -104,10 +104,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public ResultData<Integer> isok(int[] ins) {
+    public ResultData<Integer> isok(int[] ins,String name) {
         ResultData<Integer> resultData = new ResultData<>();
         for (int id:ins) {
-            if (purchaseDao.isok(id)){
+            if (purchaseDao.isok(id,name)){
                 resultData.setStatus(200);
                 resultData.setData(1);
             }else {

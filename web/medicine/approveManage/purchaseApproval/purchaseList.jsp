@@ -34,27 +34,26 @@
 
 <%--输入单据编号--%>
 <div class="layui-inline">
-    <label style="width: auto" class="layui-form-label">申请编号:</label>
+    <label style="width: auto" class="layui-form-label">搜索:</label>
     <div class="layui-input-inline">
-        <input type="text" name="id" lay-verify="id" placeholder="请输入申请编号" autocomplete="off" class="layui-input">
+        <input type="text" name="id" lay-verify="id" placeholder="请输入单据编号/供应商" autocomplete="off" class="layui-input">
     </div>
 </div>
 
 <%--输入药品名称--%>
-<div class="layui-inline">
-    <label style="width: auto" class="layui-form-label">药品名称:</label>
-    <div class="layui-input-inline">
-        <input type="text" name="zname" lay-verify="zname" placeholder="请输入药品名称" autocomplete="off" class="layui-input">
-    </div>
-</div>
+<%--<div class="layui-inline">--%>
+<%--    <label style="width: auto" class="layui-form-label">药品名称:</label>--%>
+<%--    <div class="layui-input-inline">--%>
+<%--        <input type="text" name="zname" lay-verify="zname" placeholder="请输入药品名称" autocomplete="off" class="layui-input">--%>
+<%--    </div>--%>
+<%--</div>--%>
 <%--申请时间--%>
-<div class="layui-inline">
-    <label style="width: auto" class="layui-form-label">申请时间:</label>
-    <div class="layui-input-inline">
-        <input type="text" name="time" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="请选择时间日期">
-    </div>
-</div>
-<hr class="layui-border-green">
+<%--<div class="layui-inline">--%>
+<%--    <label style="width: auto" class="layui-form-label">申请时间:</label>--%>
+<%--    <div class="layui-input-inline">--%>
+<%--        <input type="text" name="time" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="请选择时间日期">--%>
+<%--    </div>--%>
+<%--</div>--%>
 <%--            申请人--%>
 <%--<div class="layui-form layui-row layui-col-space16">--%>
 <%--    <div class="layui-col-md2">--%>
@@ -89,21 +88,21 @@
 <%--            </c:forEach>--%>
 <%--        </select>--%>
 <%--    </div>--%>
-<%--    <div class="layui-col-md4">--%>
-<%--        <button type="button" lay-event="query" class="layui-btn layui-bg-blue">查询</button>--%>
-<%--        <button lay-event="reset" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>--%>
-<%--    </div>--%>
+    <div class="layui-inline">
+        <button type="button" lay-event="query" class="layui-btn layui-bg-blue">查询</button>
+        <button lay-event="reset" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
+        <button lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+        <button lay-event="delOK" type="button" class="layui-btn layui-bg-red">未审阅</button>
+        <button lay-event="audit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
+        <button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
+        <button lay-event="download" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
+    </div>
 
 
 
 <%--</div>--%>
 
-<hr class="layui-border-green">
-<button lay-event="del" class="layui-btn layui-btn-primary layui-border"><i class="layui-icon layui-icon-delete"></i> 删除</button>
-<button lay-event="delOK" type="button" class="layui-btn layui-bg-red">未审阅</button>
-<button lay-event="audit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
-<button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
-<button lay-event="download" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
+
 
 
         </script>

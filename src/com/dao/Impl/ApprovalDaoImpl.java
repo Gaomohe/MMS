@@ -25,7 +25,7 @@ public class ApprovalDaoImpl extends InitDaoImpl implements ApprovalDao {
 
     @Override
     public boolean noaudit(int id, String name) {
-    String sql = "update apply set pharmacistApprove = '未审阅',pharmacist = ? where applyId=?";
+    String sql = "update orders set oName = '未审阅' , specification = ? where oId = ?";
         Object[] objects = new Object[]{name,id};
         return JDBC.update(sql,objects) > 0;
     }

@@ -22,7 +22,7 @@ layui.extend({
             {type: "checkbox", fixed:"left", width:50},
             {field: 'oId', title: '采购单号',  align:'center',width:100,sort:true},
             {field: 'oName', title: '订单状态',  align:'center',width:100},
-            // {field: 'specification', title: '规格', width:100, align:"center"},
+            {field: 'specification', title: '审阅人', width:100, align:"center"},
             {field: 'manufactor', title:'生产企业' , width:250, align:"center"},
             // {field: 'unit', title:'单位' , width:100, align:"center"},
             // {field: 'oNum', title:'订单数量' , width:100, align:"center"},
@@ -245,39 +245,58 @@ layui.extend({
 
     }
     function shengyue(array){
-        layer.alert('');
-        var dataString = $.param({"purchId": array});
-        console.log(dataString)
-        $.ajax({
-                        url:"/purchase?action=isOk",//根据id查询的方法
-                        type:"post",
-                        data:{dataString},
-                        success:function(data){
-                            let parse = JSON.parse(data);
-                            if (parse.status===200){
-                                layer.msg('审阅完成', {icon: 1});
-                                location.reload()
-                            }
-                        }
-                    })
+        layer.confirm('由于审阅规则,您需要签字备注！', {
+            btn: ['确定', '取消'] //按钮
+        }, function(){
+            layer.msg('请签字！', {icon: 1});
+            layui.layer.open({
+                title : "详情",
+                type : 2,
+                content : "medicine/approveManage/purchaseApproval/signature.jsp",
+                area:['850px','550px'],
+                success:function (layero, index){
+                    console.log("完成")
+                    // var $iframes = layero.find('iframe')[0];
+                    // $.ajax({
+                    //     url:"/purchase?action=getId",//根据id查询的方法
+                    //     type:"post",
+                    //     data:{oId},
+                    //     success:function(data){
+                    //         $iframes.contentWindow.postMessage(data, '*');
+                    //     }
+                    // })
+                }
+            })
+
+        }, function(){
+            layer.msg('已取消', {
+                time: 20000, // 20s 后自动关闭
+                btn: ['明白了', '知道了']
+            });
+        });
     }
 
+    function shengpi(){
+        var dataString = $.param({"purchId": array});
+        $.ajax({
+            url:"/purchase?action=isOk",//根据id查询的方法
+            type:"post",
+            data:{dataString},
+            success:function(data){
+                let parse = JSON.parse(data);
+                if (parse.status===200){
+                    layer.msg('审阅完成', {icon: 1});
+                    location.reload()
+                }
+            }
+        })
+    }
     function query(){
-        var idValue = document.querySelector('input[name="id"]').value
-        var nameValue = document.querySelector('input[name="zname"]').value
-        var timeValue = document.querySelector('input[name="time"]').value
-
-        var applyuser = document.getElementById('applyuser').value;
-        var state = document.getElementById('state').value;
-        var macuser = document.getElementById('macuser').value;
-        var cw = document.getElementById('cw').value;
-        var array = {"idValue":idValue,
-            "nameValue":nameValue,
-            "timeValue":timeValue,
-            "applyuser":applyuser,
-            "state":state,
-            "macuser":macuser,
-            "cw":cw
+        var Value = document.querySelector('input[name="id"]').value
+        if (Value == null || Value === ""){
+            return ;
+        }
+        var array = {Value
         };
         tableIns.reload({
             url : '/approval?action=search',
@@ -285,6 +304,7 @@ layui.extend({
             type:'static',
             page: false,
             done:function (date){
+                document.querySelector('input[name="id"]').value = Value;
 
             }
         });

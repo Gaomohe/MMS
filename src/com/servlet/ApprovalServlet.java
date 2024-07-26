@@ -56,15 +56,9 @@ public class ApprovalServlet extends BaseServlet {
         User user1 = (User)session.getAttribute("user");
         String name = userService.getName(user1.getId());
         logService.setLog(name,"点击","采购审批","条件查询审批信息");
-        String idValue = request.getParameter("idValue");
-        String nameValue = request.getParameter("nameValue");
-        String timeValue = request.getParameter("timeValue");
-        String applyuser = request.getParameter("applyuser");
-        String state = request.getParameter("state");
-        String macuser = request.getParameter("macuser");
-        String cw = request.getParameter("cw");
-        String[] values = {idValue,nameValue,timeValue,applyuser,state,macuser,cw};
-        String[] keys = {"applyId","mName","applyTime","applyUser","pharmacistApprove","pharmacist","finance"};
+        String Value = request.getParameter("Value");
+        String[] values = {Value,Value};
+        String[] keys = {"oId","manufactor"};
         ToJSON.toJson(response,approvalService.search(keys,values));
     }
     //删除审批信息

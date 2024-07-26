@@ -40,10 +40,12 @@ public class PurchaseServlet extends BaseServlet {
         int id = Integer.parseInt(request.getParameter("oId"));
         ToJSON.toJson(response,purchaseService.getId(id));
     }
+
+    //审批通过
     public ResultData<Integer> isOk(HttpServletRequest request, HttpServletResponse response){
         String dataString = request.getParameter("dataString");
         int[] ints = StringDeal.toArray(dataString);
-        return purchaseService.isok(ints);
+        return purchaseService.isok(ints,"张三");
     }
 
 
