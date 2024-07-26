@@ -29,9 +29,9 @@ public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public boolean isok(int id) {
-        String sql = "update orders set oName = '已审阅通过' where oId = ?";
-        Object[] objects = new Object[]{id};
+    public boolean isok(int id,String name) {
+        String sql = "update orders set oName = '已审阅通过',specification = ? where oId = ?";
+        Object[] objects = new Object[]{name,id};
         return JDBC.update(sql,objects) > 0;
     }
 

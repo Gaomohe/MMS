@@ -1,9 +1,6 @@
 package com.service;
 
-import com.pojo.Apply;
-import com.pojo.Appointment;
-import com.pojo.Sub_Apply;
-import com.pojo.User;
+import com.pojo.*;
 import com.util.LayuiTable;
 import com.util.ResultData;
 
@@ -15,7 +12,7 @@ public interface ApprovalService {
     //获取申请人
     public List<User> getApplyUser();
 
-    public LayuiTable<Appointment> search(String[] keys,String[] values);
+    public LayuiTable<Orders> search(String[] keys, String[] values);
 
     public ResultData<Integer> del(int[] ints);
 

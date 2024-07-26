@@ -1,20 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix ="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>signature</title>
-    <link rel="stylesheet" href="<%=basePath %>iframe/css/style.css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="<%= path %>/iframe/css/style.css" />
     <!-- 引入JQuery -->
-    <script src="<%=basePath %>iframe/js/jquery.min.js"></script>
+    <script src="<%= path %>/iframe/js/jquery.min.js"></script>
     <!-- 引入插件 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -22,10 +21,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 </head>
 <body>
-<div class="title" style="margin-top: 50px">药师审批</div>
+<div class="title" style="margin-top: 50px">Create</div>
 <!-- 初始，渲染带装饰的html，供用户输入文本、上传图片、生成电子签名 -->
 <div id="container">
-
+    <!-- logo -->
+    <div class="row">
+        <div class="drop-div">
+            <div id="dropzone" class="dropzone dropzone-div">
+                <div class="dz-message needsclick" style="height: 100%">
+                    <div
+                            id="preview"
+                            style="display: none"
+                            class="preview-wrap"
+                    ></div>
+                    <div id="hide_preview" class="drop-no-img">
+                        <div style="font-size: 16px; color: #d8152a">Logo</div>
+                        <div class="button-upload" onclick="uploadImage()">Upload</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Date -->
     <div class="row" style="margin-top: 50px">
         <div class="row-input">
@@ -56,7 +72,7 @@
     </div>
     <!-- signature -->
     <div class="row">
-        <p>请签字:</p>
+        <p>Generate your signature:</p>
         <div id="signature"></div>
         <div
                 style="
@@ -139,7 +155,7 @@
 </div>
 </body>
 
-<script src="<%=basePath %>iframe/js/testDataUrl.js"></script>
+<script src="<%= path %>/iframe/js/testDataUrl.js"></script>
 <script>
     // 上传图片
     Dropzone.autoDiscover = false;
@@ -191,19 +207,32 @@
         width: "100%", // 画布宽度
         height: 196, // 画布高度：div高度减去上下2px的边框
         "background-color": "#dddddd", // 画布背景
-        color: "#000000", // 画笔颜色
+        color: "#333333", // 画笔颜色
         UndoButton: false, // 撤销上一步按钮
         willReadFrequently: true,
     });
     // 生成签名
     function generateSignature() {
         let res = $("#signature").jSignature("getData", "svgbase64");
-        let img = new Image();
-        signatureSrc = `data:${res[0]},${res[1]}`;
-        img.src = signatureSrc;
-        $("#signature_preview").html(img);
-        $("#signature_img").prop("src", signatureSrc);
+        console.log("jSignature Data:", res); // 打印完整的 res 数组
+
+        // 验证数据是否存在
+        if (res && res[1]) {
+            signatureSrc = `data:image/svg+xml;base64,` + res[1];
+            console.log("Signature Source:", signatureSrc); // 打印 signatureSrc
+
+            let img = new Image();
+            img.src = signatureSrc;
+
+            $("#signature_preview").html(img);
+            $("#signature_img").prop("src", signatureSrc);
+        } else {
+            console.error("Signature data is missing or invalid.");
+        }
     }
+
+
+
     // 清空签名
     function clearSignature() {
         $("#signature").jSignature("reset");
@@ -276,9 +305,10 @@
                 // 调用插件函数填充图片
                 doc.addImage(imgUrl, "JPEG", x, y, w, h);
                 // 触发下载保存
-                doc.save("审批文件.pdf");
+                doc.save("Your File.pdf");
             }
         );
     }
 </script>
 </html>
+

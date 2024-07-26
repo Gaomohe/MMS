@@ -63,7 +63,22 @@ public class InitDaoImpl {
         sqlbuild.append(keys[keys.length-1]).append(" like ?");
         Object[] objects = new Object[values.length];
         for (int i = 0; i < values.length; i++) {
-            objects[i]="%"+values[0]+"%";
+            objects[i]="%"+values[i]+"%";
+        }
+        String sql = sqlbuild.toString();
+        return JDBC.select(sql, objects);
+    }
+
+    //搜索--------一个搜索框
+    public ResultSet searchPro(String[] keys,String[] values,String table){
+        StringBuilder sqlbuild = new StringBuilder("select * from " + table + " where ");
+        for (int i = 0; i < keys.length-1; i++) {
+            sqlbuild.append(keys[i]).append(" like ? or ");
+        }
+        sqlbuild.append(keys[keys.length-1]).append(" like ?");
+        Object[] objects = new Object[values.length];
+        for (int i = 0; i < values.length; i++) {
+            objects[i]="%"+values[i]+"%";
         }
         String sql = sqlbuild.toString();
         return JDBC.select(sql, objects);

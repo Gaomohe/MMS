@@ -210,6 +210,7 @@
         let res = $("#signature").jSignature("getData", "svgbase64");
         let img = new Image();
         signatureSrc = `data:${res[0]},${res[1]}`;
+        console.log(signatureSrc);
         img.src = signatureSrc;
         $("#signature_preview").html(img);
         $("#signature_img").prop("src", signatureSrc);
