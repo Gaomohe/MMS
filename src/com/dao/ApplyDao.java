@@ -26,4 +26,6 @@ public interface ApplyDao {
 
     //获取已批供货商
     public List<Apply> getAppointStatistics(Apply apply);
+
+    public List<Apply> getManufactor(List<Integer> idsList);
 }

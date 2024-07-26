@@ -40,6 +40,15 @@
         GROUP BY manufactor;
     </select>
 
+    <select id="getManufactor" parameterType="java.util.List" resultType="Apply">
+        SELECT manufactor FROM apply WHERE applyId IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        GROUP BY manufactor
+    </select>
+
+
 
 
 </mapper>

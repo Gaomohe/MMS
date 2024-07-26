@@ -91,8 +91,10 @@ public class AppointServiceImpl implements AppointService {
         int num = 0;
         int m = 0;
 
+
         for(int id : idList){
             appointment = appointDao.getAppoint(id);
+
             allPrice = appointment.getNumber() * appointment.getPurchasePrice();
             int number = appointDao.getNumber(id);
             Apply apply = appointDao.getManufactor(id);
@@ -247,6 +249,7 @@ public class AppointServiceImpl implements AppointService {
         List<Apply> applyList = new ArrayList<>();
         int num = 0;
         int mum = 0;
+        List<Integer> getManufactorIdList = new ArrayList<>();
 
         // 创建 Apply 对象并添加到列表中
         for (int id : idsList){
@@ -255,74 +258,83 @@ public class AppointServiceImpl implements AppointService {
             applyList.add(apply);
         }
 
-        // 从数据库获取 Apply 对象的详细信息
-        for (Apply apply : applyList){
-            Apply apply1 = session.getMapper(ApplyDao.class).getApplyPrice(apply);
-            if (apply1 != null) {
-                apply.setApplyId(apply1.getApplyId());
-                apply.setmId(apply1.getmId());
-                apply.setmName(apply1.getmName());
-                apply.setSpecification(apply1.getSpecification());
-                apply.setManufactor(apply1.getManufactor());
-                apply.setUnit(apply1.getUnit());
-                apply.setDepartment(apply1.getDepartment());
-                apply.setNumber(apply1.getNumber());
-                apply.setApplyNumber(apply1.getApplyNumber());
-                apply.setPurchasePrice(apply1.getPurchasePrice());
-                apply.setCode(apply1.getCode());
-                apply.setmType(apply1.getmType());
-                apply.setSupplier(apply1.getSupplier());
-                apply.setApprovalNumber(apply1.getApprovalNumber());
-                apply.setPlaceOrigin(apply1.getPlaceOrigin());
-                apply.setApplyUser(apply1.getApplyUser());
-                apply.setApplyTime(apply1.getApplyTime());
-                apply.setPharmacist(apply1.getPharmacist());
-                apply.setPharmacistApprove(apply1.getPharmacistApprove());
-                apply.setPharmacistTime(apply1.getPharmacistTime());
-                apply.setFinance(apply1.getFinance());
-                apply.setFinanceApprove(apply1.getFinanceApprove());
-                apply.setFinanceTime(apply1.getFinanceTime());
-                apply.setTableCoding(apply1.getTableCoding());
-                allPrices += apply.getApplyNumber() * apply.getPurchasePrice();
-                orders.setManufactor(apply.getManufactor());
-                orders.setShippingAddress(apply.getPlaceOrigin());
-                orders.setBuyer(apply.getApplyUser());
-            } else {
-                // 处理 apply1 为 null 的情况
-                System.out.println("No data found for applyId: " + apply.getApplyId());
+        List<Apply> manufactorList = session.getMapper(ApplyDao.class).getManufactor(idsList);
+        for (Apply applyManufactor : manufactorList){
+            String ManufactorName = applyManufactor.getmName();
+            // 从数据库获取 Apply 对象的详细信息
+            for (Apply apply : applyList){
+                Apply apply1 = session.getMapper(ApplyDao.class).getApplyPrice(apply);
+                if (apply1 != null && apply1.getManufactor() == ManufactorName) {
+                    apply.setApplyId(apply1.getApplyId());
+                    apply.setmId(apply1.getmId());
+                    apply.setmName(apply1.getmName());
+                    apply.setSpecification(apply1.getSpecification());
+                    apply.setManufactor(apply1.getManufactor());
+                    apply.setUnit(apply1.getUnit());
+                    apply.setDepartment(apply1.getDepartment());
+                    apply.setNumber(apply1.getNumber());
+                    apply.setApplyNumber(apply1.getApplyNumber());
+                    apply.setPurchasePrice(apply1.getPurchasePrice());
+                    apply.setCode(apply1.getCode());
+                    apply.setmType(apply1.getmType());
+                    apply.setSupplier(apply1.getSupplier());
+                    apply.setApprovalNumber(apply1.getApprovalNumber());
+                    apply.setPlaceOrigin(apply1.getPlaceOrigin());
+                    apply.setApplyUser(apply1.getApplyUser());
+                    apply.setApplyTime(apply1.getApplyTime());
+                    apply.setPharmacist(apply1.getPharmacist());
+                    apply.setPharmacistApprove(apply1.getPharmacistApprove());
+                    apply.setPharmacistTime(apply1.getPharmacistTime());
+                    apply.setFinance(apply1.getFinance());
+                    apply.setFinanceApprove(apply1.getFinanceApprove());
+                    apply.setFinanceTime(apply1.getFinanceTime());
+                    apply.setTableCoding(apply1.getTableCoding());
+                    allPrices += apply.getApplyNumber() * apply.getPurchasePrice();
+                    orders.setManufactor(apply.getManufactor());
+                    orders.setShippingAddress(apply.getPlaceOrigin());
+                    orders.setBuyer(apply.getApplyUser());
+                } else {
+                    // 处理 apply1 为 null 的情况
+                    System.out.println("No data found for applyId: " + apply.getApplyId());
+                }
+            }
+
+            // 插入订单并获取生成的 ID
+
+            orders.setAllPrice(allPrices);
+            orders.setAdvance(0.3*allPrices);
+            orders.setFinals(allPrices-orders.getAdvance());
+            session.getMapper(ApplyDao.class).addApply(orders);
+            int oId = orders.getoId();
+
+            System.out.println("Generated Order ID: " + oId);
+
+            //将订单id与订单详情药品id对应
+            Apporder apporder = new Apporder();
+            apporder.setoId(orders.getoId());
+            for (Apply apply : applyList){
+                Apply apply2 = session.getMapper(ApplyDao.class).getApplyPrice(apply);
+                if (apply2 != null && apply2.getManufactor() == ManufactorName){
+                    apporder.setaId(apply.getmId());
+                    apporder.setApplyBuyNumber(apply.getApplyNumber());
+                    num = session.getMapper(ApplyDao.class).addAppOrder(apporder);
+                    //添加订单后将其从apply表转移至appoint表
+                    int i = session.getMapper(ApplyDao.class).shiftApply(apply);
+
+                    //将药品加入质量检测表
+                    Quality quality = new Quality();
+                    quality.setTableCoding(apply.getTableCoding());
+                    quality.setTotlNumber(apply.getApplyNumber());
+                    qualityService.addQuality(quality);
+                    //转移完成后删除
+                    if (i > 0) {
+                        mum = session.getMapper(ApplyDao.class).delApply(apply);
+                    }
+                }
             }
         }
 
-        // 插入订单并获取生成的 ID
 
-        orders.setAllPrice(allPrices);
-        orders.setAdvance(0.3*allPrices);
-        orders.setFinals(allPrices-orders.getAdvance());
-        session.getMapper(ApplyDao.class).addApply(orders);
-        int oId = orders.getoId();
-
-        System.out.println("Generated Order ID: " + oId);
-
-        //将订单id与订单详情药品id对应
-        Apporder apporder = new Apporder();
-        apporder.setoId(orders.getoId());
-        for (Apply apply : applyList){
-            apporder.setaId(apply.getmId());
-            apporder.setApplyBuyNumber(apply.getApplyNumber());
-            num = session.getMapper(ApplyDao.class).addAppOrder(apporder);
-            //添加订单后将其从apply表转移至appoint表
-            int i = session.getMapper(ApplyDao.class).shiftApply(apply);
-
-            //将药品加入质量检测表
-            Quality quality = new Quality();
-            quality.setTableCoding(apply.getTableCoding());
-            quality.setTotlNumber(apply.getApplyNumber());
-            qualityService.addQuality(quality);
-            //转移完成后删除
-            if (i > 0) {
-                mum = session.getMapper(ApplyDao.class).delApply(apply);
-            }
-        }
 
         session.commit(); // 提交事务
         session.close(); // 关闭会话

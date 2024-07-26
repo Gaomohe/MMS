@@ -156,11 +156,8 @@ public class AppointServlet extends BaseServlet {
 
     //确认添加预购订单
     public ResultData Submit(HttpServletRequest request, HttpServletResponse response){
-
         int i = appointService.Submit(applyIdsList);
-
         ResultData resultData = Result.resultStatus(i);
-
         return resultData;
     }
 

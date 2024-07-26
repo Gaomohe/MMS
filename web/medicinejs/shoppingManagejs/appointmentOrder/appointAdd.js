@@ -9,7 +9,6 @@ layui.extend({
         table = layui.table;
     var dtree = layui.dtree;
 
-    // 获取 URL 参数的方法
     function getQueryParam(param) {
         let urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
@@ -18,12 +17,20 @@ layui.extend({
     // 获取并解析 idsList 参数
     let idsListParam = getQueryParam('idsList');
     let idsList = idsListParam ? JSON.parse(decodeURIComponent(idsListParam)) : [];
-    console.log("Received idsList:", idsList); // 输出接收到的 idsList 数组
 
-    var tableIns; // 定义为全局变量以便其他函数使用
+    // 检查 idsList 是否是数组
+    if (!Array.isArray(idsList)) {
+        console.error("idsList is not an array:", idsList);
+        idsList = [];
+    }
+
+    console.log("Received idsList:", idsList);
+
+    var tableIns;
 
     $(document).ready(function() {
-
+        console.log("?????????????????????????????????????");
+        console.log(idsList);
         /*------------- 加载用户数据 --------------------------------*/
         tableIns = table.render({
             elem: '#medicineList',

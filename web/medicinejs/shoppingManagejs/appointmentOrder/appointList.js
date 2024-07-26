@@ -11,7 +11,7 @@ layui.extend({
 
     var counts = 0;
     var total = 0;
-    let idList = new Set();
+    // let idList = new Set();
     var tableMain;
     var supplierName;
     var mTypeName;
@@ -380,18 +380,14 @@ layui.extend({
                             layer.msg("已审核...请选择未审核申请药品");
                             break; // 这里会真正停止循环
                         }
-                        if (firstManufacturer !== file.manufactor) {
-                            allSameManufacturer = false;
-                            layer.msg("不同厂家药品无法同时操作");
-                            return; // 这里会退出整个 switch
-                        }
-                        idList.add(file.mId);
+                        idList.add(file.applyId);
                     }
                     if (allSameManufacturer) {
                         // 执行一些操作，比如提交选择的数据
                         console.log("要处理的数据:", Array.from(idList));
                         // 这里可以调用你的后台接口来处理这些数据
                     }
+                    addAppoint(idList)
                 } else {
                     layer.msg("请选中要操作的数据", { icon: 2 });
                 }
@@ -462,7 +458,7 @@ layui.extend({
     }
 
     //新增订单
-    function addAppoint(idsList){
+    /*function addAppoint(idsList){
         const serializedIds = encodeURIComponent(JSON.stringify(idsList));
         console.log("ssssssssssssssss");
         console.log(idsList);
@@ -477,7 +473,28 @@ layui.extend({
             anim: 0, // 0-6 的动画形式，-1 不开启
             content: "medicine/shoppingManage/appointmentOrder/appointAdd.jsp?idsList=" + serializedIds,
         });
+    }*/
+    function addAppoint(idsList) {
+        // 如果 idsList 是 Set，转换为数组
+        const idsArray = Array.from(idsList);
+
+        console.log("idsList before encoding:", idsArray);
+        const serializedIds = encodeURIComponent(JSON.stringify(idsArray));
+        console.log("Serialized idsList:", serializedIds);
+
+        layer.open({
+            type: 2, // page 层类型
+            area: ['900px', '600px'],
+            title: '预购订单信息',
+            shade: 0.6, // 遮罩透明度
+            shadeClose: true, // 点击遮罩区域，关闭弹层
+            maxmin: true, // 允许全屏最小化
+            anim: 0, // 0-6 的动画形式，-1 不开启
+            content: "medicine/shoppingManage/appointmentOrder/appointAdd.jsp?idsList=" + serializedIds,
+        });
     }
+
+
 
     //修改回显
     function  selectByIdUser(id,uname) {
