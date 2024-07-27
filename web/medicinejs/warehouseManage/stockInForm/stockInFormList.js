@@ -10,9 +10,11 @@ layui.extend({
     var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
     var total = 0;
     var count = 0;
+
+
     layui.use(function () {
         laydate.render({
-            elem: '#MainTime',
+            elem: '#stockInTime',
             type: 'datetime'
         });
     });

@@ -16,4 +16,7 @@ public interface StockAllService {
     public List<StockAllForm> getStockInFormByQuery(String[] query);
     //根据药品名查询库存
     public List<StockAllForm> getStockAllFormByDrugName(String[] query);
+
+    //获取药品名，药品数量
+    public List<StockAllForm> getStockAllFormEChart(String[] query);
 }

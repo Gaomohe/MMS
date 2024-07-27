@@ -79,6 +79,7 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                 {field:'rName', width:200, align:'center', title:'药品名', rowspan: 2}, // 药品名列
                 {field:'standard', width:200, align:'center', title:'药品规格', rowspan: 2}, // 药品名列
                 {field:'unit', width:170, align:'center', title:'单位', rowspan: 2}, // 药品名列
+                {field:'manufactor', width:170, align:'center', title:'供应商', rowspan: 2}, // 药品名列
                 {field:'cost', width:50, align:'center', title:'成本', hide:true,rowspan: 2}, // 药品名列
                 {field:'salePrice', width:50, align:'center', title:'销售价',hide:true, rowspan: 2}, // 药品名列
                 {field:'batchNumber', width:150, align:'center', title:'批号',hide:true, rowspan: 2}, // 药品名列

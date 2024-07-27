@@ -64,4 +64,20 @@ public class StockAllServiceImpl implements StockAllService {
         String dictionary = getSQL(keys, values, "dictionary");//apply是表名
         return stockAllDao.getStockAllFormByQuery(dictionary);
     }
+
+    @Override
+    public List<StockAllForm> getStockAllFormEChart(String[] query) {
+        String[] keys = {"mName","number"};//这里是键
+        Object[] values = {query[0],query[1]};//这里是值
+        String dictionary = getSQL(keys, values, "dictionary");//apply是表名
+        List<StockAllForm> stockAllFormList = stockAllDao.getStockAllFormByQuery(dictionary);
+        //获取所有药品总数量
+        int sum = stockAllFormList.stream().mapToInt(stockAllForms -> stockAllForms.getNumber()).sum();
+        // 计算每种药品的占比并设置到对象中
+        for (StockAllForm form : stockAllFormList) {
+            double percentage = (double) form.getNumber() / sum * 100;
+            form.setPercentage(percentage);
+        }
+        return stockAllFormList;
+    }
 }

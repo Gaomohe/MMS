@@ -26,6 +26,15 @@ public class StockAllForm {
         private String warehousingRemarks;//入库备注
         private String drugFrom;//剂型
         private String handingInformation;//处理情况
+        private double percentage;//获取药品占总数的百分比；
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
+    }
 
     public String getHandingInformation() {
         return handingInformation;

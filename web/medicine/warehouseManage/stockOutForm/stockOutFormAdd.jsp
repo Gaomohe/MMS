@@ -14,6 +14,12 @@
 </head>
 
 <body>
+<div style="width: 1174px">
+    <blockquote class="layui-elem-quote">
+        正常出库
+    </blockquote>
+</div>
+
 
 <div style="position: absolute;left: 1%">
     <table class="layui-table" id="NormalStockOutList"></table>`
