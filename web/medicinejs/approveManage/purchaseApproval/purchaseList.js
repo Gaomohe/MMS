@@ -245,6 +245,10 @@ layui.extend({
 
     }
     function shengyue(array){
+        console.log("111111111111111111111111111111111111");
+        console.log(array[0]);
+        let oId = array[0];
+        console.log("111111111111111111111111111111111111");
         layer.confirm('由于审阅规则,您需要签字备注！', {
             btn: ['确定', '取消'] //按钮
         }, function(){
@@ -252,7 +256,7 @@ layui.extend({
             layui.layer.open({
                 title : "详情",
                 type : 2,
-                content : "medicine/approveManage/purchaseApproval/signature.jsp",
+                content : "medicine/approveManage/purchaseApproval/signature.jsp?oId=" + oId,
                 area:['850px','550px'],
                 success:function (layero, index){
                     console.log("完成")

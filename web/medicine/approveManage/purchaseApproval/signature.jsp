@@ -52,27 +52,29 @@
     <!-- some text -->
     <div class="row" style="margin-bottom: 50px">
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
-            autem nostrum delectus voluptatem. Magnam enim quis aut, maiores id
-            nemo vel!
+            对于一下药品:
             <input
                     id="some_input"
                     type="text"
                     placeholder="Type anything you need here."
             />
-            Omnis, reprehenderit a? Dolore nesciunt omnis laudantium maxime
-            tenetur.
+
         </p>
+        <div class="layuimini-main">
+            <script type="text/html" id="detailsDemo1">
+                <c:forEach var="menu" items="${menuList}" varStatus="s">
+                    ${menu.resUrl}
+                </c:forEach>
+            </script>
+            <table id="detailsList1" lay-filter="detailsList1"></table>
+        </div>
         <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque
-            impedit perferendis deserunt minima fuga. Sunt, repellat. Repudiandae,
-            fugit hic nam molestias magni animi itaque sapiente possimus
-            voluptates, eius officia aliquid.
+            请仔细查看上述申请购买药品单号，完成后请在下面签名。
         </p>
     </div>
     <!-- signature -->
     <div class="row">
-        <p>Generate your signature:</p>
+        <p>请签名:</p>
         <div id="signature"></div>
         <div
                 style="
@@ -86,21 +88,21 @@
                     class="button-upload signature-feature"
                     onclick="generateSignature()"
             >
-                Generate
+                确认
             </div>
             <div
                     class="button-upload signature-feature"
                     onclick="clearSignature()"
             >
-                Clear
+                清除
             </div>
         </div>
-        <p>Preview your signature:</p>
+        <p>确认签名:</p>
         <div id="signature_preview"></div>
     </div>
 </div>
 <button class="button-upload button-convert" onclick="convertHtml()">
-    Preview your file
+    生成相应文档
 </button>
 
 <!--
@@ -115,23 +117,25 @@
         <img id="logo" src="" alt="logo" />
     </div>
     <!-- Date -->
-    <div class="row" style="margin-top: 50px">
+    <%--<div class="row" style="margin-top: 50px">
         <span>Date:</span>
         <span id="date"></span>
-    </div>
+    </div>--%>
     <!-- some text -->
     <div class="row" style="margin-bottom: 50px">
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
-            autem nostrum delectus voluptatem. Magnam enim quis aut, maiores id
-            nemo vel! <span id="some"></span> Omnis, reprehenderit a? Dolore
-            nesciunt omnis laudantium maxime tenetur.
+            对于一下药品:
         </p>
+        <div class="layuimini-main">
+            <script type="text/html" id="detailsDemo2">
+                <c:forEach var="menu" items="${menuList}" varStatus="s">
+                    ${menu.resUrl}
+                </c:forEach>
+            </script>
+            <table id="detailsList2" lay-filter="detailsList2"></table>
+        </div>
         <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque
-            impedit perferendis deserunt minima fuga. Sunt, repellat. Repudiandae,
-            fugit hic nam molestias magni animi itaque sapiente possimus
-            voluptates, eius officia aliquid.
+            请仔细查看上述申请购买药品单号，完成后请在下面签名。
         </p>
     </div>
     <!-- signature -->
@@ -159,7 +163,7 @@
 <script>
     // 上传图片
     Dropzone.autoDiscover = false;
-    function uploadImage() {
+    /*function uploadImage() {
         let upload_dropzone = new Dropzone("#dropzone", {
             url: "/",
             uploadMultiple: false,
@@ -195,7 +199,7 @@
                 $("#logo").prop("src", testDataUrl);
             },
         });
-    }
+    }*/
 
     /**
      * 电子签名
@@ -310,5 +314,7 @@
         );
     }
 </script>
+<script type="text/javascript" src="<%=basePath%>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/approveManage/purchaseApproval/signature.js" charset="UTF-8"></script>
 </html>
 
