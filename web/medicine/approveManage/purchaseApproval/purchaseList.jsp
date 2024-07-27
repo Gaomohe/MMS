@@ -94,7 +94,7 @@
         <button lay-event="delOK" type="button" class="layui-btn layui-bg-red">未审阅</button>
         <button lay-event="audit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-ok"></i>审核</button>
         <button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
-        <button lay-event="" type="button" class="layui-btn layui-bg-blue"></button>
+<%--        <button lay-event="" type="button" class="layui-btn layui-bg-blue"></button>--%>
         <button lay-event="download" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
     </div>
 
