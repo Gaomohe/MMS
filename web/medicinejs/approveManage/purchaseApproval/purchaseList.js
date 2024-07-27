@@ -53,11 +53,15 @@ layui.extend({
     table.on('row(purchaseList)',function (obj){
         var data = obj.data; // 获得当前行数据
         var tr = obj.tr; // 获得当前行的 tr 元素
-        var checkbox = tr.find('input[type="checkbox"]'); // 获取当前行的复选框
+        var checkbox = tr.find('input[type="checkbox"]'); // 获取复选框元素
 
-        // 检查是否是点击了复选框
-        if (checkbox.is(':checked') || checkbox.is(':focus')) {
-            // 如果复选框被勾选或获得焦点，不执行行点击的逻辑
+        // 使用事件参数来判断实际点击的位置
+        var event = window.event || arguments.callee.caller.arguments[0];
+        var target = event.target || event.srcElement;
+
+        // 判断点击的是否是复选框
+        if (target === checkbox[0] || $(target).closest('td').find('input[type="checkbox"]').length > 0) {
+            // 如果点击的是复选框列，不执行行点击的逻辑
             return;
         }
         openDetail(data);
