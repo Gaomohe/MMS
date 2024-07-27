@@ -28,6 +28,7 @@
         align-items: center;
     }
 
+
 </style>
 <body class="childrenBody">
 
@@ -100,6 +101,7 @@
                             ${menu.resUrl}
                         </c:forEach>
                     </div>
+                    <button type="button" class="layui-btn layui-bg-purple" id="chartButton" style="position: absolute;right: -22%">图表展示</button>
                 </div>
             </div>
 

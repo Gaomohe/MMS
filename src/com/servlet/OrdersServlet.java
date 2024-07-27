@@ -235,5 +235,11 @@ public class OrdersServlet extends BaseServlet {
         ToJSON.toJson(response,layuiTable);
     }
 
+    public void getApproveOrderDetails(HttpServletRequest request,HttpServletResponse response){
+        String oIdStr = request.getParameter("oId");
+        int oId = Integer.parseInt(oIdStr);
+
+    }
+
 
 }

@@ -15,6 +15,12 @@
 
 <body>
 
+<div style="width: 1174px">
+    <blockquote class="layui-elem-quote">
+        质量不合格出库
+    </blockquote>
+</div>
+
 <div style="position: absolute;left: 1%">
     <table class="layui-table" id="qualityFailedList"></table>`
 </div>

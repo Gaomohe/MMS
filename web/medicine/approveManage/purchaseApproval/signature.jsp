@@ -21,7 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 </head>
 <body>
-<div class="title" style="margin-top: 50px">Create</div>
+<div class="title" style="margin-top: 50px">买药审批</div>
 <!-- 初始，渲染带装饰的html，供用户输入文本、上传图片、生成电子签名 -->
 <div id="container">
     <!-- logo -->
@@ -113,9 +113,9 @@
 <!-- 根据输入的信息生成没有装饰、带文本图片的html片段，以此直接生成canvas -->
 <div id="container_preview">
     <!-- logo -->
-    <div class="row">
+    <%--<div class="row">
         <img id="logo" src="" alt="logo" />
-    </div>
+    </div>--%>
     <!-- Date -->
     <%--<div class="row" style="margin-top: 50px">
         <span>Date:</span>
@@ -149,7 +149,7 @@
         style="display: none"
         onclick="convertCanvas()"
 >
-    Generate your file to PDF
+    将签名文件保存为PDF
 </button>
 
 <!-- PDF预览图 -->

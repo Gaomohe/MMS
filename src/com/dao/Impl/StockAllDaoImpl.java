@@ -211,7 +211,7 @@ public class StockAllDaoImpl implements StockAllDao {
 
     @Override
     public int delStockAllForm(int id) {
-        String sql=" delete from dictionary where mid=?";
+        String sql=" delete from dictionary where tableCoding=?";
         Object[]  objects= new Object[1];
         objects[0]=id;
         int count = JDBC.update(sql, objects);

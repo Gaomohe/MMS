@@ -17,6 +17,17 @@ layui.extend({
     var mTypeName;
     var mNameName;
 
+    // 获取URL参数的方法
+    function getQueryParam(param) {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+// 使用方法获取oId
+    var oId = getQueryParam('oId');
+    console.log("Received oId:", oId);
+
+
     $(document).ready(function(){
         supplier();
         mType();
@@ -25,7 +36,7 @@ layui.extend({
         /*------------- 加载用户数据 --------------------------------*/
         var tableIns = table.render({
             elem: '#detailsList1',
-            url : '/orders?action=getApproveOrderDetails',
+            url : '/orders?action=getApproveOrderDetails?oId' + oId,
             toolbar: '#detailsDemo1',
             page : true,
             height: '600px',
@@ -61,7 +72,7 @@ layui.extend({
         });
         var tableIns2 = table.render({
             elem: '#detailsList2',
-            url : '/orders?action=getApproveOrderDetails',
+            url : '/orders?action=getApproveOrderDetails?oId' + oId,
             toolbar: '#detailsDemo2',
             page : true,
             height: '600px',

@@ -70,6 +70,15 @@ public class StockAllFormServlet extends BaseServlet {
         layuiTable.setData(stockAllFormByDrugName);
         ToJSON.toJson(response,layuiTable);
     }
+    //获得药品名称，数量以及百分比，用饼图展示
+    public ResultData getStockAllFormByEcharts(HttpServletRequest request, HttpServletResponse response){
+        List<StockAllForm> stockAllFormList = stockAllService.getStockAllFormList();
+        LayuiTable<StockAllForm> layuiTable = new LayuiTable<StockAllForm>();//因为表格是以layuiTable的形式展示的
+        layuiTable.setData(stockAllFormList);
+        ResultData resultData = new ResultData();
+        resultData.setData(stockAllFormList);
+        return resultData;
+    }
     public ResultData addStockAllForm(HttpServletRequest request, HttpServletResponse response){
         ResultData resultData = new ResultData();
         StockAllForm stockAllForm = new StockAllForm();
