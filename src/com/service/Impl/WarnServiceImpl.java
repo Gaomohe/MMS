@@ -2,25 +2,27 @@ package com.service.Impl;
 
 import com.dao.Impl.WarnDaoImpl;
 import com.dao.WarnDao;
-import com.pojo.Medicine;
-import com.pojo.User;
-import com.pojo.Warn;
-import com.pojo.WarnDetail;
+import com.pojo.*;
 import com.service.WarnService;
+import com.util.GetTime;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static com.util.Vessel.medicineDao;
+import static com.util.SQLtoString.getSQL;
+import static com.util.Vessel.*;
+import static com.util.Vessel.warnDao;
 
 public class WarnServiceImpl implements WarnService {
 
     WarnDao warnDao = new WarnDaoImpl();
     @Override
-    public int addWarn(Warn warn,String usefulLife) {
+    public int addWarn(Warn warn,String usefulLife,int id) {
         //时间
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -43,6 +45,7 @@ public class WarnServiceImpl implements WarnService {
         warnDetail.setNumber(warn.getTolNumber());
         warnDetail.setUsefulLife(usefulLife);
         warnDetail.setWid(lastWarnId);
+        warnDetail.setQid(id);
         //改变药品数量
         medicine.setNumber(warn1.getTolNumber());
         medicineDao.updateMedicineNumber(medicine);
@@ -131,7 +134,7 @@ public class WarnServiceImpl implements WarnService {
     }
 
     @Override
-    public int upWarnTotlNumber(Warn warn,String usefulLife) {
+    public int upWarnTotlNumber(Warn warn,String usefulLife,int id) {
         Warn warn1 = warnDao.getWarnsById(warn.getId());
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -151,6 +154,7 @@ public class WarnServiceImpl implements WarnService {
         warnDetail.setNumber(warn.getTolNumber());
         warnDetail.setUsefulLife(usefulLife);
         warnDetail.setWid(warn.getId());
+        warnDetail.setQid(id);
         warnDao.addWarnDetail(warnDetail);
         warn1.setTolNumber(medicine.getNumber());
         return warnDao.upWarnTotlNumber(warn1);
@@ -175,11 +179,151 @@ public class WarnServiceImpl implements WarnService {
         int i = 0;
         List<Warn> warnsAll = warnDao.getWarnsAll();
         for (Warn warn:warnsAll){
-            if (warn.getWarnNumber()<=warn.getTolNumber()){
+            if (warn.getWarnNumber()>=warn.getTolNumber()){
                 i++;
             }
         }
         return i;
     }
+
+    @Override
+    public int upWarnDetailNumber(WarnDetail warnDetail) {
+        upWarnDetailTime(warnDetail);
+        return warnDao.upWarnDetailTime(warnDetail);
+    }
+
+    @Override
+    public int upWarnDetailTime(WarnDetail warnDetail) {
+        warnDetail.setTime(GetTime.getTime());
+        return warnDao.upWarnDetailTime(warnDetail);
+    }
+
+    public String delNumber(Medicine medicine1,int number,User user){
+        //获取变量
+        String time = GetTime.getTime();
+        //过滤最佳药品
+        List<WarnDetail> warnList = new ArrayList<>();
+        //预警总表发出信息
+        Warn warnsByTableCoding1 = warnDao.getWarnsByTableCoding(medicine1.getTableCoding());
+        int i = warnsByTableCoding1.getTolNumber() - warnsByTableCoding1.getWarnNumber();
+        if (i<0){
+            Message message = new Message();
+            message.setuId(user.getId());
+            message.setuName(user.getUserName());
+            message.setwId(warnsByTableCoding1.getId());
+            message.setMessage(medicine1.getmName() + "药品已到临期值请补充药品");
+            messageService.addMessage(message);
+        }else if(warnsByTableCoding1.getTolNumber() == 0){
+            return "药品无库存";
+        }
+
+        if (warnsByTableCoding1.getTolNumber()<number){
+            return "药品库存不足";
+        }
+        //进行库存批次有效期比较，得到从短到长有效期
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        List<WarnDetail> warnDetailsByWId1 = warnDao.getWarnDetailsByWId(warnsByTableCoding1.getId());
+        List<WarnDetail> sortedWarnDetails = warnDetailsByWId1.stream()
+                .sorted(Comparator.comparing(WarnDetail::getUsefulLife)) // 假设 getTime() 是获取时间的方法
+                .collect(Collectors.toList());
+        int useNumber = 0;
+        for (WarnDetail warnDetail:sortedWarnDetails){
+            String time1=warnDetail.getUsefulLife();
+            LocalDateTime dateTime1 = LocalDateTime.parse(time1, formatter);
+            LocalDateTime dateTime2 = LocalDateTime.parse(time, formatter);
+            if (dateTime1.isAfter(dateTime2)) {
+                warnList.add(warnDetail);
+                useNumber+=warnDetail.getNumber();
+            }
+        }
+        if (useNumber < number){
+            return "有效期未过药品数量不足";
+        }
+        warnsByTableCoding1.setTolNumber(warnsByTableCoding1.getTolNumber()-number);
+        medicine1.setNumber(medicine1.getNumber()-number);
+        //减去总库存
+        warnDao.upWarnTotlNumber(warnsByTableCoding1);
+        medicineDao.updateMedicineNumber(medicine1);
+        //减去库存
+        for (WarnDetail warnDetail:warnList){
+            if (number > warnDetail.getNumber()){
+                int k = warnDetail.getNumber();
+                number -= k;
+                warnDetail.setNumber(0);
+                warnDetail.setTime(time);
+                warnDao.upWarnDetailNumber(warnDetail);
+            }else {
+                int k = warnDetail.getNumber();
+                warnDetail.setNumber(warnDetail.getNumber()-number);
+                number -= k;
+                warnDetail.setTime(time);
+                warnDao.upWarnDetailNumber(warnDetail);
+                if (number <= 0){
+                    return "出库成功";
+                }
+            }
+        }
+        return "出错了";
+    }
+
+    public void dispose(int qid){
+        WarnDetail warnsByQId = warnDao.getWarnsByQId(qid);
+        Warn warn = warnDao.getWarnsById(warnsByQId.getWid());
+        warn.setTolNumber(warn.getTolNumber()-warnsByQId.getNumber());
+        warnDao.upWarnTotlNumber(warn);
+        warnDao.delWarnDetailByID(warnsByQId.getId());
+        Medicine medicine = medicineDao.getMedicine(warn.getTableCoding());
+        medicine.setNumber(medicine.getNumber()-warnsByQId.getNumber());
+        medicineDao.updateMedicineNumber(medicine);
+    }
+
+    public List<Warn> getYesterdayWarns(){
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        return  warnDao.getWarnsByTime(yesterday.toString());
+    }
+    public List<WarnDetail> getOutUseWarns(){
+        List<WarnDetail> warndetailsAll = warnDao.getWarndetailsAll();
+        List<WarnDetail> warns = new ArrayList<>();
+        for (WarnDetail warnDetail:warndetailsAll){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDate expirationDate = LocalDate.parse(warnDetail.getUsefulLife(),formatter);
+            // 获取当前日期
+            LocalDate currentDate = LocalDate.now();
+            // 判断是否过期
+            if (expirationDate.isBefore(currentDate)) {
+                warns.add(warnDetail);
+            }
+        }
+        return warns;
+    }
+    public List<Warn> getNeedBuyWarns(){
+        int i = 0;
+        List<Warn> warnsAll = warnDao.getWarnsAll();
+        List<Warn> warns = new ArrayList<>();
+        for (Warn warn:warnsAll){
+            if (warn.getWarnNumber()>=warn.getTolNumber()){
+                warns.add(warn);
+            }
+        }
+        return warns;
+    }
+
+   /* public List<Warn> getYesterdayWarns(){
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        int allMedicine = medicineDao.getAllMedicine();
+        List<Warn> warnsByTime = warnService.getWarnsByTime(yesterday.toString());
+        int outUserfulLife = warnService.getOutUserfulLife();
+        int needBuy = warnService.getNeedBuy();
+        session.setAttribute("mTotl",allMedicine);
+        session1.setAttribute("yesterday",warnsByTime.size());
+        session2.setAttribute("out",outUserfulLife);
+        session3.setAttribute("need",needBuy);
+    }*/
 
 }

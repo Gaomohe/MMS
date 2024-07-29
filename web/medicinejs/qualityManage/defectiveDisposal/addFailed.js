@@ -15,6 +15,7 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
             url:"/applyFailed?action=addFailed",
             data:{
                 tableCoding,
+                id,
                 cause
             },
             tyep:"post",
@@ -22,9 +23,8 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
                 var info = JSON.parse(data);
                 console.log(info);
                 if(info.status == 200){
-                    layer.msg("修改成功")
+                    layer.msg("操作成功")
                     setTimeout(function(){
-                        alert(id);
                         delFunc(id);
                         layer.closeAll("iframe");
                         parent.location.reload();

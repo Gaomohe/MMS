@@ -4,19 +4,21 @@ import com.dao.ApplyFailedDao;
 import com.dao.Impl.ApplyFaileDaoImpl;
 import com.pojo.ApplyFailed;
 import com.pojo.Medicine;
+import com.pojo.Quality;
 import com.service.ApplyFaileService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.util.Vessel.medicineDao;
+import static com.util.Vessel.*;
 
 public class ApplyFailedServiceImpl implements ApplyFaileService {
 
     ApplyFailedDao applyFailedDao = new ApplyFaileDaoImpl();
     @Override
-    public int addFailed(int tableCoding,String cause,String name) {
+    public int addFailed(int tableCoding,String cause,String name,int id) {
+        Quality qualityByID = qualityDao.getQualityByID(id);
         ApplyFailed apply = new ApplyFailed();
         Medicine medicine = medicineDao.getMedicine(tableCoding);
         apply.setTableCoding(medicine.getTableCoding());
@@ -24,7 +26,7 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
         apply.setmName(medicine.getmName());
         apply.setSpecification(medicine.getSpecification());
         apply.setManufactor(medicine.getManufactor());
-        apply.setNumber(medicine.getNumber());
+        apply.setNumber(qualityByID.getTotlNumber());
         apply.setPurchasePrice(medicine.getPurchasePrice());
         apply.setCode(medicine.getCode());
         apply.setmType(medicine.getmType());
@@ -38,6 +40,7 @@ public class ApplyFailedServiceImpl implements ApplyFaileService {
         apply.setApplyTime(format);
         apply.setApplyUser(name);
         applyFailedDao.addFailed(apply);
+        warnService.dispose(id);
         return applyFailedDao.addCause(applyFailedDao.getLastApplyId(),apply.getApplyTime(),apply.getCause());
     }
 

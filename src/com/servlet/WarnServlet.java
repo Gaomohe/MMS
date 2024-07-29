@@ -116,14 +116,16 @@ public class WarnServlet extends BaseServlet {
         layuiTable.setData(warns);
         return layuiTable;
     }
-    //新增预警数据
+    /*//新增预警数据
     public ResultData<Warn> addWarn(HttpServletRequest request, HttpServletResponse response){
         String tableCoding = request.getParameter("tableCoding");
         String tolNumber = request.getParameter("tolNumber");
         String usefulLife = request.getParameter("usefulLife");
-        /*User user = new User();
+        */
+    /*User user = new User();
         user.setId(12);
         user.setUserName("李四");*/
+    /*
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         Warn warn = new Warn();
@@ -133,7 +135,7 @@ public class WarnServlet extends BaseServlet {
         warn.setTableCoding(Integer.parseInt(tableCoding));
         int i = warnService.addWarn(warn, usefulLife);
         return Result.resultStatus(i);
-    }
+    }*/
     //删除预警数据
     public ResultData<Warn> delWarn(HttpServletRequest request, HttpServletResponse response){
         String id = request.getParameter("id");
@@ -162,13 +164,15 @@ public class WarnServlet extends BaseServlet {
         return Result.resultStatus(i);
     }
     //修改总表总数(入库处理)
-    public ResultData<Warn> upWarnTotlNumber(HttpServletRequest request, HttpServletResponse response){
+   /* public ResultData<Warn> upWarnTotlNumber(HttpServletRequest request, HttpServletResponse response){
         String id = request.getParameter("id");
         String tolNumber = request.getParameter("tolNumber");
         String usefulLife = request.getParameter("usefulLife");
-        /*User user = new User();
+        */
+    /*User user = new User();
         user.setId(12);
         user.setUserName("李四");*/
+    /*
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         Warn warn = new Warn();
@@ -178,7 +182,7 @@ public class WarnServlet extends BaseServlet {
         warn.setTolNumber(Integer.parseInt(tolNumber));
         int i = warnService.upWarnTotlNumber(warn,usefulLife);
         return Result.resultStatus(i);
-    }
+    }*/
     public void getTitle(HttpServletRequest request, HttpServletResponse response){
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
@@ -195,5 +199,24 @@ public class WarnServlet extends BaseServlet {
         session2.setAttribute("out",outUserfulLife);
         session3.setAttribute("need",needBuy);
     }
+
+    //获取昨日入库药品
+    public ResultData<Warn> getYesterdayWarns(HttpServletRequest request, HttpServletResponse response){
+        List<Warn> warns = warnService.getYesterdayWarns();
+        return Result.resultData(warns);
+    }
+
+    //获取需要购买药品
+    public ResultData<Warn> getNeedBuyWarns(HttpServletRequest request, HttpServletResponse response){
+        List<Warn> warns = warnService.getNeedBuyWarns();
+        return Result.resultData(warns);
+    }
+
+    //获取过期的药品
+    public ResultData<WarnDetail> getOutUseWarns(HttpServletRequest request, HttpServletResponse response){
+        List<WarnDetail> warns = warnService.getOutUseWarns();
+        return Result.resultData(warns);
+    }
+
 
 }

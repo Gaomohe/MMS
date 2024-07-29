@@ -1,5 +1,6 @@
 package com.service;
 
+import com.pojo.Medicine;
 import com.pojo.User;
 import com.pojo.Warn;
 import com.pojo.WarnDetail;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface WarnService {
 
     //添加预警数据
-    public int addWarn(Warn warn,String usefulLife);
+    public int addWarn(Warn warn,String usefulLife,int id);
     //获取所有预警数据(Warn)
     public int getWarns();
     public List<Warn> getWarns(int page,int limit);
@@ -32,9 +33,27 @@ public interface WarnService {
     public int getLastWarnId();
     //根据条件修改预警
     public int upWarnWNumber(Warn warn);
-    public int upWarnTotlNumber(Warn warn,String usefulLife);
+    public int upWarnTotlNumber(Warn warn,String usefulLife,int id);
     //获取过期药品数量
     public int getOutUserfulLife();
     //获取需要购买药品数
     public int getNeedBuy();
+
+    //修改预警细节数据
+    public int upWarnDetailNumber(WarnDetail warnDetail);
+
+    public int upWarnDetailTime(WarnDetail warnDetail);
+
+    //动态出库
+    public String delNumber(Medicine medicine1, int number, User user);
+
+    //退货药品数量处理
+    public void dispose(int qid);
+
+    //获取昨日入库药品
+    public List<Warn> getYesterdayWarns();
+    //获取过期的药品
+    public List<WarnDetail> getOutUseWarns();
+    //获取需要购买药品
+    public List<Warn> getNeedBuyWarns();
 }

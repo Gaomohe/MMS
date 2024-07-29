@@ -1,9 +1,13 @@
 package com.service.Impl;
 
+import com.dao.Impl.StockAllDaoImpl;
 import com.pojo.StockAllForm;
 import com.service.StockAllService;
 import com.util.LayuiTable;
+import com.util.ResultData;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
@@ -30,8 +34,8 @@ public class StockAllServiceImpl implements StockAllService {
 
     //按药品id查询库存
     @Override
-    public StockAllForm getStockAllFormById(int mid) {
-        return stockAllDao.getStockAllFormById(mid);
+    public StockAllForm getStockAllFormById(int tableCoding) {
+        return stockAllDao.getStockAllFormById(tableCoding);
     }
     //按药品id删除库存
     @Override
@@ -66,18 +70,28 @@ public class StockAllServiceImpl implements StockAllService {
     }
 
     @Override
-    public List<StockAllForm> getStockAllFormEChart(String[] query) {
-        String[] keys = {"mName","number"};//这里是键
-        Object[] values = {query[0],query[1]};//这里是值
-        String dictionary = getSQL(keys, values, "dictionary");//apply是表名
-        List<StockAllForm> stockAllFormList = stockAllDao.getStockAllFormByQuery(dictionary);
-        //获取所有药品总数量
-        int sum = stockAllFormList.stream().mapToInt(stockAllForms -> stockAllForms.getNumber()).sum();
-        // 计算每种药品的占比并设置到对象中
-        for (StockAllForm form : stockAllFormList) {
-            double percentage = (double) form.getNumber() / sum * 100;
-            form.setPercentage(percentage);
+    public ResultData<List<StockAllForm>> getStockAllFormEChart() {
+        ResultData<List<StockAllForm>> resultData = new ResultData<List<StockAllForm>>();
+        StockAllDaoImpl stockAllDao = new StockAllDaoImpl();
+        ResultSet kind = stockAllDao.getKind("department", "dictionary");
+        List<StockAllForm> stockAllForms = new ArrayList<StockAllForm>();
+        try{
+            while (kind.next()){
+                StockAllForm stockAllForm = new StockAllForm();
+                stockAllForm.setDepartment(kind.getString(1));
+                ResultSet drugsNumber = stockAllDao.getDrugsNumber(stockAllForm.getDepartment());
+                if (drugsNumber.next()){
+                    stockAllForm.setNumber(drugsNumber.getInt(1));
+                }
+                stockAllForms.add(stockAllForm);
+            }
+            resultData.setData(stockAllForms);
+            resultData.setMsg("");
+            resultData.setStatus(200);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return stockAllFormList;
+
+        return resultData;
     }
 }

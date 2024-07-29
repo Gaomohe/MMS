@@ -5,7 +5,6 @@ layui.use(['layer', 'form', 'laydate'], function () {
     var laydate = layui.laydate;
     /*****************提交按钮事件***********************/
     $("#tijiao").click(function(){
-        alert("ddd")
         var mName = $("#mName").val();
         var specification = $("#specification").val();
         var manufactor = $("#manufactor").val();

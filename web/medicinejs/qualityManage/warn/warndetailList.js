@@ -26,6 +26,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     title: '数据编号',
                     minWidth: 200,
                     align: 'center',
+                    hide:true
                 },
                 {
                     field: 'number',

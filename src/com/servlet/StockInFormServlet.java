@@ -45,7 +45,7 @@ public class StockInFormServlet extends BaseServlet {
         String rName = request.getParameter("rName");
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        ToJSON.toJson(response,stockInFormService.getStockInFormByManufactorAndDrugName(page,limit,manufactorName,rName));
+        ToJSON.toJson(response,stockInFormService.getStockInFormByManufactorOrDrugName(page,limit,manufactorName,rName));
     }
 
 

@@ -147,9 +147,9 @@ public class QualityServiceImpl implements QualityService {
         Warn warnsByTableCoding = warnDao.getWarnsByTableCoding(quality1.getTableCoding());
         warn.setId(warnsByTableCoding.getId());
         if (warnsByTableCoding.getmName() != null ){
-            warnService.upWarnTotlNumber(warn,quality1.getUsefulLife());
+            warnService.upWarnTotlNumber(warn,quality1.getUsefulLife(),id);
         }else {
-            warnService.addWarn(warn,quality1.getUsefulLife());
+            warnService.addWarn(warn,quality1.getUsefulLife(),id);
         }
         Medicine medicine = medicineDao.getMedicine(quality1.getTableCoding());
         medicine.setUsefulLife(quality1.getUsefulLife());

@@ -1,5 +1,6 @@
 package com.dao.Impl;
 
+import com.dao.Impl.init.InitDaoImpl;
 import com.dao.StockAllDao;
 import com.pojo.StockAllForm;
 import com.pojo.StockInForm;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StockAllDaoImpl implements StockAllDao {
+public class StockAllDaoImpl extends InitDaoImpl implements StockAllDao {
     @Override
     public List<StockAllForm> selectStockAllForm() {
         String sql=" select * from dictionary";
@@ -219,8 +220,49 @@ public class StockAllDaoImpl implements StockAllDao {
     }
 
     @Override
+    public ResultSet getDrugsNumber(String department) {
+        String sql = "select sum(number) from dictionary where department = ?";
+        Object[] objects = new Object[1];
+        objects[0]=department;
+        ResultSet select = JDBC.select(sql, objects);
+        return select;
+    }
+
+    @Override
     public int updateStockAllForm(StockAllForm stockAllForm) {
-        String sql="UPDATE dictionary SET mName = ?, specification = ?, manufactor = ?, unit = ?, department = ?, position = ?, number = ?, batchNumber = ?, usefulLife = ?, purchasePrice = ?, salePrice = ?, productDate = ?, profits = ?, code = ?, goodsType = ?, mType = ?, defined = ?, supplier = ?, warehousingDate = ?, locationDescription = ?, sign = ?, warehousingRemarks = ?, drugFrom = ?, handingInformation = ?, approvalNumber = ?, LastCuringDate = ?, timesStorage = ?, documentNumber = ?, placeOrigin = ?, batchsNumber = ?, recordNumber = ? WHERE tableCoding = ?;";
+        String sql="UPDATE dictionary SET \n" +
+                "    mName = ?, \n" +
+                "    specification = ?, \n" +
+                "    manufactor = ?, \n" +
+                "    unit = ?, \n" +
+                "    department = ?, \n" +
+                "    POSITION = ?, \n" +
+                "    number = ?, \n" +
+                "    batchNumber = ?, \n" +
+                "    usefulLife = ?, \n" +
+                "    purchasePrice = ?, \n" +
+                "    salePrice = ?, \n" +
+                "    productDate = ?, \n" +
+                "    profits = ?, \n" +
+                "    CODE = ?, \n" +
+                "    goodsType = ?, \n" +
+                "    mType = ?, \n" +
+                "    defined = ?, \n" +
+                "    supplier = ?, \n" +
+                "    warehousingDate = ?, \n" +
+                "    locationDescription = ?, \n" +
+                "    SIGN = ?, \n" +
+                "    warehousingRemarks = ?, \n" +
+                "    drugFrom = ?, \n" +
+                "    handingInformation = ?, \n" +
+                "    approvalNumber = ?, \n" +
+                "    LastCuringDate = ?, \n" +
+                "    timesStorage = ?, \n" +
+                "    documentNumber = ?, \n" +
+                "    placeOrigin = ?, \n" +
+                "    batchsNumber = ?, \n" +
+                "    recordNumber = ? \n" +
+                "WHERE tableCoding = ?\n";
         Object[] objects = new Object[32];
         objects[0] = stockAllForm.getmName();
         objects[1] = stockAllForm.getSpecification();
@@ -254,7 +296,6 @@ public class StockAllDaoImpl implements StockAllDao {
         objects[29] = stockAllForm.getBatchsNumber();
         objects[30] = stockAllForm.getRecordNumber();
         objects[31] = stockAllForm.getTableCoding();
-
         int count = JDBC.update(sql, objects);
         return count;
     }

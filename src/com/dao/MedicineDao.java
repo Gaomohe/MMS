@@ -41,6 +41,7 @@ public interface MedicineDao {
     public DicNum getDic_Num(int tableCoding, int patirntId);
     //获得所有维护表数据
     public List<DicNum> getDic_Num();
+    public List<DicNum> getDic_Num(String yifukuan);
     //更新维护表付款状态
     public int updateDic_Num(DicNum dicNum);
     //回滚后删除维护表信息

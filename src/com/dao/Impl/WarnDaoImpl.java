@@ -22,9 +22,9 @@ public class WarnDaoImpl implements WarnDao {
 
     @Override
     public int addWarnDetail(WarnDetail warnDetail) {
-        String sql = "INSERT INTO `warndetail` (`time`,`number`,`usefulLife`,`uId`,`uName`,`wid`)\n" +
-                "VALUES (?,?,?,?,?,?)";
-        Object[] objects = new Object[]{warnDetail.getTime(),warnDetail.getNumber(),warnDetail.getUsefulLife(),warnDetail.getuId(),warnDetail.getuName(),warnDetail.getWid()};
+        String sql = "INSERT INTO `warndetail` (`time`,`number`,`usefulLife`,`uId`,`uName`,`wid`,`qid`)\n" +
+                "VALUES (?,?,?,?,?,?,?)";
+        Object[] objects = new Object[]{warnDetail.getTime(),warnDetail.getNumber(),warnDetail.getUsefulLife(),warnDetail.getuId(),warnDetail.getuName(),warnDetail.getWid(),warnDetail.getQid()};
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -210,6 +210,7 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setuId(resultSet.getInt(5));
                 warn.setuName(resultSet.getString(6));
                 warn.setWid(resultSet.getInt(7));
+                warn.setQid(resultSet.getInt(8));
                 list.add(warn);
             }
         }catch (Exception e){
@@ -233,6 +234,7 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setuId(resultSet.getInt(5));
                 warn.setuName(resultSet.getString(6));
                 warn.setWid(resultSet.getInt(7));
+                warn.setQid(resultSet.getInt(8));
                 list.add(warn);
             }
         }catch (Exception e){
@@ -257,6 +259,31 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setName(resultSet.getString(6));
                 warn.setTime(resultSet.getString(7));
                 warn.setuId(resultSet.getInt(8));
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return warn;
+    }
+
+    public WarnDetail getWarnsByQId(int id) {
+        String sql = "SELECT * FROM `warndetail` WHERE `qid`=?";
+        Object[] objects = new Object[]{id};
+        ResultSet resultSet = JDBC.select(sql, objects);
+        WarnDetail warn = new WarnDetail();
+        try {
+            while (resultSet.next()){
+
+                warn.setId(resultSet.getInt(1));
+                warn.setTime(resultSet.getString(2));
+                warn.setNumber(resultSet.getInt(3));
+                warn.setUsefulLife(resultSet.getString(4));
+                warn.setuId(resultSet.getInt(5));
+                warn.setuName(resultSet.getString(6));
+                warn.setWid(resultSet.getInt(7));
+                warn.setQid(resultSet.getInt(8));
+
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -279,6 +306,7 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setuId(resultSet.getInt(5));
                 warn.setuName(resultSet.getString(6));
                 warn.setWid(resultSet.getInt(7));
+                warn.setQid(resultSet.getInt(8));
                 list.add(warn);
             }
         }catch (Exception e){
@@ -301,6 +329,7 @@ public class WarnDaoImpl implements WarnDao {
                 warn.setuId(resultSet.getInt(5));
                 warn.setuName(resultSet.getString(6));
                 warn.setWid(resultSet.getInt(7));
+                warn.setQid(resultSet.getInt(8));
                 list.add(warn);
             }
         }catch (Exception e){
@@ -321,6 +350,14 @@ public class WarnDaoImpl implements WarnDao {
     public int delWarnDetail(int id) {
         InitDaoImpl initDao = new InitDaoImpl();
         boolean b = initDao.delOne(id, "wid", "warndetail");
+        if (b){
+            return 1;
+        }
+        return 0;
+    }
+    public int delWarnDetailByID(int id) {
+        InitDaoImpl initDao = new InitDaoImpl();
+        boolean b = initDao.delOne(id, "id", "warndetail");
         if (b){
             return 1;
         }
@@ -355,6 +392,18 @@ public class WarnDaoImpl implements WarnDao {
     public int upWarnTotlNumber(Warn warn) {
         String sql = "UPDATE `warn` SET `tolNumber`=? WHERE `id`=?";
         Object[] objects = new Object[]{warn.getTolNumber(),warn.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
+    }
+    public int upWarnDetailNumber(WarnDetail warnDetail){
+        String sql = "UPDATE `warndetail` SET `number`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warnDetail.getNumber(),warnDetail.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
+    }
+    public int upWarnDetailTime(WarnDetail warnDetail) {
+        String sql = "UPDATE `warndetail` SET `time`=?,`name`=?,`uId`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warnDetail.getTime(),warnDetail.getuName(),warnDetail.getuId(),warnDetail.getId()};
         int i = JDBC.update(sql,objects);
         return i;
     }

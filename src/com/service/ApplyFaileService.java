@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ApplyFaileService {
     //添加不合格品审核订单
-    public int addFailed(int tableCoding,String cause,String name);
+    public int addFailed(int tableCoding,String cause,String name,int id);
     //获取所有不合格品订单信息
     public int getAll();
     public List<ApplyFailed> getAll(int page, int limit);

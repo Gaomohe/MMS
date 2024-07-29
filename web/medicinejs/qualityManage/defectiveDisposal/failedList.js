@@ -24,8 +24,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         limits: [5,10,15,20,25],
         cols: [
             [{fixed:"left",type: "checkbox", width:50},
-                {field: 'applyId', title: '申请编号',  align:'center',width:200},
-                {field: 'mId', title: '字典编号',  align:'center',width:200},
+                {field: 'applyId', title: '申请编号',  align:'center',width:200,hide:true},
+                {field: 'mId', title: '字典编号',  align:'center',width:200,hide:true},
                 {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200},
                 {field: 'specification', title: '规格', align:'center',width:200},
                 {field: 'manufactor', title: '生产企业', align:'center',width:200},
@@ -217,8 +217,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 limits: [5,10,15,20,25],
                 cols: [
                     [{fixed:"left",type: "checkbox", width:50},
-                        {field: 'applyId', title: '申请编号',  align:'center',width:200},
-                        {field: 'mId', title: '字典编号',  align:'center',width:200},
+                        {field: 'applyId', title: '申请编号',  align:'center',width:200,hide:true},
+                        {field: 'mId', title: '字典编号',  align:'center',width:200,hide:true},
                         {field: 'mName', title: '药品名称', minWidth:100, align:"center",width:200},
                         {field: 'specification', title: '规格', align:'center',width:200},
                         {field: 'manufactor', title: '生产企业', align:'center',width:200},

@@ -1,6 +1,7 @@
 package com.service;
 
 import com.pojo.Medicine;
+import com.pojo.User;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public interface MedicineService {
     public int updateDic_Num(int tableCoding,int patirntId);
     //药品库存数量修改
     public int updateMedicineNumber(Medicine medicine,int num,int patientId);
+    //售出药品
+    public String delDic_Num(int tableCoding, int number, int patientId, User user);
     //实现库存回滚
     public int rollBack();
 }
