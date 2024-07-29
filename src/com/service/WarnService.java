@@ -49,4 +49,11 @@ public interface WarnService {
 
     //退货药品数量处理
     public void dispose(int qid);
+
+    //获取昨日入库药品
+    public List<Warn> getYesterdayWarns();
+    //获取过期的药品
+    public List<WarnDetail> getOutUseWarns();
+    //获取需要购买药品
+    public List<Warn> getNeedBuyWarns();
 }

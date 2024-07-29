@@ -148,6 +148,53 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         });
         renderTable2(data.applyId);
     });
+
+    //点击表头查询
+    $("#table2").click(function (){
+        $.ajax({
+            url: '/warning?action=getYesterdayWarns', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {},
+            dataType:"JSON",
+            success: function(response) {
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    })
+    $("#table3").click(function (){
+        $.ajax({
+            url: '/warning?action=getOutUseWarns', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {},
+            dataType:"JSON",
+            success: function(response) {
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable2(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    })
+    $("#table4").click(function (){
+        $.ajax({
+            url: '/warning?action=getNeedBuyWarns', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {},
+            dataType:"JSON",
+            success: function(response) {
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    })
     //查询方法
     function renderTable(data) {
         layui.use('table', function(){
@@ -310,8 +357,40 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     });
                 }
             });
+            $("#table2").click(function (){
+                $.ajax({
+                    url: '/quality?action=getYesterdayWarns', // 后端处理数据的URL
+                    type: "POST", // 或 'GET'，取决于后端接口的要求
+                    data: {},
+                    dataType:"JSON",
+                    success: function(response) {
+                        var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                        renderTable(tableData); // 渲染表格数据
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            })
+            $("#table4").click(function (){
+                $.ajax({
+                    url: '/quality?action=getNeedBuyWarns', // 后端处理数据的URL
+                    type: "POST", // 或 'GET'，取决于后端接口的要求
+                    data: {},
+                    dataType:"JSON",
+                    success: function(response) {
+                        var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                        renderTable(tableData); // 渲染表格数据
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            })
         });
     }
+
+
     //表2
     function renderTable2(data) {
         layui.use('table', function(){

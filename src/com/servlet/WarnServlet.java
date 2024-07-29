@@ -200,4 +200,23 @@ public class WarnServlet extends BaseServlet {
         session3.setAttribute("need",needBuy);
     }
 
+    //获取昨日入库药品
+    public ResultData<Warn> getYesterdayWarns(HttpServletRequest request, HttpServletResponse response){
+        List<Warn> warns = warnService.getYesterdayWarns();
+        return Result.resultData(warns);
+    }
+
+    //获取需要购买药品
+    public ResultData<Warn> getNeedBuyWarns(HttpServletRequest request, HttpServletResponse response){
+        List<Warn> warns = warnService.getNeedBuyWarns();
+        return Result.resultData(warns);
+    }
+
+    //获取过期的药品
+    public ResultData<WarnDetail> getOutUseWarns(HttpServletRequest request, HttpServletResponse response){
+        List<WarnDetail> warns = warnService.getOutUseWarns();
+        return Result.resultData(warns);
+    }
+
+
 }
