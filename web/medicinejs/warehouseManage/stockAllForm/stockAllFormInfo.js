@@ -1,7 +1,7 @@
 
 layui.use(['form', 'layedit', 'laydate'], function(){
     var form = layui.form
-        ,layer = layui.layer
+        ,layer = parent.layer === undefined ? layui.layer : top.layer
         ,layedit = layui.layedit
         ,laydate = layui.laydate;
     /*****************提交按钮事件***********************/
@@ -39,7 +39,6 @@ layui.use(['form', 'layedit', 'laydate'], function(){
         var batchsNumber = $("#batchsNumber").val();
         var recordNumber = $("#recordNumber").val();
         var tableCoding = $("#tableCoding").val();
-        console.log(department)
         if(mName.length == "" ){
             layer.msg("药品名称不能为空")
             return false;
@@ -83,6 +82,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
             },
             type:"post",
             success:function(data){
+                layer.msg("成功1")
                 var info  = JSON.parse(data)
                 console.log(info)
                 if(info.status == 200){

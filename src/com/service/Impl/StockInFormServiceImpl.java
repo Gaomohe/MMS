@@ -4,9 +4,7 @@ import com.pojo.Orders;
 import com.pojo.StockInForm;
 import com.pojo.StockInWithQuality;
 import com.pojo.User;
-import com.service.QualityService;
 import com.service.StockInFormService;
-import com.util.GetTime;
 import com.util.LayuiTable;
 import java.util.List;
 
@@ -76,8 +74,7 @@ public class StockInFormServiceImpl implements StockInFormService {
         return ordersList;
     }
 
-    @Override
-    public LayuiTable<StockInWithQuality> getStockInFormByManufactorAndDrugName(int page, int limit,String manufactor,String rName) {
+    public LayuiTable<StockInWithQuality> getStockInFormByManufactorOrDrugName(int page, int limit, String manufactor, String rName) {
         int curePage = (page-1)*limit;
         List<StockInWithQuality> drugNameByManufactor = stockInFormDao.getStockInFormByManufactorAndDrugName(curePage, limit,manufactor,rName);
         LayuiTable<StockInWithQuality> LayuiTable = new LayuiTable<StockInWithQuality>();

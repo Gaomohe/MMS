@@ -24,8 +24,8 @@ public interface StockInFormService {
     //获得订单表里所有供应商名称
     public List<Orders> getManufactorWithNoRepeat();
 
-    //通过供应商和药品名称出对应的入库单（入库单表+质量检测表）
-    public LayuiTable<StockInWithQuality> getStockInFormByManufactorAndDrugName(int page, int limit,String manufactor,String rName);
+    //通过供应商或药品名称出对应的入库单（入库单表+质量检测表）
+    public LayuiTable<StockInWithQuality> getStockInFormByManufactorOrDrugName(int page, int limit, String manufactor, String rName);
 
 
 
