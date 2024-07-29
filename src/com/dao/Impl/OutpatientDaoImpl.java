@@ -1,5 +1,6 @@
 package com.dao.Impl;
 
+import com.dao.Impl.init.InitDaoImpl;
 import com.dao.OutpatientDao;
 import com.pojo.Medicine;
 import com.pojo.Patient;
@@ -14,20 +15,16 @@ import java.util.List;
 
 import static com.util.Vessel.medicineCount;
 
-public class OutpatientDaoImpl implements OutpatientDao {
+public class OutpatientDaoImpl extends InitDaoImpl implements OutpatientDao {
 
     //获取病患列表
     @Override
-    public List<Patient> getPatientList(int page, int limit, User user) {
+    public List<Patient> getPatientList(int page, int limit) {
         String sql = "SELECT * FROM patient\n" +
-                "WHERE dId=? and dName=?\n" +
-                "ORDER BY pId DESC\n" +
                 "limit ?,?";
-        Object[] objects = new Object[4];
-        objects[0] = user.getId();
-        objects[1] = user.getUserName();
-        objects[2] = page;
-        objects[3] = limit;
+        Object[] objects = new Object[2];
+        objects[0] = page;
+        objects[1] = limit;
         ResultSet resultSet = JDBC.select(sql,objects);
         List<Patient> list = new ArrayList<Patient>();
         try{

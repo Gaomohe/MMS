@@ -238,6 +238,7 @@ public class OrdersServlet extends BaseServlet {
     public void getApproveOrderDetails(HttpServletRequest request,HttpServletResponse response){
         String oIdStr = request.getParameter("oId");
         int oId = Integer.parseInt(oIdStr);
+        System.out.println(oId);
 
     }
 

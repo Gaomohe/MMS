@@ -7,6 +7,9 @@ public class Message {
     private int wId;
     private String message;
     private int fId;
+    private String time;
+    private int state;
+    private int rid;
 
     public Message() {
     }
@@ -64,5 +67,29 @@ public class Message {
 
     public void setfId(int fId) {
         this.fId = fId;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
     }
 }

@@ -1,5 +1,6 @@
 package com.servlet;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojo.*;
 import com.util.*;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -87,11 +90,19 @@ public class OutpatientServlet extends BaseServlet {
         int page = Integer.parseInt(pageStr);
         int limit = Integer.parseInt(limitStr);
         page = (page - 1) * limit;
-        LayuiTable<Patient> patientList = outpatientService.getPatientList(page, limit, user);
-        ToJSON.toJson(response,patientList);
+        LayuiTable<Patient> patientList = outpatientService.getPatientList(page, limit);
+        try{
+            String string = JSON.toJSONString(patientList);
+            PrintWriter writer = response.getWriter();
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     //获取所有个人诊断患者
-    public void Search(HttpServletRequest request, HttpServletResponse response){
+    /*public void Search(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
@@ -136,9 +147,43 @@ public class OutpatientServlet extends BaseServlet {
         patient.setdName(name);
         patient.setLastDiaTime(lastTime);
         patient.setDisease(disease);
+        LayuiTable layuitable = outpatientService.Search(patient);
+        ToJSON.toJson(response,layuitable);
+    }*/
+    public void Search(HttpServletRequest request, HttpServletResponse response) {
+        // 获取所有请求参数
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        // 存储解析后的搜索条件
+        Map<String, Object> searchCriteria = new HashMap<>();
 
-        ToJSON.toJson(response,outpatientService.Search(patient));
+        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+            String key = entry.getKey();
+            String[] values = entry.getValue();
+
+            if (values != null && values.length > 0) {
+                String value = values[0];
+                try {
+                    // 尝试将值解析为整数
+                    int intValue = Integer.parseInt(value);
+                    searchCriteria.put(key, intValue);
+                } catch (NumberFormatException e1) {
+                    try {
+                        // 尝试将值解析为双精度浮点数
+                        double doubleValue = Double.parseDouble(value);
+                        searchCriteria.put(key, doubleValue);
+                    } catch (NumberFormatException e2) {
+                        // 如果无法解析为整数或双精度浮点数，默认将值作为字符串处理
+                        searchCriteria.put(key, value);
+                    }
+                }
+            }
+        }
+
+        // 输出解析后的搜索条件
+        LayuiTable<Patient> layuiTable = patientService.selectPatient(searchCriteria);
+        ToJSON.toJson(response,layuiTable);
     }
+
 
     //添加病患信息
     public ResultData addPatient(HttpServletRequest request,HttpServletResponse response){

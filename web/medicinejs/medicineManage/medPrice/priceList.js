@@ -27,14 +27,16 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                     title: '数据编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide:true,
                 },
                 {
                     field: 'mId',
                     title: '药品编号',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide:true,
                 },
                 {
                     field: 'mName',
@@ -88,7 +90,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                     title: '自编码',
                     minWidth: 200,
                     align: 'center',
-                    sort: true
+                    sort: true,
+                    hide:true,
                 },
                 {
                     field: 'goodsType',
@@ -232,108 +235,111 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
                 height: 600,
                 limit: 15,
                 limits: [5,10,15,20,25],
-                cols: [ [
-                    {fixed: "left",
+                cols: [
+                    [{fixed: "left",
                         type: "checkbox",
                         width: 50
                     },
-                    {
-                        field: 'tableCoding',
-                        title: '数据编号',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'mId',
-                        title: '药品编号',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'mName',
-                        title: '药品名称',
-                        minWidth: 400,
-                        align: "center",
-                    },
-                    {
-                        field: 'specification',
-                        title: '规格',
-                        minWidth: 200,
-                        align: 'center',
-                    },
-                    {
-                        field: 'usefulLife',
-                        title: '有效期',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'purchasePrice',
-                        title: '采购价',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true,
-                    },
-                    {
-                        field: 'salePrice',
-                        title: '销售价',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true,
-                    },
-                    {
-                        field: 'productDate',
-                        title: '生产日期',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'profits',
-                        title: '利润金额',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true,
-                    },
-                    {
-                        field: 'code',
-                        title: '自编码',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'goodsType',
-                        title: '商品分类',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'mType',
-                        title: '药品分类',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'defined',
-                        title: '自定义类',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                    {
-                        field: 'drugFrom',
-                        title: '剂型',
-                        minWidth: 200,
-                        align: 'center',
-                        sort: true
-                    },
-                ]
+                        {
+                            field: 'tableCoding',
+                            title: '数据编号',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true,
+                            hide:true,
+                        },
+                        {
+                            field: 'mId',
+                            title: '药品编号',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true,
+                            hide:true,
+                        },
+                        {
+                            field: 'mName',
+                            title: '药品名称',
+                            minWidth: 400,
+                            align: "center",
+                        },
+                        {
+                            field: 'specification',
+                            title: '规格',
+                            minWidth: 200,
+                            align: 'center',
+                        },
+                        {
+                            field: 'usefulLife',
+                            title: '有效期',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true
+                        },
+                        {
+                            field: 'purchasePrice',
+                            title: '采购价',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true,
+                        },
+                        {
+                            field: 'salePrice',
+                            title: '销售价',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true,
+                        },
+                        {
+                            field: 'productDate',
+                            title: '生产日期',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true
+                        },
+                        {
+                            field: 'profits',
+                            title: '利润金额',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true,
+                        },
+                        {
+                            field: 'code',
+                            title: '自编码',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true,
+                            hide:true,
+                        },
+                        {
+                            field: 'goodsType',
+                            title: '商品分类',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true
+                        },
+                        {
+                            field: 'mType',
+                            title: '药品分类',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true
+                        },
+                        {
+                            field: 'defined',
+                            title: '自定义类',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true
+                        },
+                        {
+                            field: 'drugFrom',
+                            title: '剂型',
+                            minWidth: 200,
+                            align: 'center',
+                            sort: true
+                        },
+                    ]
                 ],
             });
             table.on('toolbar(xTable1)', function(obj){

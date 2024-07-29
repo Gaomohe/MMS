@@ -39,5 +39,8 @@ public interface WarnDao {
     public int upWarnTime(Warn warn);
     public int upWarnWNumber(Warn warn);
     public int upWarnTotlNumber(Warn warn);
+    //修改预警细节数据
+    public int upWarnDetailNumber(WarnDetail warnDetail);
+    public int upWarnDetailTime(WarnDetail warnDetail);
 
 }

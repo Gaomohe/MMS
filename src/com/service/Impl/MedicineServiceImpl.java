@@ -4,6 +4,7 @@ import com.dao.Impl.MedicineDaoImpl;
 import com.dao.MedicineDao;
 import com.pojo.DicNum;
 import com.pojo.Medicine;
+import com.pojo.User;
 import com.service.MedicineService;
 
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.util.SQLtoString.getSQL;
+import static com.util.Vessel.warnService;
 
 public class MedicineServiceImpl implements MedicineService {
 
@@ -180,6 +182,14 @@ public class MedicineServiceImpl implements MedicineService {
         }
         return i;
     }
+
+    public String delDic_Num(int tableCoding, int number, int patientId, User user){
+        DicNum dicNum = medicineDao.getDic_Num(tableCoding, patientId);
+        Medicine medicine = medicineDao.getMedicine(tableCoding);
+        medicineDao.delDic_Num(dicNum.getId());
+        return warnService.delNumber(medicine,number,user);
+    }
+
 
     //实现药品库存回滚
     @Override

@@ -31,6 +31,7 @@
         </environment>
     </environments>
     <mappers>
+        <mapper resource="mapper/PatientMapper.xml"></mapper>
         <mapper resource="mapper/ApplyMapper.xml"></mapper>
         <mapper resource="mapper/UserMapper.xml"></mapper>
         <mapper resource="mapper/AppointMapper.xml"></mapper>

@@ -1,5 +1,7 @@
 package com.service.Impl;
 
+import com.dao.Impl.OutpatientDaoImpl;
+import com.dao.OutpatientDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojo.Log;
 import com.pojo.Medicine;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,11 +27,38 @@ import java.util.Map;
 import static com.util.Vessel.*;
 
 public class OutpatientServiceImpl implements OutpatientService {
+    OutpatientDaoImpl outpatientDaoImpl = new OutpatientDaoImpl();
     //获取病患列表
     @Override
-    public LayuiTable<Patient> getPatientList(int page, int limit, User user) {
+    public LayuiTable<Patient> getPatientList(int page, int limit) {
         LayuiTable<Patient> layuiTable = new LayuiTable<>();
-        List<Patient> patientList = outpatientDao.getPatientList(page, limit, user);
+//        List<Patient> patientList = outpatientDao.getPatientList(page, limit);
+
+        ResultSet resultSet = outpatientDaoImpl.getAll(page,limit,"patient");
+        List<Patient> patientList = new ArrayList<Patient>();
+        try{
+            while (resultSet.next()) {
+                Patient patient = new Patient();
+                patient.setpId(resultSet.getInt(1));
+                patient.setdId(resultSet.getInt(2));
+                patient.setmId(resultSet.getInt(3));
+                patient.setName(resultSet.getString(4));
+                patient.setSex(resultSet.getString(5));
+                patient.setAge(resultSet.getInt(6));
+                patient.setWeight(resultSet.getInt(7));
+                patient.setAddress(resultSet.getString(8));
+                patient.setPhone(resultSet.getString(9));
+                patient.setDiagnosticTime(resultSet.getString(10));
+                patient.setAllergy(resultSet.getString(11));
+                patient.setDoctorAdvice(resultSet.getString(12));
+                patient.setdName(resultSet.getString(13));
+                patient.setLastDiaTime(resultSet.getString(14));
+                patient.setDisease(resultSet.getString(15));
+                patientList.add(patient);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         layuiTable.setMsg("");
         layuiTable.setCode(0);
         layuiTable.setCount(patientList.size());

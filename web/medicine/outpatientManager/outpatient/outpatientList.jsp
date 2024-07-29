@@ -16,27 +16,37 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="<%=basePath %>admin/lib/layui-v2.5.5/css/layui.css" media="all" />
-    <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
-    <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.css">
-    <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
+    <link rel="stylesheet" href="<%=path %>/admin/lib/layui-v2.5.5/css/layui.css" media="all" />
+    <link rel="stylesheet" href="<%=path %>/admin/css/public.css" media="all" />
+    <link rel="stylesheet" href="<%=path %>/admin/js/lay-module/layui_ext/dtree/dtree.css">
+    <link rel="stylesheet" href="<%=path %>/admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
+<form id="searchForm">
 <div class="layui-form">
     <div class="layuimini-container">
         <div class="layuimini-main">
             <script type="text/html" id="outpatientDemo">
                 <c:forEach var="menu" items="${menuList}" varStatus="s">
-                    ${menu.resUrl}
+<%--                    ${menu.resUrl}--%>
                 </c:forEach>
+
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" id="search" name="search" lay-verify="search" lay-event="search" lay-filter="search" placeholder="请输入搜索字段" autocomplete="off" class="layui-input">
+                        </div>
+                        <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe615;</i>查询</button>
+                    </div>
+                <button id="reload" lay-event="reload" lay-filter="reload" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
             </script>
             <table id="outpatientList" lay-filter="outpatientList"></table>
         </div>
         <table id="outpatientList2" lay-filter="outpatientList2"></table>
     </div>
 </div>
-<script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
-<script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>medicinejs/outpatientManager/outpatient/outpatient.js" charset="utf-8"></script>
+</form>
+<script type="text/javascript" src="<%=path %>/admin/lib/layui-v2.5.5/layui.js"></script>
+<script type="text/javascript" src="<%=path%>path %>/admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="<%=path %>/medicinejs/outpatientManager/outpatient/outpatient.js" charset="utf-8"></script>
 </body>
 </html>

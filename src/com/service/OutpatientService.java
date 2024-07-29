@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OutpatientService {
     //获取病患列表
-    public LayuiTable<Patient> getPatientList(int page, int limit, User user);
+    public LayuiTable<Patient> getPatientList(int page, int limit);
 
     //条件查询所有患者
     public LayuiTable<Patient> Search(Patient patient);
