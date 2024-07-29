@@ -30,6 +30,19 @@ public class OrdersServiceImpl implements OrdersService {
         return ordersLayuiTable;
     }
 
+    //获取所有订单(财务）
+    @Override
+    public LayuiTable<Orders> getOrders(int page, int limit) {
+        int curePage = (page-1)*limit;
+        List<Orders> ordersAll = ordersDao.getOrders(curePage, limit);
+        LayuiTable<Orders> ordersLayuiTable = new LayuiTable<Orders>();
+        ordersLayuiTable.setMsg("");
+        ordersLayuiTable.setCode(0);
+        ordersLayuiTable.setCount(ordersAll.size());
+        ordersLayuiTable.setData(ordersAll);
+        return ordersLayuiTable;
+    }
+
     @Override
     public Orders getOrdersById(int id) {
         return ordersDao.getOrdersById(id);

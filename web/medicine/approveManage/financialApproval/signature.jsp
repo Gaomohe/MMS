@@ -19,40 +19,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jSignature/2.1.3/jSignature.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<style>
-    body {
-        background-color: #fff; /* 白色背景 */
-        color: #333; /* 页面默认文本颜色 */
-        font-family: Arial, sans-serif;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 轻微的阴影效果 */
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 15px;
-        text-align: left;
-        color: #000; /* 字体颜色设置为黑色 */
-    }
-    th {
-        background-color: #f2f2f2; /* 表头背景颜色 */
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9; /* 偶数行背景颜色 */
-    }
-    tr:hover {
-        background-color: #f1f1f1; /* 鼠标悬浮行背景颜色 */
-    }
-</style>
+    <style>
+        body {
+            background-color: #fff; /* 白色背景 */
+            color: #333; /* 页面默认文本颜色 */
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 轻微的阴影效果 */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            color: #000; /* 字体颜色设置为黑色 */
+        }
+        th {
+            background-color: #f2f2f2; /* 表头背景颜色 */
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* 偶数行背景颜色 */
+        }
+        tr:hover {
+            background-color: #f1f1f1; /* 鼠标悬浮行背景颜色 */
+        }
+    </style>
 </head>
 <body style="background-color: white">
 <div class="title" style="margin-top: 50px">买药审批</div>
 <!-- 初始，渲染带装饰的html，供用户输入文本、上传图片、生成电子签名 -->
 <div id="container">
-    <h1>药品采购药师审核</h1>
+    <h1>药品采购财务审核</h1>
     <!-- Date -->
     <div class="row" style="margin-top: 50px">
         <div class="row-input">
@@ -70,11 +70,11 @@
     <div class="row" style="margin-bottom: 50px">
         <p style="color: black">
             药品如下:
-<%--            <input--%>
-<%--                    id="some_input"--%>
-<%--                    type="text"--%>
-<%--                    placeholder="Type anything you need here."--%>
-<%--            />--%>
+            <%--            <input--%>
+            <%--                    id="some_input"--%>
+            <%--                    type="text"--%>
+            <%--                    placeholder="Type anything you need here."--%>
+            <%--            />--%>
 
         </p>
         <table id="tableOne">
@@ -444,5 +444,5 @@
     }
 </script>
 <script type="text/javascript" src="<%=basePath%>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/approveManage/purchaseApproval/signature.js" charset="UTF-8"></script>
+<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/approveManage/financialApproval/signature.js" charset="UTF-8"></script>
 </html>
