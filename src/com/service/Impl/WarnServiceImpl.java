@@ -21,7 +21,7 @@ public class WarnServiceImpl implements WarnService {
 
     WarnDao warnDao = new WarnDaoImpl();
     @Override
-    public int addWarn(Warn warn,String usefulLife) {
+    public int addWarn(Warn warn,String usefulLife,int id) {
         //时间
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,6 +44,7 @@ public class WarnServiceImpl implements WarnService {
         warnDetail.setNumber(warn.getTolNumber());
         warnDetail.setUsefulLife(usefulLife);
         warnDetail.setWid(lastWarnId);
+        warnDetail.setQid(id);
         //改变药品数量
         medicine.setNumber(warn1.getTolNumber());
         medicineDao.updateMedicineNumber(medicine);
@@ -132,7 +133,7 @@ public class WarnServiceImpl implements WarnService {
     }
 
     @Override
-    public int upWarnTotlNumber(Warn warn,String usefulLife) {
+    public int upWarnTotlNumber(Warn warn,String usefulLife,int id) {
         Warn warn1 = warnDao.getWarnsById(warn.getId());
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -149,9 +150,10 @@ public class WarnServiceImpl implements WarnService {
         warnDetail.setuName(warn.getName());
         warnDetail.setuId(warn.getuId());
         warnDetail.setTime(format);
-        warnDetail.setNumber(medicine.getNumber());
+        warnDetail.setNumber(warn.getTolNumber());
         warnDetail.setUsefulLife(usefulLife);
         warnDetail.setWid(warn.getId());
+        warnDetail.setQid(id);
         warnDao.addWarnDetail(warnDetail);
         warn1.setTolNumber(medicine.getNumber());
         return warnDao.upWarnTotlNumber(warn1);
@@ -261,6 +263,17 @@ public class WarnServiceImpl implements WarnService {
             }
         }
         return "出错了";
+    }
+
+    public void dispose(int qid){
+        WarnDetail warnsByQId = warnDao.getWarnsByQId(qid);
+        Warn warn = warnDao.getWarnsById(warnsByQId.getWid());
+        warn.setTolNumber(warn.getTolNumber()-warnsByQId.getNumber());
+        warnDao.upWarnTotlNumber(warn);
+        warnDao.delWarnDetailByID(warnsByQId.getId());
+        Medicine medicine = medicineDao.getMedicine(warn.getTableCoding());
+        medicine.setNumber(medicine.getNumber()-warnsByQId.getNumber());
+        medicineDao.updateMedicineNumber(medicine);
     }
 
 }

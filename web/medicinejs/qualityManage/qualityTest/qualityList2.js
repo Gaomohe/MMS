@@ -170,16 +170,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         tableCoding = data[i].tableCoding;
                         id = data[i].id;
                         oId = data[i].orderId;
-                        layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                            var a = addFunc(oId,id,2);
-                            issue(tableCoding);
-                            if (a = 1){
-                                delFunc(id);
-                            }
-                        }, function(){
-                            issue(tableCoding,id);
-                        });
-
+                        issue(tableCoding,id);
+                        delFunc(id);
                     }
                 }
                 break;
@@ -370,16 +362,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                                 tableCoding = data[i].tableCoding;
                                 id = data[i].id;
                                 oId = data[i].orderId;
-                                layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                                    var a = addFunc(oId,id,2);
-                                    issue(tableCoding);
-                                    if (a = 1){
-                                        delFunc(id);
-                                    }
-                                }, function(){
-                                    issue(tableCoding,id);
-                                });
-
+                                issue(tableCoding,id);
+                                delFunc(id);
                             }
                         }
                         break;
@@ -520,14 +504,14 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         })
     }
 
-    function issue(tableCoding){
+    function issue(tableCoding,id){
         layer.open({
             type: 2,
             title: '处理货单',
             shadeClose: true,
             maxmin: true, //开启最大化最小化按钮
             area: ['900px', '600px'],
-            content:"medicine/qualityManage/defectiveDisposal/failedInfo.jsp?tableCoding="+tableCoding,
+            content:"medicine/qualityManage/defectiveDisposal/failedInfo.jsp?tableCoding="+tableCoding+"&id="+id,
         });
         return 1;
     }

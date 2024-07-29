@@ -90,9 +90,11 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         var data = checkStatus.data;
         var id='';
         var warnNumber='';
+        var mName = '';
         for(i=0;i<data.length;i++){
            id = data[i].id;
            warnNumber = data[i].warnNumber;
+           mName = data[i].mName;
         }
         switch(obj.event){
             case 'time':	//按照时间查找
@@ -122,7 +124,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 if (data.length != 1){
                     layer.msg("请选择一条数据")
                 }else {
-                    addFunc(id);
+                    addFunc(id,mName);
                 }
                 break;
         };
@@ -440,12 +442,12 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         });
     }
     //发出信息
-    function addFunc(wId){
+    function addFunc(wId,mName){
         layer.open({
             type: 2,
             area: ['420px', '240px'], // 宽高
             title: false,
-            content:"medicine/qualityManage/imminentWarning/massageAdd.jsp?wId="+wId,
+            content:"medicine/qualityManage/imminentWarning/massageAdd.jsp?wId="+wId+"&mName="+mName,
             move: '#test-page-move'
         });
     }
