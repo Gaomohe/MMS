@@ -6,6 +6,7 @@ import com.pojo.*;
 import com.service.WarnService;
 import com.util.GetTime;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class WarnServiceImpl implements WarnService {
 
     WarnDao warnDao = new WarnDaoImpl();
     @Override
-    public int addWarn(Warn warn,String usefulLife) {
+    public int addWarn(Warn warn,String usefulLife,int id) {
         //时间
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,6 +45,7 @@ public class WarnServiceImpl implements WarnService {
         warnDetail.setNumber(warn.getTolNumber());
         warnDetail.setUsefulLife(usefulLife);
         warnDetail.setWid(lastWarnId);
+        warnDetail.setQid(id);
         //改变药品数量
         medicine.setNumber(warn1.getTolNumber());
         medicineDao.updateMedicineNumber(medicine);
@@ -132,7 +134,7 @@ public class WarnServiceImpl implements WarnService {
     }
 
     @Override
-    public int upWarnTotlNumber(Warn warn,String usefulLife) {
+    public int upWarnTotlNumber(Warn warn,String usefulLife,int id) {
         Warn warn1 = warnDao.getWarnsById(warn.getId());
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -149,9 +151,10 @@ public class WarnServiceImpl implements WarnService {
         warnDetail.setuName(warn.getName());
         warnDetail.setuId(warn.getuId());
         warnDetail.setTime(format);
-        warnDetail.setNumber(medicine.getNumber());
+        warnDetail.setNumber(warn.getTolNumber());
         warnDetail.setUsefulLife(usefulLife);
         warnDetail.setWid(warn.getId());
+        warnDetail.setQid(id);
         warnDao.addWarnDetail(warnDetail);
         warn1.setTolNumber(medicine.getNumber());
         return warnDao.upWarnTotlNumber(warn1);
@@ -176,7 +179,7 @@ public class WarnServiceImpl implements WarnService {
         int i = 0;
         List<Warn> warnsAll = warnDao.getWarnsAll();
         for (Warn warn:warnsAll){
-            if (warn.getWarnNumber()<=warn.getTolNumber()){
+            if (warn.getWarnNumber()>=warn.getTolNumber()){
                 i++;
             }
         }
@@ -262,5 +265,65 @@ public class WarnServiceImpl implements WarnService {
         }
         return "出错了";
     }
+
+    public void dispose(int qid){
+        WarnDetail warnsByQId = warnDao.getWarnsByQId(qid);
+        Warn warn = warnDao.getWarnsById(warnsByQId.getWid());
+        warn.setTolNumber(warn.getTolNumber()-warnsByQId.getNumber());
+        warnDao.upWarnTotlNumber(warn);
+        warnDao.delWarnDetailByID(warnsByQId.getId());
+        Medicine medicine = medicineDao.getMedicine(warn.getTableCoding());
+        medicine.setNumber(medicine.getNumber()-warnsByQId.getNumber());
+        medicineDao.updateMedicineNumber(medicine);
+    }
+
+    public List<Warn> getYesterdayWarns(){
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        return  warnDao.getWarnsByTime(yesterday.toString());
+    }
+    public List<WarnDetail> getOutUseWarns(){
+        List<WarnDetail> warndetailsAll = warnDao.getWarndetailsAll();
+        List<WarnDetail> warns = new ArrayList<>();
+        for (WarnDetail warnDetail:warndetailsAll){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDate expirationDate = LocalDate.parse(warnDetail.getUsefulLife(),formatter);
+            // 获取当前日期
+            LocalDate currentDate = LocalDate.now();
+            // 判断是否过期
+            if (expirationDate.isBefore(currentDate)) {
+                warns.add(warnDetail);
+            }
+        }
+        return warns;
+    }
+    public List<Warn> getNeedBuyWarns(){
+        int i = 0;
+        List<Warn> warnsAll = warnDao.getWarnsAll();
+        List<Warn> warns = new ArrayList<>();
+        for (Warn warn:warnsAll){
+            if (warn.getWarnNumber()>=warn.getTolNumber()){
+                warns.add(warn);
+            }
+        }
+        return warns;
+    }
+
+   /* public List<Warn> getYesterdayWarns(){
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        int allMedicine = medicineDao.getAllMedicine();
+        List<Warn> warnsByTime = warnService.getWarnsByTime(yesterday.toString());
+        int outUserfulLife = warnService.getOutUserfulLife();
+        int needBuy = warnService.getNeedBuy();
+        session.setAttribute("mTotl",allMedicine);
+        session1.setAttribute("yesterday",warnsByTime.size());
+        session2.setAttribute("out",outUserfulLife);
+        session3.setAttribute("need",needBuy);
+    }*/
 
 }

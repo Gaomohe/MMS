@@ -63,7 +63,7 @@ String path = request.getContextPath();
 <!-- 正文开始 -->
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+        <div id="table1" class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
                     药品总数<span class="layui-badge-rim">个</span>
@@ -73,7 +73,7 @@ String path = request.getContextPath();
                 </div>
             </div>
         </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+        <div id="table2" class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
                     昨日入库药品<span class="layui-badge-rim">个</span>
@@ -83,7 +83,7 @@ String path = request.getContextPath();
                 </div>
             </div>
         </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+        <div id="table3" class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
                     已过期药品<span class="layui-badge-rim">种</span>
@@ -93,7 +93,7 @@ String path = request.getContextPath();
                 </div>
             </div>
         </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+        <div id="table4" class="layui-col-xs12 layui-col-sm6 layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-header">
                     需采购药品<span class="layui-badge-rim">种</span>
@@ -118,6 +118,7 @@ String path = request.getContextPath();
                                 </div>
                                 <input id="search" lay-event="enterSearch" class="layui-input icon-search" type="text" placeholder="输入药品名称按回车搜索"/>
                             </div>
+                            <hr class="layui-border-green">
                             <c:forEach var="menu" items="${menuList}" varStatus="s">
                                 ${menu.resUrl}
                             </c:forEach>

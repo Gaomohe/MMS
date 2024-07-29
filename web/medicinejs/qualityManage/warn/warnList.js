@@ -90,9 +90,11 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         var data = checkStatus.data;
         var id='';
         var warnNumber='';
+        var mName = '';
         for(i=0;i<data.length;i++){
            id = data[i].id;
            warnNumber = data[i].warnNumber;
+           mName = data[i].mName;
         }
         switch(obj.event){
             case 'time':	//按照时间查找
@@ -122,7 +124,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 if (data.length != 1){
                     layer.msg("请选择一条数据")
                 }else {
-                    addFunc(id);
+                    addFunc(id,mName);
                 }
                 break;
         };
@@ -146,6 +148,53 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         });
         renderTable2(data.applyId);
     });
+
+    //点击表头查询
+    $("#table2").click(function (){
+        $.ajax({
+            url: '/warning?action=getYesterdayWarns', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {},
+            dataType:"JSON",
+            success: function(response) {
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    })
+    $("#table3").click(function (){
+        $.ajax({
+            url: '/warning?action=getOutUseWarns', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {},
+            dataType:"JSON",
+            success: function(response) {
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable2(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    })
+    $("#table4").click(function (){
+        $.ajax({
+            url: '/warning?action=getNeedBuyWarns', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {},
+            dataType:"JSON",
+            success: function(response) {
+                var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                renderTable(tableData); // 渲染表格数据
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    })
     //查询方法
     function renderTable(data) {
         layui.use('table', function(){
@@ -308,8 +357,40 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     });
                 }
             });
+            $("#table2").click(function (){
+                $.ajax({
+                    url: '/quality?action=getYesterdayWarns', // 后端处理数据的URL
+                    type: "POST", // 或 'GET'，取决于后端接口的要求
+                    data: {},
+                    dataType:"JSON",
+                    success: function(response) {
+                        var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                        renderTable(tableData); // 渲染表格数据
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            })
+            $("#table4").click(function (){
+                $.ajax({
+                    url: '/quality?action=getNeedBuyWarns', // 后端处理数据的URL
+                    type: "POST", // 或 'GET'，取决于后端接口的要求
+                    data: {},
+                    dataType:"JSON",
+                    success: function(response) {
+                        var tableData = response.data; // 假设数据在返回的响应中是一个名为 data 的属性
+                        renderTable(tableData); // 渲染表格数据
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                    }
+                });
+            })
         });
     }
+
+
     //表2
     function renderTable2(data) {
         layui.use('table', function(){
@@ -440,12 +521,12 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         });
     }
     //发出信息
-    function addFunc(wId){
+    function addFunc(wId,mName){
         layer.open({
             type: 2,
             area: ['420px', '240px'], // 宽高
             title: false,
-            content:"medicine/qualityManage/imminentWarning/massageAdd.jsp?wId="+wId,
+            content:"medicine/qualityManage/imminentWarning/massageAdd.jsp?wId="+wId+"&mName="+mName,
             move: '#test-page-move'
         });
     }

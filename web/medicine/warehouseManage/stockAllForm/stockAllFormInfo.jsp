@@ -135,43 +135,43 @@
     <div class="layui-form-item">
         <label class="layui-form-label">自定义类</label>
         <div class="layui-input-inline">
-            <input type="text" name="defined" id="defined" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="defined" id="defined" lay-verify="required" placeholder="请输入自定义类" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">供货商</label>
         <div class="layui-input-inline">
-            <input type="text" name="supplier" id="supplier" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="supplier" id="supplier" lay-verify="required" placeholder="请输入供货商" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">入库日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="warehousingDate" id="warehousingDate" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="warehousingDate" id="warehousingDate" lay-verify="required" placeholder="请输入入库日期" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">货位说明</label>
         <div class="layui-input-inline">
-            <input type="text" name="locationDescription" id="locationDescription" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="locationDescription" id="locationDescription" lay-verify="required" placeholder="请输入货位说明" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">标志</label>
         <div class="layui-input-inline">
-            <input type="text" name="sign" id="sign" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="sign" id="sign" lay-verify="required" placeholder="请输入标志" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">入库备注</label>
         <div class="layui-input-inline">
-            <input type="text" name="warehousingRemarks" id="warehousingRemarks" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="warehousingRemarks" id="warehousingRemarks" lay-verify="required" placeholder="请输入入库备注" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">剂型</label>
         <div class="layui-input-inline">
-            <input type="text" name="drugFrom" id="drugFrom" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="drugFrom" id="drugFrom" lay-verify="required" placeholder="请输入剂型" autocomplete="off" class="layui-input">
         </div>
     </div>
 <%--    <div class="layui-form-item">--%>
@@ -183,19 +183,19 @@
     <div class="layui-form-item">
         <label class="layui-form-label">批准文号</label>
         <div class="layui-input-inline">
-            <input type="text" name="approvalNumber" id="approvalNumber" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="approvalNumber" id="approvalNumber" lay-verify="required" placeholder="请输入批准文号" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">上次养护日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="LastCuringDate" id="LastCuringDate" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="LastCuringDate" id="LastCuringDate" lay-verify="required" placeholder="请输入上次养护日期" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">入库次数</label>
         <div class="layui-input-inline">
-            <input type="text" name="timesStorage" id="timesStorage" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+            <input type="text" name="timesStorage" id="timesStorage" lay-verify="required" placeholder="请输入入库次数" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -222,12 +222,14 @@
             <input type="text" name="recordNumber" id="recordNumber" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">tableCoding</label>
         <div class="layui-input-inline">
             <input type="text" name="tableCoding" id="tableCoding" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
         </div>
     </div>
+
 
 
     <br/><br/>

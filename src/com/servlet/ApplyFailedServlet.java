@@ -49,12 +49,12 @@ public class ApplyFailedServlet extends BaseServlet {
     //添加不合格处理数据
     public ResultData<ApplyFailed> addFailed(HttpServletRequest request, HttpServletResponse response){
         String tableCoding = request.getParameter("tableCoding");
-        System.out.println(tableCoding);
+        String id = request.getParameter("id");
         String cause = request.getParameter("cause");
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String name = userService.getName(user.getId());
-        int i = applyFaileService.addFailed(Integer.parseInt(tableCoding), cause,name);
+        int i = applyFaileService.addFailed(Integer.parseInt(tableCoding), cause,name,Integer.parseInt(id));
         return Result.resultStatus(i);
     }
 

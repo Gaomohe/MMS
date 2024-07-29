@@ -37,7 +37,6 @@
                         </div>
                         <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe615;</i>查询</button>
                     </div>
-                <button id="reload" lay-event="reload" lay-filter="reload" class="layui-btn layui-btn-primary layui-border-green"><i class="layui-icon layui-icon-refresh-1"></i>重置</button>
             </script>
             <table id="outpatientList" lay-filter="outpatientList"></table>
         </div>

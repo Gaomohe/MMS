@@ -34,6 +34,8 @@
         color: #e3d01f;
         text-decoration: none;
     }
+
+
 </style>
 <body class="childrenBody">
 
@@ -55,8 +57,9 @@
 </div>
 <button lay-filter="doSearch" lay-submit lay-event="submit" class="layui-btn layui-btn-primary layui-border-green">点击搜索</button>
 <button lay-event="add" type="button" class="layui-btn layui-bg-blue">采购申请</button>
-<button lay-event="history" type="button" class="layui-btn">历史记录</button>
 <button lay-event="prescriptionDrug" type="button" class="layui-btn layui-bg-red">处方药</button>
+            <button lay-event="msg" type="button" class="layui-btn"><span class="layui-badge-dot"></span>&nbsp;<i class="layui-icon layui-icon-notice"></i>&nbsp;消息</button>
+            <button lay-event="history" type="button" class="layui-btn">历史记录</button>
             <hr>
 <%--            下拉--%>
 <div class="layui-form layui-row layui-col-space16">

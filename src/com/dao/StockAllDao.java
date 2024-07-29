@@ -2,7 +2,9 @@ package com.dao;
 
 import com.pojo.StockAllForm;
 import com.pojo.StockInForm;
+import com.util.ResultData;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface StockAllDao {
@@ -12,12 +14,14 @@ public interface StockAllDao {
     //分页
     public List<StockAllForm> selectStockAllForm(int page, int limit);
     //根据药品id查询该药品的库存
-    public StockAllForm getStockAllFormById(int mid);
+    public StockAllForm getStockAllFormById(int tableCoding);
     //根据商品分类，药品名称，供货商，剂型查询
     public List<StockAllForm> getStockAllFormByQuery(String sql);
 
     //根据药品删除该药品的库存
     public int delStockAllForm(int id);
+    //根据部门查询该药品的库存数量
+    public ResultSet getDrugsNumber(String department);
     //修改库存
     public int updateStockAllForm(StockAllForm stockAllForm);
     //增加库存

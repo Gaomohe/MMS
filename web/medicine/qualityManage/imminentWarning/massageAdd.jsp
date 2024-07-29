@@ -23,6 +23,7 @@
 <body class="childrenBody">
 <%
     String wId = request.getParameter("wId");
+    String mName = request.getParameter("mName");
 %>
 <form class="layui-form layui-form-pane" action="Javascript:void(0)">
     <div class="layui-form-item" style="display: none">
@@ -34,7 +35,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">信息内容</label>
         <div class="layui-input-block">
-            <textarea id="contentTextarea" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea id="contentTextarea" class="layui-textarea"><%=mName%>已到临期值需要采购</textarea>
         </div>
     </div>
     <div class="layui-form-item">

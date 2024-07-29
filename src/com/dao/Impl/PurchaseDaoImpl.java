@@ -5,6 +5,7 @@ import com.dao.PurchaseDao;
 import com.pojo.Apply;
 import com.util.JDBC;
 import com.util.init.StringDeal;
+import com.util.init.ToJSON;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -35,5 +36,25 @@ public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
         return JDBC.update(sql,objects) > 0;
     }
 
+    @Override
+    public boolean noPass(int id, String values) {
+        String sql = "update orders set unit = ?,oName = '已审阅不通过' where oId = ?";
+        Object[] objects = new Object[]{values,id};
+        return JDBC.update(sql,objects) > 0;
+    }
+
+    @Override
+    public boolean isOK_msg(int id, String okType, String detail,int send, int receivePeo) {
+        String sql = "insert into message(uId,uName,wId,message,time,state,message.title,message.receivePeople) values (?,(select userName from user where id = ?),?,?,?,0,?,(select userName from user where id = ?))";
+        String nowTimesStr = StringDeal.getNowTimesStr();
+        Object[] objects = new Object[]{send,send,id,nowTimesStr,okType,detail,receivePeo};
+        return JDBC.update(sql,objects) > 0;
+    }
+
+    @Override
+    public boolean notOK_msg(int id, String okType,int send, int receivePeo) {
+
+        return false;
+    }
 
 }

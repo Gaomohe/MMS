@@ -27,12 +27,15 @@ public interface WarnDao {
     public List<WarnDetail> getWarnDetails(int page,int limit);
     //根据条件获取预警数据
     public Warn getWarnsById(int id);
+
+    public WarnDetail getWarnsByQId(int id);
     public List<WarnDetail> getWarnDetailsByWId(int wid);
     //获取所有预警细节
     public List<WarnDetail> getWarndetailsAll();
     //删除预警
     public int delWarn(int id);
     public int delWarnDetail(int id);
+    public int delWarnDetailByID(int id);
     //获取最新预警id
     public int getLastWarnId();
     //根据条件修改预警

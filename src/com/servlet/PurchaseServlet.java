@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.Arrays;
+
 import static com.util.Vessel.*;
 
 @WebServlet("/purchase")
@@ -46,6 +48,12 @@ public class PurchaseServlet extends BaseServlet {
         String dataString = request.getParameter("dataString");
         int[] ints = StringDeal.toArray(dataString);
         return purchaseService.isok(ints,"张三");
+    }
+    public ResultData<Integer> noPass(HttpServletRequest request, HttpServletResponse response){
+        String values = request.getParameter("values");
+        String dataString = request.getParameter("dataString");
+        int[] ints = StringDeal.toArray(dataString);
+        return purchaseService.noPass(ints,values);
     }
 
 

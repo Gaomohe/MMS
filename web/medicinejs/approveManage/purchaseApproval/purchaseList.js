@@ -69,6 +69,7 @@ layui.extend({
     });
 
     //打开详情页
+    var openDatas;
     function openDetail(data){
         let oId = data.oId;
         layui.layer.open({
@@ -83,6 +84,7 @@ layui.extend({
                     type:"post",
                     data:{oId},
                     success:function(data){
+                        openDatas = data;
                         $iframes.contentWindow.postMessage(data, '*');
                     }
                 })
@@ -142,10 +144,53 @@ layui.extend({
             case 'delOK':
                 delOK();
                 break;
+            case 'noPass':
+                //不通过
+                noPass(array,state);
+                break;
+            default:
+                break;
 
         }
 
     });
+
+    //不通过
+    function noPass(array,state){
+        if (array.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }else if (array.length>1){
+            layer.msg("抱歉！仅支持操作一条！");
+            return ;
+        }
+        for (let i = 0; i < state.length; i++) {
+            if (state[i] !== '未审阅'){
+                layer.alert("单据"+array[i]+"已审阅,请先撤销！");
+                return ;
+            }
+        }
+        var values = '';
+        layer.prompt({title: '备注:', formType: 2,value:'不通过理由'}, function(text, index){
+            values = text;
+            layer.close(index);
+            var dataString = $.param({"purchId": array});
+            $.ajax({
+                url:"/purchase?action=noPass",//根据id查询的方法
+                type:"post",
+                data:{values,dataString},
+                success:function(data){
+                    var parse = JSON.parse(data);
+                    if (parse.status===200){
+                        layer.msg('已审阅！');
+                        tableIns.reload()
+                    }else {
+                        layer.msg("出错了", { icon: 2 });
+                    }
+                }
+            })
+        });
+    }
     function download(purchId){
         if (purchId.length===0){
             layer.msg("请选择一条记录");
@@ -164,6 +209,8 @@ layui.extend({
         }
 
     }
+
+    //撤销
     function noaudit(array,state){
         if (array.length===0){
             layer.msg("请选择一条记录");
@@ -226,33 +273,12 @@ layui.extend({
                 btn: [ '知道了']
             });
         });
-        // //获取复选框选中的数据
-        // var checkRows = table.checkStatus('purchaseList');
-        // var oId = 10;
-        // layui.layer.open({
-        //     title : "审批",
-        //     type : 2,
-        //     content : "medicine/approveManage/purchaseApproval/audit.jsp",
-        //     area:['900px','500px'],
-        //     success:function (layero, index){
-        //         var $iframes = layero.find('iframe')[0];
-        //         $.ajax({
-        //             url:"/purchase?action=getId",//根据id查询的方法
-        //             type:"post",
-        //             data:{oId},
-        //             success:function(){
-        //                 $iframes.contentWindow.postMessage(checkRows.data, '*');
-        //             }
-        //         })
-        //     }
-        // })
+
 
     }
     function shengyue(array){
-        console.log("111111111111111111111111111111111111");
-        console.log(array[0]);
         let oId = array[0];
-        console.log("111111111111111111111111111111111111");
+        var dataString = $.param({"purchId": array});
         layer.confirm('由于审阅规则,您需要签字备注！', {
             btn: ['确定', '取消'] //按钮
         }, function(){
@@ -260,10 +286,18 @@ layui.extend({
             layui.layer.open({
                 title : "详情",
                 type : 2,
-                content : "medicine/approveManage/purchaseApproval/signature.jsp?oId=" + oId,
+                content : "medicine/approveManage/purchaseApproval/signature.jsp?dataString=" + dataString,
                 area:['850px','550px'],
                 success:function (layero, index){
-                    console.log("完成")
+                    var $iframes = layero.find('iframe')[0];
+                    $.ajax({
+                        url:"/purchase?action=getId",//根据id查询的方法
+                        type:"post",
+                        data:{oId},
+                        success:function(data){
+                            $iframes.contentWindow.postMessage(data, '*');
+                        }
+                    })
                     // var $iframes = layero.find('iframe')[0];
                     // $.ajax({
                     //     url:"/purchase?action=getId",//根据id查询的方法

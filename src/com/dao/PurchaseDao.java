@@ -14,4 +14,11 @@ public interface PurchaseDao {
     public ResultSet getId(int id);
 
     public boolean isok(int id, String name);
+
+    public boolean noPass(int id,String values);
+
+    //通过消息
+    public boolean isOK_msg(int id,String okType,String detail,int send,int receivePeo);
+
+    public boolean notOK_msg(int id,String okType,int send,int receivePeo);
 }

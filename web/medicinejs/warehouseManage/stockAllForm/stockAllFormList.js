@@ -389,7 +389,7 @@ layui.extend({
         layer.open({
             type: 2,
             area: ['1200px', '520px'], // 宽高
-            content: 'medicine/warehouseManage/stockAllForm/aaa.jsp'
+            content: 'medicine/warehouseManage/stockAllForm/stockAllFormChart.jsp'
         });
 
     })

@@ -8,7 +8,7 @@ layui.extend({
         laydate = layui.laydate,
         upload = layui.upload,
         table = layui.table;
-    var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+    var dtree = layui.dtree;
     //表格渲染
     var tableIns = table.render({
         elem: '#shoppList',
@@ -164,10 +164,27 @@ layui.extend({
             case 'history':
                 history();
                 break;
+            case 'msg':
+                //右侧消息
+                msg();
+                break;
             default:
                 break;
         }
     });
+    function msg(){
+        layer.open({
+            type: 2,
+            offset: 'r',
+            anim: 'slideLeft', // 从右往左
+            area: ['320px', '100%'],
+            shade: 0.1,
+
+            shadeClose: true,
+            id: 'ID-demo-layer-direction-r',
+            content : "medicine/shoppingManage/requestApply/msgList.jsp"
+        });
+    }
     function add(array){
         var dataString = $.param({"array": array});
         layui.layer.open({

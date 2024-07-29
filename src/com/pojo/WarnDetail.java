@@ -8,6 +8,7 @@ public class WarnDetail {
     private int uId;
     private String uName;
     private int wid;
+    private int qid;
 
     public int getId() {
         return id;
@@ -63,5 +64,13 @@ public class WarnDetail {
 
     public void setWid(int wid) {
         this.wid = wid;
+    }
+
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
     }
 }
