@@ -65,4 +65,7 @@ public class Vessel {
 
     public static QualityService qualityService = new QualityServiceImpl();
     public static QualityDao qualityDao = new QualityDaoImpl();
+
+    public static MessageService messageService = new MessageServiceImpl();
+    public static MessageDao messageDao ;
 }

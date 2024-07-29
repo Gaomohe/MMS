@@ -1,5 +1,6 @@
 package com.service;
 
+import com.pojo.Medicine;
 import com.pojo.User;
 import com.pojo.Warn;
 import com.pojo.WarnDetail;
@@ -37,4 +38,15 @@ public interface WarnService {
     public int getOutUserfulLife();
     //获取需要购买药品数
     public int getNeedBuy();
+
+    //修改预警细节数据
+    public int upWarnDetailNumber(WarnDetail warnDetail);
+
+    public int upWarnDetailTime(WarnDetail warnDetail);
+
+    //动态出库
+    public String delNumber(Medicine medicine1, int number, User user);
+
+    //大量出库（过期药品处理）
+
 }

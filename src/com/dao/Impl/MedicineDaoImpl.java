@@ -609,6 +609,27 @@ public class MedicineDaoImpl implements MedicineDao {
         return list;
     }
 
+    public List<DicNum> getDic_Num(String yifukuan) {
+        String sql = "SELECT * FROM `dic_num` WHERE `statue`='已付款'";
+        List<DicNum> list = new ArrayList<>();
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
+        try{
+            while(resultSet.next()){
+                DicNum dicNum = new DicNum();
+                dicNum.setId(resultSet.getInt(1));
+                dicNum.setTableCoding(resultSet.getInt(2));
+                dicNum.setNumber(resultSet.getInt(3));
+                dicNum.setStatue(resultSet.getString(4));
+                dicNum.setPatientId(resultSet.getInt(5));
+                dicNum.setTime(resultSet.getString(6));
+                list.add(dicNum);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     @Override
     public int updateDic_Num(DicNum dicNum) {
         String sql="UPDATE `dic_num` SET `statue`=? WHERE `tableCoding`=? AND `patientId`=?";

@@ -33,14 +33,16 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate','element'], function () {
                 title: '数据编号',
                 minWidth: 200,
                 align: 'center',
-                sort: true
+                sort: true,
+                hide:true,
             },
             {
                 field: 'mId',
                 title: '药品编号',
                 minWidth: 200,
                 align: 'center',
-                sort: true
+                sort: true,
+                hide:true,
             },
             {
                 field: 'mName',
@@ -248,12 +250,8 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate','element'], function () {
                 height: 600,
                 limit: 15,
                 limits: [5,10,15,20,25],
-                cols: [ [
-                    {
-                        fixed: "left",
-                        type: "checkbox",
-                        width: 50
-                    },
+                cols: [[
+                    {type: 'checkbox'},
                     {
                         field: 'state',
                         align: 'center',
@@ -267,14 +265,16 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate','element'], function () {
                         title: '数据编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide:true,
                     },
                     {
                         field: 'mId',
                         title: '药品编号',
                         minWidth: 200,
                         align: 'center',
-                        sort: true
+                        sort: true,
+                        hide:true,
                     },
                     {
                         field: 'mName',
@@ -344,8 +344,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate','element'], function () {
                         minWidth: 200,
                         align: 'center',
                     },
-                ]
-                ],
+                ]]
             });
             table.on('toolbar(tableTbAdv)', function(obj){
                 var checkStatus = table.checkStatus(obj.config.id);

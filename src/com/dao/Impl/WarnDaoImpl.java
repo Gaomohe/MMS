@@ -358,4 +358,16 @@ public class WarnDaoImpl implements WarnDao {
         int i = JDBC.update(sql,objects);
         return i;
     }
+    public int upWarnDetailNumber(WarnDetail warnDetail){
+        String sql = "UPDATE `warndetail` SET `number`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warnDetail.getNumber(),warnDetail.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
+    }
+    public int upWarnDetailTime(WarnDetail warnDetail) {
+        String sql = "UPDATE `warndetail` SET `time`=?,`name`=?,`uId`=? WHERE `id`=?";
+        Object[] objects = new Object[]{warnDetail.getTime(),warnDetail.getuName(),warnDetail.getuId(),warnDetail.getId()};
+        int i = JDBC.update(sql,objects);
+        return i;
+    }
 }
