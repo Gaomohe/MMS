@@ -24,7 +24,7 @@ layui.extend({
             elem: '#time'
         });
 
-        var tableIns = table.render({
+        /*var tableIns = table.render({
             elem: '#financialList',
             cellMinWidth: 95,
             page: true,
@@ -58,6 +58,47 @@ layui.extend({
                 {field: 'financeApprove' ,title:'财务审批', align:'center',width:200},
                 {field: 'financeTime' ,title:'财务审批时间', align:'center',width:200}
             ]],
+        });*/
+        var tableIns = table.render({
+            elem: '#financialList',
+            url : '/orders?action=selectOrders',
+            cellMinWidth : 95,
+            page : true,
+            toolbar: '#financialDemo',
+            height : "full-25",
+            limit : 20,
+            limits : [10,15,20,25],
+            cols : [[
+                {type: "checkbox", fixed:"left", width:50},
+                {field: 'oId', title: '采购单号',  align:'center',width:100,sort:true},
+                {field: 'oName', title: '订单状态',  align:'center',width:100},
+                {field: 'specification', title: '审阅人', width:100, align:"center"},
+                {field: 'manufactor', title:'生产企业' , width:250, align:"center"},
+                // {field: 'unit', title:'单位' , width:100, align:"center"},
+                // {field: 'oNum', title:'订单数量' , width:100, align:"center"},
+                // {field: 'salePrice', title:'采购单价' , width:100, align:"center"},
+                {field: 'shippingAddress', title:'发货地址' , width:300, align:"center"},
+                {field: 'deliveryAddress', title:'收货地址' , width:300, align:"center"},
+                {field: 'shippingTime', title:'发货时间' , width:150, align:"center"},
+                {field: 'allPrice', title:'订单总价格' , width:100, align:"center"},
+                {field: 'shippingWay', title:'发货方式' , width:150, align:"center"},
+                {field: 'tempControlWay', title:'温控方式' , width:100, align:"center"},
+                {field: 'deliveryTime', title:'到货时间' , width:100, align:"center"},
+                {field: 'deliveryTemp', title:'到货温度' , width:100, align:"center"},
+                {field: 'attachment', title:'关联附件' , width:100, align:"center"},
+                {field: 'salesman', title:'供货单位业务员' , width:100, align:"center"},
+                {field: 'buyer', title:'采购人' , width:100, align:"center"},
+                {field: 'recipient', title:'收货人' , width:100, align:"center"},
+                // {field: 'orderCondition', title:'收货状态' , width:100, align:"center"},
+                // {field: 'statement', title:'收货状态' , width:100, align:"center"},
+
+                {field: 'advance', title:'订单预付款' , width:150, align:"center"},
+                {field: 'advanceStatus', title:'订单预付款状态' , width:200, align:"center"},
+                {field: 'finals', title:'订单尾款' , width:150, align:"center"},
+                {field: 'finalsStatus', title:'订单尾款状态' , width:200, align:"center"},
+            ]],
+            done:function (data){
+            }
         });
         tableMain = tableIns;
         // 初始化下拉框
