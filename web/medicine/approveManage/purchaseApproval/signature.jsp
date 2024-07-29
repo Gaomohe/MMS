@@ -19,8 +19,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jSignature/2.1.3/jSignature.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<style>
+    body {
+        background-color: #fff; /* 白色背景 */
+        color: #333; /* 页面默认文本颜色 */
+        font-family: Arial, sans-serif;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 轻微的阴影效果 */
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 15px;
+        text-align: left;
+        color: #000; /* 字体颜色设置为黑色 */
+    }
+    th {
+        background-color: #f2f2f2; /* 表头背景颜色 */
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9; /* 偶数行背景颜色 */
+    }
+    tr:hover {
+        background-color: #f1f1f1; /* 鼠标悬浮行背景颜色 */
+    }
+</style>
 </head>
-<body>
+<body style="background-color: white">
 <div class="title" style="margin-top: 50px">买药审批</div>
 <!-- 初始，渲染带装饰的html，供用户输入文本、上传图片、生成电子签名 -->
 <div id="container">
@@ -45,36 +73,49 @@
     <!-- Date -->
     <div class="row" style="margin-top: 50px">
         <div class="row-input">
-            <span>Date:</span>
-            <input id="date_input" type="text" placeholder="XX March, 2023" />
+            <span style="color: black;width: 75px">审批人:</span>
+            <input style="color: black" id="" type="text" value="张三"  readonly />
+            <br>
+            <span style="color: black;width: 75px">时间:</span>
+            <input style="color: black" id="datetime_input" type="text" placeholder="XX March, 2023" readonly />
+            <br>
+
         </div>
     </div>
+
     <!-- some text -->
     <div class="row" style="margin-bottom: 50px">
-        <p>
-            对于一下药品:
-            <input
-                    id="some_input"
-                    type="text"
-                    placeholder="Type anything you need here."
-            />
+        <p style="color: black">
+            药品如下:
+<%--            <input--%>
+<%--                    id="some_input"--%>
+<%--                    type="text"--%>
+<%--                    placeholder="Type anything you need here."--%>
+<%--            />--%>
 
         </p>
-        <div class="layuimini-main">
-            <script type="text/html" id="detailsDemo1">
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
-                    ${menu.resUrl}
-                </c:forEach>
-            </script>
-            <table id="detailsList1" lay-filter="detailsList1"></table>
-        </div>
-        <p>
-            请仔细查看上述申请购买药品单号，完成后请在下面签名。
-        </p>
+        <table id="tableOne">
+            <thead>
+            <tr>
+                <th>药品编号</th>
+                <th>药品名称</th>
+                <th>药品类型</th>
+                <th>是否处方</th>
+                <th>申请数量</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
     </div>
     <!-- signature -->
     <div class="row">
-        <p>请签名:</p>
+        <p style="color: black">
+            请仔细查看上述申请购买药品，完成后请在下面签名。
+        </p>
+        <p style="color: black">请签名:</p>
         <div id="signature"></div>
         <div
                 style="
@@ -101,6 +142,9 @@
         <div id="signature_preview"></div>
     </div>
 </div>
+<button class="button-upload button-convert" onclick="isOK()">
+    提交
+</button>
 <button class="button-upload button-convert" onclick="convertHtml()">
     生成相应文档
 </button>
@@ -124,18 +168,27 @@
     <!-- some text -->
     <div class="row" style="margin-bottom: 50px">
         <p>
-            对于一下药品:
+            药品:
         </p>
         <div class="layuimini-main">
-            <script type="text/html" id="detailsDemo2">
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
-                    ${menu.resUrl}
-                </c:forEach>
-            </script>
-            <table id="detailsList2" lay-filter="detailsList2"></table>
+            <table id="tableTwo">
+                <thead>
+                <tr>
+                    <th>药品编号</th>
+                    <th>药品名称</th>
+                    <th>药品类型</th>
+                    <th>是否处方</th>
+                    <th>申请数量</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <!-- Add more rows as needed -->
+                </tbody>
+            </table>
         </div>
         <p>
-            请仔细查看上述申请购买药品单号，完成后请在下面签名。
+            审批人签字:
         </p>
     </div>
     <!-- signature -->
@@ -161,8 +214,81 @@
 
 <script src="<%= path %>/iframe/js/testDataUrl.js"></script>
 <script>
+
+
+    // 设置 input 元素的值为格式化的日期时间字符串
+    document.getElementById("datetime_input").value = getNowTime();
     // 上传图片
     Dropzone.autoDiscover = false;
+
+
+
+    window.addEventListener('message', function(event) {
+        var messageData = event.data;
+        let info = JSON.parse(messageData);
+        insertOne(info.data)
+        insertTwo(info.data)
+    }, false);
+
+    function getOID(){
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+
+        // 从查询字符串中获取 oId 参数
+        // 现在可以使用 oId 变量，例如打印到控制台或使用在其他逻辑中
+        return urlParams.get('dataString');
+    }
+
+    //插入第一个表格数据
+    function insertTwo(data){
+        var tbody = document.getElementById('tableTwo').getElementsByTagName('tbody')[0];
+        data.forEach(function(medicine) {
+            // 创建行 <tr> 元素
+            var tr = document.createElement('tr');
+
+            // 为行添加单元格 <td> 元素，并设置文本内容
+            tr.innerHTML = '<td>' + medicine.mId + '</td>' +
+                '<td>' + medicine.mName + '</td>' +
+                '<td>' + medicine.unit + '</td>' +
+                '<td>' + medicine.defined + '</td>' +
+                '<td>' + medicine.applyBuyNumber + '</td>';
+
+            // 将创建的行添加到 tbody 中
+            tbody.appendChild(tr);
+        });
+    }
+    function insertOne(data){
+        var tbody = document.getElementById('tableOne').getElementsByTagName('tbody')[0];
+        data.forEach(function(medicine) {
+            // 创建行 <tr> 元素
+            var tr = document.createElement('tr');
+
+            // 为行添加单元格 <td> 元素，并设置文本内容
+            tr.innerHTML = '<td>' + medicine.mId + '</td>' +
+                '<td>' + medicine.mName + '</td>' +
+                '<td>' + medicine.unit + '</td>' +
+                '<td>' + medicine.defined + '</td>' +
+                '<td>' + medicine.applyBuyNumber + '</td>';
+
+            // 将创建的行添加到 tbody 中
+            tbody.appendChild(tr);
+        });
+    }
+    function getNowTime(){
+        //格式:2024-24-24 24:24:24
+        // 获取当前日期和时间
+        var now = new Date();
+
+        // 格式化日期和时间
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份从0开始，需要+1并确保两位数字
+        var day = now.getDate().toString().padStart(2, '0');
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var seconds = now.getSeconds().toString().padStart(2, '0');
+        // 拼接成所需格式
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
     /*function uploadImage() {
         let upload_dropzone = new Dropzone("#dropzone", {
             url: "/",
@@ -245,6 +371,26 @@
         $("#signature_img").prop("src", "");
     }
 
+    function isOK(){
+        shengPi(getOID())
+        parent.location.reload();
+        parent.layer.close(parent.layer.getFrameIndex(window.name));
+
+    }
+    function shengPi(dataString){
+        $.ajax({
+            url:"/purchase?action=isOk",//根据id查询的方法
+            type:"post",
+            data:{dataString},
+            success:function(data){
+                let parse = JSON.parse(data);
+                if (parse.status===200){
+                    layer.msg('审阅完成', {icon: 1});
+                    location.reload()
+                }
+            }
+        })
+    }
     // 转换成html片段
     function convertHtml() {
         // 隐藏预览区域

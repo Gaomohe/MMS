@@ -118,5 +118,18 @@ public class PurchaseServiceImpl implements PurchaseService {
         return resultData;
     }
 
+    @Override
+    public ResultData<Integer> noPass(int[] ints, String values) {
+        ResultData<Integer> resultData = new ResultData<>();
+            if (purchaseDao.noPass(ints[0],values)){
+                resultData.setStatus(200);
+                resultData.setData(1);
+            }else {
+                resultData.setStatus(400);
+                resultData.setData(0);
+            }
+        return resultData;
+    }
+
 
 }

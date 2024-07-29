@@ -18,5 +18,8 @@ public interface PurchaseService {
 
     public ResultData<Integer> isok(int[] ins, String name);
 
+    //不通过
+    public ResultData<Integer> noPass(int[] ints,String values);
+
 
 }

@@ -2,6 +2,7 @@ package com.util.init;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,8 +75,21 @@ public class StringDeal {
             return list;
     }
 
-    public static long getNowTimes(){
+    //获取当前时间，格式2024-12-12 12:12:12
+
+    public static String getNowTimesStr(){
         // 获取当前时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 定义日期时间格式器
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // 格式化当前时间
+        return now.format(formatter);
+    }
+    // 获取当前时间,以数字形式返回
+    public static long getNowTimes(){
+
         Date currentDate = new Date();
 
         // 创建一个日期格式化对象，设置格式为年月日时分秒

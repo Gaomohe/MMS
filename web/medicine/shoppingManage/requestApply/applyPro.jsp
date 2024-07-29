@@ -27,6 +27,43 @@ String path = request.getContextPath();
                 padding-left: 50px !important;
             }
         }
+        .layui-btn {
+            position: relative; /* 确保按钮是相对于正常文档流定位 */
+            z-index: 1000; /* 给按钮一个较高的 z-index 值 */
+        }
+
+        /* 如果有其他元素遮盖了按钮，可以检查并调整这些元素的 z-index */
+        .other-elements {
+            position: relative;
+            z-index: 1; /* 根据需要调整 z-index 值 */
+        }
+
+        /* 如果需要，给按钮的父元素设置 overflow 属性 */
+        .layui-form-item {
+            overflow: visible; /* 确保父元素不会限制子元素的显示 */
+        }
+        .table-container {
+            width: 100%; /* 根据需要设置宽度 */
+            height: 300px; /* 设置一个固定的高度，根据需要调整 */
+            overflow: auto; /* 当内容超出时显示滚动条 */
+        }
+        .table-container-two {
+            width: 100%; /* 根据需要设置宽度 */
+            height: 140px; /* 设置一个固定的高度，根据需要调整 */
+            overflow: auto; /* 当内容超出时显示滚动条 */
+        }
+
+        .layui-table {
+            width: 100%; /* 表格宽度设置为100% */
+            border-collapse: collapse; /* 确保表格边框合并 */
+        }
+
+        /* 如果需要，可以为表格的单元格添加一些基本样式 */
+        .layui-table th, .layui-table td {
+            padding: 8px;
+            border: 1px solid #ddd; /* 单元格边框 */
+            text-align: left; /* 文本对齐 */
+        }
     </style>
 </head>
 
@@ -49,8 +86,9 @@ String path = request.getContextPath();
                     <div id="step01">
 
                         <form class="layui-form layui-form-pane" action="Javascript:void(0)">
+                            <div class="table-container">
                             <table class="layui-table" id="tableTbBas" lay-filter="tableTbBas"></table>
-
+                            </div>
 <%--                            <div style="display: flex; justify-content: center;">--%>
 <%--                                <button class="layui-btn" style="width: 200px;" id="tijiao" lay-filter="add">申请</button>--%>
 <%--                            </div>--%>
@@ -83,24 +121,28 @@ String path = request.getContextPath();
                                 <div class="layui-form-mid layui-word-aux">药品</div>
                             </div>
                         </div>
-                        <form class="layui-form" style="margin: 0 auto;max-width: 550px;padding-top: 60px;">
-                            <table  class="layui-table" id="tableTrue" lay-filter="tableTrue"></table>
-                            <br>
-                        </form>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">总金额:</label>
-                            <div class="layui-input-block">
-                                <div class="layui-form-mid layui-word-aux">
-                                    <span id="total" style="font-size: 18px;color: #333;"></span>（￥人民币）
+                        <form class="layui-form" style="margin: 0 auto;max-width: 550px;padding-top: 60px;height: auto">
+                            <div class="table-container-two">
+                            <table style="height: auto"  class="layui-table" id="tableTrue" lay-filter="tableTrue"></table>
+                            </div>
+                                <br>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">总金额:</label>
+                                <div class="layui-input-block">
+                                    <div class="layui-form-mid layui-word-aux">
+                                        <span id="total" style="font-size: 18px;color: #333;"></span>（￥人民币）
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-input-block">
-                                <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                <button class="layui-btn" id="tijiao" lay-submit lay-filter="formDemo2">&emsp;提交&emsp;</button>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                    <button class="layui-btn" id="tijiao" lay-submit lay-filter="formDemo2">&emsp;提交&emsp;</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+
 
 
                     </div>
@@ -147,7 +189,7 @@ String path = request.getContextPath();
 <script>
     layui.use(['layer', 'form', 'step','table'], function () {
         var $ = layui.jquery;
-        var layer = layui.layer;
+        var layer = parent.layer === undefined ? layui.layer : top.layer;
         var form = layui.form;
         var step = layui.step;
         var table = layui.table;
@@ -243,7 +285,8 @@ String path = request.getContextPath();
 
         })
         $('#checkCP').click(function (){
-            history();
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+
         })
         function history(){
             layui.layer.open({
@@ -259,8 +302,6 @@ String path = request.getContextPath();
                         success:function(data){
                             var parse = JSON.parse(data).data;
                             var iframe = layer.getChildFrame('body', index);
-                            console.log("数据")
-                            console.log(parse)
                             var html = '';
                             var insert = '';
                             var count = 0;
