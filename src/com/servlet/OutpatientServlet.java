@@ -270,10 +270,10 @@ public class OutpatientServlet extends BaseServlet {
 
 
     //病患信息回显
-    public void backValues(HttpServletRequest request,HttpServletResponse response){
-        HttpSession session = request.getSession();
-        int thePId = (Integer)session.getAttribute("thePId");
-        Patient patient = outpatientService.backValues(thePId);
+    public void getPatientInfo(HttpServletRequest request,HttpServletResponse response){
+        String pIdSre = request.getParameter("pId");
+        int pId = Integer.parseInt(pIdSre);
+        Patient patient = outpatientService.backValues(pId);
         ToJSON.toJson(response,patient);
     }
 
@@ -346,6 +346,16 @@ public class OutpatientServlet extends BaseServlet {
         int i = outpatientService.addMedicine(thePId,medicineList);
         ResultData resultData = Result.resultStatus(i);
         return resultData;
+    }
+
+    public void searchMedicine(HttpServletRequest request,HttpServletResponse response){
+        String searchData = request.getParameter("inputVal");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        System.out.println(searchData);
+        // 输出解析后的搜索条件
+        LayuiTable<Medicine> layuiTable = outpatientService.searchMedicine(searchData,page,limit);
+        ToJSON.toJson(response,layuiTable);
     }
 
 }

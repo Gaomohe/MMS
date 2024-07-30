@@ -22,19 +22,24 @@
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
-<div class="layui-form">
-    <div class="layuimini-container">
-        <div class="layuimini-main">
-            <table id="MedicineList" lay-filter="MedicineList"></table>
-            <script type="text/html" id="MedicineDemo">
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
-                    ${menu.resUrl}
-                </c:forEach>
-            </script>
+<form>
+    <div class="layui-form">
+        <div class="layuimini-container">
+            <div class="layuimini-main">
+                <table id="MedicineList" lay-filter="MedicineList"></table>
+                <script type="text/html" id="MedicineDemo">
+                    <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue">确认</button>
+                    <button type="button" id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn layui-btn-danger">取消</button>
+                    <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
+                        &lt;%&ndash;                    ${menu.resUrl}&ndash;%&gt;
+
+                    </c:forEach>--%>
+                </script>
+            </div>
+            <table id="addMedicineList2" lay-filter="addMedicineList2"></table>
         </div>
-        <table id="addMedicineList2" lay-filter="addMedicineList2"></table>
     </div>
-</div>
+</form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
 <script type="text/javascript" src="<%=basePath %>admin/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>medicinejs/outpatientManager/outpatient/medicineList.js" charset="utf-8"></script>

@@ -245,9 +245,8 @@ layui.extend({
         layui.layer.open({
             title : "详情",
             type : 2,
-            content : "medicine/outpatientManager/outpatient/addMedicine.jsp",
+            content : "medicine/outpatientManager/outpatient/addMedicine.jsp?pId=" + pId,
             area:['1000px','600px'],
-
         })
     }
 });

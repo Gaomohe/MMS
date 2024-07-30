@@ -9,6 +9,7 @@ layui.extend({
         table = layui.table,
         dtree = layui.dtree;
     var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain,patientId,mName;
+    var inputVal = "";
     let mIdList = new Set();
 
     $(document).ready(function() {
@@ -30,20 +31,34 @@ layui.extend({
 
         // 获取 pId 参数并转换为整数
         var pId = parseInt(getQueryVariable("pId"), 10);
-        console.log("/////////////////////");
-        console.log(pId);
-        console.log("/////////////////////");
         // 将 pId 参数用于你的页面逻辑
-        if (pId) {
-            $.ajax({
-                url: '/outpatient?action=getPatientInfo',
-                type: 'GET',
-                data: { pId: pId },
-                success: function(response) {
-
-                }
-            });
-        }
+        $.ajax({
+            url: '/patient?action=getPatientInfo',
+            type: 'GET',
+            data: { "pId": pId },
+            success: function(res) {
+                console.log("/////////////////////");
+                console.log(res);
+                console.log("/////////////////////");
+                res = JSON.parse(res);
+               /* var info = JSON.parse(data);
+                console.log(info);
+                var body = layui.layer.getChildFrame('body', index);*/
+                // body.find("#pid").val(info.data.oId); // 采购单号
+                document.querySelector('input[name="pid"]').value = res.pId;
+                pId = res.pId;
+                document.querySelector('input[name="pName"]').value = res.name;
+                document.querySelector('input[name="sex"]').value = res.sex;
+                document.querySelector('input[name="age"]').value = res.age;
+                document.querySelector('input[name="weight"]').value = res.weight;
+                document.querySelector('input[name="address"]').value = res.address;
+                document.querySelector('input[name="phone"]').value = res.phone;
+                document.querySelector('input[name="allergy"]').value = res.allergy;
+                document.querySelector('input[name="time"]').value = res.diagnosticTime;
+                document.querySelector('textarea[name="disease"]').value = res.disease;
+                document.querySelector('textarea[name="doctorAdvice"]').value = res.doctorAdvice;
+            }
+        });
         var tableIns = table.render({
             elem: '#addMedicineList',
             cellMinWidth: 95,
@@ -294,6 +309,8 @@ layui.extend({
         getmType();
         getmPower();
         getmName();
+        Search();
+
 
         table.on('toolbar(addMedicineList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
@@ -304,15 +321,11 @@ layui.extend({
                 array[i] = files[i].applyId;
                 state[i] = files[i].financeApprove;
             }
-
+            console.log("event的值:" + obj.event);
             switch (obj.event) {
-                case 'search':
-                    console.log("---------------");
-                    console.log(mPower);
-                    console.log(mType);
-                    console.log(Unit);
-                    console.log("---------------");
-                    Search(mPower,mType,Unit,mName);
+                case 'submit':
+                    console.log("这里执行了Search");
+                    Search();
                     break;
                 case 'reload':
                     winReload();
@@ -353,6 +366,7 @@ layui.extend({
                     break;
             }
         });
+
     });
 
     //刷新页面
@@ -467,25 +481,49 @@ layui.extend({
         });
     }
 
-    var define = "";
-    function Search(mPower,mType,Unit,mName) {
-        tableMain.reload({
-            url: '/patient?action=getMedicineList',
-            where: {
-                "mPower": mPower,
-                "mType": mType,
-                "Unit": Unit,
-                "mName":mName
-            },
-            page: {curr: 1}
-        });
-        // 重新获取下拉菜单的选项
-        getUnit();
-        getmType();
-        getmPower();
-        backValues();
-        getmName();
+    function getValue(){
+
     }
+
+    //单框查询所有
+    function Search() {
+        // 实时监听输入框变化
+        $("#search").on("input", function() {
+            inputVal = $(this).val(); // 更新全局变量的值
+            console.log("实时接收的值:", inputVal);
+        });
+
+        console.log("Search已经被执行了!");
+
+        // 处理表单提交
+        $("#submit").click(function(e) {
+            e.preventDefault(); // 阻止表单的默认提交行为
+
+            // 在点击提交按钮时重新获取输入框的值
+            var inputVal = $("#search").val();
+            console.log("输入值inputVal:" + inputVal);
+
+            table.reload('addMedicineList', {
+                url: '/patient?action=searchMedicine',
+                where: { "inputVal": inputVal },
+                page: { curr: 1 },
+                cache: false,
+                response: {
+                    statusCode: 200,
+                    countName: 'count',
+                    dataName: 'data',
+                    msgName: 'msg'
+                },
+                done: function(res, curr, count) {
+                    console.log("数据加载完成:", res);
+                    if (res.code !== 200) {
+                        layer.msg(res.msg || '加载失败');
+                    }
+                }
+            });
+        });
+    }
+
 
     function addPatient(){
         $.ajax({
@@ -535,8 +573,10 @@ layui.extend({
             title : "开设处方",
             type : 2,
             content: "/patient?action=getMenuBtn1&mIdList=" + mIdArray.join(","),
-            area:['1000px','600px']
+            area:['800px','500px']
         });
     }
+
+
 });
 

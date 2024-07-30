@@ -1,10 +1,9 @@
 package com.service.Impl;
 
-import com.pojo.ApplyFailed;
-import com.pojo.DicNum;
-import com.pojo.SalReturn;
+import com.pojo.*;
 import com.service.FirstPageService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.util.Vessel.*;
@@ -39,6 +38,34 @@ public class FirstPageServiceImpl implements FirstPageService {
             i++;
         }
         return i;
+    }
+
+    public List<FirstPage> getWarnMsg(){
+        List<Warn> needBuyWarns = warnService.getNeedBuyWarns();
+        List<FirstPage> list = new ArrayList<>();
+        for (Warn warn:needBuyWarns){
+            FirstPage firstPage = new FirstPage();
+            firstPage.setWarnNumber(warn.getWarnNumber());
+            firstPage.setTolNumber(warn.getTolNumber());
+            firstPage.setmName(warn.getmName());
+            list.add(firstPage);
+        }
+        return list;
+    }
+
+    public List<Orders> getOrderMsg(){
+        List<Orders> orderList = ordersDao.getOrders();
+        List<Orders> ordersList1 = new ArrayList<>();
+        int i = 0;
+        for (Orders order:orderList){
+            Orders ordersById = ordersService.getOrdersById(order.getoId());
+            ordersList1.add(ordersById);
+            i++;
+            if (i==10){
+                return ordersList1;
+            }
+        }
+        return ordersList1;
     }
 
 

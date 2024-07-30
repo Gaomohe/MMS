@@ -1,9 +1,7 @@
 package com.servlet;
 
 import com.alibaba.fastjson.JSON;
-import com.pojo.Btn;
-import com.pojo.Menu;
-import com.pojo.User;
+import com.pojo.*;
 import com.util.*;
 
 import javax.servlet.annotation.WebServlet;
@@ -443,18 +441,30 @@ public class MenuServlet extends BaseServlet {
         return resultData;
     }
 
+    //获取首页数据
     public void firstPage(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
         HttpSession session1 = request.getSession();
         HttpSession session2 = request.getSession();
-        HttpSession session3 = request.getSession();
-        HttpSession session4 = request.getSession();
         int failedNumber = firstPageService.getFailedNumber();
         int returnNumber = firstPageService.getReturnNumber();
         int unPayed = firstPageService.getUnPayed();
         session.setAttribute("fNumber",failedNumber);
         session1.setAttribute("rNumber",returnNumber);
-        session1.setAttribute("uNumber",unPayed);
+        session2.setAttribute("uNumber",unPayed);
     }
+
+    //获取首页预警数据
+    public ResultData getWarnForFirst(HttpServletRequest request, HttpServletResponse response){
+        List<FirstPage> warnMsg = firstPageService.getWarnMsg();
+        return Result.resultData(warnMsg);
+    }
+    //获取首页采购数据
+    public ResultData getOrderMsg(HttpServletRequest request, HttpServletResponse response){
+        List<Orders> orderMsg = firstPageService.getOrderMsg();
+        return Result.resultData(orderMsg);
+    }
+
+
 
 }

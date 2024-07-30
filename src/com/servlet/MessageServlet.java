@@ -37,5 +37,4 @@ public class MessageServlet extends BaseServlet {
         int i = messageService.addMessage(message1);
         return Result.resultStatus(i);
     }
-
 }

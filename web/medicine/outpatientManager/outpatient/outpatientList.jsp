@@ -30,7 +30,6 @@
                 <c:forEach var="menu" items="${menuList}" varStatus="s">
 <%--                    ${menu.resUrl}--%>
                 </c:forEach>
-
                     <div class="layui-inline">
                         <div class="layui-input-inline">
                             <input type="text" id="search" name="search" lay-verify="search" lay-event="search" lay-filter="search" placeholder="请输入搜索字段" autocomplete="off" class="layui-input">

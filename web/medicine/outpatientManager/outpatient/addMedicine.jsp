@@ -89,14 +89,18 @@
                 </div>
             </div>
             <hr class="layui-border-green">
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <input type="text" id="search" name="search" lay-verify="search" lay-event="search" lay-filter="search" placeholder="请输入搜索字段" autocomplete="off" class="layui-input">
-                </div>
-                <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe615;</i>查询</button>
-            </div>
-            <button type="button" lay-event="addMedicine" class="layui-btn layui-btn-danger"><i class="layui-icon">&#xe654;</i>开处方</button>
+
             <script type="text/html" id="addMedicineDemo">
+                <form id="searchForm">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" id="search" name="search" lay-verify="search" lay-event="search" lay-filter="search" placeholder="请输入搜索字段" autocomplete="off" class="layui-input">
+                        </div>
+                        <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe615;</i>查询</button>
+                    </div>
+                    <button type="button" lay-event="addMedicine" class="layui-btn layui-btn-danger"><i class="layui-icon">&#xe654;</i>开处方</button>
+
+                </form>
                 <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
 &lt;%&ndash;                    ${menu.resUrl}&ndash;%&gt;
                 </c:forEach>--%>

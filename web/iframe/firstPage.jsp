@@ -85,6 +85,18 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-9 col-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">采购订单状态</h4>
+                            </div>
+                            <div class="box-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table mb-0 dash-table">
+                                        <div id="orderList"></div>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="box position-static">
                             <div class="col-12">
                                 <div class="box">
@@ -110,6 +122,23 @@
                                 <!-- /.box -->
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xl-3 col-12">
+                        <div class="box bg-success">
+                            <div id="ww_4697bb2a07fc1" v='1.3' loc='auto' a='{"t":"horizontal","lang":"zh","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#FFFFFF","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/zh/" id="ww_4697bb2a07fc1_u" target="_blank">天气插件</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_4697bb2a07fc1"></script>
+                        </div>
+                        <div class="box" id="bt-sellers">
+                            <div class="box-header">
+                                <h4 class="box-title">药品预警</h4>
+                            </div>
+                            <div class="box-body" style="height: 400px; overflow-y: auto;" >
+                                <div class="inner-user-div3" >
+                                    <div id="warnTable"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%--<div class="col-xl-9 col-12">
                         <div class="row">
                             <div class="col-xl-6 col-12">
                                 <div class="box">
@@ -156,80 +185,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-12">
-                                <div class="box">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">Orders Shipping Today</h4>
-                                        <div class="box-controls pull-right">
-                                            <div class="lookup lookup-circle lookup-right">
-                                                <input type="text" name="s">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table mb-0 dash-table">
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">1234</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-12-2021</span> </td>
-                                                    <td>Donec</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$954</td>
-                                                    <td><i class="fa fa-truck"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">3215</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-13-2021</span> </td>
-                                                    <td>Consectetur</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$512</td>
-                                                    <td><i class="fa fa-truck"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">4521</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-14-2021</span> </td>
-                                                    <td>Vestibulum</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$745</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">1452</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-15-2021</span> </td>
-                                                    <td>Donec</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$875</td>
-                                                    <td><i class="fa fa-truck"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">7458</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-16-2021</span> </td>
-                                                    <td>Nam ut</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$658</td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">7451</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-17-2021</span> </td>
-                                                    <td>Praesent</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$418</td>
-                                                    <td><i class="fa fa-truck"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="javascript:void(0)">4125</a></td>
-                                                    <td><span class="text-muted text-nowrap">05-18-2021</span> </td>
-                                                    <td>Sed tempor</td>
-                                                    <td><span class="badge badge-pill badge-danger">Shipping</span></td>
-                                                    <td>$421</td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="col-xl-6 col-12">
                                 <div class="box" style="background-color: #2e72ff;">
                                     <div class="box-header">
@@ -253,245 +209,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-12">
-                        <div class="box bg-success">
-                            <div id="ww_4697bb2a07fc1" v='1.3' loc='auto' a='{"t":"horizontal","lang":"zh","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#FFFFFF","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/zh/" id="ww_4697bb2a07fc1_u" target="_blank">天气插件</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_4697bb2a07fc1"></script>
-                        </div>
-                        <div class="box" id="bt-sellers">
-                            <div class="box-header">
-                                <h4 class="box-title">Best Sellers This Quarter</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="inner-user-div3">
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Kelly Bookshelf</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">124 Units</h3>
-                                                <p class="mb-0"><span>$588 per unit</span> | <strong>$72,931</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Darcy Side Table</h5>
-                                                <p class="mb-0">BR 3039</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">107 Units</h3>
-                                                <p class="mb-0"><span>$188 per unit</span> | <strong>$20,116</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Clarissa Chaise</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">102 Units</h3>
-                                                <p class="mb-0"><span>$980 per unit</span> | <strong>$99,960</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Sheffield Bedframe</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">98 Units</h3>
-                                                <p class="mb-0"><span>$1400 per unit</span> | <strong>$137,200</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Amelia Floorlamp</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">93 Units</h3>
-                                                <p class="mb-0"><span>$110 per unit</span> | <strong>$10,230</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Kelly Bookshelf</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">124 Units</h3>
-                                                <p class="mb-0"><span>$588 per unit</span> | <strong>$72,931</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Darcy Side Table</h5>
-                                                <p class="mb-0">BR 3039</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">107 Units</h3>
-                                                <p class="mb-0"><span>$188 per unit</span> | <strong>$20,116</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Clarissa Chaise</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">102 Units</h3>
-                                                <p class="mb-0"><span>$980 per unit</span> | <strong>$99,960</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Sheffield Bedframe</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">98 Units</h3>
-                                                <p class="mb-0"><span>$1400 per unit</span> | <strong>$137,200</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-shadowed p-10 mb-10 rounded10">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="my-5">Amelia Floorlamp</h5>
-                                                <p class="mb-0">BR 8129</p>
-                                            </div>
-                                            <div>
-                                                <h3 class="my-5">93 Units</h3>
-                                                <p class="mb-0"><span>$110 per unit</span> | <strong>$10,230</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>--%>
                 </div>
-                <div class="row">
-                    <div class="col-xl-6 col-12">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h4 class="box-title">list of sections</h4>
-                            </div>
-                            <div class="box-body pt-0">
-                                <div class="table-responsive">
-                                    <table class="table mb-0">
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Section 001</a></td>
-                                            <td><span class="text-muted text-nowrap"><i class="fa fa-calendar-o text-success-light mx-5"></i> 05-12-2021</span> </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mx-5">Used</span>
-                                                    <div class="progress progress-xs w-p100 mt-0">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 20%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end">20%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Section 002</a></td>
-                                            <td><span class="text-muted text-nowrap"><i class="fa fa-calendar-o text-success-light mx-5"></i> 05-12-2021</span> </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mx-5">Used</span>
-                                                    <div class="progress progress-xs w-p100 mt-0">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 28%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end">28%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Section 003</a></td>
-                                            <td><span class="text-muted text-nowrap"><i class="fa fa-calendar-o text-success-light mx-5"></i> 05-12-2021</span> </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mx-5">Used</span>
-                                                    <div class="progress progress-xs w-p100 mt-0">
-                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 80%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end">80%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Section 004</a></td>
-                                            <td><span class="text-muted text-nowrap"><i class="fa fa-calendar-o text-success-light mx-5"></i> 05-12-2021</span> </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mx-5">Used</span>
-                                                    <div class="progress progress-xs w-p100 mt-0">
-                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end">50%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Section 005</a></td>
-                                            <td><span class="text-muted text-nowrap"><i class="fa fa-calendar-o text-success-light mx-5"></i> 05-12-2021</span> </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mx-5">Used</span>
-                                                    <div class="progress progress-xs w-p100 mt-0">
-                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 58%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end">58%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0)">Section 006</a></td>
-                                            <td><span class="text-muted text-nowrap"><i class="fa fa-calendar-o text-success-light mx-5"></i> 05-12-2021</span> </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="mx-5">Used</span>
-                                                    <div class="progress progress-xs w-p100 mt-0">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 36%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-end">36%</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-12">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h4 class="box-title">Average Inventory Turnaround</h4>
-                            </div>
-                            <div class="box-body py-0">
-                                <div id="overview_trend"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="row"></div>
             </section>
             <!-- /.content -->
         </div>

@@ -28,4 +28,7 @@ public interface OutpatientService {
 
     //已选中药品回显
     public LayuiTable<Medicine> getPatientMedicine(List<Integer> mIdList,int page,int limit);
+
+    //单框查询药品
+    public LayuiTable<Medicine> searchMedicine(String search,int page,int limit);
 }

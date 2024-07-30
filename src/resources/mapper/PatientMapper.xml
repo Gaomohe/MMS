@@ -23,6 +23,36 @@
         </choose>
     </select>
 
-
+    <select id="searchMedicine" parameterType="string" resultType="Medicine">
+        SELECT *
+        FROM dictionary
+        WHERE
+            mName LIKE CONCAT('%', #{search}, '%') OR
+            specification LIKE CONCAT('%', #{search}, '%') OR
+            manufactor LIKE CONCAT('%', #{search}, '%') OR
+            unit LIKE CONCAT('%', #{search}, '%') OR
+            department LIKE CONCAT('%', #{search}, '%') OR
+            position LIKE CONCAT('%', #{search}, '%') OR
+            batchNumber LIKE CONCAT('%', #{search}, '%') OR
+            usefulLife LIKE CONCAT('%', #{search}, '%') OR
+            productDate LIKE CONCAT('%', #{search}, '%') OR
+            profits LIKE CONCAT('%', #{search}, '%') OR
+            code LIKE CONCAT('%', #{search}, '%') OR
+            goodsType LIKE CONCAT('%', #{search}, '%') OR
+            mType LIKE CONCAT('%', #{search}, '%') OR
+            defined LIKE CONCAT('%', #{search}, '%') OR
+            supplier LIKE CONCAT('%', #{search}, '%') OR
+            warehousingDate LIKE CONCAT('%', #{search}, '%') OR
+            locationDescription LIKE CONCAT('%', #{search}, '%') OR
+            sign LIKE CONCAT('%', #{search}, '%') OR
+            warehousingRemarks LIKE CONCAT('%', #{search}, '%') OR
+            drugFrom LIKE CONCAT('%', #{search}, '%') OR
+            handingInformation LIKE CONCAT('%', #{search}, '%') OR
+            approvalNumber LIKE CONCAT('%', #{search}, '%') OR
+            LastCuringDate LIKE CONCAT('%', #{search}, '%') OR
+            documentNumber LIKE CONCAT('%', #{search}, '%') OR
+            placeOrigin LIKE CONCAT('%', #{search}, '%') OR
+            batchsNumber LIKE CONCAT('%', #{search}, '%')
+    </select>
 
 </mapper>

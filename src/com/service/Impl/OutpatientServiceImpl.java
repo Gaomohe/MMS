@@ -1,17 +1,18 @@
 package com.service.Impl;
 
+import com.dao.ApplyDao;
 import com.dao.Impl.OutpatientDaoImpl;
 import com.dao.OutpatientDao;
+import com.dao.PatientDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
 import com.pojo.Log;
 import com.pojo.Medicine;
 import com.pojo.Patient;
 import com.pojo.User;
 import com.service.OutpatientService;
-import com.util.GetTime;
-import com.util.LayuiTable;
-import com.util.ResultData;
-import com.util.SQLtoString;
+import com.util.*;
+import org.apache.ibatis.session.SqlSession;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -160,6 +161,20 @@ public class OutpatientServiceImpl implements OutpatientService {
         layuiTable.setCount(medicineList.size());
         layuiTable.setData(medicineList);
 
+        return layuiTable;
+    }
+
+    //单框查询药品
+    @Override
+    public LayuiTable<Medicine> searchMedicine(String search, int page, int limit) {
+        PageHelper.startPage(page,limit);
+        SqlSession session = BaseDao.getSqlSession();
+        List<Medicine> list = session.getMapper(PatientDao.class).searchMedicine(search);
+        LayuiTable<Medicine> layuiTable = new LayuiTable<>();
+        layuiTable.setMsg("");
+        layuiTable.setCode(200);
+        layuiTable.setCount(list.size());
+        layuiTable.setData(list);
         return layuiTable;
     }
 

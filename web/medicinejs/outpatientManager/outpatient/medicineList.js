@@ -69,17 +69,6 @@ layui.extend({
             var files = checkdata.data;
 
             switch (obj.event) {
-                case 'search':
-                    console.log("---------------");
-                    console.log(mPower);
-                    console.log(mType);
-                    console.log(Unit);
-                    console.log("---------------");
-                    Search(mPower, mType, Unit, mName);
-                    break;
-                case 'reload':
-                    winReload();
-                    break;
                 case 'submit':
                     if (files.length > 0) {
                         files.forEach(function(file) {
@@ -93,7 +82,6 @@ layui.extend({
                         layer.msg("你没有选择", { icon: 2 });
                     }
                     break;
-
             }
         });
     });
