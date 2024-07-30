@@ -2,10 +2,7 @@ package com.service.Impl;
 
 import com.dao.Impl.AppointDaoImpl;
 import com.dao.Impl.PurchaseDaoImpl;
-import com.pojo.Apply;
-import com.pojo.Appointment;
-import com.pojo.Purchase;
-import com.pojo.Role;
+import com.pojo.*;
 import com.service.PurchaseService;
 import com.util.LayuiTable;
 import com.util.ResultData;
@@ -107,7 +104,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public ResultData<Integer> isok(int[] ins,String name,String times) {
         ResultData<Integer> resultData = new ResultData<>();
         for (int id:ins) {
-            if (purchaseDao.isok(id,name,name)){
+            if (purchaseDao.isok(id,name,times)){
                 resultData.setStatus(200);
                 resultData.setData(1);
             }else {
@@ -124,10 +121,43 @@ public class PurchaseServiceImpl implements PurchaseService {
             if (purchaseDao.noPass(ints[0],name,values,time)){
                 resultData.setStatus(200);
                 resultData.setData(1);
+                resultData.setMsg(time);
             }else {
                 resultData.setStatus(400);
                 resultData.setData(0);
             }
+
+        return resultData;
+    }
+
+    @Override
+    public ResultData<?> getMsg(String name) {
+        ResultData<List<Message>> resultData = new ResultData<>();
+        ResultSet msg = purchaseDao.getMsg(name);
+        List<Message> messageList = new ArrayList<>();
+        try {
+            while (msg.next()){
+                Message message = new Message();
+                message.setBatch_num(msg.getLong("batch_num"));
+                if (msg.getString("title").equals("") ||msg.getString("title") == null){
+                    message.setTitle("未知消息");
+                }else {
+                    message.setTitle(msg.getString("title"));
+                }
+
+                message.setMessage(msg.getString("message"));
+                message.setReceivePeople(msg.getString("receivePeople"));
+                message.setuName(msg.getString("uName"));
+                message.setTime(msg.getString("time"));
+                messageList.add(message);
+            }
+            resultData.setData(messageList);
+            resultData.setStatus(200);
+            resultData.setMsg("");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return resultData;
     }
 

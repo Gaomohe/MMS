@@ -65,4 +65,11 @@ public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
         return JDBC.update(sql,objects) > 0;
     }
 
+    @Override
+    public ResultSet getMsg(String name) {
+        String sql = "select * from message where receivePeople = ? and state = 0";
+        Object[] objects = new Object[]{name};
+        return JDBC.select(sql, objects);
+    }
+
 }

@@ -59,5 +59,9 @@ public class PurchaseServlet extends BaseServlet {
         return purchaseService.noPass(ints,"张三",values,time);
     }
 
+    public ResultData<?> getMsg(HttpServletRequest request, HttpServletResponse response){
+      return purchaseService.getMsg("张三");
+    }
+
 
 }

@@ -21,4 +21,7 @@ public interface PurchaseDao {
     public boolean isOK_msg(long bath,String okType,String detail,int send,int receivePeo);
 
     public boolean notOK_msg(int id,long bath,String NotType,int send,int receivePeo);
+
+    //获取消息
+    public ResultSet getMsg(String name);
 }

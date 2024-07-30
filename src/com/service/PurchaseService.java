@@ -21,5 +21,8 @@ public interface PurchaseService {
     //不通过
     public ResultData<Integer> noPass(int[] ints,String name,String values,String time);
 
+    //获取消息
+    public ResultData<?> getMsg(String name);
+
 
 }

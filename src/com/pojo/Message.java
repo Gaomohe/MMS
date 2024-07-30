@@ -10,6 +10,33 @@ public class Message {
     private String time;
     private int state;
     private int rid;
+    private String title;
+    private String receivePeople;
+    private long batch_num;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getReceivePeople() {
+        return receivePeople;
+    }
+
+    public void setReceivePeople(String receivePeople) {
+        this.receivePeople = receivePeople;
+    }
+
+    public long getBatch_num() {
+        return batch_num;
+    }
+
+    public void setBatch_num(long batch_num) {
+        this.batch_num = batch_num;
+    }
 
     public Message() {
     }

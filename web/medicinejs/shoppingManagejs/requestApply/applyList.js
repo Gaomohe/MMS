@@ -27,8 +27,6 @@ function tijiao(){
         success:function(data){
             var info = JSON.parse(data);
             if(info.status === 200){
-                console.log("ceshi")
-                console.log(info)
                 layer.msg("申请成功")
 
                 // setTimeout(function(){

@@ -88,17 +88,26 @@
 <script src="//unpkg.com/layui@2.9.14/dist/layui.js"></script>
 <script>
     layui.use(['form', 'laydate','table'], function(){
+        const $ = layui.$;
+
+        var messages;
+        $.ajax({
+            url:"/purchase?action=getMsg",
+            type:"post",
+            success:function (data){
+                let parse = JSON.parse(data);
+                if(parse.status === 200){
+                    messages = parse.data;
+                }
+
+            }
+        })
         var messagesContainer = document.getElementById('messagesContainer');
-        var messages = [
-            {content: '你收到消息', time: '10个月前'},
-            {content: '你收到消息', time: '10个月前'},
-            {content: '你收到消息', time: '10个月前'},
-            // 可以添加更多消息对象
-        ];
+
 
         var rowsHTML = messages.map(function(message, index) {
             return '<tr>' +
-                '<td><i class="layui-icon layui-icon-email"></i> ' + message.content + '</td>' +
+                '<td><i class="layui-icon layui-icon-email"></i>您有一条 ' + message.title + '</td>' +
                 '<td class="message-time">' + message.time + '</td>' +
                 '</tr>';
         }).join('');
