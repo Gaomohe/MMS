@@ -3,7 +3,7 @@ package com.pojo;
 public class Apporder {
     private int oId;
     private int aId;//applyMedicineId,申请购买的药品id
-
+    private int applyId;
     private int applyBuyNumber;//申请购买的药品数量
 
     public int getoId() {
@@ -20,6 +20,14 @@ public class Apporder {
 
     public void setaId(int aId) {
         this.aId = aId;
+    }
+
+    public int getApplyId() {
+        return applyId;
+    }
+
+    public void setApplyId(int applyId) {
+        this.applyId = applyId;
     }
 
     public int getApplyBuyNumber() {

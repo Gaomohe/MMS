@@ -132,4 +132,10 @@ public class FinancialServlet extends BaseServlet {
         resultData = Result.resultStatus(i);
         return resultData;
     }
+
+    //获取订单详情
+    public void getId(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("oId"));
+        ToJSON.toJson(response,financialService.getId(id));
+    }
 }

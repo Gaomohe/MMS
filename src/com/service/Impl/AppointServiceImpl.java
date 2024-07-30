@@ -315,6 +315,7 @@ public class AppointServiceImpl implements AppointService {
             for (Apply apply : applyList){
                 Apply apply2 = session.getMapper(ApplyDao.class).getApplyPrice(apply);
                 if (apply2 != null && apply2.getManufactor().equals(ManufactorName)){
+                    apporder.setApplyId(apply.getApplyId());
                     apporder.setaId(apply.getmId());
                     apporder.setApplyBuyNumber(apply.getApplyNumber());
                     num = session.getMapper(ApplyDao.class).addAppOrder(apporder);

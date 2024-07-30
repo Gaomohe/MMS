@@ -1,6 +1,7 @@
 package com.service;
 
 import com.pojo.Apply;
+import com.pojo.Purchase;
 import com.pojo.User;
 import com.util.LayuiTable;
 
@@ -16,5 +17,8 @@ public interface FinancialService {
 
     //财务反审核
     public int setUnApprove(int id, User user);
+
+    //获取订单详情
+    public LayuiTable<Purchase> getId(int id);
 
 }

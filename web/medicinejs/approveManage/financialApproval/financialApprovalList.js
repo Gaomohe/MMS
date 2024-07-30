@@ -409,12 +409,12 @@ layui.extend({
         layui.layer.open({
             title : "详情",
             type : 2,
-            content : "medicine/approveManage/purchaseApproval/detailData.jsp",
+            content : "medicine/approveManage/financialApproval/detailData.jsp",
             area:['700px','450px'],
             success:function (layero, index){
                 var $iframes = layero.find('iframe')[0];
                 $.ajax({
-                    url:"/purchase?action=getId",//根据id查询的方法
+                    url:"/financial?action=getId",//根据id查询的方法
                     type:"post",
                     data:{oId},
                     success:function(data){

@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 import com.pojo.Apply;
+import com.pojo.Purchase;
 import com.pojo.User;
 import com.service.FinancialService;
 import com.util.GetTime;
@@ -62,5 +63,11 @@ public class FinancialServiceImpl implements FinancialService {
         String userName = userDao.getUserName(user.getId());
         apply.setApplyUser(userName);
         return financialDao.setUnApprove(apply);
+    }
+
+    //获取订单详情
+    @Override
+    public LayuiTable<Purchase> getId(int id) {
+        return null;
     }
 }
