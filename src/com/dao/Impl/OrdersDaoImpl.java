@@ -141,7 +141,7 @@ public class OrdersDaoImpl implements OrdersDao{
     //获取所有订单（财务）
     @Override
     public List<Orders> getOrders(int page, int limit) {
-        String sql=" select * from orders\n" +
+        String sql="select * from orders\n" +
                 "where oName='已审阅通过'\n" +
                 "limit ?,?;";
         Object[] objects= new Object[2];

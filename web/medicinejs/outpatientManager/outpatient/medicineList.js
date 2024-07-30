@@ -12,6 +12,9 @@ layui.extend({
     var mPower, mType, Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy, doctorAdvice, lastTime, tableMain, patientId, mName;
     let mIdList = new Set();
     let priceList = new Map();
+    let params = {};
+    let queryString = window.location.search.slice(1);
+    let pairs = queryString.split("&");
 
     $(document).ready(function() {
         laydate.render({
@@ -64,6 +67,13 @@ layui.extend({
         });
         tableMain = tableIns;
 
+        pairs.forEach(function(pair) {
+            let [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+        });
+
+        console.log("这是params:" + params);
+
         table.on('toolbar(MedicineList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
             var files = checkdata.data;
@@ -72,6 +82,7 @@ layui.extend({
                 case 'submit':
                     if (files.length > 0) {
                         files.forEach(function(file) {
+                            console.log("这是file的值:"+file);
                             var inputElement = document.getElementsByName('price_min' + file.mId)[0];
                             priceList.set(file.mId, inputElement.value);
                             mIdList.add(file.mId);
@@ -116,5 +127,11 @@ layui.extend({
             }
         });
     }
+
+
+
+
+
+
 
 });

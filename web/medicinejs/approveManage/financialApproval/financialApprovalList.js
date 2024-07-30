@@ -459,7 +459,7 @@ layui.extend({
             layui.layer.open({
                 title : "详情",
                 type : 2,
-                content : "medicine/approveManage/purchaseApproval/signature.jsp?dataString=" + dataString,
+                content : "medicine/approveManage/financialApproval/signature.jsp?dataString=" + dataString,
                 area:['850px','550px'],
                 success:function (layero, index){
                     var $iframes = layero.find('iframe')[0];

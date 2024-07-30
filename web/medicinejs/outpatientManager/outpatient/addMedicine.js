@@ -8,7 +8,8 @@ layui.extend({
         upload = layui.upload,
         table = layui.table,
         dtree = layui.dtree;
-    var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain,patientId,mName;
+    var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,disease,doctorAdvice,lastTime,tableMain,patientId,mName,pName,pSex;
+
     var inputVal = "";
     let mIdList = new Set();
 
@@ -395,15 +396,24 @@ layui.extend({
                 document.querySelector('input[name="pid"]').value = res.pId;
                 pId = res.pId;
                 document.querySelector('input[name="pName"]').value = res.name;
+                pName = res.name;
                 document.querySelector('input[name="sex"]').value = res.sex;
+                pSex = res.sex;
                 document.querySelector('input[name="age"]').value = res.age;
+                pAge = res.age;
                 document.querySelector('input[name="weight"]').value = res.weight;
+                pWeight = res.weight;
                 document.querySelector('input[name="address"]').value = res.address;
+                pAddress = res.address;
                 document.querySelector('input[name="phone"]').value = res.phone;
+                pPhone = res.phone;
                 document.querySelector('input[name="allergy"]').value = res.allergy;
-                document.querySelector('input[name="time"]').value = res.diagnosticTime;
+                pAllergy = res.allergy;
+                // document.querySelector('input[name="time"]').value = res.diagnosticTime;
                 document.querySelector('textarea[name="disease"]').value = res.disease;
+                disease = res.disease;
                 document.querySelector('textarea[name="doctorAdvice"]').value = res.doctorAdvice;
+                doctorAdvice = res.doctorAdvice;
             }
         })
     }
@@ -529,10 +539,10 @@ layui.extend({
         $.ajax({
             url: "/patient?action=addPatient",
             data: {
+                "pId": pId,
                 "pName": pName,
                 "pSex": pSex,
                 "pAge": pAge,
-                "pId": pId,
                 "pWeight": pWeight,
                 "pAddress": pAddress,
                 "pPhone": pPhone,
@@ -560,9 +570,25 @@ layui.extend({
     }
 
 
+
+
     //打开开处方的界面
     function addMedicine(){
         let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
+        let otherParams = {
+            pId: pId,
+            pName: pName,
+            pSex: pSex,
+            pAge: pAge,
+            pWeight: pWeight,
+            pAddress: pAddress,
+            pPhone: pPhone,
+            pAllergy: pAllergy,
+            doctorAdvice: doctorAdvice
+        };
+
+        // 编码参数
+        let paramsString = Object.keys(otherParams).map(key => `${key}=${encodeURIComponent(otherParams[key])}`).join('&');
         console.log("1111111111111111111");
         console.log(mIdList);
         console.log("2222222222222222222");
@@ -570,10 +596,10 @@ layui.extend({
         console.log("3333333333333333333");
 
         layui.layer.open({
-            title : "开设处方",
-            type : 2,
-            content: "/patient?action=getMenuBtn1&mIdList=" + mIdArray.join(","),
-            area:['800px','500px']
+            title: "开设处方",
+            type: 2,
+            content: `/patient?action=getMenuBtn1&mIdList=${mIdArray.join(",")}&${paramsString}`,
+            area: ['800px', '500px']
         });
     }
 

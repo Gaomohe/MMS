@@ -52,7 +52,7 @@
 <div class="title" style="margin-top: 50px">买药审批</div>
 <!-- 初始，渲染带装饰的html，供用户输入文本、上传图片、生成电子签名 -->
 <div id="container">
-    <h1>药品采购药师审核</h1>
+    <h1>药品采购财务审核</h1>
     <!-- Date -->
     <div class="row" style="margin-top: 50px">
         <div class="row-input">

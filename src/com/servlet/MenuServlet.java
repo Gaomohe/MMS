@@ -464,7 +464,4 @@ public class MenuServlet extends BaseServlet {
         List<Orders> orderMsg = firstPageService.getOrderMsg();
         return Result.resultData(orderMsg);
     }
-
-
-
 }
