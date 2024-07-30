@@ -13,12 +13,12 @@ public interface PurchaseDao {
 
     public ResultSet getId(int id);
 
-    public boolean isok(int id, String name);
+    public boolean isok(int id, String name,String times);
 
-    public boolean noPass(int id,String values);
+    public boolean noPass(int id,String name,String values,String times);
 
     //通过消息
-    public boolean isOK_msg(int id,String okType,String detail,int send,int receivePeo);
+    public boolean isOK_msg(long bath,String okType,String detail,int send,int receivePeo);
 
-    public boolean notOK_msg(int id,String okType,int send,int receivePeo);
+    public boolean notOK_msg(int id,long bath,String NotType,int send,int receivePeo);
 }

@@ -16,10 +16,10 @@ public interface PurchaseService {
 
     public LayuiTable<Purchase> getId(int id);
 
-    public ResultData<Integer> isok(int[] ins, String name);
+    public ResultData<Integer> isok(int[] ins, String name,String times);
 
     //不通过
-    public ResultData<Integer> noPass(int[] ints,String values);
+    public ResultData<Integer> noPass(int[] ints,String name,String values,String time);
 
 
 }

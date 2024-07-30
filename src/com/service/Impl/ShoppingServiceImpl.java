@@ -205,7 +205,9 @@ public class ShoppingServiceImpl implements ShoppingService {
     public ResultData addSub_Apply(Sub_Apply sub_apply) {
         if (shoppingDao.addSub_Apply(sub_apply)){
             resultData.setStatus(200);
-            resultData.setData("");
+
+
+            resultData.setData(sub_apply.getBatch_num());
             resultData.setMsg("");
         }else {
             resultData.setStatus(500);

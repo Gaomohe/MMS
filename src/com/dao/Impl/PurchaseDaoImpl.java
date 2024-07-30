@@ -30,31 +30,39 @@ public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public boolean isok(int id,String name) {
-        String sql = "update orders set oName = '已审阅通过',specification = ? where oId = ?";
-        Object[] objects = new Object[]{name,id};
+    public boolean isok(int id,String name,String times) {
+        String sql_1 = "update appoint set pharmacist = ?,pharmacistApprove = '已审阅通过',pharmacistTime = ? where applyId in (select applyId from app_order where oId = ?)";
+        Object[] objects1 = new Object[]{name,times,id};
+        JDBC.update(sql_1,objects1);
+        String sql = "update orders set oName = '已审阅通过',specification = ?,pharmacistTime = ? where oId = ?";
+        Object[] objects = new Object[]{name,times,id};
         return JDBC.update(sql,objects) > 0;
     }
 
     @Override
-    public boolean noPass(int id, String values) {
-        String sql = "update orders set unit = ?,oName = '已审阅不通过' where oId = ?";
-        Object[] objects = new Object[]{values,id};
+    public boolean noPass(int id,String name, String values,String times) {
+        String sql_1 = "update appoint set pharmacist = ?,pharmacistApprove = '已审阅不通过',pharmacistTime = ? where applyId in (select applyId from app_order where oId = ?)";
+        Object[] objects1 = new Object[]{name,times,id};
+        JDBC.update(sql_1,objects1);
+        String sql = "update orders set unit = ?,specification = ?,oName = '已审阅不通过',pharmacistTime = ? where oId = ?";
+        Object[] objects = new Object[]{values,name,times,id};
         return JDBC.update(sql,objects) > 0;
     }
 
     @Override
-    public boolean isOK_msg(int id, String okType, String detail,int send, int receivePeo) {
-        String sql = "insert into message(uId,uName,wId,message,time,state,message.title,message.receivePeople) values (?,(select userName from user where id = ?),?,?,?,0,?,(select userName from user where id = ?))";
+    public boolean isOK_msg(long bath, String okType, String detail,int send, int receivePeo) {
+        String sql = "insert into message(uId,uName,batch_num,message,time,state,message.title,message.receivePeople) values (?,(select userName from user where id = ?),?,?,?,0,?,(select userName from user where id = ?))";
         String nowTimesStr = StringDeal.getNowTimesStr();
-        Object[] objects = new Object[]{send,send,id,nowTimesStr,okType,detail,receivePeo};
+        Object[] objects = new Object[]{send,send,bath,detail,nowTimesStr,okType,receivePeo};
         return JDBC.update(sql,objects) > 0;
     }
 
     @Override
-    public boolean notOK_msg(int id, String okType,int send, int receivePeo) {
-
-        return false;
+    public boolean notOK_msg(int id,long bath, String NotType,int send, int receivePeo) {
+        String sql = "insert into message(uId,uName,batch_num,message,time,state,message.title,message.receivePeople) values (?,(select userName from user where id = ?),?,(select unit from orders where oId = ?),?,0,?,(select userName from user where id = ?))";
+        String nowTimesStr = StringDeal.getNowTimesStr();
+        Object[] objects = new Object[]{send,send,bath,id,nowTimesStr,NotType,receivePeo};
+        return JDBC.update(sql,objects) > 0;
     }
 
 }

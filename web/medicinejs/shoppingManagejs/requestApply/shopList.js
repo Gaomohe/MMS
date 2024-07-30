@@ -182,7 +182,7 @@ layui.extend({
 
             shadeClose: true,
             id: 'ID-demo-layer-direction-r',
-            content : "medicine/shoppingManage/requestApply/msgList.jsp"
+            content : "http://localhost:8080/medicine/shoppingManage/requestApply/msgList.jsp"
         });
     }
     function add(array){

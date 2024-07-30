@@ -6,6 +6,7 @@ import com.pojo.User;
 import com.service.Impl.PurchaseServiceImpl;
 import com.service.PurchaseService;
 import com.util.BaseServlet;
+import com.util.GetTime;
 import com.util.ResultData;
 import com.util.init.StringDeal;
 import com.util.init.ToJSON;
@@ -47,13 +48,15 @@ public class PurchaseServlet extends BaseServlet {
     public ResultData<Integer> isOk(HttpServletRequest request, HttpServletResponse response){
         String dataString = request.getParameter("dataString");
         int[] ints = StringDeal.toArray(dataString);
-        return purchaseService.isok(ints,"张三");
+        String time = GetTime.getTime();
+        return purchaseService.isok(ints,"张三",time);
     }
     public ResultData<Integer> noPass(HttpServletRequest request, HttpServletResponse response){
         String values = request.getParameter("values");
         String dataString = request.getParameter("dataString");
+        String time = GetTime.getTime();
         int[] ints = StringDeal.toArray(dataString);
-        return purchaseService.noPass(ints,values);
+        return purchaseService.noPass(ints,"张三",values,time);
     }
 
 

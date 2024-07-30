@@ -104,10 +104,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public ResultData<Integer> isok(int[] ins,String name) {
+    public ResultData<Integer> isok(int[] ins,String name,String times) {
         ResultData<Integer> resultData = new ResultData<>();
         for (int id:ins) {
-            if (purchaseDao.isok(id,name)){
+            if (purchaseDao.isok(id,name,name)){
                 resultData.setStatus(200);
                 resultData.setData(1);
             }else {
@@ -119,9 +119,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public ResultData<Integer> noPass(int[] ints, String values) {
+    public ResultData<Integer> noPass(int[] ints,String name, String values,String time) {
         ResultData<Integer> resultData = new ResultData<>();
-            if (purchaseDao.noPass(ints[0],values)){
+            if (purchaseDao.noPass(ints[0],name,values,time)){
                 resultData.setStatus(200);
                 resultData.setData(1);
             }else {

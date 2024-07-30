@@ -1,5 +1,6 @@
 package com.servlet;
 
+import com.dao.Impl.PurchaseDaoImpl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pojo.Medicine;
@@ -28,7 +29,7 @@ import static com.util.Vessel.*;
 @WebServlet("/shopping")
 public class ShoppingServlet extends BaseServlet {
     ShoppingServiceImpl shoppingService = new ShoppingServiceImpl();
-
+    PurchaseDaoImpl purchaseDao = new PurchaseDaoImpl();
     @Override
     public Class<?> getServlet() {
         return ShoppingServlet.class;
@@ -116,6 +117,11 @@ public class ShoppingServlet extends BaseServlet {
             sub_apply.setBatch_num(nowTimes);
             resultData = shoppingService.addSub_Apply(sub_apply);
         }
+
+        //执行完毕，发送消息
+        purchaseDao.isOK_msg(nowTimes,"申请信息","您的药品申请已经发出,请耐心等待审批结果!",1001,1001);
+
+
         return resultData;
     }
 

@@ -27,7 +27,10 @@ function tijiao(){
         success:function(data){
             var info = JSON.parse(data);
             if(info.status === 200){
+                console.log("ceshi")
+                console.log(info)
                 layer.msg("申请成功")
+
                 // setTimeout(function(){
                 //     layer.closeAll("iframe");
                 //     //刷新父页面
@@ -46,8 +49,6 @@ function insertApply(){
         url:"/shopping?action=insertApply",
         type:"post",
         success:function (data){
-            console.log("奇怪")
-            console.log(data)
             if(data.status === 200){
                 console.log("成功");
             }
