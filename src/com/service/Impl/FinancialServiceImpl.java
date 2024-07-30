@@ -8,6 +8,7 @@ import com.util.GetTime;
 import com.util.LayuiTable;
 import com.util.SQLtoString;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,36 @@ public class FinancialServiceImpl implements FinancialService {
     //获取订单详情
     @Override
     public LayuiTable<Purchase> getId(int id) {
-        return null;
+        List<Purchase> purchaseList = new ArrayList<>();
+        LayuiTable<Purchase> layuiTable = new LayuiTable<>();
+        ResultSet idres = financialDao.getId(id);
+        try {
+            while (idres.next()){
+                Purchase purchase = new Purchase();
+                purchase.setmId(idres.getInt(1));
+                purchase.setApplyBuyNumber(idres.getInt(2));
+                purchase.setmName(idres.getString(3));
+                purchase.setSpecification(idres.getString(4));
+                purchase.setManufactor(idres.getString(5));
+                purchase.setUnit(idres.getString(6));
+                purchase.setDepartment(idres.getString(7));
+                purchase.setPurchasePrice(idres.getDouble(8));
+                purchase.setSalePrice(idres.getDouble(9));
+                purchase.setProductDate(idres.getString(10));
+                purchase.setGoodsType(idres.getString(11));
+                purchase.setmType(idres.getString(12));
+                purchase.setDefined(idres.getString(13));
+                purchaseList.add(purchase);
+            }
+            layuiTable.setData(purchaseList);
+            layuiTable.setCode(0);
+            layuiTable.setMsg("");
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return layuiTable;
     }
 }

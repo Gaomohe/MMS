@@ -142,7 +142,7 @@ public class OrdersDaoImpl implements OrdersDao{
     @Override
     public List<Orders> getOrders(int page, int limit) {
         String sql=" select * from orders\n" +
-                "where oName='已审阅通过'\n" +
+                "where oName='已审批通过'\n" +
                 "limit ?,?;";
         Object[] objects= new Object[2];
         objects[0]=page;

@@ -26,9 +26,27 @@ public class Orders {
     private String advanceStatus;
     private double finals;
     private String finalsStatus;
+    private String pharmacistTime;
+    private String financeTime;
 
     public int getoId() {
         return oId;
+    }
+
+    public String getPharmacistTime() {
+        return pharmacistTime;
+    }
+
+    public void setPharmacistTime(String pharmacistTime) {
+        this.pharmacistTime = pharmacistTime;
+    }
+
+    public String getFinanceTime() {
+        return financeTime;
+    }
+
+    public void setFinanceTime(String financeTime) {
+        this.financeTime = financeTime;
     }
 
     public void setoId(int oId) {

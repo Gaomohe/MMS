@@ -2,6 +2,7 @@ package com.dao;
 
 import com.pojo.Apply;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface FinancialDao {
@@ -16,5 +17,8 @@ public interface FinancialDao {
 
     //财务反审核
     public int setUnApprove(Apply apply);
+
+    //获取订单详情
+    public ResultSet getId(int id);
 
 }
