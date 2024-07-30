@@ -63,7 +63,7 @@
                     </dd>
                     <hr>
                     <dd lay-unselect>
-                        <a ew-event="logout" data-url="../iframe/login.jsp">退出</a>
+                        <a id="turnOut">退出</a>
                     </dd>
                 </dl>
             </li>
@@ -145,6 +145,19 @@
         html += '</li>';
         return html;
     }
+    //退出
+    $("#turnOut").click(function (){
+        $.ajax({
+            url: '/user?action=upCode',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                layer.msg("退出成功")
+                location.href="login.jsp";
+            }
+        });
+    })
+
 </script>
 </body>
 </html>

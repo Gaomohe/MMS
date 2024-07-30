@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 import com.dao.Impl.UserDaoImpl;
+import com.pojo.OnlineUser;
 import com.pojo.Role;
 import com.pojo.User;
 import com.service.UserService;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.util.Vessel.financialDao;
 import static com.util.Vessel.userDao;
 
 public class UserServiceImpl implements UserService {
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
     //用户登录
     @Override
     public int login(User user) {
+        upUserOnlineTime(user.getId());
         return userDao.login(user);
     }
 
@@ -48,7 +51,7 @@ public class UserServiceImpl implements UserService {
                 user.setUserName(userSet.getString(2));
                 user.setPassword(userSet.getString(3));
                 user.setCardBalance(userSet.getInt(4));
-                user.setCode(userSet.getString(5));
+                user.setCode(userSet.getInt(5));
                 user.setTelNumber(userSet.getString(6));
                 user.setAddress(userSet.getString("address"));
                 user.setSex(userSet.getString("sex"));
@@ -94,7 +97,7 @@ public class UserServiceImpl implements UserService {
                 user.setUserName(userSet.getString(2));
                 user.setPassword(userSet.getString(3));
                 user.setCardBalance(userSet.getInt(4));
-                user.setCode(userSet.getString(5));
+                user.setCode(userSet.getInt(5));
                 user.setTelNumber(userSet.getString(6));
                 user.setAddress(userSet.getString("address"));
                 user.setSex(userSet.getString("sex"));
@@ -238,5 +241,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserName(int id) {
         return userDao.getUserName(id);
+    }
+
+    @Override
+    public List<OnlineUser> getActiveUser() {
+        List<OnlineUser> activeUser = userDao.getActiveUser();
+        for (int i = 0;i<activeUser.size();i++){
+            ResultSet resultSet = userDao.queryUserIsRole(activeUser.get(i).getId());
+            try {
+                while (resultSet.next()){
+                    activeUser.get(i).setRole(resultSet.getString(3));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return activeUser;
+    }
+
+    @Override
+    public int upUserOnlineTime(int id) {
+        return userDao.upUserOnlineTime(id);
+    }
+
+    @Override
+    public int upCode(User user) {
+        return userDao.upCode(user);
     }
 }

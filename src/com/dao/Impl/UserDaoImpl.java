@@ -2,6 +2,7 @@ package com.dao.Impl;
 
 import com.dao.Impl.init.InitDaoImpl;
 import com.dao.UserDao;
+import com.pojo.OnlineUser;
 import com.pojo.User;
 import com.util.JDBC;
 
@@ -148,4 +149,39 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
         }
         return name;
     }
+
+    //获得所有在线用户
+    public List<OnlineUser> getActiveUser(){
+        String sql = "select * from user where code = 1";
+        ResultSet select = JDBC.select(sql, new Object[1]);
+        List<OnlineUser> users = new ArrayList<>();
+        try {
+            while (select.next()){
+                OnlineUser onlineUser = new OnlineUser();
+                onlineUser.setId(select.getInt("id"));
+                onlineUser.setName(select.getString("userName"));
+                onlineUser.setTelNumber(select.getString("telNumber"));
+                onlineUser.setTime(select.getString("onlineTime"));
+                users.add(onlineUser);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return users;
+    }
+    //改变用户登录时间
+    public int upUserOnlineTime(int id){
+        String sql = "update user set onlineTime = NOW() where id = ?";
+        int update = JDBC.update(sql, new Object[]{id});
+        return update;
+    }
+    //改变登录状态
+    public int upCode(User user){
+        String sql = "update user set code = ? where id = ?";
+        int update = JDBC.update(sql, new Object[]{user.getCode(),user.getId()});
+        return update;
+    }
 }
+
+
+

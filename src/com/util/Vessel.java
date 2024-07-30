@@ -71,4 +71,12 @@ public class Vessel {
 
     public static PatientDao patientDao;
     public static PatientService patientService = new PatientServiceImpl();
+
+    public static SalReturnDao salReturnDao = new SalReturnDaoImpl();
+    public static SalReturnService salReturnService = new SalReturnServiceImpl();
+
+    public static ApplyFaileService applyFaileService = new ApplyFailedServiceImpl();
+    public static ApplyFailedDao applyFailedDao = new ApplyFaileDaoImpl();
+
+    public static FirstPageService firstPageService = new FirstPageServiceImpl();
 }

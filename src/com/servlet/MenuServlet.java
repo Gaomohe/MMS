@@ -29,6 +29,9 @@ public class MenuServlet extends BaseServlet {
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"点击","系统配置","获取所有目录");
+        WarnServlet warnServlet = new WarnServlet();
+        warnServlet.getTitle(request,response);
+        firstPage(request,response);
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
@@ -438,6 +441,20 @@ public class MenuServlet extends BaseServlet {
             e.printStackTrace();
         }
         return resultData;
+    }
+
+    public void firstPage(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        HttpSession session1 = request.getSession();
+        HttpSession session2 = request.getSession();
+        HttpSession session3 = request.getSession();
+        HttpSession session4 = request.getSession();
+        int failedNumber = firstPageService.getFailedNumber();
+        int returnNumber = firstPageService.getReturnNumber();
+        int unPayed = firstPageService.getUnPayed();
+        session.setAttribute("fNumber",failedNumber);
+        session1.setAttribute("rNumber",returnNumber);
+        session1.setAttribute("uNumber",unPayed);
     }
 
 }

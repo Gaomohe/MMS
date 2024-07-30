@@ -46,6 +46,21 @@ public class ApplyFaileDaoImpl implements ApplyFailedDao {
         }
         return i;
     }
+    public List<ApplyFailed> getStatueAll() {
+        String sql = "SELECT `pharmacistApprove` FROM `applyfailed`";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<ApplyFailed> list = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                ApplyFailed applyFailed = new ApplyFailed();
+                applyFailed.setPharmacistApprove(resultSet.getString("pharmacistApprove"));
+                list.add(applyFailed);
+            }
+        }catch (Exception e){
+
+        }
+        return list;
+    }
 
     @Override
     public List<ApplyFailed> getAll(int page, int limit) {

@@ -53,6 +53,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 SalReturn salReturn = new SalReturn();
                 salReturn.setConsigner(resultSet.getString(6));
                 salReturn.setConsignee(resultSet.getString(7));
+                salReturn.setAddress(resultSet.getString(3));
                 salReturn.setState(resultSet.getString(10));
                 list.add(salReturn);
             }

@@ -29,20 +29,33 @@ import static com.util.Vessel.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] arr = {1,1,1,2,2,3,4,4,4,5,5,6};
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]);
-            for (int j = i+1; j < arr.length; j++) {
-                if (arr[i]==arr[j]){
-                    System.out.print(arr[j]);
-                }else {
-                    i = j-1;
-                    System.out.println("");
-                    break;
-                }
-            }
-        }
+        String key[]={"manufactor","rName"};
+        String value[]= {"江西","药"};
+        String table = "(SELECT\n" +
+                "    s.rid,\n" +
+                "    s.rName,\n" +
+                "    s.standard,\n" +
+                "    s.unit,\n" +
+                "    s.cost,\n" +
+                "    s.salePrice,\n" +
+                "    s.batchNumber,\n" +
+                "    s.productDate,\n" +
+                "    s.expiration,\n" +
+                "    s.manufactor,\n" +
+                "    s.department,\n" +
+                "    q.totlNumber,\n" +
+                "    q.statue,\n" +
+                "    q.storageStatus,\n" +
+                "    q.id\n" +
+                "FROM stockinform AS s\n" +
+                "JOIN quality AS q\n" +
+                "ON s.tablecoding = q.tablecoding\n" +
+                "WHERE q.statue = 1 AND q.storageStatus = 0 ) AS a";
+        String sql = SQLtoString.getSQL(key, value, table);
+        String sql1 = "select * from ("+sql+") as b limit 0,10";
+        System.out.println(sql1);
 
     }
+
 
 }

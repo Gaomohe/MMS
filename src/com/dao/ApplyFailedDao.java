@@ -9,6 +9,7 @@ public interface ApplyFailedDao {
     public int addFailed(ApplyFailed applyFailed);
     //获取所有不合格品订单信息
     public int getAll();
+    public List<ApplyFailed> getStatueAll();
     public List<ApplyFailed> getAll(int page,int limit);
     public List<ApplyFailed> getAll(int page,int limit,String title,String sort);
     //根据applyId获取不合格订单信息

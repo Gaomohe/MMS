@@ -1,5 +1,6 @@
 package com.service;
 
+import com.pojo.OnlineUser;
 import com.pojo.User;
 import com.util.LayuiTable;
 import com.util.ResultData;
@@ -51,5 +52,10 @@ public interface UserService {
 
     public String getUserName(int id);
 
-
+    //获得所有在线用户
+    public List<OnlineUser> getActiveUser();
+    //改变用户登录时间
+    public int upUserOnlineTime(int id);
+    //改变登录状态
+    public int upCode(User user);
 }

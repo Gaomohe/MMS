@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.pojo.Menu;
+import com.pojo.OnlineUser;
 import com.pojo.User;
 import com.service.Impl.UserServiceImpl;
 import com.util.*;
@@ -43,6 +44,9 @@ public class UserServlet extends BaseServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user",user);
         }
+        upOnlineTime(request,response);
+        user.setCode(1);
+        userService.upCode(user);
         ResultData resultData = new ResultData();
         resultData = Result.resultStatus(login);
         return resultData;
@@ -160,5 +164,24 @@ public class UserServlet extends BaseServlet {
     public void getFinName(HttpServletRequest request, HttpServletResponse response){
         List<User> userList = userService.getFinName();
         ToJSON.toJson(response,userList);
+    }
+
+    //获取在线人
+    public ResultData<OnlineUser> getOnlineUser(HttpServletRequest request, HttpServletResponse response){
+        List<OnlineUser> userList = userService.getActiveUser();
+        return Result.resultData(userList);
+    }
+    //修改在线时间
+    public ResultData upOnlineTime(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        return Result.resultStatus(userService.upUserOnlineTime(user.getId()));
+    }
+    //修改退出状态
+    public ResultData upCode(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        user.setCode(0);
+        return Result.resultStatus(userService.upCode(user));
     }
 }
