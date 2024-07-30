@@ -77,7 +77,7 @@ layui.extend({
                 drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
             },
             type:'static',
-            page: false,
+            page: true,
             done:function (){
 
             }
@@ -91,7 +91,7 @@ layui.extend({
                 drugFrom: drugFrom // 假设服务器端接受drugFrom参数来过滤数据
             },
             type:'static',
-            page: false,
+            page: true,
             done:function (){
 
             }

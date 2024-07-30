@@ -80,10 +80,11 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public LayuiTable<Medicine> getSelectedValue(String where) {
-        ResultSet dictionary = shoppingDao.getOne(where, "drugFrom", "dictionary");
+    public LayuiTable<Medicine> getSelectedValue(int pages,int limits,String where) {
+        ResultSet dictionary = shoppingDao.getOne(where, "drugFrom", "dictionary",pages,limits);
         List<Medicine> medicineList = new ArrayList<>();
-        int count = 0;
+        String table = "select 1 from dictionary where drugFrom = '"+where+"'";
+        int row = shoppingDao.getRow(table, 1);
         try {
             while (dictionary.next()){
                 Medicine medicine = new Medicine();
@@ -96,11 +97,10 @@ public class ShoppingServiceImpl implements ShoppingService {
                 medicine.setProductDate(dictionary.getString("productDate"));
                 medicine.setDrugFrom(dictionary.getString("drugFrom"));
                 medicineList.add(medicine);
-                count++;
             }
             layuiTable.setData(medicineList);
             layuiTable.setMsg("");
-            layuiTable.setCount(count);
+            layuiTable.setCount(row);
             layuiTable.setCode(0);
 
 
@@ -343,10 +343,11 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public LayuiTable<Medicine> getSelectedSup(String where) {
-        ResultSet dictionary = shoppingDao.getOne(where, "supplier", "dictionary");
+    public LayuiTable<Medicine> getSelectedSup(int pages,int limits,String where) {
+        ResultSet dictionary = shoppingDao.getOne(where, "supplier", "dictionary",pages,limits);
+        String table = "select mId from dictionary where supplier = '"+where+"'";
+        int row = shoppingDao.getRow(table, 1);
         List<Medicine> medicineList = new ArrayList<>();
-        int count = 0;
         try {
             while (dictionary.next()){
                 Medicine medicine = new Medicine();
@@ -359,11 +360,10 @@ public class ShoppingServiceImpl implements ShoppingService {
                 medicine.setProductDate(dictionary.getString("productDate"));
                 medicine.setDrugFrom(dictionary.getString("drugFrom"));
                 medicineList.add(medicine);
-                count++;
             }
             layuiTable.setData(medicineList);
             layuiTable.setMsg("");
-            layuiTable.setCount(count);
+            layuiTable.setCount(row);
             layuiTable.setCode(0);
 
 

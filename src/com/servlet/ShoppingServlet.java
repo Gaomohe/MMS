@@ -70,7 +70,10 @@ public class ShoppingServlet extends BaseServlet {
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"点击","采购申请","获取所有药品规格");
-        ToJSON.toJson(response,shoppingService.getSelectedValue(request.getParameter("drugFrom")));
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page =(page-1)*limit;
+        ToJSON.toJson(response,shoppingService.getSelectedValue(page,limit,request.getParameter("drugFrom")));
     }
 
     public void time(HttpServletRequest request, HttpServletResponse response){
@@ -146,6 +149,9 @@ public class ShoppingServlet extends BaseServlet {
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"点击","采购申请","获取所有药品规格");
-        ToJSON.toJson(response,shoppingService.getSelectedSup(request.getParameter("drugFrom")));
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        page =(page-1)*limit;
+        ToJSON.toJson(response,shoppingService.getSelectedSup(page,limit,request.getParameter("drugFrom")));
     }
 }

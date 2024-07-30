@@ -18,7 +18,7 @@ public interface ShoppingService {
     public List<Medicine> getKind();
 
     //
-    public LayuiTable<Medicine> getSelectedValue(String where);
+    public LayuiTable<Medicine> getSelectedValue(int pages,int limits,String where);
 
     public LayuiTable<Medicine> getSelectedTime(String where);
 
@@ -39,7 +39,7 @@ public interface ShoppingService {
 
     public List<Medicine> getSup();
 
-    public LayuiTable<Medicine> getSelectedSup(String where);
+    public LayuiTable<Medicine> getSelectedSup(int pages,int limits,String where);
 
 
 }

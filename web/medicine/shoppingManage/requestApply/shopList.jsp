@@ -42,13 +42,13 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <script type="text/html" id="shoppDemo">
-            <div class="layui-inline">
-                <%--            按钮--%>
-<%--                <label class="layui-form-label">选择时间:</label>--%>
-                <div class="layui-input-inline">
-                    <input type="text" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="选择时间">
-                </div>
-            </div>
+<%--            <div class="layui-inline">--%>
+<%--                &lt;%&ndash;            按钮&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <label class="layui-form-label">选择时间:</label>&ndash;%&gt;--%>
+<%--                <div class="layui-input-inline">--%>
+<%--                    <input type="text" lay-event="time" class="layui-input" id="ID-laydate-demo" placeholder="选择时间">--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
 <div class="layui-inline">
     <div class="layui-input-inline">
