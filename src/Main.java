@@ -31,7 +31,7 @@ public class Main {
     public static void main(String[] args) {
         String key[]={"manufactor","rName"};
         String value[]= {"江西","药"};
-        String table = "(SELECT\n" +
+        String table = "SELECT\n" +
                 "    s.rid,\n" +
                 "    s.rName,\n" +
                 "    s.standard,\n" +
@@ -48,14 +48,14 @@ public class Main {
                 "    q.storageStatus,\n" +
                 "    q.id\n" +
                 "FROM stockinform AS s\n" +
-                "JOIN quality AS q\n" +
-                "ON s.tablecoding = q.tablecoding\n" +
-                "WHERE q.statue = 1 AND q.storageStatus = 0 ) AS a";
+                "JOIN quality AS q ON s.tablecoding = q.tablecoding\n" +
+                "WHERE q.statue = 1\n" +
+                "AND q.storageStatus = 0";
         String sql = SQLtoString.getSQL(key, value, table);
-        String sql1 = "select * from ("+sql+") as b limit 0,10";
+        String sql1 = "SELECT * FROM"+"("+sql+")"+"AS a WHERE manufactor LIKE '%江西%' AND rName LIKE '%药%'";
         System.out.println(sql1);
 
-    }
 
+    }
 
 }

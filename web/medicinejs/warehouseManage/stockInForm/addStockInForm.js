@@ -18,7 +18,7 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                 var cs = JSON.parse(res);
                 var dom = $("#manuFactor").empty().html('<option value="0">请选择</option>');
                 $.each(cs, function(index, item) {
-                    dom.append('<option value="' + item.oId + '">' + item.manufactor + '</option>');
+                    dom.append('<option value="' + item.manufactor + '">' + item.manufactor + '</option>');
                 });
                 form.render("select");
 
@@ -34,23 +34,34 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
     ////////////根据供应商名称和药品名称来查询并显示表格，状态为已入库
     $("#search").click(function (){
         var rName = $("#rName").val();
+        var manuFactor = $("#manuFactor").val();
+        if (manuFactor===0){
+            manuFactor=null
+        }
+        if (manuFactor==="0"){
+            manuFactor=null
+        }
+        alert(manuFactor)
+        alert(rName)
         console.log(rName)
         tableIns.reload({
             url: "/StockInForm?action=getStockInFormByManufactorAndDrugName",
             where: {
-                manufactorName: allManufactor,
-                rName:rName
+                manufactorName: manuFactor,
+                rName:rName,
             },
             page: {
                 curr: 1 // 重新从第 1 页开始
-            }
+            },
+            limit: 6 // 每页显示 6 条数据
         });
     })
     //重置按钮
     $('#reset').click(function(){
-        alert("reset")
         $("#manuFactor").val('0');
         $("#rName").val('');
+        //重新渲染表格，回到未选择供应商之前
+        form.render("select");
         // 重新加载表格数据
         table.reload('addStockInFormList', {
             url: '/StockInForm?action=getAllStockForm', // 请替换为实际的数据接口

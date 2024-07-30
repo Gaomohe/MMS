@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.util.SQLtoString.getSQL;
 import static com.util.Vessel.*;
 @WebServlet("/StockInForm")
 public class StockInFormServlet extends BaseServlet {
@@ -39,15 +40,15 @@ public class StockInFormServlet extends BaseServlet {
         ToJSON.toJson(response,stockInFormService.getAllStockForm(page,limit));
     }
 
-    //通过供应商,药品名称和入库状态查询出入库单
+    //新增界面连表查询的结果
     public void getStockInFormByManufactorAndDrugName(HttpServletRequest request, HttpServletResponse response){
-        String manufactorName = request.getParameter("manufactorName");
-        String rName = request.getParameter("rName");
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        ToJSON.toJson(response,stockInFormService.getStockInFormByManufactorOrDrugName(page,limit,manufactorName,rName));
+        page = (page-1)*limit;
+        String manufactorName = request.getParameter("manufactorName");
+        String rName = request.getParameter("rName");
+        ToJSON.toJson(response,stockInFormService.getStockInFormByManufactorOrDrugName(page,limit,manufactorName,rName,null));
     }
-
 
     //获取所有入库单（分页显示）
     public void selectStockInForm(HttpServletRequest request, HttpServletResponse response){

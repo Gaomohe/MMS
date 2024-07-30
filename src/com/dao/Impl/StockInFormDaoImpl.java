@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class StockInFormDaoImpl implements StockInFormDao {
+    //查询全部入库单
     @Override
     public List<StockInForm> selectStockInForm() {
         String sql=" select * from StockInForm";
@@ -44,6 +45,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         return stockInFormList;
     }
 
+    //按id查询入库单
     @Override
     public StockInForm getStockInFormById(int id) {
         String sql=" select * from StockInForm where rId=?";
@@ -75,7 +77,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         }
         return stockInForm;
     }
-
+    //分页
     @Override
     public List<StockInForm> selectStockInForm(int page, int limit) {
         String sql=" select * from StockInForm limit ?,?";
@@ -110,7 +112,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         }
         return list;
     }
-
+    //删除入库单
     @Override
     public int delStockInForm(int id) {
         String sql="DELETE FROM StockInForm WHERE rId = ?";
@@ -119,7 +121,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         int count= JDBC.update(sql,objects);
         return count;
     }
-
+    //更新入库单
     @Override
     public int updateStockInForm(StockInForm stockInForm) {
         String sql = "UPDATE StockInForm SET rName=?,stockInNum=?,tableCoding=?,standard=?,manufactor=?,unit=?,\n" +
@@ -145,7 +147,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         int count= JDBC.update(sql,objects);
         return count;
     }
-
+    //添加入库单
     @Override
     public int addStockInForm(StockInWithQuality stockInWithQuality) {
         String sql = "INSERT INTO StockInForm (rName, stockInNum, standard, manufactor, unit, rNum, cost, salePrice, batchNumber, productDate, expiration,stockInTime, department,notes) \n" +
@@ -226,8 +228,8 @@ public class StockInFormDaoImpl implements StockInFormDao {
       质量检测表显示待入库总数和入库状态（默认为0）
       只有当质量检测状态为1同时入库状态为0的时候我点添加才会入库成功*/
     @Override
-    public List<StockInWithQuality> getStockInFormByManufactorAndDrugName(int page, int limit,String manufactor,String rName) {
-        String sql="SELECT \n" +
+    public List<StockInWithQuality> getStockInFormByManufactorAndDrugName(int page, int limit) {
+        String sql="SELECT\n" +
                 "    s.rid,\n" +
                 "    s.rName,\n" +
                 "    s.standard,\n" +
@@ -242,19 +244,14 @@ public class StockInFormDaoImpl implements StockInFormDao {
                 "    q.totlNumber,\n" +
                 "    q.statue,\n" +
                 "    q.storageStatus,\n" +
-                "    q.id \n" +
+                "    q.id\n" +
                 "FROM stockinform AS s\n" +
-                "JOIN quality AS q \n" +
-                "ON s.tablecoding = q.tablecoding\n" +
-                "WHERE q.statue = 1 AND q.storageStatus = 0\n" +
-                "AND manufactor = ? AND rName = ?\n" +
-                "AND storageStatus = '未入库' LIMIT ?,?";
-
-        Object[] objects = new Object[4];
-        objects[0]=manufactor;
-        objects[1]=rName;
-        objects[2]=page;
-        objects[3]=limit;
+                "JOIN quality AS q ON s.tablecoding = q.tablecoding\n" +
+                "WHERE q.statue = 1\n" +
+                "AND q.storageStatus = 0 limit ?,?  ";
+        Object[] objects = new Object[2];
+        objects[0]=page;
+        objects[1]=limit;
         ResultSet resultSet = JDBC.select(sql, objects);
         List<StockInWithQuality> qualityList = new ArrayList<StockInWithQuality>();
         try {
@@ -282,7 +279,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         }
         return qualityList;
     }
-
+    //获取连表查询的长度
     @Override
     public List<StockInWithQuality> getStockInFormByManufactorAndDrugName() {
         String sql="SELECT \n" +
@@ -336,6 +333,44 @@ public class StockInFormDaoImpl implements StockInFormDao {
         return qualityList;
     }
 
+    //点开新增按钮后，根据连表查询结果再通过供货商，药品名称，过滤
+    @Override
+    public List<StockInWithQuality> getStockInWithQualityByQuery(String sql,int page, int limit) {
+
+        Object[] objects = new Object[2];
+        objects[0]=page;
+        objects[1]=limit;
+        sql+=" limit ?,?";
+
+        ResultSet resultSet = JDBC.select(sql, objects);
+        List<StockInWithQuality> list = new ArrayList<StockInWithQuality>();
+        try {
+            while (resultSet.next()){
+                StockInWithQuality stockInWithQuality = new StockInWithQuality();
+                stockInWithQuality.setrId(resultSet.getInt(1));
+                stockInWithQuality.setrName(resultSet.getString(2));
+                stockInWithQuality.setStandard(resultSet.getString(3));
+                stockInWithQuality.setUnit(resultSet.getString(4));
+                stockInWithQuality.setCost(resultSet.getInt(5));
+                stockInWithQuality.setSalePrice(resultSet.getInt(6));
+                stockInWithQuality.setBatchNumber(resultSet.getString(7));
+                stockInWithQuality.setProductDate(resultSet.getString(8));
+                stockInWithQuality.setExpiration(resultSet.getString(9));
+                stockInWithQuality.setManufactor(resultSet.getString(10));
+                stockInWithQuality.setDepartment(resultSet.getString(11));
+                stockInWithQuality.setTotlNumber(resultSet.getInt(12));
+                stockInWithQuality.setStatue(resultSet.getInt(13));
+                stockInWithQuality.setStorageStatus(resultSet.getString(14));
+                stockInWithQuality.setId(resultSet.getInt(15));
+                list.add(stockInWithQuality);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //显示所有已入库和未入库的表
     @Override
     public List<StockInWithQuality> getAllStockForm(int page, int limit) {
         String sql="SELECT \n" +
@@ -388,7 +423,7 @@ public class StockInFormDaoImpl implements StockInFormDao {
         }
         return qualityList;
     }
-
+    //获取已入库和未入库的表的长度
     @Override
     public List<StockInWithQuality> getAllStockForm() {
         String sql="SELECT \n" +
