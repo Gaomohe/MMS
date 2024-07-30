@@ -32,6 +32,9 @@ public class PurchaseServlet extends BaseServlet {
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
         logService.setLog(name9,"点击","采购审批","获取所有申请信息");
+        User user1 = (User)session9.getAttribute("user");
+        user1.setUserName(name9);
+        session9.setAttribute("user",user1);
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
         page = (page-1)*limit;
@@ -47,7 +50,14 @@ public class PurchaseServlet extends BaseServlet {
     public ResultData<Integer> isOk(HttpServletRequest request, HttpServletResponse response){
         String dataString = request.getParameter("dataString");
         int[] ints = StringDeal.toArray(dataString);
-        return purchaseService.isok(ints,"张三");
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        user1.setUserName(name);
+        session.setAttribute("user",user1);
+        logService.setLog(name,"点击","财务审批","财务审核通过");
+        return purchaseService.isok(ints,name);
     }
     public ResultData<Integer> noPass(HttpServletRequest request, HttpServletResponse response){
         String values = request.getParameter("values");

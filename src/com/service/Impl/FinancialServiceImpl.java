@@ -1,11 +1,13 @@
 package com.service.Impl;
 
 import com.pojo.Apply;
+import com.pojo.Apporder;
 import com.pojo.Purchase;
 import com.pojo.User;
 import com.service.FinancialService;
 import com.util.GetTime;
 import com.util.LayuiTable;
+import com.util.ResultData;
 import com.util.SQLtoString;
 
 import java.sql.ResultSet;
@@ -100,5 +102,23 @@ public class FinancialServiceImpl implements FinancialService {
         }
 
         return layuiTable;
+    }
+
+    //订单财务审核
+    @Override
+    public ResultData<Integer> isok(int[] ins, String name) {
+        String getTime = GetTime.getTime();
+        ResultData<Integer> resultData = new ResultData<>();
+        for (int id:ins) {
+            int i = financialDao.okApply(id, name, getTime);
+            if (financialDao.isOk(id,name,getTime) && i > 0){
+                resultData.setStatus(200);
+                resultData.setData(1);
+            }else {
+                resultData.setStatus(400);
+                resultData.setData(0);
+            }
+        }
+        return resultData;
     }
 }

@@ -57,7 +57,7 @@
     <div class="row" style="margin-top: 50px">
         <div class="row-input">
             <span style="color: black;width: 75px">审批人:</span>
-            <input style="color: black" id="" type="text" value="张三"  readonly />
+            <input style="color: black" id="" type="text" value="${user.userName}"  readonly />
             <br>
             <span style="color: black;width: 75px">时间:</span>
             <input style="color: black" id="datetime_input" type="text" placeholder="XX March, 2023" readonly />
@@ -362,7 +362,7 @@
     }
     function shengPi(dataString){
         $.ajax({
-            url:"/purchase?action=isOk",//根据id查询的方法
+            url:"/financial?action=isOk",//根据id查询的方法
             type:"post",
             data:{dataString},
             success:function(data){
@@ -372,7 +372,8 @@
                     location.reload()
                 }
             }
-        })
+        });
+
     }
     // 转换成html片段
     function convertHtml() {

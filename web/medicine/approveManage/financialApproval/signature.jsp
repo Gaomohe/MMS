@@ -52,12 +52,12 @@
 <div class="title" style="margin-top: 50px">买药审批</div>
 <!-- 初始，渲染带装饰的html，供用户输入文本、上传图片、生成电子签名 -->
 <div id="container">
-    <h1>药品采购财务审核</h1>
+    <h1>药品采购药师审核</h1>
     <!-- Date -->
     <div class="row" style="margin-top: 50px">
         <div class="row-input">
             <span style="color: black;width: 75px">审批人:</span>
-            <input style="color: black" id="" type="text" value="张三"  readonly />
+            <input style="color: black" id="" type="text" value="${user.userName}"  readonly />
             <br>
             <span style="color: black;width: 75px">时间:</span>
             <input style="color: black" id="datetime_input" type="text" placeholder="XX March, 2023" readonly />
@@ -344,8 +344,6 @@
         }
     }
 
-
-
     // 清空签名
     function clearSignature() {
         $("#signature").jSignature("reset");
@@ -355,14 +353,15 @@
     }
 
     function isOK(){
-        shengPi(getOID())
+        convertCanvas();
+        shengPi(getOID());
         parent.location.reload();
         parent.layer.close(parent.layer.getFrameIndex(window.name));
 
     }
     function shengPi(dataString){
         $.ajax({
-            url:"/purchase?action=isOk",//根据id查询的方法
+            url:"/financial?action=isOk",//根据id查询的方法
             type:"post",
             data:{dataString},
             success:function(data){
@@ -371,8 +370,9 @@
                     layer.msg('审阅完成', {icon: 1});
                     location.reload()
                 }
-            }
-        })
+            },
+        });
+
     }
     // 转换成html片段
     function convertHtml() {
@@ -444,5 +444,5 @@
     }
 </script>
 <script type="text/javascript" src="<%=basePath%>admin/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/approveManage/financialApproval/signature.js" charset="UTF-8"></script>
+<script type="text/javascript" language="JavaScript" src="<%=basePath %>medicinejs/approveManage/purchaseApproval/signature.js" charset="UTF-8"></script>
 </html>

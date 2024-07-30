@@ -21,4 +21,10 @@ public interface FinancialDao {
     //获取订单详情
     public ResultSet getId(int id);
 
+    //确认审批
+    public boolean isOk(int id,String name,String getTime);
+
+    //财务确认具体药品审批
+    public int okApply(int id,String name,String getTime);
+
 }

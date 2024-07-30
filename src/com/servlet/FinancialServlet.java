@@ -36,6 +36,9 @@ public class FinancialServlet extends BaseServlet {
         String name = userService.getName(user.getId());
         List<Menu> menuList = menuService.getMenuBtn(user.getId(), resId);
         session.setAttribute("menuList",menuList);
+        User user1 = (User)session.getAttribute("user");
+        user1.setUserName(name);
+        session.setAttribute("user",user1);
         logService.setLog(name,"打开","财务审批","获取所有按钮");
         return "medicine/approveManage/financialApproval/financialApprovalList";
     }
@@ -137,5 +140,19 @@ public class FinancialServlet extends BaseServlet {
     public void getId(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("oId"));
         ToJSON.toJson(response,financialService.getId(id));
+    }
+
+    //审批通过
+    public ResultData<Integer> isOk(HttpServletRequest request, HttpServletResponse response){
+        String dataString = request.getParameter("dataString");
+        int[] ints = StringDeal.toArray(dataString);
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        User user1 = (User)session.getAttribute("user");
+        String name = userService.getName(user1.getId());
+        user1.setUserName(name);
+        session.setAttribute("user",user1);
+        logService.setLog(name,"点击","财务审批","财务审核通过");
+        return financialService.isok(ints,name);
     }
 }

@@ -93,4 +93,34 @@ public class FinancialDaoImpl implements FinancialDao {
         Object[] objects = new Object[]{id};
         return JDBC.select(sql, objects);
     }
+
+    //确认审批
+    @Override
+    public boolean isOk(int id, String name,String getTime) {
+        String sql = "update orders\n" +
+                "set oNum = '已审阅通过',saleprice = ?,financeTime = ?\n" +
+                "where oId = ?";
+        Object[] objects = new Object[3];
+        objects[0] = name;
+        objects[1] = getTime;
+        objects[2] = id;
+        int update = JDBC.update(sql, objects);
+        return (update>0);
+    }
+
+    @Override
+    public int okApply(int id, String name, String getTime) {
+        String sql = "update appoint\n" +
+                "set financeApprove = '已审阅通过',finance = ?,financeTime = ?\n" +
+                "where applyId in (\n" +
+                "    select applyId from app_order\n" +
+                "    where oId = ?\n" +
+                "    )";
+        Object[] objects = new Object[3];
+        objects[0] = name;
+        objects[1] = getTime;
+        objects[2] = id;
+        int update = JDBC.update(sql, objects);
+        return update;
+    }
 }
