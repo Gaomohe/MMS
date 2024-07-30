@@ -256,20 +256,7 @@
                     </div>
                     <div class="col-xl-3 col-12">
                         <div class="box bg-success">
-                            <div class="box-header"><h4 class="box-title text-white">表头1</h4></div>
-                            <div class="box-body">
-                                <div id="progressbar4" class="text-center position-relative"><span class="text-white"><span class="fs-48">100%</span><br>Location used</span></div>
-                                <div class="mt-50 d-flex justify-content-evenly">
-                                    <div class="text-center">
-                                        <p class="mb-0 text-white-50">Loaded</p>
-                                        <h4 class="mb-0 text-white">19 Shelves</h4>
-                                    </div>
-                                    <div class="text-center">
-                                        <p class="mb-0 text-white-50">Empty</p>
-                                        <h4 class="mb-0 text-white">64 Shelves</h4>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="ww_4697bb2a07fc1" v='1.3' loc='auto' a='{"t":"horizontal","lang":"zh","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#FFFFFF","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/zh/" id="ww_4697bb2a07fc1_u" target="_blank">天气插件</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_4697bb2a07fc1"></script>
                         </div>
                         <div class="box" id="bt-sellers">
                             <div class="box-header">
@@ -509,7 +496,6 @@
             <!-- /.content -->
         </div>
     </div>
-    <div id="ww_4697bb2a07fc1" v='1.3' loc='auto' a='{"t":"horizontal","lang":"zh","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://weatherwidget.org/zh/" id="ww_4697bb2a07fc1_u" target="_blank">天气插件</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_4697bb2a07fc1"></script>
 </div>
 <!-- js部分 -->
 <!-- Vendor JS -->
