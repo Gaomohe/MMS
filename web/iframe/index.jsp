@@ -37,15 +37,6 @@
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item" lay-unselect>
-                <a ew-event="message" title="消息">
-                    <i class="layui-icon layui-icon-notice"></i>
-                    <span class="layui-badge-dot"></span><!--小红点-->
-                </a>
-            </li>
-            <li class="layui-nav-item" lay-unselect>
-                <a ew-event="note" title="便签"><i class="layui-icon layui-icon-note"></i></a>
-            </li>
             <li class="layui-nav-item layui-hide-xs" lay-unselect>
                 <a ew-event="fullScreen" title="全屏"><i class="layui-icon layui-icon-screen-full"></i></a>
             </li>
@@ -55,13 +46,6 @@
                     <cite>管理员</cite>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd lay-unselect>
-                        <a ew-href="page/template/user-info.html">个人中心</a>
-                    </dd>
-                    <dd lay-unselect>
-                        <a ew-event="psw">修改密码</a>
-                    </dd>
-                    <hr>
                     <dd lay-unselect>
                         <a id="turnOut">退出</a>
                     </dd>

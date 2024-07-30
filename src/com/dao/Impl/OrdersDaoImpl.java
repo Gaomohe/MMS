@@ -185,6 +185,22 @@ public class OrdersDaoImpl implements OrdersDao{
         return list;
     }
 
+    public List<Orders> getOrders() {
+        String sql=" select oId from orders";
+        ResultSet resultSet = JDBC.select(sql, new Object[1]);
+        List<Orders> list = new ArrayList<Orders>();
+        try {
+            while (resultSet.next()){
+                Orders orders = new Orders();
+                orders.setoId(resultSet.getInt(1)); // 采购单号
+                list.add(orders);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     @Override
     public int delOrders(int id) {
         String sql=" delete from orders where oId=?";

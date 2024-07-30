@@ -13,6 +13,34 @@ $.ajax({
     }
 });
 
+$.ajax({
+    url: '/menu?action=getWarnForFirst',
+    method: 'GET',
+    dataType: 'json',
+    success: function (data) {
+        var info = data.data;
+        var menuHtml = '';
+        info.forEach(function (i){
+            menuHtml += renderMenu1(i)+'\n';
+        })
+        $('#warnTable').html(menuHtml);
+    }
+});
+
+$.ajax({
+    url: '/menu?action=getOrderMsg',
+    method: 'GET',
+    dataType: 'json',
+    success: function (data) {
+        var info = data.data;
+        var menuHtml = '';
+        info.forEach(function (i){
+            menuHtml += renderMenu2(i)+'\n';
+        })
+        $('#orderList').html(menuHtml);
+    }
+});
+
 function renderMenu(i) {
     var html = '<tr>';
     html +='<td>'+'<a href="javascript:void(0)">'+i.name+'</a></td>'
@@ -23,36 +51,39 @@ function renderMenu(i) {
     return html;
 }
 
+function renderMenu1(i) {
+    var html = '<div class="box-shadowed p-10 mb-10 rounded10">\n' +
+        '                                        <div class="d-flex justify-content-between align-items-center">';
+    html +='<div>'+'<h5 class="my-5">预警数量|锁定</h5>'
+    html +='<p class="mb-0">'+i.warnNumber+'|'+i.dicNumber+'</p>'
+    html +='</div>'
+    html +='<div>'+'<h5 class="my-5">'+i.mName+'</h5>'
+    html +='<p class="mb-0">'+i.tolNumber+'</p>'
+    html +='</div>'
+    html +='</div>'
+    html +='</div>'
+    return html;
+}
 
-var bar = new ProgressBar.Circle(progressbar4, {
-    color: '#ffb550',
-    // This has to be the same size as the maximum width to
-    // prevent clipping
-    strokeWidth: 10,
-    trailWidth: 2,
-    trailColor: '#73bda4',
-    easing: 'easeInOut',
-    duration: 1400,
-    text: {
-        autoStyleContainer: false
-    },
-    from: { color: '#ffb550', width: 5 },
-    to: { color: '#ffb550', width: 5 },
-    // Set default step function for all animate calls
-    step: function(state, circle) {
-        circle.path.setAttribute('stroke', state.color);
-        circle.path.setAttribute('stroke-width', state.width);
-
-        var value = Math.round(circle.value() * 150);
-        if (value === 0) {
-            circle.setText('');
-        } else {
-            circle.setText(value);
-        }
-
+function renderMenu2(i) {
+    var html = '<tr style="line-height: 2.5;font-weight: 400;text-align: center">';
+    html +='<td style="width: 14%"><a href="javascript:void(0)">'+i.oId+'</a></td>'
+    html +='<td style="width: 14%"><span class="text-muted text-nowrap">'+i.buyer+'</span> </td>'
+    html +='<td style="width: 20%">'+i.shippingAddress+'</td>'
+    html +='<td style="width: 14%"><span style="border-radius: 0rem;font-weight: 500;line-height: 2;font-size: 85%;color: #ffffff;background-color: rgb(253,84,249);">'+i.specification+'</span></td>'
+    html +='<td style="width: 14%">￥'+i.allPrice+'</td>'
+    if (i.deliveryTime==null){
+        html +='<td style="margin-right: 50px;margin-left: 50px"><i class="fa fa-truck"></i></td>'
     }
-});
-bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-bar.text.style.fontSize = '2rem';
+    html +='<tr>'
+    return html;
+}
 
-bar.animate(0.8);
+
+/*function getReturn(number){
+    if (number==0){
+        return 0;
+    }
+}*/
+
+

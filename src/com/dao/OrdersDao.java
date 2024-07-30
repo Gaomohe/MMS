@@ -14,6 +14,7 @@ public interface OrdersDao {
     public List<Orders> selectOrders(int page, int limit);
     //获取所有订单（财务）
     public List<Orders> getOrders(int page, int limit);
+    public List<Orders> getOrders();
     //删除订单
     public int delOrders(int id);
     //更新订单
