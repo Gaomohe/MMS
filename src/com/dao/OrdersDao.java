@@ -10,8 +10,10 @@ public interface OrdersDao {
     public List<Orders> selectOrders();
     //按id查询全部订单
     public Orders getOrdersById(int id);
-    //分页
+    //分页//获取所有订单
     public List<Orders> selectOrders(int page, int limit);
+    //获取所有订单（财务）
+    public List<Orders> getOrders(int page, int limit);
     //删除订单
     public int delOrders(int id);
     //更新订单

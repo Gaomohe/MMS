@@ -15,8 +15,8 @@
     </insert>
 
     <insert id="addAppOrder">
-        INSERT INTO app_order(oId,aId,applyBuyNumber)
-        VALUES (#{oId},#{aId},#{applyBuyNumber})
+        INSERT INTO app_order(oId,aId,applyBuyNumber,applyId)
+        VALUES (#{oId},#{aId},#{applyBuyNumber},#{applyId})
     </insert>
 
     <delete id="delApply">

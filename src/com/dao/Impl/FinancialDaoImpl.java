@@ -85,4 +85,12 @@ public class FinancialDaoImpl implements FinancialDao {
         int update = JDBC.update(sql, obj);
         return update;
     }
+
+    //获取订单
+    @Override
+    public ResultSet getId(int id) {
+        String sql = "select mId,applyBuyNumber,mName,specification,manufactor,unit,department,purchasePrice,salePrice,productDate,goodsType,mType,defined from dictionary right join (select aId,applyBuyNumber from app_order where oId = ?) ord1 on ord1.aId=dictionary.mId";
+        Object[] objects = new Object[]{id};
+        return JDBC.select(sql, objects);
+    }
 }

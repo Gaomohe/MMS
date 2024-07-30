@@ -61,7 +61,7 @@ layui.extend({
         });*/
         var tableIns = table.render({
             elem: '#financialList',
-            url : '/orders?action=selectOrders',
+            url : '/orders?action=getOrders',
             cellMinWidth : 95,
             page : true,
             toolbar: '#financialDemo',
@@ -75,8 +75,8 @@ layui.extend({
                 {field: 'specification', title: '审阅人', width:100, align:"center"},
                 {field: 'manufactor', title:'生产企业' , width:250, align:"center"},
                 // {field: 'unit', title:'单位' , width:100, align:"center"},
-                // {field: 'oNum', title:'订单数量' , width:100, align:"center"},
-                // {field: 'salePrice', title:'采购单价' , width:100, align:"center"},
+                {field: 'oNum', title:'财务' , width:100, align:"center"},
+                {field: 'salePrice', title:'财务审批' , width:100, align:"center"},
                 {field: 'shippingAddress', title:'发货地址' , width:300, align:"center"},
                 {field: 'deliveryAddress', title:'收货地址' , width:300, align:"center"},
                 {field: 'shippingTime', title:'发货时间' , width:150, align:"center"},
@@ -110,6 +110,27 @@ layui.extend({
         getTime();
         getStatus();
 
+        table.on('row(financialList)',function (obj){
+            var data = obj.data; // 获得当前行数据
+            var tr = obj.tr; // 获得当前行的 tr 元素
+            var checkbox = tr.find('input[type="checkbox"]'); // 获取复选框元素
+
+            // 使用事件参数来判断实际点击的位置
+            var event = window.event || arguments.callee.caller.arguments[0];
+            var target = event.target || event.srcElement;
+
+            // 判断点击的是否是复选框
+            if (target === checkbox[0] || $(target).closest('td').find('input[type="checkbox"]').length > 0) {
+                // 如果点击的是复选框列，不执行行点击的逻辑
+                return;
+            }
+            openDetail(data);
+            console.log("++++++++++++++++++++++++");
+            console.log(data);
+            console.log("++++++++++++++++++++++++");
+            // 这里可以执行你的业务逻辑，比如打开一个模态框显示详情等
+        });
+
         table.on('toolbar(financialList)', function(obj) {
             var checkdata= table.checkStatus(obj.config.id)
             var files= checkdata.data;
@@ -117,9 +138,10 @@ layui.extend({
             var array = [];
             var state = [];
             for (let i = 0; i < files.length;i++){
-                array[i]=files[i].applyId;
-                state[i]=files[i].financeApprove;
+                array[i]=files[i].oId;
+                state[i]=files[i].oNum;
             }
+
             // 根据点击的按钮事件执行相应的操作
             switch (obj.event) {
                 case 'search':
@@ -144,21 +166,7 @@ layui.extend({
                     }
                     break;
                 case 'approve':
-                    console.log("aaa");
-                    console.log(files);
-                    console.log(files.length);
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            // 假设每个file对象都有一个id属性，用于标识用户
-                            console.log("=====================");
-                            console.log(file.applyId);
-                            console.log("=====================");
-                            total++;
-                            setApprove(file.applyId);
-                        });
-                    } else {
-                        layer.msg("未选择", {icon: 2});
-                    }
+                    approve(array,state)
                     break;
                 case 'unapprove':
                     console.log("aaa");
@@ -394,61 +402,84 @@ layui.extend({
         });
     }
 
-    function approve(array,state){
-        for (let i = 0; i < state.length; i++) {
-            if (state[i]==="已审阅通过" || state[i]==="已审阅未通过"){
-                layer.alert("单据"+array[i]+"已审阅,请取消！");
-                return ;
-            }
-        }
-        if (array.length===0){
-            layer.msg("请选择一条记录");
-            return ;
-        }
-        var dataString = $.param({"array": array});
-        console.log("-------------------------------");
-        console.log(array);
-        console.log(state);
-        console.log(dataString);
+    //打开详情页
+    var openDatas;
+    function openDetail(data){
+        let oId = data.oId;
         layui.layer.open({
-            title : "审批",
+            title : "详情",
             type : 2,
-            content : "medicine/approveManage/financialApproval/financialApprovalInfo.jsp",
-            area:['900px','500px'],
+            content : "medicine/approveManage/financialApproval/detailData.jsp",
+            area:['700px','450px'],
             success:function (layero, index){
+                var $iframes = layero.find('iframe')[0];
                 $.ajax({
-                    url:"/financial?action=getApproveById",//根据id将状态改成“已审批”
+                    url:"/financial?action=getId",//根据id查询的方法
                     type:"post",
-                    data:{dataString},
+                    data:{oId},
                     success:function(data){
-                        var info = JSON.parse(data).data;
-                        console.log("**************")
-                        console.log(info);
-                        var iframe = layer.getChildFrame('body', index);
-                        var rowsHtml = '';
-                        $(document).ready(function(){
-                            form.render('checkbox');
-                        });
-                        $.each(info, function(i, item) {
-                            rowsHtml += '<tr>';
-                            rowsHtml += '<td><input type="checkbox" id="'+i+'" name="'+item.mName+'" value="'+item.applyId+'"></td>';
-                            rowsHtml += '<td>' + item.applyId + '</td>';
-                            rowsHtml += '<td>' + item.mName + '</td>';
-                            rowsHtml += '<td>' + item.number + '</td>';
-                            rowsHtml += '<td>'+item.mType+'</td>';
-                            rowsHtml += '<td>'+item.specification+"/"+item.unit+'</td>';
-                            rowsHtml += '<td>'+item.financeApprove+'</td>';
-                            rowsHtml += '<td>' + item.applyNumber + '</td>';
-                            rowsHtml += '<td>' + item.purchasePrice + '</td>>'
-                            rowsHtml += '</tr>';
-                        });
-                        // 更新iframe窗口中的表格body
-                        $(iframe).find('#table-body').html(rowsHtml);
-
+                        openDatas = data;
+                        $iframes.contentWindow.postMessage(data, '*');
                     }
                 })
             }
         })
+    }
+
+    function approve(array,state){
+        if (array.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
+        for (let i = 0; i < state.length; i++) {
+            if (state[i] !== '未审阅'){
+                layer.alert("单据"+array[i]+"已审阅,请取消！");
+                return ;
+            }
+        }
+        layer.confirm('是否通过？', {
+            btn: ['确定', '取消'] //按钮
+        }, function(){
+            shengyue(array);
+        }, function(){
+            layer.msg('未审阅！请重新选择！', {
+                time: 20000, // 20s 后自动关闭
+                btn: [ '知道了']
+            });
+        });
+    }
+
+    function shengyue(array){
+        let oId = array[0];
+        var dataString = $.param({"purchId": array});
+        layer.confirm('由于审阅规则,您需要签字备注！', {
+            btn: ['确定', '取消'] //按钮
+        }, function(){
+            layer.msg('请签字！', {icon: 1});
+            layui.layer.open({
+                title : "详情",
+                type : 2,
+                content : "medicine/approveManage/purchaseApproval/signature.jsp?dataString=" + dataString,
+                area:['850px','550px'],
+                success:function (layero, index){
+                    var $iframes = layero.find('iframe')[0];
+                    $.ajax({
+                        url:"/purchase?action=getId",//根据id查询的方法
+                        type:"post",
+                        data:{oId},
+                        success:function(data){
+                            $iframes.contentWindow.postMessage(data, '*');
+                        }
+                    })
+                }
+            })
+
+        }, function(){
+            layer.msg('已取消', {
+                time: 20000, // 20s 后自动关闭
+                btn: ['明白了', '知道了']
+            });
+        });
     }
 });
 

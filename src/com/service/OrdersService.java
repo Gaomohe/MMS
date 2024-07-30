@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface OrdersService {
     public List<Orders> getOrdersList();
+    //获取所有订单
     public LayuiTable<Orders> selectOrders(int page, int limit);
+    //获取所有订单(财务）
+    public LayuiTable<Orders> getOrders(int page, int limit);
     public Orders getOrdersById(int id);
     public int delOrdersById(int id);
     public int updateDoOrders(Orders orders);

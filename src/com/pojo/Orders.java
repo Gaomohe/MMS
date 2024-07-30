@@ -6,8 +6,8 @@ public class Orders {
     private String specification; // 规格
     private String manufactor; // 生产企业
     private String unit; // 单位
-    private int oNum; // 订单数量
-    private int salePrice; // 采购单价
+    private String oNum; // 订单数量
+    private String salePrice; // 采购单价
     private String shippingAddress; // 发货地址
     private String deliveryAddress; // 收货地址
     private String shippingTime; // 发货时间
@@ -26,9 +26,27 @@ public class Orders {
     private String advanceStatus;
     private double finals;
     private String finalsStatus;
+    private String pharmacistTime;
+    private String financeTime;
 
     public int getoId() {
         return oId;
+    }
+
+    public String getPharmacistTime() {
+        return pharmacistTime;
+    }
+
+    public void setPharmacistTime(String pharmacistTime) {
+        this.pharmacistTime = pharmacistTime;
+    }
+
+    public String getFinanceTime() {
+        return financeTime;
+    }
+
+    public void setFinanceTime(String financeTime) {
+        this.financeTime = financeTime;
     }
 
     public void setoId(int oId) {
@@ -67,19 +85,19 @@ public class Orders {
         this.unit = unit;
     }
 
-    public int getoNum() {
+    public String getoNum() {
         return oNum;
     }
 
-    public void setoNum(int oNum) {
+    public void setoNum(String oNum) {
         this.oNum = oNum;
     }
 
-    public double getSalePrice() {
+    public String getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(int salePrice) {
+    public void setSalePrice(String salePrice) {
         this.salePrice = salePrice;
     }
 

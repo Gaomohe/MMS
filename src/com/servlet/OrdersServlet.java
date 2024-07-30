@@ -53,6 +53,14 @@ public class OrdersServlet extends BaseServlet {
         int limit = Integer.parseInt(request.getParameter("limit"));
         ToJSON.toJson(response, ordersService.selectOrders(page,limit));
     }
+
+    //获取所有订单（财务审批）
+    public void getOrders(HttpServletRequest request, HttpServletResponse response){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        ToJSON.toJson(response, ordersService.getOrders(page,limit));
+    }
+
     public ResultData isUname(HttpServletRequest request, HttpServletResponse response){
         String oName = request.getParameter("oName");
         Orders orders = new Orders();
@@ -95,8 +103,8 @@ public class OrdersServlet extends BaseServlet {
         orders.setSpecification(request.getParameter("Specification")); // 规格
         orders.setManufactor(request.getParameter("Manufactor")); // 生产企业
         orders.setUnit(request.getParameter("Unit")); // 单位
-        orders.setoNum(Integer.parseInt(request.getParameter("oNum"))); // 订单数量
-        orders.setSalePrice(Integer.parseInt(request.getParameter("salePrice"))); // 采购单价
+        orders.setoNum(request.getParameter("oNum")); // 订单数量
+        orders.setSalePrice(request.getParameter("salePrice")); // 采购单价
         orders.setShippingAddress(request.getParameter("ShippingAddress")); // 发货地址
         orders.setDeliveryAddress(request.getParameter("DeliveryAddress")); // 收货地址
         orders.setShippingTime(request.getParameter("ShippingTime")); // 发货时间

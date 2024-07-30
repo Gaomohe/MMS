@@ -78,8 +78,8 @@ public class ApprovalServiceImpl implements ApprovalService {
                 orders.setSpecification(resultSet.getString("specification")); // 规格
                 orders.setManufactor(resultSet.getString("manufactor")); // 生产企业
                 orders.setUnit(resultSet.getString("unit")); // 单位
-                orders.setoNum(resultSet.getInt("oNum")); // 订单数量
-                orders.setSalePrice(resultSet.getInt("salePrice")); // 采购单价
+                orders.setoNum(resultSet.getString("oNum")); // 订单数量
+                orders.setSalePrice(resultSet.getString("salePrice")); // 采购单价
                 orders.setShippingAddress(resultSet.getString("shippingAddress")); // 发货地址
                 orders.setDeliveryAddress(resultSet.getString("deliveryAddress")); // 收货地址
                 orders.setShippingTime(resultSet.getString("shippingTime")); // 发货时间
