@@ -239,4 +239,15 @@ layui.extend({
         });
     }
 
+    //打开详情页
+    var openDatas;
+    function addMedicine(pId){
+        layui.layer.open({
+            title : "详情",
+            type : 2,
+            content : "medicine/outpatientManager/outpatient/addMedicine.jsp",
+            area:['1000px','600px'],
+
+        })
+    }
 });

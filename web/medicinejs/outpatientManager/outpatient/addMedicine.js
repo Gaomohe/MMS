@@ -16,6 +16,34 @@ layui.extend({
         laydate.render({
             elem: '#time'
         });
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+            return false;
+        }
+
+        // 获取 pId 参数并转换为整数
+        var pId = parseInt(getQueryVariable("pId"), 10);
+        console.log("/////////////////////");
+        console.log(pId);
+        console.log("/////////////////////");
+        // 将 pId 参数用于你的页面逻辑
+        if (pId) {
+            $.ajax({
+                url: '/outpatient?action=getPatientInfo',
+                type: 'GET',
+                data: { pId: pId },
+                success: function(response) {
+
+                }
+            });
+        }
         var tableIns = table.render({
             elem: '#addMedicineList',
             cellMinWidth: 95,
