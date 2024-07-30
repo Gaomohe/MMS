@@ -59,8 +59,7 @@
                 <table class="layui-table message-table">
                     <thead>
                     <tr>
-                        <th>消息内容</th>
-                        <th>时间</th>
+                        <th>通知</th>
                     </tr>
                     </thead>
                     <tbody id="messagesContainer">
@@ -98,21 +97,49 @@
                 let parse = JSON.parse(data);
                 if(parse.status === 200){
                     messages = parse.data;
+                    console.log(messages);
+                    mymsg();
+
+                    msgClick();
                 }
 
             }
         })
-        var messagesContainer = document.getElementById('messagesContainer');
+
+        //每行绑定点击事件
+        function msgClick(){
+            // 为每一行绑定点击事件
+            messages.forEach(function(message, index) {
+                var row = messagesContainer.children[index];
+                row.addEventListener('click', function() {
+                    // 点击事件的处理逻辑
+                    console.log("Clicked message:", message);
+                    openMsg(message);
+                    // 可以在这里添加更多的操作，比如打开详情页面等
+                });
+            });
+        }
+
+        //传值给父亲，在父亲页面中，打开
+        function openMsg(message){
+            var messageData = {"data":message,"notice":"notice"};
+            window.parent.postMessage(JSON.stringify(messageData),'*')
+        }
+
+        //添加行
+        function mymsg(){
+            var messagesContainer = document.getElementById('messagesContainer');
 
 
-        var rowsHTML = messages.map(function(message, index) {
-            return '<tr>' +
-                '<td><i class="layui-icon layui-icon-email"></i>您有一条 ' + message.title + '</td>' +
-                '<td class="message-time">' + message.time + '</td>' +
-                '</tr>';
-        }).join('');
+            var rowsHTML = messages.map(function(message, index) {
+                return '<tr>' +
+                    '<td><i class="layui-icon layui-icon-email"></i>您有一条 ' + message.title + '<br><p class="message-time">' + message.time + '</p></td>' +
+                    '</tr>';
+            }).join('');
 
-        messagesContainer.innerHTML = rowsHTML;
+            messagesContainer.innerHTML = rowsHTML;
+        }
+
     });
 </script>
 

@@ -41,10 +41,6 @@ layui.extend({
 
         }
     });
-    // $(document).ready(function (){
-    //     initDatepicker();
-    // })
-
     var initDatepicker=function (){
         laydate.render({
             elem: '#ID-laydate-demo',
@@ -213,40 +209,14 @@ layui.extend({
             content : "medicine/shoppingManage/requestApply/history.jsp",
             area:['600px','500px'],
             success:function(layero, index){
+                var $iframes = layero.find('iframe')[0];
                 $.ajax({
                     url:"/approval?action=getHistory",//湖区历史记录
                     type:"post",
                     data:{},
                     success:function(data){
+                        $iframes.contentWindow.postMessage(data, '*');
                         var parse = JSON.parse(data).data;
-                        var iframe = layer.getChildFrame('body', index);
-                        var html = '';
-                        var insert = '';
-                        var count = 0;
-                            for (let j = 0; j < parse.length; j++) {
-                                insert = '<p>药品编号:'+parse[j].mId+'药品名称:'+parse[j].mName+'申请数量:'+parse[j].applyNumber+'状态:'+parse[j].pharmacistApprove+'</p>';
-                                for (let k = j+1; k < parse.length; k++) {
-                                    if (parse[j].applyTime===parse[k].applyTime){
-                                        insert += '<p>药品编号:'+parse[k].mId+'药品名称:'+parse[k].mName+'申请数量:'+parse[k].applyNumber+'状态:'+parse[k].pharmacistApprove+'</p>'
-                                    }else {
-                                        j = k - 1;
-                                        html+= '<div class="layui-timeline-item">\n' +
-                                            '    <i class="layui-icon layui-timeline-axis"></i>\n' +
-                                            '    <div class="layui-timeline-content layui-text">\n' +
-                                            '      <h3 class="layui-timeline-title">申请时间:'+parse[j].applyTime+'</h3>\n' +
-                                            '      <p></p>\n' +insert+
-                                            '    </div>\n' +
-                                            '  </div>';
-                                        count++;
-                                        break;
-                                    }
-                                }
-                                if (count===10){
-                                    //控制条数
-                                    break;
-                                }
-                            }
-                        $(iframe).find('.layui-timeline').html(html);
 
                     }
                 })

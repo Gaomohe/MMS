@@ -138,6 +138,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         try {
             while (msg.next()){
                 Message message = new Message();
+                message.setId(msg.getInt("id"));
                 message.setBatch_num(msg.getLong("batch_num"));
                 if (msg.getString("title").equals("") ||msg.getString("title") == null){
                     message.setTitle("未知消息");
