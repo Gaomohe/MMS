@@ -7,9 +7,12 @@ import com.dao.MedicineDao;
 import com.pojo.Curing;
 import com.pojo.Medicine;
 import com.service.CuringService;
+import com.util.GetTime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,27 +79,23 @@ public class CurdingServiceImpl implements CuringService {
 
     public List<Medicine> getState(int index,int limit) {
         int page = (index-1)*limit;
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = simpleDateFormat.format(date);
+        String time = GetTime.getTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         List<Medicine> allMedicine = medicineDao.getAllMedicine(page,limit);
         List<Medicine> allMedicine1 = new ArrayList<>();
         int i = 0;
         for (Medicine medicine:allMedicine){
             try {
-                Date parse1 = simpleDateFormat.parse(format);
-                Date parse2 = simpleDateFormat.parse(medicine.getLastCuringDate());
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(parse1);
-                calendar.add(Calendar.DAY_OF_MONTH, -2); // Subtract 2 days from parse1
-                Date twoDaysAgo = calendar.getTime();
-                if (parse2.after(twoDaysAgo)){
+                LocalDateTime parse1 = LocalDateTime.parse(time,formatter);
+                LocalDateTime twoDaysAgo = parse1.minusDays(2);
+                LocalDateTime parse2 = LocalDateTime.parse(medicine.getLastCuringDate(),formatter);
+                if (parse2.isAfter(twoDaysAgo)){
                     medicine.setState(0);
                 }else {
                     medicine.setState(1);
                 }
                 allMedicine1.add(medicine);
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

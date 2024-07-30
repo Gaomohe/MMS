@@ -256,11 +256,9 @@
                     </div>
                     <div class="col-xl-3 col-12">
                         <div class="box bg-success">
-                            <div class="box-header">
-                                <h4 class="box-title text-white">Section 5 usage</h4>
-                            </div>
+                            <div class="box-header"><h4 class="box-title text-white">表头1</h4></div>
                             <div class="box-body">
-                                <div id="progressbar4" class="text-center position-relative"><span class="text-white"><span class="fs-36">58%</span><br>Location used</span></div>
+                                <div id="progressbar4" class="text-center position-relative"><span class="text-white"><span class="fs-48">100%</span><br>Location used</span></div>
                                 <div class="mt-50 d-flex justify-content-evenly">
                                     <div class="text-center">
                                         <p class="mb-0 text-white-50">Loaded</p>
@@ -275,9 +273,7 @@
                         </div>
                         <div class="box" id="bt-sellers">
                             <div class="box-header">
-                                <h4 class="box-title">
-                                    Best Sellers This Quarter
-                                </h4>
+                                <h4 class="box-title">Best Sellers This Quarter</h4>
                             </div>
                             <div class="box-body">
                                 <div class="inner-user-div3">
