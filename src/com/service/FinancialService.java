@@ -4,6 +4,7 @@ import com.pojo.Apply;
 import com.pojo.Purchase;
 import com.pojo.User;
 import com.util.LayuiTable;
+import com.util.ResultData;
 
 public interface FinancialService {
     //条件查询所有财务审批
@@ -20,5 +21,8 @@ public interface FinancialService {
 
     //获取订单详情
     public LayuiTable<Purchase> getId(int id);
+
+    //订单财务审核
+    public ResultData<Integer> isok(int[] ins, String name);
 
 }

@@ -67,16 +67,13 @@ public class UserDaoImpl extends InitDaoImpl implements UserDao {
     //申请人姓名回显
     @Override
     public List<User> getAppUser() {
-        String sql = "select * from user where id > ?";
-        Object[] objects = new Object[1];
-        objects[0] = 0;
-        ResultSet resultSet = JDBC.select(sql,objects);
+        String sql = "select * from appoint;";
+        ResultSet resultSet = JDBC.select(sql,new Object[1]);
         List<User> userList = new ArrayList<>();
         try{
             while (resultSet.next()){
                 User user = new User();
-                user.setId(resultSet.getInt(1));
-                user.setUserName(resultSet.getString(2));
+                user.setUserName(resultSet.getString("applyUser"));
                 userList.add(user);
             }
         }catch (Exception e){

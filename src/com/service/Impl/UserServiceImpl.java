@@ -216,7 +216,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAppUser() {
-        return userDao.getAppUser();
+        List<User> userList = userDao.getAppUser();
+        int i = 1;
+        for (User user : userList) {
+            user.setId(i);
+            i++;
+        }
+        return userList;
     }
 
     @Override
