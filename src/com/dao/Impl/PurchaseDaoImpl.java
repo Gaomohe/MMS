@@ -67,9 +67,16 @@ public class PurchaseDaoImpl extends InitDaoImpl implements PurchaseDao {
 
     @Override
     public ResultSet getMsg(String name) {
-        String sql = "select * from message where receivePeople = ? and state = 0";
+        String sql = "select * from message where receivePeople = ?";
         Object[] objects = new Object[]{name};
         return JDBC.select(sql, objects);
+    }
+
+    @Override
+    public boolean setMsgState(long state) {
+        String sql = "update message set state = 1 where message.batch_num = ?";
+        Object[] objects = new Object[]{state};
+        return JDBC.update(sql, objects) > 0;
     }
 
 }

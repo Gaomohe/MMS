@@ -64,4 +64,12 @@ public class PurchaseServlet extends BaseServlet {
     }
 
 
+//    修改状态
+    public ResultData<?> setMsgState(HttpServletRequest request, HttpServletResponse response){
+        String values = request.getParameter("msg");
+        long l = Long.parseLong(values);
+        return purchaseService.setMsgState(l);
+    }
+
+
 }

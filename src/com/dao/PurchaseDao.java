@@ -24,4 +24,7 @@ public interface PurchaseDao {
 
     //获取消息
     public ResultSet getMsg(String name);
+
+    //修改状态
+    public boolean setMsgState(long state);
 }

@@ -24,5 +24,8 @@ public interface PurchaseService {
     //获取消息
     public ResultData<?> getMsg(String name);
 
+    //修改状态
+    public ResultData<?> setMsgState(long state);
+
 
 }

@@ -9,6 +9,8 @@ layui.extend({
         upload = layui.upload,
         table = layui.table;
     var dtree = layui.dtree;
+
+
     //表格渲染
     var tableIns = table.render({
         elem: '#shoppList',

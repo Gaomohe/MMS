@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="<%=basePath %>admin/css/public.css" media="all" />
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/dtree.css">
     <link rel="stylesheet" href="<%=basePath %>admin/js/lay-module/layui_ext/dtree/font/dtreefont.css">
-
+    <link href="//unpkg.com/layui@2.9.14/dist/css/layui.css" rel="stylesheet">
     <style>
         .message-table {
             width: 100%;
@@ -42,7 +42,6 @@
     </style>
 </head>
 <body>
-
 <div class="layui-tab layui-tab-brief">
     <ul class="layui-tab-title">
         <li class="layui-this">通知</li>
@@ -73,10 +72,42 @@
         </div>
 
         <div class="layui-tab-item">
-            已读
+<%--            已读--%>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <table class="layui-table message-table">
+                    <thead>
+                    <tr>
+                        <th>已读</th>
+                    </tr>
+                    </thead>
+                    <tbody id="messagesContainerRead">
+                    <!-- 消息列表项将通过JavaScript动态添加 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
         </div>
         <div class="layui-tab-item">
-            代办
+<%--            代办--%>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <table class="layui-table message-table">
+                    <thead>
+                    <tr>
+                        <th>待办</th>
+                    </tr>
+                    </thead>
+                    <tbody id="messagesContainerToDo">
+                    <!-- 消息列表项将通过JavaScript动态添加 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
 </div>
@@ -86,58 +117,152 @@
 
 <script src="//unpkg.com/layui@2.9.14/dist/layui.js"></script>
 <script>
-    layui.use(['form', 'laydate','table'], function(){
+    layui.extend({
+        dtree: '{/}admin/js/lay-module/layui_ext/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    }).use(['form','layer','laydate','table','upload','element', 'jquery'],function(){
         const $ = layui.$;
-
-        var messages;
+        var layer = parent.layer === undefined ? layui.layer : top.layer;
         $.ajax({
             url:"/purchase?action=getMsg",
             type:"post",
             success:function (data){
                 let parse = JSON.parse(data);
                 if(parse.status === 200){
-                    messages = parse.data;
-                    console.log(messages);
-                    mymsg();
+                    var messages = parse.data;
+                    console.log(messages)
+                    var msg = [];
+                    var msgRead=[]
+                    var count = 0;
+                    var countRead = 0;
+                    for (let i = 0; i < messages.length; i++) {
+                        if (messages[i].state===0){
+                            msg[count++]=messages[i]
+                        }else {
+                            msgRead[countRead++]=messages[i]
+                        }
+                    }
 
-                    msgClick();
+                    //通知
+                    mymsg(msg);
+                    if (msg.length!==0){
+                        console.log("声明")
+                        msgClick(msg);
+                    }
+
+
+                    //已读
+                    mymsgRead(msgRead);
+                    if (msgRead.length!==0){
+                        msgClickRead(msgRead)
+                    }
+
+                    //待办
+                    mymsgToDo(null);
+
+
+
                 }
 
             }
         })
 
+
         //每行绑定点击事件
-        function msgClick(){
+        function msgClick(messages){
             // 为每一行绑定点击事件
             messages.forEach(function(message, index) {
                 var row = messagesContainer.children[index];
                 row.addEventListener('click', function() {
-                    // 点击事件的处理逻辑
-                    console.log("Clicked message:", message);
-                    openMsg(message);
-                    // 可以在这里添加更多的操作，比如打开详情页面等
+                    // var url = 'http://localhost:8080/medicine/shoppingManage/requestApply/detailedMsg.jsp';
+                    openMsg01(message)
                 });
+
+            });
+        }
+        function msgClickRead(messages){
+            // 为每一行绑定点击事件
+            messages.forEach(function(message, index) {
+                var row = messagesContainerRead.children[index];
+                row.addEventListener('click', function() {
+                    // var url = 'http://localhost:8080/medicine/shoppingManage/requestApply/detailedMsg.jsp';
+                    openMsg02(message)
+                });
+
+            });
+        }
+        function openMsg01(message){
+            layer.confirm('时间:'+message.time+'<br>'+'申请人:'+message.receivePeople
+                +'<br>'+'申请凭证号:'+message.batch_num+'<br>'+message.message, {
+                btn: ['确定'] //按钮
+            }, function(){
+               var msg = message.batch_num;
+                layer.msg('已确认!', {icon: 1});
+                //修改状态
+                $.ajax({
+                    url:"/purchase?action=setMsgState",//根据id查询的方法
+                    type:"post",
+                    data:{msg},
+                    success:function(data){
+                        var parse = JSON.parse(data);
+                        if (parse.status === 200){
+                            location.reload();
+                        }
+                    }
+                })
+
+            });
+        }
+        function openMsg02(message){
+            layer.confirm('时间:'+message.time+'<br>'+'申请人:'+message.receivePeople
+                +'<br>'+'申请凭证号:'+message.batch_num+'<br>'+message.message, {
+                btn: ['确定'] //按钮
+            }, function(){
+                var msg = message.batch_num;
+                layer.msg('已确认!', {icon: 1});
             });
         }
 
-        //传值给父亲，在父亲页面中，打开
-        function openMsg(message){
-            var messageData = {"data":message,"notice":"notice"};
-            window.parent.postMessage(JSON.stringify(messageData),'*')
-        }
-
         //添加行
-        function mymsg(){
+        function mymsg(messages){
+            //通知
             var messagesContainer = document.getElementById('messagesContainer');
 
-
-            var rowsHTML = messages.map(function(message, index) {
-                return '<tr>' +
-                    '<td><i class="layui-icon layui-icon-email"></i>您有一条 ' + message.title + '<br><p class="message-time">' + message.time + '</p></td>' +
+            var rowsHTML
+            if (messages.length===0){
+                rowsHTML = '<tr>' +
+                    '<td>暂无更多的消息！</td>' +
                     '</tr>';
-            }).join('');
-
+            }else {
+                rowsHTML = messages.map(function(message, index) {
+                    return '<tr>' +
+                        '<td><i class="layui-icon layui-icon-email"></i>您有一条 ' + message.title + '<br><p class="message-time">' + message.time + '</p></td>' +
+                        '</tr>';
+                }).join('');
+            }
             messagesContainer.innerHTML = rowsHTML;
+        }
+        function mymsgRead(messages){
+            //通知
+            var messagesContainerRead = document.getElementById('messagesContainerRead');
+            var rowsHTML
+            if (messages.length===0){
+                rowsHTML = '<tr>' +
+                    '<td>暂无更多的消息！</td>' +
+                    '</tr>';
+            }else {
+                rowsHTML = messages.map(function(message, index) {
+                    return '<tr>' +
+                        '<td><i class="layui-icon layui-icon-email"></i>' + message.title + '  &nbsp; &nbsp;已读<br><p class="message-time">' + message.time + '</p></td>' +
+                        '</tr>';
+                }).join('');
+            }
+            messagesContainerRead.innerHTML = rowsHTML;
+        }
+        function mymsgToDo(messages){
+            var messagesContainerToDo = document.getElementById('messagesContainerToDo');
+            messagesContainerToDo.innerHTML = '<tr>' +
+                '<td>暂无更多的消息！</td>' +
+                '</tr>';
         }
 
     });

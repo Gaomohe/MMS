@@ -150,6 +150,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 message.setReceivePeople(msg.getString("receivePeople"));
                 message.setuName(msg.getString("uName"));
                 message.setTime(msg.getString("time"));
+                message.setState(msg.getInt("state"));
                 messageList.add(message);
             }
             resultData.setData(messageList);
@@ -158,6 +159,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         }catch (Exception e){
             e.printStackTrace();
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData<?> setMsgState(long state) {
+        ResultData<Integer> resultData = new ResultData<>();
+        if (purchaseDao.setMsgState(state)){
+            resultData.setStatus(200);
+        }else {
+            resultData.setStatus(400);
         }
         return resultData;
     }
