@@ -55,4 +55,10 @@
             batchsNumber LIKE CONCAT('%', #{search}, '%')
     </select>
 
+    <select id="getPharmacy" parameterType="map" resultType="Pharmacy">
+
+    </select>
+    
+
+
 </mapper>

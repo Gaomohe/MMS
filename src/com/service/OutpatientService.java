@@ -24,7 +24,7 @@ public interface OutpatientService {
     public Patient backValues(int id);
 
     //开处方
-    public int addMedicine(int pId,List<Medicine> medicineList);
+    public int addMedicine(Patient patient,List<Medicine> medicineList);
 
     //已选中药品回显
     public LayuiTable<Medicine> getPatientMedicine(List<Integer> mIdList,int page,int limit);

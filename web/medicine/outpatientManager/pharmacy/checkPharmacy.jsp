@@ -26,9 +26,11 @@
     <div class="layuimini-container">
         <div class="layuimini-main">
             <script type="text/html" id="checkPharmacyDemo">
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
+                <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue">确认</button>
+                <button type="button" id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn layui-btn-danger">取消</button>
+                <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}
-                </c:forEach>
+                </c:forEach>--%>
             </script>
             <table id="checkPharmacyList" lay-filter="checkPharmacyList"></table>
         </div>

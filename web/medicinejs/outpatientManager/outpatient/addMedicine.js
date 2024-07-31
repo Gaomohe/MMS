@@ -31,7 +31,7 @@ layui.extend({
         }
 
         // 获取 pId 参数并转换为整数
-        var pId = parseInt(getQueryVariable("pId"), 10);
+        pId = parseInt(getQueryVariable("pId"), 10);
         // 将 pId 参数用于你的页面逻辑
         $.ajax({
             url: '/patient?action=getPatientInfo',
@@ -61,15 +61,17 @@ layui.extend({
                 pWeight = res.weight;
                 document.querySelector('input[name="address"]').value = res.address;
                 pAddress = res.address;
-                document.querySelector('input[name="phone"]').value = res.phone;
-                pPhone = res.phone;
+                // document.querySelector('input[name="phone"]').value = res.phone;
+                // pPhone = res.phone;
                 document.querySelector('input[name="allergy"]').value = res.allergy;
                 pAllergy = res.allergy;
-                document.querySelector('input[name="time"]').value = res.diagnosticTime;
+                // document.querySelector('input[name="time"]').value = res.diagnosticTime;
                 document.querySelector('textarea[name="disease"]').value = res.disease;
                 disease = res.disease;
+                console.log("病：" + disease);
                 document.querySelector('textarea[name="doctorAdvice"]').value = res.doctorAdvice;
                 doctorAdvice = res.doctorAdvice;
+                console.log("医嘱：" + doctorAdvice);
             }
         });
         var tableIns = table.render({
@@ -396,7 +398,7 @@ layui.extend({
         $.ajax({
             url:"/patient?action=getPatientInfo",
             data: {
-                "patientId":patientId
+                "pId":pId
             },
             type: "post",
             dataType: "json",
@@ -615,6 +617,7 @@ layui.extend({
         });
     }*/
     function addMedicine() {
+        console.log("disease的值是" + disease);
         let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
         let otherParams = {
             pId: pId,
@@ -625,6 +628,7 @@ layui.extend({
             pAddress: pAddress,
             pPhone: pPhone,
             pAllergy: pAllergy,
+            disease:disease,
             doctorAdvice: doctorAdvice
         };
 

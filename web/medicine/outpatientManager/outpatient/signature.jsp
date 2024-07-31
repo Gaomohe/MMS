@@ -52,12 +52,12 @@
             border: 1px solid #ddd; /* 控制边框样式 */
         }
 
-        tr{
+        /*tr{
             width: 500px;
             height: 70px;
             margin-top: 0;
             margin-left: 0;
-        }
+        }*/
 
         /* 调整表头的高度 */
         .layui-table th {
@@ -68,19 +68,19 @@
 
         }
 
-        .layui-table-header{
-            height: 50px; /* 控制表头的高度 */
+        /*.layui-table-header{
+            height: 50px; !* 控制表头的高度 *!
             width: 80px;
             margin-top: 0;
             margin-left: 0;
         }
 
         .layui-table-body layui-table-main{
-            height: 50px; /* 控制表头的高度 */
+            height: 50px; !* 控制表头的高度 *!
             width: 80px;
             margin-top: 0;
             margin-left: 0;
-        }
+        }*/
 
     </style>
 </head>
@@ -91,68 +91,13 @@
     <h1>医生开处方</h1>
     <!-- Date -->
     <div class="row" style="margin-top: 50px">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者卡号:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="pid" lay-verify="pid" lay-event="pid" lay-filter="pid" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者姓名:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="pName" lay-verify="pName" lay-event="pName" lay-filter="pName" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者性别:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="sex" lay-verify="sex" lay-event="sex" lay-filter="sex"  autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者体重:</span>
-            <div class="layui-input-inline">
-                <input type="text" onkeyup="value=value.match(/\d+\.?\d{0,2}/,'')" name="weight" lay-verify="weight" lay-event="weight" lay-filter="weight" placeholder="" autocomplete="off" class="layui-input" οnkeyup='this.value=this.value.replace(/\D/gi,"")'>
-                <span style=" position: absolute; top: 1%; right: 6%;color: #000000; display: table-cell;white-space: nowrap; padding: 7px 10px;">Kg</span>
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者年龄:</span>
-            <div class="layui-input-inline">
-                <input type="number" name="age" lay-verify="age" lay-event="age" lay-filter="age" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者地址:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="address" lay-verify="address" lay-event="address" lay-filter="address" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">过敏史:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="allergy" lay-verify="allergy" lay-event="allergy" lay-filter="allergy" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">诊断描述:</span>
-            <div class="layui-input-inline">
-                <textarea cols="50" rows="10" type="text" name="disease" lay-verify="disease" lay-event="disease" lay-filter="disease" placeholder="" autocomplete="off" class="layui-input" style="width: 800px; height: 70px;"></textarea>
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">就诊医嘱:</span>
-            <div class="layui-input-inline">
-                <textarea cols="50" rows="10" type="text" name="doctorAdvice" lay-verify="doctorAdvice" lay-event="doctorAdvice" lay-filter="doctorAdvice" placeholder="" autocomplete="off" class="layui-input" style="width: 800px; height: 70px;"></textarea>
-            </div>
+        <div class="row-input">
+            <span style="color: black;width: 75px">医生:</span>
+            <input style="color: black" id="" type="text" value="${user.userName}"  readonly />
+            <br>
+            <span style="color: black;width: 75px">时间:</span>
+            <input style="color: black" id="datetime_input" type="text" placeholder="XX March, 2023" readonly />
+            <br>
         </div>
         <%--<div class="row-input">
             <span style="color: black;width: 75px">医生:</span>
@@ -210,9 +155,12 @@
         <div id="signature_preview"></div>
     </div>
 </div>
-<button class="button-upload button-convert" onclick="isOK()">
-    提交
-</button>
+
+<form>
+    <button id="oksubmit" lay-filter="oksubmit" class="button-upload button-convert" onclick="isOK()">
+        提交
+    </button>
+</form>
 <button class="button-upload button-convert" onclick="convertHtml()">
     生成相应文档
 </button>
@@ -235,77 +183,8 @@
     </div>--%>
     <!-- some text -->
     <div class="row" style="margin-bottom: 50px">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者卡号:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="pid" lay-verify="pid" lay-event="pid" lay-filter="pid" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者姓名:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="pName" lay-verify="pName" lay-event="pName" lay-filter="pName" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者性别:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="sex" lay-verify="sex" lay-event="sex" lay-filter="sex"  autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者体重:</span>
-            <div class="layui-input-inline">
-                <input type="text" onkeyup="value=value.match(/\d+\.?\d{0,2}/,'')" name="weight" lay-verify="weight" lay-event="weight" lay-filter="weight" placeholder="" autocomplete="off" class="layui-input" οnkeyup='this.value=this.value.replace(/\D/gi,"")'>
-                <span style=" position: absolute; top: 1%; right: 6%;color: #000000; display: table-cell;white-space: nowrap; padding: 7px 10px;">Kg</span>
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者年龄:</span>
-            <div class="layui-input-inline">
-                <input type="number" name="age" lay-verify="age" lay-event="age" lay-filter="sex" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">患者地址:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="address" lay-verify="address" lay-event="address" lay-filter="address" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">过敏史:</span>
-            <div class="layui-input-inline">
-                <input type="text" name="allergy" lay-verify="allergy" lay-event="allergy" lay-filter="allergy" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">诊断描述:</span>
-            <div class="layui-input-inline">
-                <textarea cols="50" rows="10" type="text" name="disease" lay-verify="disease" lay-event="disease" lay-filter="disease" placeholder="" autocomplete="off" class="layui-input" style="width: 800px; height: 70px;"></textarea>
-            </div>
-        </div>
-        <hr class="layui-border-green">
-        <div class="layui-inline">
-            <span style="color: black;width: 75px">就诊医嘱:</span>
-            <div class="layui-input-inline">
-                <textarea cols="50" rows="10" type="text" name="doctorAdvice" lay-verify="doctorAdvice" lay-event="doctorAdvice" lay-filter="doctorAdvice" placeholder="" autocomplete="off" class="layui-input" style="width: 800px; height: 70px;"></textarea>
-            </div>
-        </div>
-        <div class="row-input">
-            <span style="color: black;width: 75px">医生:</span>
-            <input style="color: black" id="" type="text" value="${user.userName}"  readonly />
-            <br>
-            <span style="color: black;width: 75px">时间:</span>
-            <input style="color: black" id="datetime_input" type="text" placeholder="XX March, 2023" readonly />
-            <br>
-        </div>
+
+
         <p>
             药品:
         </p>

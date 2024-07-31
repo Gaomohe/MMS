@@ -26,9 +26,18 @@
     <div class="layuimini-container">
         <div class="layuimini-main">
             <script type="text/html" id="pharmacyDemo">
-                <c:forEach var="menu" items="${menuList}" varStatus="s">
+                <form id="searchForm">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" id="search" name="search" lay-verify="search" lay-event="search" lay-filter="search" placeholder="请输入搜索字段" autocomplete="off" class="layui-input">
+                        </div>
+                        <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe615;</i>查询</button>
+                    </div>
+                </form>
+                <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}
-                </c:forEach>
+                </c:forEach>--%>
+
             </script>
             <table id="pharmacyList" lay-filter="pharmacyList"></table>
         </div>

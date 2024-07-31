@@ -129,16 +129,24 @@ public class OutpatientServiceImpl implements OutpatientService {
 
     //开处方
     @Override
-    public int addMedicine(int pId, List<Medicine> medicineList) {
-        int i = outpatientDao.addmOrder(pId);
+    public int addMedicine(Patient patient, List<Medicine> medicineList) {
+        /*
+        //        patient.setDiagnosticTime(GetTime.getTime());
+//        SqlSession session = BaseDao.getSqlSession();
+//        int i = 0;
+//        for (Medicine medicine : medicineList) {
+//            i = session.getMapper(PatientDao.class).addMedicine(medicine);
+//        }
+        * */
+        int i = outpatientDao.addmOrder(patient.getpId());
         int orderId = outpatientDao.getOrderId();
-        int update = outpatientDao.updatemIdtoPatient(orderId, pId);
+        int update = outpatientDao.updatemIdtoPatient(orderId, patient.getpId());
         int add = 0;
         int addup = 0;
         for (Medicine medicine : medicineList) {
              add = outpatientDao.addMedicine(orderId, medicine);
              medicine.setTableCoding(medicine.getmId());
-            addup = medicineService.updateMedicineNumber(medicine, medicine.getNumber(), pId);
+            addup = medicineService.updateMedicineNumber(medicine, medicine.getNumber(), patient.getpId());
         }
         return add;
     }

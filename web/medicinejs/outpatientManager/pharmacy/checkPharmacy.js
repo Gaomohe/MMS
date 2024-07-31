@@ -11,7 +11,26 @@ layui.extend({
     var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain,patientId,mName;
     let mIdList = new Set();
 
+    function getQueryParams() {
+        let params = {};
+        let queryString = window.location.search.slice(1);
+        let pairs = queryString.split("&");
+        pairs.forEach(function(pair) {
+            let [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+        });
+        return params;
+    }
+
     $(document).ready(function() {
+
+        let params = getQueryParams();
+        console.log("接收到的参数:", params);
+
+        // 获取pId并在页面中显示
+        let pIds = parseInt(params.pId, 10);
+        patientId = pIds;
+
         backValues();
         laydate.render({
             elem: '#time'
@@ -20,7 +39,7 @@ layui.extend({
             elem: '#checkPharmacyList',
             cellMinWidth: 95,
             page: true,
-            url: '/pharmacy?action=Check',
+            url: '/pharmacy?action=Check&pIds=' + pIds,
             toolbar: '#checkPharmacyDemo',
             height: "800px",
             limit: 20,
@@ -133,10 +152,10 @@ layui.extend({
             ],
         });
         tableMain = tableIns;
-        getUnit();
+        /*getUnit();
         getmType();
         getmPower();
-        getmName();
+        getmName();*/
 
         table.on('toolbar(checkPharmacyList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
@@ -157,57 +176,12 @@ layui.extend({
                     console.log("---------------");
                     Search(mPower,mType,Unit,mName);
                     break;
-                case 'reload':
-                    winReload();
-                    break;
-                case 'del':
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            total++;
-                            delApply(file.applyId);
-                        });
-                    } else {
-                        layer.msg("you are not select", {icon: 2});
-                    }
-                    break;
-                case 'approve':
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            total++;
-                            setApprove(file.applyId);
-                        });
-                    } else {
-                        layer.msg("未选择", {icon: 2});
-                    }
-                    break;
-                case 'addPatient':
-                    addPatient();
-                    break;
-                case 'addMedicine':
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            mIdList.add(file.mId)
-                        });
-                    } else {
-                        layer.msg("未选择", {icon: 2});
-                    }
-                    console.log(mIdList);
-                    addMedicine();
-                    break;
-                case 'getMedicine':
-                    if (files.length > 0) {
-                        files.forEach(function(file) {
-                            getMedicine(file.mId)
-                        });
-                    } else {
-                        layer.msg("未选择", {icon: 2});
-                    }
-                    break;
+
             }
         });
     });
 
-    function getMedicine(mId){
+    /*function getMedicine(mId){
         $.ajax({
             url:"/pharmacy?action=getMedicine",
             type:"post",
@@ -225,16 +199,16 @@ layui.extend({
                 }
             }
         })
-    }
+    }*/
 
-    //刷新页面
-    function winReload(){
-        // location.reload();
-        getUnit();
-        getmType();
-        getmPower();
-        getmName();
-    }
+    // //刷新页面
+    // function winReload(){
+    //     // location.reload();
+    //     getUnit();
+    //     getmType();
+    //     getmPower();
+    //     getmName();
+    // }
 
     //病患信息回显
     function backValues(){
@@ -267,77 +241,77 @@ layui.extend({
     }
 
 
-    function getmName(){
-        $('input[name="mName"]').on('input', function(e) {
-            mName = e.target.value;
-            console.log("药品名称：" + mName);
-        });
-    }
-
-    //获取药品分类
-    function getmPower() {
-        console.log("---------------");
-        $.post("/patient?action=getmPower", function(res) {
-            console.log(res);
-            try {
-                var cs = JSON.parse(res);
-                var dom = $("#mPower").empty().html('<option value="0">药品功效</option>');
-                $.each(cs, function(index, item) {
-                    dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
-                });
-                form.render("select");
-
-                form.on('select(mPower)', function(data) {
-                    mPower = cs.find(item => item.id == data.value)?.typename || '';
-                    console.log("被选药品功效：" + mPower);
-                });
-            } catch (e) {
-                console.error("Error parsing JSON:", e);
-            }
-        });
-    }
-
-    //获取药品类型
-    function getmType() {
-        $.post("/patient?action=getmType", function(res) {
-            try {
-                var cs = JSON.parse(res);
-                var dom = $("#mType").empty().html('<option value="0">药品类型</option>');
-                $.each(cs, function(index, item) {
-                    dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
-                });
-                form.render("select");
-
-                form.on('select(mType)', function(data) {
-                    mType = cs.find(item => item.id == data.value)?.typename || '';
-                    console.log("被选中的药品类型：" + mType);
-                });
-            } catch (e) {
-                console.error("Error parsing JSON:", e);
-            }
-        });
-    }
-
-    //获取药剂类型
-    function getUnit() {
-        $.post("/patient?action=getUnit", function(res) {
-            try {
-                var cs = JSON.parse(res);
-                var dom = $("#unit").empty().html('<option value="0">药剂类型</option>');
-                $.each(cs, function(index, item) {
-                    dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
-                });
-                form.render("select");
-
-                form.on('select(unit)', function(data) {
-                    Unit = cs.find(item => item.id == data.value)?.typename || '';
-                    console.log("被药品药剂类型：" + Unit);
-                });
-            } catch (e) {
-                console.error("Error parsing JSON:", e);
-            }
-        });
-    }
+    // function getmName(){
+    //     $('input[name="mName"]').on('input', function(e) {
+    //         mName = e.target.value;
+    //         console.log("药品名称：" + mName);
+    //     });
+    // }
+    //
+    // /*//获取药品分类
+    // function getmPower() {
+    //     console.log("---------------");
+    //     $.post("/patient?action=getmPower", function(res) {
+    //         console.log(res);
+    //         try {
+    //             var cs = JSON.parse(res);
+    //             var dom = $("#mPower").empty().html('<option value="0">药品功效</option>');
+    //             $.each(cs, function(index, item) {
+    //                 dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
+    //             });
+    //             form.render("select");
+    //
+    //             form.on('select(mPower)', function(data) {
+    //                 mPower = cs.find(item => item.id == data.value)?.typename || '';
+    //                 console.log("被选药品功效：" + mPower);
+    //             });
+    //         } catch (e) {
+    //             console.error("Error parsing JSON:", e);
+    //         }
+    //     });*/
+    // // }
+    //
+    // //获取药品类型
+    // function getmType() {
+    //     $.post("/patient?action=getmType", function(res) {
+    //         try {
+    //             var cs = JSON.parse(res);
+    //             var dom = $("#mType").empty().html('<option value="0">药品类型</option>');
+    //             $.each(cs, function(index, item) {
+    //                 dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
+    //             });
+    //             form.render("select");
+    //
+    //             form.on('select(mType)', function(data) {
+    //                 mType = cs.find(item => item.id == data.value)?.typename || '';
+    //                 console.log("被选中的药品类型：" + mType);
+    //             });
+    //         } catch (e) {
+    //             console.error("Error parsing JSON:", e);
+    //         }
+    //     });
+    // }
+    //
+    // //获取药剂类型
+    // function getUnit() {
+    //     $.post("/patient?action=getUnit", function(res) {
+    //         try {
+    //             var cs = JSON.parse(res);
+    //             var dom = $("#unit").empty().html('<option value="0">药剂类型</option>');
+    //             $.each(cs, function(index, item) {
+    //                 dom.append('<option value="' + item.id + '">' + item.typename + '</option>');
+    //             });
+    //             form.render("select");
+    //
+    //             form.on('select(unit)', function(data) {
+    //                 Unit = cs.find(item => item.id == data.value)?.typename || '';
+    //                 console.log("被药品药剂类型：" + Unit);
+    //             });
+    //         } catch (e) {
+    //             console.error("Error parsing JSON:", e);
+    //         }
+    //     });
+    // }
 
     var define = "";
     function Search(mPower,mType,Unit,mName) {
@@ -352,11 +326,7 @@ layui.extend({
             page: {curr: 1}
         });
         // 重新获取下拉菜单的选项
-        getUnit();
-        getmType();
-        getmPower();
-        backValues();
-        getmName();
+
     }
 
     function addPatient(){

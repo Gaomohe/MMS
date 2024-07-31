@@ -127,8 +127,6 @@ layui.extend({
 */
 
 
-
-
 layui.extend({
     dtree: '/admin/js/lay-module/layui_ext/dtree/dtree'
 }).use(['form', 'layer', 'laydate', 'table', 'upload', 'dtree'], function() {
@@ -254,9 +252,10 @@ layui.extend({
                             pAddress: params.pAddress,
                             pPhone: params.pPhone,
                             pAllergy: params.pAllergy,
+                            disease : params.disease,
                             doctorAdvice: params.doctorAdvice
                         });
-                        console.log("对于接收的患者信息：" + pId +"xinxi"+ params.pId);
+
 
 
                         // 打开第三个页面并传递数据

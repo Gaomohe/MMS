@@ -47,6 +47,7 @@ public class SalReturnServiceImpl implements SalReturnService {
         salReturn.setReturnId(string);
         salReturn.setoId(oId);
         salReturn.setState("未到货");
+        salReturn.setmName("多药品");
         int i = salReturnDao.addSalReturn(salReturn);
         return i;
     }

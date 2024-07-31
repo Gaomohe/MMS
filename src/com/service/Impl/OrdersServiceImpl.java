@@ -55,6 +55,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public int updateDoOrders(Orders orders) {
+        if (!orders.getShippingTime().isEmpty()){
+            orders.setAdvanceStatus("已付款");
+        }
         return ordersDao.updateOrders(orders);
     }
 

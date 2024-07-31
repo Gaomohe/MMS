@@ -2,7 +2,10 @@ package com.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.pojo.*;
 import com.util.*;
 import com.util.init.ToJSON;
@@ -234,12 +237,12 @@ public class OutpatientServlet extends BaseServlet {
     }
 
     //获取功效类型
-    public void getmPower(HttpServletRequest request,HttpServletResponse response){
+    /*public void getmPower(HttpServletRequest request,HttpServletResponse response){
         List<Type> allGoodsType = typeService.getAllGoodsType();
         ToJSON.toJson(response,allGoodsType);
-    }
+    }*/
 
-    //获取药品类型
+    /*//获取药品类型
     public void getmType(HttpServletRequest request,HttpServletResponse response){
         List<Type> allMType = typeService.getAllMType();
         ToJSON.toJson(response,allMType);
@@ -249,7 +252,7 @@ public class OutpatientServlet extends BaseServlet {
     public void getUnit(HttpServletRequest request,HttpServletResponse response){
         List<Type> alldosage = typeService.getAlldosage();
         ToJSON.toJson(response,alldosage);
-    }
+    }*/
 
     //门诊中医生查药
     public void getMedicineList(HttpServletRequest request,HttpServletResponse response){
@@ -349,11 +352,12 @@ public class OutpatientServlet extends BaseServlet {
             }
         }
 
-        int i = outpatientService.addMedicine(thePId,medicineList);
-        ResultData resultData = Result.resultStatus(i);
+//        int i = outpatientService.addMedicine(thePId,medicineList);
+        ResultData resultData = Result.resultStatus(1);
         return resultData;
     }
 
+    //单搜索框查询所有信息
     public void searchMedicine(HttpServletRequest request,HttpServletResponse response){
         String searchData = request.getParameter("inputVal");
         int page = Integer.parseInt(request.getParameter("page"));
@@ -387,6 +391,55 @@ public class OutpatientServlet extends BaseServlet {
         request.getSession().setAttribute("priceList", priceList);
         request.getSession().setAttribute("params", params.toString());
 
+    }
+
+    public ResultData addMedicine(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        int pId = Integer.parseInt(request.getParameter("pId"));
+        String pName = request.getParameter("pName");
+        String pSex = request.getParameter("pSex");
+        double pWeight = Double.parseDouble(request.getParameter("pWeight"));
+        String pAddress = request.getParameter("pAddress");
+        String pAllergy = request.getParameter("pAllergy");
+        String disease = request.getParameter("disease");
+        String pDoctorAdvice = request.getParameter("pDoctorAdvice");
+        String medicinesJson = request.getParameter("medicine");
+
+        // 使用Jackson解析medicinesJson并删除LAY_TABLE_INDEX字段
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode medicinesNode = mapper.readTree(medicinesJson);
+
+        if (medicinesNode.isArray()) {
+            for (JsonNode node : medicinesNode) {
+                ((ObjectNode) node).remove("LAY_TABLE_INDEX");
+            }
+        }
+
+        List<Medicines> medicines = mapper.readValue(medicinesNode.toString(), new TypeReference<List<Medicines>>() {});
+
+        Patient patient = new Patient();
+        patient.setpId(pId);
+        patient.setDisease(disease);
+        patient.setAllergy(pAllergy);
+        patient.setWeight(pWeight);
+        patient.setAddress(pAddress);
+        patient.setDoctorAdvice(pDoctorAdvice);
+        patient.setName(pName);
+        patient.setSex(pSex);
+
+        List<Medicine> medicineList = new ArrayList<>();
+
+        for (Medicines medicines1 : medicines) {
+            Medicine medicine = new Medicine();
+            int id = Integer.parseInt(medicines1.getmId());
+            medicine.setmId(id);
+            medicine.setNumber(medicines1.getQuantity());
+            medicineList.add(medicine);
+        }
+
+        int i = outpatientService.addMedicine(patient, medicineList);
+
+        ResultData rd = Result.resultStatus(i);
+        return rd;
     }
 
 }

@@ -5,6 +5,8 @@ import com.pojo.Pharmacy;
 import com.pojo.User;
 import com.util.LayuiTable;
 
+import java.util.Map;
+
 public interface PharmacyService {
     //获取所有药方列表
     public LayuiTable<Pharmacy> getPharmacyList(int page,int limit);
@@ -17,4 +19,7 @@ public interface PharmacyService {
 
     //患者取药
     public int getMedicine(int mId, int pId, int phId);
+
+    //单框查询
+    public LayuiTable<Pharmacy> selectPatient(Map<String, Object> searchCriteria);
 }

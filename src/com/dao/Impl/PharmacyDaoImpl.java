@@ -20,8 +20,12 @@ public class PharmacyDaoImpl implements PharmacyDao {
         String sql = "select orderId,pId,name,dName,diagnosticTime from patient\n" +
                 "inner join medicineorder on patient.mId = medicineorder.orderId\n" +
                 "where medicineorder.status='未取药'\n" +
-                "group by orderId,pId,name,dName,diagnosticTime;";
-        ResultSet resultSet = JDBC.select(sql,new Object[1]);
+                "group by orderId,pId,name,dName,diagnosticTime\n" +
+                "limit ?,?;";
+        Object[] objects = new Object[2];
+        objects[0] = page;
+        objects[1] = limit;
+        ResultSet resultSet = JDBC.select(sql,objects);
         List<Pharmacy> pharmacyList = new ArrayList<Pharmacy>();
         try{
             while (resultSet.next()) {
@@ -88,7 +92,9 @@ public class PharmacyDaoImpl implements PharmacyDao {
     public List<Medicine> checkPharmacy(int phId, int page, int limit) {
         String sql = "select * from dictionary\n" +
                 "left join medicineorder on dictionary.mId = medicineorder.mId\n" +
-                "where orderId = ? and status = '未取药'\n" +
+                "where status = '未取药' and orderId in (\n" +
+                "select orderId from morder where pId = ?\n" +
+                ")\n" +
                 "limit ?,?;";
         Object[] objects = new Object[3];
         objects[0] = phId;

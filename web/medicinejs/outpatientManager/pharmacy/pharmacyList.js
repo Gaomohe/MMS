@@ -25,32 +25,38 @@ layui.extend({
             limit: 20,
             limits: [10, 15, 20, 25],
             cols: [[
-                {fixed:"left",type: "checkbox", width:50},
-                {field: 'phId', title: '处方编号',  align:'center', width:200},
-                {field: 'pId', title: '患者编号', minWidth:100, align:"center"},
-                {field: 'pName', title: '患者姓名', align:'center', width:200},
-                {field: 'doctor', title: '开方医生', align:'center', width:200},
-                {field: 'isPharmacy', title: '是否含有处方药', minWidth:100, align:"center"},
-                {field: 'time', title: '开方时间',  align:'center', width:200},
-                {field: 'pharmacist', title: '药师',  align:'center', width:200},
-                {field: 'pharmacistApprove', title: '药师审核',  align:'center', width:200},
-                {field: 'pharmacistTime', title: '药师审核时间',  align:'center', width:200},
+                {fixed:"left",type: "checkbox", width:50, sort: true},
+                {field: 'phId', title: '处方编号',  align:'center', width:200, sort: true,hide:true},
+                {field: 'pId', title: '患者编号', minWidth:100, align:"center", sort: true},
+                {field: 'pName', title: '患者姓名', align:'center', width:200, sort: true},
+                {field: 'doctor', title: '开方医生', align:'center', width:200, sort: true},
+                {field: 'isPharmacy', title: '是否含有处方药', minWidth:100, align:"center", sort: true},
+                {field: 'time', title: '开方时间',  align:'center', width:200, sort: true},
+                {field: 'pharmacist', title: '药师',  align:'center', width:200, sort: true},
+                {field: 'pharmacistApprove', title: '药师审核',  align:'center', width:200, sort: true},
+                {field: 'pharmacistTime', title: '药师审核时间',  align:'center', width:200, sort: true},
             ]],
         });
         tableMain = tableIns;
         // 初始化下拉框
-        getName();
-        getSex();
-        getAge();
-        getPid();
-        getWeight();
-        getAddress();
-        getPhone();
-        getAllergy();
-        getAdvice();
-        getDisease();
-        getTime();
-        getStatus();
+
+
+        table.on('row(pharmacyList)', function (obj) {
+            var data = obj.data;
+            var tr = obj.tr;
+            var checkbox = tr.find('input[type="checkbox"]');
+            var event = window.event || arguments.callee.caller.arguments[0];
+            var target = event.target || event.srcElement;
+
+            if (target === checkbox[0] || $(target).closest('td').find('input[type="checkbox"]').length > 0) {
+                return;
+            }
+
+            console.log("点击了表格行");
+            console.log(data.pId);
+            medicineDetails(data.pId);
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        });
 
         table.on('toolbar(pharmacyList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
@@ -64,10 +70,10 @@ layui.extend({
 
             switch (obj.event) {
                 case 'search':
-                    search(pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime);
+                    Search();
                     break;
                 case 'reload':
-                    winReload();
+
                     break;
                 case 'del':
                     if (files.length > 0) {
@@ -105,7 +111,7 @@ layui.extend({
     });
 
 
-    function Check(phId){
+    /*function Check(phId){
         layui.layer.open({
             title : "审核处方",
             type : 2,
@@ -113,9 +119,9 @@ layui.extend({
             area:['1200px','675px']
         });
 
-    }
+    }*/
 
-    //打开开处方的界面
+    /*//打开开处方的界面
     function addMedicine(id){
         layui.layer.open({
             title : "开设处方",
@@ -123,153 +129,10 @@ layui.extend({
             content : "/patient?action=getAddMenuBtn&pId=" + id,
             area:['1200px','675px']
         });
-    }
-
-    //刷新页面
-    function winReload(){
-        // location.reload();
-        getName();
-        getSex();
-        getAge();
-        getPid();
-        getWeight();
-        getAddress();
-        getPhone();
-        getAllergy();
-        getAdvice();
-        getTime();
-        getStatus();
-    }
-
-    //获取患者姓名
-    function getName() {
-        console.log("Initializing patient name input");
-        $('input[name="pName"]').on('input', function(e) {
-            pName = e.target.value;
-            console.log("实时输入患者姓名：" + pName);
-        });
-    }
-
-    function getSex() {
-        form.on('select(sex)', function(data) {
-            pSex = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
-            console.log("患者性别：" + pSex);
-        });
-    }
+    }*/
 
 
-    function getAge() {
-        $('input[name="age"]').on('input', function(e) {
-            pAge = e.target.value;
-            console.log("患者年龄：" + pAge);
-        });
-    }
 
-    function getPid() {
-        $('input[name="pid"]').on('input', function(e) {
-            pId = e.target.value;
-            console.log("患者卡号：" + pId);
-        });
-    }
-
-    function getWeight() {
-        $('input[name="weight"]').on('input', function(e) {
-            pWeight = e.target.value;
-            console.log("患者体重：" + pWeight);
-        });
-    }
-
-    //患者地址
-    function getAddress() {
-        $('input[name="address"]').on('input', function(e) {
-            pAddress = e.target.value;
-            console.log("患者地址：" + pAddress);
-        });
-    }
-
-    //患者联系方式
-    function getPhone() {
-        $('input[name="phone"]').on('input', function(e) {
-            pPhone = e.target.value;
-            console.log("联系方式：" + pPhone);
-        });
-    }
-
-    //过敏史
-    function getAllergy() {
-        form.on('select(allergy)', function(data) {
-            pAllergy = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
-            console.log("过敏史：" + pAllergy);
-        });
-    }
-
-    //医嘱
-    function getAdvice() {
-        $('textarea[name="doctorAdvice"]').on('input', function(e) {
-            doctorAdvice = e.target.value;
-            console.log("医嘱：" + doctorAdvice);
-        });
-
-    }
-
-    //就诊结果
-    function getDisease() {
-        $('textarea[name="disease"]').on('input', function(e) {
-            disease = e.target.value;
-            console.log("医嘱：" + disease);
-        });
-
-    }
-
-    function getTime() {
-        laydate.render({
-            elem: '#lastTime',
-            type: 'date',
-            done: function(value) {
-                lastTime = value;
-                console.log('用户选择的时间：', value);
-            }
-        });
-    }
-
-    function getStatus() {
-        form.on('select(status)', function(data) {
-            status = data.value == 0 ? '' : data.elem.options[data.elem.selectedIndex].text;
-            console.log("被选中的状态是：" + status);
-        });
-    }
-
-
-    function search(pName, pSex, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime) {
-        tableMain.reload({
-            url: "/patient?action=Search",
-            where: {
-                "pName": pName,
-                "pSex": pSex,
-                "pAge": pAge,
-                "pId": pId,
-                "pWeight": pWeight,
-                "pAddress": pAddress,
-                "pPhone": pPhone,
-                "disease":disease,
-                "pAllergy": pAllergy,
-                "doctorAdvice": doctorAdvice,
-                "lastTime": lastTime
-            },
-            page: {curr: 1}
-        });
-        getName();
-        getSex();
-        getAge();
-        getPid();
-        getWeight();
-        getAddress();
-        getPhone();
-        getAllergy();
-        getAdvice();
-        getTime();
-        getStatus();
-    }
 
     function addPatient(){
         $.ajax({
@@ -302,6 +165,47 @@ layui.extend({
                     layer.msg("删除失败", { icon: 2 });
                 }
             }
+        });
+    }
+
+    function medicineDetails(pId){
+        layui.layer.open({
+            title : "详情",
+            type : 2,
+            content : "medicine/outpatientManager/pharmacy/checkPharmacy.jsp?pId=" + pId,
+            area:['900px','550px'],
+        })
+    }
+
+    function Search(){
+        // 确保事件处理程序只绑定一次
+        $("#submit").on("click", function (e) {
+            e.preventDefault(); // 阻止表单的默认提交行为
+
+            var formData = $("#searchForm").serializeArray();
+            searchData = {}; // Reset searchData
+            $.each(formData, function (i, field) {
+                searchData[field.name] = field.value;
+            });
+
+            table.reload('pharmacyList', {
+                url: '/pharmacy?action=Search',
+                where: searchData,
+                page: { curr: 1 },
+                cache: false,
+                response: {
+                    statusCode: 200,
+                    countName: 'count',
+                    dataName: 'data',
+                    msgName: 'msg'
+                },
+                done: function(res, curr, count) {
+                    console.log("数据加载完成:", res);
+                    if (res.code !== 200) {
+                        layer.msg(res.msg || '加载失败');
+                    }
+                }
+            });
         });
     }
 });
