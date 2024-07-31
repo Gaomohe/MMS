@@ -536,7 +536,7 @@ layui.define(["layer"], function (f) {
             m.strToWin(h(this).data("window")).layui.admin.popupRight({
                 id: "layer-theme",
                 type: 2,
-                content: n ? n : "page/tpl/tpl-theme.html"
+                content: n ? n : "../iframe/selectPages/首页的头部按钮/tpl-theme.html"
             })
         }, note: function () {
             var n = h(this).data("url");
@@ -545,7 +545,7 @@ layui.define(["layer"], function (f) {
                 title: "便签",
                 type: 2,
                 closeBtn: false,
-                content: n ? n : "page/tpl/tpl-note.html"
+                content: n ? n : "../iframe/selectPages/首页的头部按钮/tpl-note.html"
             })
         }, message: function () {
             var n = h(this).data("url");

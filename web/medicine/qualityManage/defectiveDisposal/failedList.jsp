@@ -72,7 +72,7 @@
                                                     <div class="layui-inline" style="width: 100%;">
                                                         <div class="layui-input-inline" style="width: calc(100% - 60px);display: flex;">
                                                             <select id="select1" lay-search="" lay-creatable="">
-                                                                <option value=""></option>
+                                                                <option value="">药品分类</option>
                                                                 <c:forEach var="type" items="${mType}" varStatus="s">
                                                                     <option value="${type}">${type}</option>
                                                                 </c:forEach>
@@ -88,7 +88,7 @@
                                                     <div class="layui-inline" style="width: 100%;">
                                                         <div class="layui-input-inline" style="width: calc(100% - 60px);display: flex">
                                                             <select id="select2" lay-search="" lay-creatable="">
-                                                                <option value=""></option>
+                                                                <option value="">生产企业</option>
                                                                 <c:forEach var="manufactor" items="${manufactor}" varStatus="s">
                                                                     <option value="${manufactor}">${manufactor}</option>
                                                                 </c:forEach>

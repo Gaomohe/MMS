@@ -127,6 +127,7 @@ public class ApplyFailedServlet extends BaseServlet {
         String applyId = request.getParameter("applyId");
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
+        user.setUserName(userDao.getUserName(user.getId()));
         int i = applyFaileService.updateAppFailed(Integer.parseInt(applyId),user.getUserName());
         return Result.resultData(i);
     }

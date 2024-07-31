@@ -57,8 +57,11 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         var checkStatus = table.checkStatus(obj.config.id);
         var data = checkStatus.data;
         var applyId='';
+        var array = [];
+        var state = [];
         for(i=0;i<data.length;i++){
-            applyId = data[i].applyId;
+            array[i]=data[i].applyId;
+            state[i]=data[i].pharmacistApprove;
         }
         switch(obj.event){
             case 'time':	//按照养护时间查找
@@ -83,6 +86,24 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     upFunc(applyId)
                 }
                 break;
+            case 'upFunc2':
+                var i = 0;
+                if (data.length != 1){
+                    layer.msg("请选择一条数据")
+                }else {
+                    approve(array,state);
+                }
+                break;
+                /*var i = 0;
+                for(i=0;i<data.length;i++){
+                    applyId = data[i].applyId;
+                    upFunc2(applyId)
+                }
+                if (i=data.length){
+                    layer.msg("审核成功")
+                    setTimeout(function (){location.reload()},2000);
+                }
+                break;*/
         };
     });
 
@@ -142,6 +163,21 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             maxmin: true, //开启最大化最小化按钮
             area: ['900px', '600px'],
             content:"medicine/qualityManage/defectiveDisposal/failedUp.jsp?applyId="+applyId,
+        });
+    }
+    function upFunc2(applyId){
+        $.ajax({
+            url: '/applyFailed?action=updateAppFailed', // 后端处理数据的URL
+            type: "POST", // 或 'GET'，取决于后端接口的要求
+            data: {
+                applyId
+            },
+            dataType:"JSON",
+            success: function(response) {
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
         });
     }
 
@@ -362,5 +398,64 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             }
         });
     });
+
+
+    //审阅
+    function approve(array,state){
+        if (array.length===0){
+            layer.msg("请选择一条记录");
+            return ;
+        }
+        for (let i = 0; i < state.length; i++) {
+            if (state[i] !== '未审阅'){
+                layer.alert("单据"+array[i]+"已审阅,请取消！");
+                return ;
+            }
+        }
+        layer.confirm('是否通过？', {
+            btn: ['确定', '取消'] //按钮
+        }, function(){
+            shengyue(array);
+            return 1;
+        }, function(){
+            layer.msg('未审阅！请重新选择！', {
+                time: 20000, // 20s 后自动关闭
+                btn: [ '知道了']
+            });
+        });
+    }
+
+    function shengyue(array){
+        let applyId = array[0];
+        var dataString = applyId;
+        layer.confirm('由于审阅规则,您需要签字备注！', {
+            btn: ['确定', '取消'] //按钮
+        }, function(){
+            layer.msg('请签字！', {icon: 1});
+            layui.layer.open({
+                title : "详情",
+                type : 2,
+                content : "medicine/qualityManage/defectiveDisposal/signature.jsp?dataString=" + dataString,
+                area:['850px','550px'],
+                success:function (layero, index){
+                    var $iframes = layero.find('iframe')[0];
+                    $.ajax({
+                        url:"/applyFailed?action=getApplyFailedByAId",//根据id查询的方法
+                        type:"post",
+                        data:{applyId},
+                        success:function(data){
+                            $iframes.contentWindow.postMessage(data, '*');
+                        }
+                    })
+                }
+            })
+
+        }, function(){
+            layer.msg('已取消', {
+                time: 20000, // 20s 后自动关闭
+                btn: ['明白了', '知道了']
+            });
+        });
+    }
 
 });

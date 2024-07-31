@@ -42,6 +42,7 @@ public class UserServlet extends BaseServlet {
         login = userService.login(user);
         if (login > 0) {
             HttpSession session = request.getSession();
+            user.setUserName(userDao.getUserName(user.getId()));
             session.setAttribute("user",user);
         }
         upOnlineTime(request,response);
