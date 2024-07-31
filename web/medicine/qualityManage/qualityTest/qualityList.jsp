@@ -157,7 +157,7 @@
                                         <div class="layui-inline">
                                             <label style="width: auto" class="layui-form-label">质检时间:</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" lay-event="time2" lay-filter="time" class="layui-input" id="time2" placeholder="请选择时间">
+                                                <input type="text" lay-event="time2" lay-filter="time2" class="layui-input" id="time2" placeholder="请选择时间">
                                             </div>
                                         </div>
                                     </div>

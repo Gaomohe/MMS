@@ -147,9 +147,9 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             arr+=data[i].tableCoding+",";
         }
         switch(obj.event){
-            case 'time':	//按照养护时间查找
-                getTime();
-                break;
+            /*case 'time':	//按照养护时间查找
+                getTime1();
+                break;*/
             case 'delFunc':
                 var i = 0;
                 for(i=0;i<data.length;i++){
@@ -340,7 +340,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 }
                 switch(obj.event){
                     case 'time':	//按照养护时间查找
-                        getTime();
+                        getTime1();
                         break;
                     case 'delFunc':
                         var i = 0;
@@ -419,6 +419,9 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     });
                 }
             });
+            $("#time2").click(function (){
+                getTime1();
+            })
         });
     }
 
@@ -445,7 +448,11 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
         }
     });
 
-    function getTime(){
+    $("#time2").click(function (){
+        getTime1();
+    })
+
+    function getTime1(){
         // 申请时间
         laydate.render({
             elem: '#time2',
