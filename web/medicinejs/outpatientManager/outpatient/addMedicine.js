@@ -48,16 +48,28 @@ layui.extend({
                 // body.find("#pid").val(info.data.oId); // 采购单号
                 document.querySelector('input[name="pid"]').value = res.pId;
                 pId = res.pId;
+                console.log("患者id：" + pId);
                 document.querySelector('input[name="pName"]').value = res.name;
+                pName = res.name;
+                console.log("患者：" + pName);
                 document.querySelector('input[name="sex"]').value = res.sex;
+                pSex = res.sex;
+                console.log("患者：" + pSex);
                 document.querySelector('input[name="age"]').value = res.age;
+                pAge = res.age;
                 document.querySelector('input[name="weight"]').value = res.weight;
+                pWeight = res.weight;
                 document.querySelector('input[name="address"]').value = res.address;
+                pAddress = res.address;
                 document.querySelector('input[name="phone"]').value = res.phone;
+                pPhone = res.phone;
                 document.querySelector('input[name="allergy"]').value = res.allergy;
+                pAllergy = res.allergy;
                 document.querySelector('input[name="time"]').value = res.diagnosticTime;
                 document.querySelector('textarea[name="disease"]').value = res.disease;
+                disease = res.disease;
                 document.querySelector('textarea[name="doctorAdvice"]').value = res.doctorAdvice;
+                doctorAdvice = res.doctorAdvice;
             }
         });
         var tableIns = table.render({
@@ -382,7 +394,7 @@ layui.extend({
     //病患信息回显
     function backValues(){
         $.ajax({
-            url:"/patient?action=backValues",
+            url:"/patient?action=getPatientInfo",
             data: {
                 "patientId":patientId
             },
@@ -394,26 +406,26 @@ layui.extend({
                 console.log(res);
                 console.log("++++++++++++++++++++");
                 document.querySelector('input[name="pid"]').value = res.pId;
-                pId = res.pId;
+
                 document.querySelector('input[name="pName"]').value = res.name;
-                pName = res.name;
+
                 document.querySelector('input[name="sex"]').value = res.sex;
-                pSex = res.sex;
+
                 document.querySelector('input[name="age"]').value = res.age;
-                pAge = res.age;
+
                 document.querySelector('input[name="weight"]').value = res.weight;
-                pWeight = res.weight;
+
                 document.querySelector('input[name="address"]').value = res.address;
-                pAddress = res.address;
+
                 document.querySelector('input[name="phone"]').value = res.phone;
-                pPhone = res.phone;
+
                 document.querySelector('input[name="allergy"]').value = res.allergy;
-                pAllergy = res.allergy;
+
                 // document.querySelector('input[name="time"]').value = res.diagnosticTime;
                 document.querySelector('textarea[name="disease"]').value = res.disease;
-                disease = res.disease;
+
                 document.querySelector('textarea[name="doctorAdvice"]').value = res.doctorAdvice;
-                doctorAdvice = res.doctorAdvice;
+
             }
         })
     }
@@ -573,7 +585,7 @@ layui.extend({
 
 
     //打开开处方的界面
-    function addMedicine(){
+    /*function addMedicine(){
         let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
         let otherParams = {
             pId: pId,
@@ -599,9 +611,39 @@ layui.extend({
             title: "开设处方",
             type: 2,
             content: `/patient?action=getMenuBtn1&mIdList=${mIdArray.join(",")}&${paramsString}`,
-            area: ['800px', '500px']
+            area: ['950px', '550px']
+        });
+    }*/
+    function addMedicine() {
+        let mIdArray = Array.from(mIdList); // 将 Set 转化为数组
+        let otherParams = {
+            pId: pId,
+            pName: pName,
+            pSex: pSex,
+            pAge: pAge,
+            pWeight: pWeight,
+            pAddress: pAddress,
+            pPhone: pPhone,
+            pAllergy: pAllergy,
+            doctorAdvice: doctorAdvice
+        };
+
+        // 编码参数
+        let paramsString = Object.keys(otherParams).map(key => `${key}=${encodeURIComponent(otherParams[key])}`).join('&');
+        console.log("1111111111111111111");
+        console.log(mIdList);
+        console.log("2222222222222222222");
+        console.log(mIdArray);
+        console.log("3333333333333333333");
+
+        layui.layer.open({
+            title: "开设处方",
+            type: 2,
+            content: `/patient?action=getMenuBtn1&mIdList=${mIdArray.join(",")}&${paramsString}`,
+            area: ['950px', '550px']
         });
     }
+
 
 
 });

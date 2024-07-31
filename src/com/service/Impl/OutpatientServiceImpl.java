@@ -151,9 +151,6 @@ public class OutpatientServiceImpl implements OutpatientService {
         // 在渲染药品列表时，生成唯一的name属性
         for (int mId : mIdList) {
             Medicine medicine = outpatientDao.getPatientMedicine(mId);
-            medicine.setUpdate("<div class=\"layui-input-inline\" style=\"width: 100px;\">\n" +
-                    "     <input type=\"number\" name=\"price_min" + mId + "\" placeholder=\"\" autocomplete=\"off\" class=\"layui-input\" min=\"0\" step=\"1\" id=\"price_min" + mId + "\" lay-affix=\"number\">\n" +
-                    "</div>");
             medicineList.add(medicine);
         }
         layuiTable.setMsg("");

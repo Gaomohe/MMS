@@ -31,26 +31,23 @@ layui.extend({
         limits : [10,15,20,25],
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
-            {field: 'rId', title: '#',  align:'center',width:100},
+            {field: 'rId', title: '#', hide:true, align:'center',width:100},
             {field: 'stockInNum', title: '入库单号',  align:'center',width:200},
-            {field: 'rName', title: '入库药品',  align:'center',width:100},
-            {field: 'standard', title: '规格', width:100, align:"center"},
-            {field: 'manufactor', title:'生产厂家' , width:100, align:"center"},
+            {field: 'rName', title: '入库药品',  align:'center',width:170},
+            {field: 'standard', title: '规格', width:170, align:"center"},
+            {field: 'manufactor', title:'生产厂家' , width:170, align:"center"},
             {field: 'unit', title:'单位' , width:100, align:"center"},
-            {field: 'rNum', title:'入库药品数量' , width:100, align:"center"},
+            {field: 'rNum', title:'入库药品数量' , width:150, align:"center"},
             {field: 'cost', title:'成本' , width:100, align:"center"},
             {field: 'salePrice', title:'销售价' , width:100, align:"center"},
-            {field: 'batchNumber', title:'批号' , width:100, align:"center"},
+            {field: 'batchNumber', title:'批号' , width:150, align:"center"},
             {field: 'productDate', title:'生产日期' , width:150, align:"center"},
             {field: 'expiration', title:'有效期至' , width:150, align:"center"},
-            {field: 'stockInTime', title:'入库时间' , width:150, align:"center"},
+            {field: 'stockInTime', title:'入库时间' , width:170, align:"center"},
             {field: 'department', title:'部门' , width:100, align:"center"},
             {field: 'notes', title:'备注' , width:100, align:"center"},
 
         ]],
-        done:function (data){
-            console.log(data)
-        }
     });
     //根据入库单号/药品信息/入库日期查询和重置的事件
         // 绑定“查询”点击事件
@@ -201,11 +198,9 @@ layui.extend({
                                 layer.msg('删除成功', {icon: 1});
                                 location.reload();
                             })
-///
                     } else {
                         layer.msg("删除失败", { icon: 2 });
                     }
-
                 }
             }
         })
@@ -261,7 +256,6 @@ layui.extend({
                     success:function (data){
                         var info = JSON.parse(data);
                         var cs = info.data
-                        console.log(cs)
                         var body = layui.layer.getChildFrame('body', index);
                         body.find("#stockInNum").val(cs)
                     }

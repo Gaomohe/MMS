@@ -32,11 +32,9 @@
                     <button type="button" id="cancel" lay-event="cancel" lay-filter="cancel" class="layui-btn layui-btn-danger">取消</button>
                     <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
                         &lt;%&ndash;                    ${menu.resUrl}&ndash;%&gt;
-
                     </c:forEach>--%>
                 </script>
             </div>
-            <table id="addMedicineList2" lay-filter="addMedicineList2"></table>
         </div>
     </div>
 </form>

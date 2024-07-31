@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojo.*;
 import com.util.*;
@@ -271,6 +272,11 @@ public class OutpatientServlet extends BaseServlet {
 
     //病患信息回显
     public void getPatientInfo(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String name = userService.getName(user.getId());
+        user.setUserName(name);
+        session.setAttribute("user",user);
         String pIdSre = request.getParameter("pId");
         int pId = Integer.parseInt(pIdSre);
         Patient patient = outpatientService.backValues(pId);
@@ -356,6 +362,31 @@ public class OutpatientServlet extends BaseServlet {
         // 输出解析后的搜索条件
         LayuiTable<Medicine> layuiTable = outpatientService.searchMedicine(searchData,page,limit);
         ToJSON.toJson(response,layuiTable);
+    }
+
+    public void setPatientMedicine(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        // 获取请求体中的 JSON 数据
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        String requestBody = sb.toString();
+
+        // 解析 JSON 数据
+        JSONObject jsonObject = new JSONObject(Boolean.parseBoolean(requestBody));
+        String priceList = jsonObject.getString("priceList");
+        JSONObject params = jsonObject.getJSONObject("params");
+
+        // 打印获取的数据
+        System.out.println("priceList: " + priceList);
+        System.out.println("params: " + params.toString());
+
+        // 将数据存储在 session 中以便在新页面中使用
+        request.getSession().setAttribute("priceList", priceList);
+        request.getSession().setAttribute("params", params.toString());
+
     }
 
 }

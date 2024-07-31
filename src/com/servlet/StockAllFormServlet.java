@@ -56,7 +56,7 @@ public class StockAllFormServlet extends BaseServlet {
         String select3 = request.getParameter("select3");
         String select4 = request.getParameter("select4");
         String[] queries = {select1,select2,select3,select4};
-        List<StockAllForm> stockInFormByQuery = stockAllService.getStockInFormByQuery(queries);
+        List<StockAllForm> stockInFormByQuery = stockAllService.getStockAllFormByQuery(queries);
         LayuiTable<StockAllForm> layuiTable = new LayuiTable<StockAllForm>();
         layuiTable.setData(stockInFormByQuery);
         ToJSON.toJson(response,layuiTable);

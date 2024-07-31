@@ -16,6 +16,7 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
             //获取订单表里的所有供应商
             try {
                 var cs = JSON.parse(res);
+                allManufactor = cs; // 保存所有供应商数据到全局变量
                 var dom = $("#manuFactor").empty().html('<option value="0">请选择</option>');
                 $.each(cs, function(index, item) {
                     dom.append('<option value="' + item.manufactor + '">' + item.manufactor + '</option>');
@@ -23,7 +24,9 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                 form.render("select");
 
                 form.on('select(manuFactor)', function(data) {
-                    allManufactor = cs.find(item => item.oId == data.value)?.manufactor || '';
+                    // allManufactor = cs.find(item => item.oId == data.value)?.manufactor || '';
+                    var selectedManu = cs.find(item => item.oId == data.value);
+                    allManufactor = selectedManu ? selectedManu.manufactor : '';
                     console.log("供应商名称：" + allManufactor);
                 });
             } catch (e) {
@@ -41,8 +44,8 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
         if (manuFactor==="0"){
             manuFactor=null
         }
-        alert(manuFactor)
-        alert(rName)
+        // alert(manuFactor)
+        // alert(rName)
         console.log(rName)
         tableIns.reload({
             url: "/StockInForm?action=getStockInFormByManufactorAndDrugName",
@@ -102,9 +105,6 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                 {field:'storageStatus', width:200, align:'center', title:'入库状态', rowspan: 2}, // 药品名列
                 {field:'id', width:200, align:'center', title:'质量编号', rowspan: 2,hide: true}, // 药品名列
             ]],
-            done:function (data){
-                console.log(data)
-            }
         });
 
     $('#saveButton').click(function() {
@@ -114,13 +114,15 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
         var rId = '';
 
         for (var i = 0; i < data.length; i++) {
+            // var manufactorName = $("#manuFactor option:selected").text();
+            var manufactorName = data[i].manufactor || $("#manuFactor option:selected").text(); // 使用表格行中的供应商名称
             $.ajax({
                 url:"/StockInForm?action=addStockInForm",
                 data:{
                     "rId":data[i].rId,
                     "time":$("#time").val(),
                     "stockInNum":$("#stockInNum").val(),
-                    "manufactor":$("#manuFactor").val(),
+                    "manufactor":manufactorName,
                     "standard":data[i].standard,
                     "unit":data[i].unit,
                     "cost":data[i].cost,
@@ -138,6 +140,9 @@ layui.use(['laydate', 'form', 'jquery','table'], function() {
                 type:"post",
                 success:function(data){
                     console.log(data)
+                    console.log(manufactorName)
+                    console.log(data.manufactorName)
+                    console.log(data.manufactor)
                     var info = JSON.parse(data);
                     if(info.status == 200){
                         layer.msg("入库成功")
