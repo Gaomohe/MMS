@@ -428,6 +428,17 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                             }
                         }
                         break;
+                    case 'addFunc2':
+                        var i = 0;
+                        if (data.length != 1){
+                            layer.msg("请选择一条数据")
+                        }else {
+                            for(i;i<data.length;i++){
+                                id = data[i].id;
+                                addFunc2(id);
+                            }
+                        }
+                        break;
                 };
             });
             $("#searchByQuerys").click(function () {

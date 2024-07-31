@@ -112,7 +112,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 },
                 {
                     field: 'warehousingRemarks',
-                    title: '仓库标注',
+                    title: '质检人',
                     minWidth: 200,
                     align: 'center',
                     sort: true
@@ -170,8 +170,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         tableCoding = data[i].tableCoding;
                         id = data[i].id;
                         oId = data[i].orderId;
+                        console.log(id);
                         issue(tableCoding,id);
-                        delFunc(id);
                     }
                 }
                 break;
@@ -305,7 +305,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                     },
                     {
                         field: 'warehousingRemarks',
-                        title: '仓库标注',
+                        title: '质检人',
                         minWidth: 200,
                         align: 'center',
                         sort: true
@@ -362,8 +362,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                                 tableCoding = data[i].tableCoding;
                                 id = data[i].id;
                                 oId = data[i].orderId;
+                                console.log(id);
                                 issue(tableCoding,id);
-                                delFunc(id);
                             }
                         }
                         break;
@@ -399,7 +399,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             });
             $('#search2').off('keypress').on('keypress', function(event) {
                 if (event.which === 13) {
-                    var search = $('#search').val();
+                    var search = $('#search2').val();
                     $.ajax({
                         url: '/quality?action=getQualityBymName',
                         type: "POST",
@@ -410,6 +410,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         dataType: "JSON",
                         success: function(response) {
                             var tableData = response.data;
+                            console.log(tableData);
                             renderTable1(tableData);
                         },
                         error: function(error) {
