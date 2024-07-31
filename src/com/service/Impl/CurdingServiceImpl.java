@@ -99,7 +99,8 @@ public class CurdingServiceImpl implements CuringService {
                 }
                 allMedicine1.add(medicine);
             } catch (ParseException e) {
-                // 如果抛出异常，则表示字符串不符合指定的日期时间格式
+                medicine.setState(1);
+                allMedicine1.add(medicine);
                 System.out.println(medicine.getLastCuringDate() + " 不符合 yyyy-MM-dd HH:mm:ss 格式");
             }
 

@@ -168,8 +168,11 @@ public class QualityServiceImpl implements QualityService {
 
     @Override
     public int delQuality(int id) {
-
         return qualityDao.delQuality(id);
+    }
+
+    public int delQualityOid(int oid) {
+        return qualityDao.delQualityOid(oid);
     }
 
     @Override

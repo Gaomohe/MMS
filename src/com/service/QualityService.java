@@ -28,6 +28,7 @@ public interface QualityService {
     public int updateQualityTime(Quality quality);
     //删除质检表
     public int delQuality(int id);
+    public int delQualityOid(int oid);
     //更新保质期
     public int upUsefulLife(Quality quality);
 }

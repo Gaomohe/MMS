@@ -29,6 +29,7 @@ public interface QualityDao {
     public int updateQualityTime(Quality quality);
     //删除质检表
     public int delQuality(int id);
+    public int delQualityOid(int oid);
     //获取采购oid
     public int getOid();
     //更新保质期

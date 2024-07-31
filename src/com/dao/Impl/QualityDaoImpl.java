@@ -335,6 +335,16 @@ public class QualityDaoImpl implements QualityDao {
         return i;
     }
 
+    public int delQualityOid(int oid) {
+        InitDaoImpl initDao = new InitDaoImpl();
+        boolean b = initDao.delOne(oid, "oid", "quality");
+        int i = 0;
+        if (b){
+            i = 1;
+        }
+        return i;
+    }
+
     //获取最新的oid
     public int getOid() {
         String sql="SELECT * FROM `app_order` \n" +

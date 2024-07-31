@@ -189,7 +189,7 @@ public class QualityServlet extends BaseServlet {
     }
     public ResultData<Quality> delQualityByOid(HttpServletRequest request, HttpServletResponse response){
         int oid = Integer.parseInt(request.getParameter("oid"));
-        int i = qualityService.delQuality(oid);
+        int i = qualityService.delQualityOid(oid);
         return Result.resultStatus(i);
     }
 
