@@ -14,17 +14,17 @@
 </head>
 
 <body>
-<div style="width: 1174px">
+<div style="width: 1174px;position: absolute;left: 1%;top: 1%">
     <blockquote class="layui-elem-quote">
         正常出库
     </blockquote>
 </div>
 
 
-<div style="position: absolute;left: 1%">
+<div style="position: absolute;left: 1%;top: 11%">
     <table class="layui-table" id="NormalStockOutList"></table>`
 </div>
-<button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="confirm" style="position:absolute;bottom: 10%;right: 10%">返回</button>
+<button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="confirm" style="position:absolute;bottom: 2%;right: 6%">返回</button>
 
 
 

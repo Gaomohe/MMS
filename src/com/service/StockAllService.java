@@ -14,7 +14,7 @@ public interface StockAllService {
     public int delStockAllFormById(int id);
     public int updateDoStockAllForm(StockAllForm stockAllForm);
     public int addDoStockAllForm(StockAllForm stockAllForm);
-    public List<StockAllForm> getStockInFormByQuery(String[] query);
+    public List<StockAllForm> getStockAllFormByQuery(String[] query);
     //根据药品名查询库存
     public List<StockAllForm> getStockAllFormByDrugName(String[] query);
 

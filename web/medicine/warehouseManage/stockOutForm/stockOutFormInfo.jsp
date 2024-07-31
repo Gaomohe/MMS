@@ -15,16 +15,16 @@
 
 <body>
 
-<div style="width: 1174px">
+<div style="position: absolute;left: 1%;top: 2%">
     <blockquote class="layui-elem-quote">
         质量不合格出库
     </blockquote>
 </div>
 
-<div style="position: absolute;left: 1%">
+<div style="position: absolute;left: 1%;top: 12%">
     <table class="layui-table" id="qualityFailedList"></table>`
 </div>
-<button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="confirm" style="position:absolute;bottom: 10%;right: 10%">返回</button>
+<button type="button" class="layui-btn layui-btn-lg layui-btn-normal" id="confirm" style="position:absolute;bottom: 0%;right: 6%">返回</button>
 
 
 

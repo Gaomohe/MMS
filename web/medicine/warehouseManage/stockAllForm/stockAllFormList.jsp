@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <hr class="layui-border-green">
+            <hr>
 
             <div class="layui-form-item">
                 <div class="layui-input-group">

@@ -54,8 +54,8 @@ public class StockAllServiceImpl implements StockAllService {
     }
 
     @Override
-    public List<StockAllForm> getStockInFormByQuery(String[] query) {
-        String[] keys = {"goodsType","mType","supplier","drugFrom"};//这里是键
+    public List<StockAllForm> getStockAllFormByQuery(String[] query) {
+        String[] keys = {"goodsType","mType","defined","drugFrom"};//这里是键
         Object[] values = {query[0],query[1],query[2],query[3]};//这里是值
         String dictionary = getSQL(keys, values, "dictionary");//apply是表名
         return stockAllDao.getStockAllFormByQuery(dictionary);
