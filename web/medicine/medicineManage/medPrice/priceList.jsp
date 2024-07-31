@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="layui-card">
+                                   <%-- <div class="layui-card">
                                         <div class="layui-card-header">药品历史价格2</div>
                                         <div class="layui-card-body">
 
@@ -140,7 +140,7 @@
                                                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                                             </script>
                                         </div>
-                                    </div>
+                                    </div>--%>
 
                                 </div>
                             </form>

@@ -23,7 +23,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">药品种类</label>
         <div class="layui-input-inline">
-            <input type="text" name="isMType" id="addMType" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+            <input type="text" name="isMType" id="addMType" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <br/><br/>

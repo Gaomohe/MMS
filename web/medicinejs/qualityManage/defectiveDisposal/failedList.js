@@ -83,7 +83,10 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                 if (data.length != 1){
                     layer.msg("请选择一条数据")
                 }else {
-                    upFunc(applyId)
+                    for(i=0;i<data.length;i++){
+                        applyId = data[i].applyId;
+                        upFunc(applyId)
+                    }
                 }
                 break;
             case 'upFunc2':

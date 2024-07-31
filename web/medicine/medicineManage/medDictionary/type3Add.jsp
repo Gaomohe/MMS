@@ -23,7 +23,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">自定义种类</label>
         <div class="layui-input-inline">
-            <input type="text" name="isfreeType" id="addfreeType" lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+            <input type="text" name="isfreeType" id="addfreeType" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <br/><br/>

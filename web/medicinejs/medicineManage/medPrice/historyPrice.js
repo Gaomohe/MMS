@@ -150,7 +150,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
         });
     }
 
-    function reloadTableByMId(mId){
+    /*function reloadTableByMId(mId){
         table.render({
             elem: '#priceTable3',
             url: '/price?action=getPriceByMId',
@@ -197,7 +197,7 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                 ]
             ],
         });
-    }
+    }*/
     table.on('tool(priceTable2)', function(obj){
         var data = obj.data;
         var id = data.id;

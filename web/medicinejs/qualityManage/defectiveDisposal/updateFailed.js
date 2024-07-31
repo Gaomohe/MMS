@@ -19,7 +19,6 @@ layui.use(['form', 'layedit', 'laydate','jquery','cascader'], function(){
             tyep:"post",
             success:function(data){
                 var info = JSON.parse(data);
-                console.log(info);
                 if(info.status == 200){
                     layer.msg("修改成功")
                     setTimeout(function(){
