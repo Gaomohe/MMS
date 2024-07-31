@@ -56,9 +56,26 @@
     </select>
 
     <select id="getPharmacy" parameterType="map" resultType="Pharmacy">
-
+        SELECT orderId as phId, pId, name as pName, dName as doctor, diagnosticTime as time
+        FROM patient
+        INNER JOIN medicineorder ON patient.mId = medicineorder.orderId
+        WHERE medicineorder.status = '未取药'
+        <if test="searchTerm != null and searchTerm != ''">
+            AND
+            <choose>
+                <when test="isNumeric">
+                    pId = #{searchTerm}
+                </when>
+                <otherwise>
+                    (name LIKE CONCAT('%', #{searchTerm}, '%') OR
+                    dName LIKE CONCAT('%', #{searchTerm}, '%') OR
+                    diagnosticTime LIKE CONCAT('%', #{searchTerm}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+        GROUP BY orderId, pId, name, dName, diagnosticTime
     </select>
-    
+
 
 
 </mapper>
