@@ -218,7 +218,7 @@ public class MedicineDaoImpl implements MedicineDao {
                 medicine.setDrugFrom(resultSet.getString(24));
                 medicine.setHandlingInformation(resultSet.getString(25));
                 medicine.setApprovalNumber(resultSet.getString(26));
-                medicine.setLastCuringDate(resultSet.getString(27));
+                medicine.setLastCuringDate(resultSet.getString("LastCuringDate"));
                 medicine.setTimesStorage(resultSet.getInt(28));
                 medicine.setDocumentNumber(resultSet.getString(29));
                 medicine.setPlaceOrigin(resultSet.getString(30));

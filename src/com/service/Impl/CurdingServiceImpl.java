@@ -85,7 +85,10 @@ public class CurdingServiceImpl implements CuringService {
         List<Medicine> allMedicine1 = new ArrayList<>();
         int i = 0;
         for (Medicine medicine:allMedicine){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
+                // 尝试解析字符串
+                Date date = sdf.parse(medicine.getLastCuringDate());
                 LocalDateTime parse1 = LocalDateTime.parse(time,formatter);
                 LocalDateTime twoDaysAgo = parse1.minusDays(2);
                 LocalDateTime parse2 = LocalDateTime.parse(medicine.getLastCuringDate(),formatter);
@@ -95,9 +98,11 @@ public class CurdingServiceImpl implements CuringService {
                     medicine.setState(1);
                 }
                 allMedicine1.add(medicine);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (ParseException e) {
+                // 如果抛出异常，则表示字符串不符合指定的日期时间格式
+                System.out.println(medicine.getLastCuringDate() + " 不符合 yyyy-MM-dd HH:mm:ss 格式");
             }
+
         }
 
         return allMedicine1;
