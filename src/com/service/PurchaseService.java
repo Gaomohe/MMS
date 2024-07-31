@@ -22,10 +22,10 @@ public interface PurchaseService {
     public ResultData<Integer> noPass(int[] ints,String name,String values,String time);
 
     //获取消息
-    public ResultData<?> getMsg(String name);
+    public ResultData<?> getMsg();
 
     //修改状态
-    public ResultData<?> setMsgState(long state);
+    public ResultData<?> setMsgState(int id);
 
 
 }

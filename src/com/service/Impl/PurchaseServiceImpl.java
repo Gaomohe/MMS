@@ -131,25 +131,35 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public ResultData<?> getMsg(String name) {
+    public ResultData<?> getMsg() {
         ResultData<List<Message>> resultData = new ResultData<>();
-        ResultSet msg = purchaseDao.getMsg(name);
+        ResultSet msg = purchaseDao.getMsg();
         List<Message> messageList = new ArrayList<>();
         try {
             while (msg.next()){
                 Message message = new Message();
                 message.setId(msg.getInt("id"));
                 message.setBatch_num(msg.getLong("batch_num"));
-                if (msg.getString("title").equals("") ||msg.getString("title") == null){
+                if (msg.getString("title") == null || msg.getString("title").equals("")){
                     message.setTitle("未知消息");
                 }else {
                     message.setTitle(msg.getString("title"));
                 }
 
                 message.setMessage(msg.getString("message"));
-                message.setReceivePeople(msg.getString("receivePeople"));
+                if (msg.getString("title") == null || msg.getString("receivePeople").equals("")){
+                    message.setReceivePeople("所有人");
+                }else {
+                    message.setReceivePeople(msg.getString("receivePeople"));
+                }
+
                 message.setuName(msg.getString("uName"));
-                message.setTime(msg.getString("time"));
+                if (msg.getString("title") == null || msg.getString("time").equals("")){
+                    message.setTime("无");
+                }else {
+                    message.setTime(msg.getString("time"));
+                }
+
                 message.setState(msg.getInt("state"));
                 messageList.add(message);
             }
@@ -164,9 +174,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public ResultData<?> setMsgState(long state) {
+    public ResultData<?> setMsgState(int id) {
         ResultData<Integer> resultData = new ResultData<>();
-        if (purchaseDao.setMsgState(state)){
+        if (purchaseDao.setMsgState(id)){
             resultData.setStatus(200);
         }else {
             resultData.setStatus(400);

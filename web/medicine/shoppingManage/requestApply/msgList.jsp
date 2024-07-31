@@ -195,13 +195,13 @@
                 +'<br>'+'申请凭证号:'+message.batch_num+'<br>'+message.message, {
                 btn: ['确定'] //按钮
             }, function(){
-               var msg = message.batch_num;
+               var id = message.id;
                 layer.msg('已确认!', {icon: 1});
                 //修改状态
                 $.ajax({
                     url:"/purchase?action=setMsgState",//根据id查询的方法
                     type:"post",
-                    data:{msg},
+                    data:{id},
                     success:function(data){
                         var parse = JSON.parse(data);
                         if (parse.status === 200){

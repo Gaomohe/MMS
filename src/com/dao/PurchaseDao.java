@@ -23,8 +23,8 @@ public interface PurchaseDao {
     public boolean notOK_msg(int id,long bath,String NotType,int send,int receivePeo);
 
     //获取消息
-    public ResultSet getMsg(String name);
+    public ResultSet getMsg();
 
     //修改状态
-    public boolean setMsgState(long state);
+    public boolean setMsgState(int id);
 }

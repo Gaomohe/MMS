@@ -121,6 +121,8 @@ layui.extend({
                 var searchValue = document.getElementById('searchInput').value;
                 if (searchValue==null || searchValue===''){
                     // 空
+                    alert("空")
+
                     return ;
                 }
                 tableIns.reload({

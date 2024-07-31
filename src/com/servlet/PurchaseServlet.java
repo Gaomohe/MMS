@@ -60,15 +60,15 @@ public class PurchaseServlet extends BaseServlet {
     }
 
     public ResultData<?> getMsg(HttpServletRequest request, HttpServletResponse response){
-      return purchaseService.getMsg("张三");
+      return purchaseService.getMsg();
     }
 
 
 //    修改状态
     public ResultData<?> setMsgState(HttpServletRequest request, HttpServletResponse response){
-        String values = request.getParameter("msg");
-        long l = Long.parseLong(values);
-        return purchaseService.setMsgState(l);
+        String values = request.getParameter("id");
+        int i = Integer.parseInt(values);
+        return purchaseService.setMsgState(i);
     }
 
 
