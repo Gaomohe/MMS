@@ -16,14 +16,7 @@ public class MedicineDaoImpl implements MedicineDao {
     //新药添加(库存新添+药品新添)
     @Override
     public int addMedicine(Medicine medicine) {
-        String sql = "INSERT INTO `dictionary`\n" +
-                "(\n" +
-                "`mName`,`specification`,`manufactor`,`unit`,`department`,`position`,`number`,`batchNumber`,\n" +
-                "`usefulLife`,`purchasePrice`,`salePrice`,`productDate`,`profits`,`code`,`goodsType`,`mType`,\n" +
-                "`defined`,`supplier`,`warehousingDate`,`locationDescription`,`sign`,`warehousingRemarks`,`drugFrom`,\n" +
-                "`handlingInformation`,`approvalNumber`,`LastCuringDate`,`timesStorage`,`documentNumber`,`placeOrigin`,\n" +
-                "`batchsNumber`,`recordNumber`,`mId`\n" +
-                ")\n" +
+        String sql = "INSERT INTO `dictionary` (`mName`,`specification`,`manufactor`,`unit`,`department`,`position`,`number`,`batchNumber`,`usefulLife`,`purchasePrice`,`salePrice`,`productDate`,`profits`,`code`,`goodsType`,`mType`,`defined`,`supplier`,`warehousingDate`,`locationDescription`,`sign`,`warehousingRemarks`,`drugFrom`,`handingInformation`,`approvalNumber`,`LastCuringDate`,`timesStorage`,`documentNumber`,`placeOrigin`,`batchsNumber`,`recordNumber`,`mId`)\n" +
                 "VALUES \n" +
                 "(\n" +
                 "?,?,?,?,?,?,?,?,\n" +

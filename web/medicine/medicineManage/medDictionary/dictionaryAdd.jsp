@@ -23,7 +23,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">药品编号:</label>
         <div class="layui-input-block">
-            <input type="text" id="mId" value="" class="layui-input"/>
+            <input type="text" id="mId" value="00" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -65,7 +65,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">数量:</label>
         <div class="layui-input-block">
-            <input  type="text" id="number" value="" class="layui-input"/>
+            <input  type="text" id="number" value="0" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -83,13 +83,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">采购价:</label>
         <div class="layui-input-block">
-            <input  type="text" id="purchasePrice" value="" class="layui-input"/>
+            <input  type="text" id="purchasePrice" value="0" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">销售价:</label>
         <div class="layui-input-block">
-            <input  type="text" id="salePrice" value="" class="layui-input"/>
+            <input  type="text" id="salePrice" value="0" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -101,7 +101,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">利润金额:</label>
         <div class="layui-input-block">
-            <input type="text" id="profits" value="" class="layui-input"/>
+            <input type="text" id="profits" value="0" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -196,22 +196,16 @@
             <input type="text" id="approvalNumber" value="" class="layui-input"/>
         </div>
     </div>
-    <div class="layui-form-item">
+    <%--<div class="layui-form-item">
         <label class="layui-form-label">上次养护日期:</label>
         <div class="layui-input-block">
             <input type="date" id="lastCuringDate" value="" class="layui-input"/>
         </div>
-    </div>
-    <%-- <div class="layui-form-item">
-         <label class="layui-form-label">上次养护日期:</label>
-         <div class="layui-input-block">
-             <input type="text" id="person" value="${medicine.LastManageTime}" class="layui-input"/>
-         </div>
-     </div>--%>
+    </div>--%>
     <div class="layui-form-item">
         <label class="layui-form-label">入库次数:</label>
         <div class="layui-input-block">
-            <input type="text" id="timesStorage" value="" class="layui-input"/>
+            <input type="text" id="timesStorage" value="0" class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
@@ -235,13 +229,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">记录号:</label>
         <div class="layui-input-block">
-            <input type="text" id="recordNumber" value="" class="layui-input"/>
+            <input type="text" id="recordNumber" value="0" class="layui-input"/>
         </div>
     </div>
 
     <br/><br/>
     <div class="layui-form-item">
-        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="addRole">新增药品</button>
+        <button class="layui-btn layui-btn-fluid" id="tijiao" lay-filter="addRole">添加药品</button>
     </div>
 </form>
 <script type="text/javascript" src="<%=basePath %>admin/lib/layui-v2.5.5/layui.js"></script>
