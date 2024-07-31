@@ -35,7 +35,9 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
             {field: 'consignee', align: 'center', sort: true, title: '收货人'},
             {field: 'oId', align: 'center', sort: true, title: '采购单号'},
             {field: 'callNumber', align: 'center', sort: true, title: '联系方式'},
-            {field: 'state', align: 'center', sort: true, title: '货单状态'}
+            {field: 'state', align: 'center', sort: true, title: '货单状态'},
+            {field: 'state', align: 'center', sort: true, title: '货单状态'},
+            {field: 'mName', align: 'center', sort: true, title: '药品名称'},
         ]],
         done:function (res) {
             var trs = $('#tableTbAdv').next('.layui-table-view').find('tbody tr');
@@ -262,7 +264,8 @@ layui.use(['layer', 'form', 'table', 'util', 'laydate'], function () {
                     {field: 'consignee', align: 'center', sort: true, title: '收货人'},
                     {field: 'oId', align: 'center', sort: true, title: '采购单号'},
                     {field: 'callNumber', align: 'center', sort: true, title: '联系方式'},
-                    {field: 'state', align: 'center', sort: true, title: '货单状态'}
+                    {field: 'state', align: 'center', sort: true, title: '货单状态'},
+                    {field: 'mName', align: 'center', sort: true, title: '药品名称'},
                 ]],
                 done:function (res) {
                     var trs = $('#tableTbAdv').next('.layui-table-view').find('tbody tr');

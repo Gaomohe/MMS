@@ -14,9 +14,9 @@ public class SalReturnDaoImpl implements SalReturnDao {
     InitDaoImpl initDao = new InitDaoImpl();
     @Override
     public int addSalReturn(SalReturn salReturn) {
-        String sql="INSERT INTO `salesreturn` (`returnId`,`address`,`shippingWay`,`shippingTime`,`consigner`,`consignee`,`oId`,`callNumber`,`state`)\n" +
-                "VALUES (?,?,?,?,?,?,?,?,?)";
-        Object[] objects = new Object[]{salReturn.getReturnId(),salReturn.getAddress(),salReturn.getShippingWay(),salReturn.getShippingTime(),salReturn.getConsigner(),salReturn.getConsignee(),salReturn.getoId(),salReturn.getCallNumber(),salReturn.getState()};
+        String sql="INSERT INTO `salesreturn` (`returnId`,`address`,`shippingWay`,`shippingTime`,`consigner`,`consignee`,`oId`,`callNumber`,`state`,`mName`)\n" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?)";
+        Object[] objects = new Object[]{salReturn.getReturnId(),salReturn.getAddress(),salReturn.getShippingWay(),salReturn.getShippingTime(),salReturn.getConsigner(),salReturn.getConsignee(),salReturn.getoId(),salReturn.getCallNumber(),salReturn.getState(),salReturn.getmName()};
         int i = JDBC.update(sql, objects);
         return i;
     }
@@ -55,6 +55,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setConsignee(resultSet.getString(7));
                 salReturn.setAddress(resultSet.getString(3));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){
@@ -81,6 +82,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){
@@ -107,6 +109,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){
@@ -132,6 +135,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
 
             }
         }catch (Exception e){
@@ -158,6 +162,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){
@@ -184,6 +189,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){
@@ -211,6 +217,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){
@@ -236,6 +243,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
 
             }
         }catch (Exception e){
@@ -262,6 +270,7 @@ public class SalReturnDaoImpl implements SalReturnDao {
                 salReturn.setoId(resultSet.getInt(8));
                 salReturn.setCallNumber(resultSet.getString(9));
                 salReturn.setState(resultSet.getString(10));
+                salReturn.setmName(resultSet.getString(11));
                 list.add(salReturn);
             }
         }catch (Exception e){

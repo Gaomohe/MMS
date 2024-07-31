@@ -192,11 +192,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                         id = data[i].id;
                         oId = data[i].orderId;
                         layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                            var a = addFunc(oId,id,2);
-                            issue(tableCoding);
-                            if (a = 1){
-                                delFunc(id);
-                            }
+                            issue(tableCoding,id);
+                            addFunc(oId,id,2);
                         }, function(){
                             issue(tableCoding,id);
                         });
@@ -416,11 +413,8 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                                 id = data[i].id;
                                 oId = data[i].orderId;
                                 layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                                    var a = addFunc(oId,id,2);
-                                    issue(tableCoding);
-                                    if (a = 1){
-                                        delFunc(id);
-                                    }
+                                    issue(tableCoding,id);
+                                    addFunc(oId,id,2);
                                 }, function(){
                                     issue(tableCoding,id);
                                 });
@@ -614,7 +608,7 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             success: function(date) {
                 var info = JSON.parse(date);
                 if (info.status == 200){
-                    return 1;
+                    delFunc(id);
                 }
             },
             error: function(error) {
