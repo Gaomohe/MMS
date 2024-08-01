@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,5 +153,17 @@ public class PharmacyServlet extends BaseServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public ResultData Pay(HttpServletRequest request,HttpServletResponse response){
+        String pIds = request.getParameter("pIds");
+        int pId = Integer.parseInt(pIds);
+        double pay = pharmacyService.Pay(pId);
+        ResultData resultData = new ResultData();
+        if (pay > 0) {
+            resultData.setStatus(200);
+        }
+        resultData.setData(pay);
+        return resultData;
     }
 }

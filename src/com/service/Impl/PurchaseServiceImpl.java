@@ -160,6 +160,8 @@ public class PurchaseServiceImpl implements PurchaseService {
                     message.setTime(msg.getString("time"));
                 }
 
+
+
                 message.setState(msg.getInt("state"));
                 messageList.add(message);
             }

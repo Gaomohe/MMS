@@ -23,4 +23,13 @@ public interface PharmacyDao {
     //患者取药
     public int getMedicine(int mId, int pId);
     public int getMedicine1(int mId, int phId);
+
+    public List<Medicine> getMedicineValues(int pId);
+
+    public int updateMe(int pId);
+
+    public List<Integer> getorderId(int pId);
+    public int updateMes(int id);
+
+    public int delMe(int pId);
 }

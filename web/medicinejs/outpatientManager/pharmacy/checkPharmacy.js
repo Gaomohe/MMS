@@ -10,6 +10,10 @@ layui.extend({
         dtree = layui.dtree;
     var mPower,mType,Unit, pAge, pId, pWeight, pAddress, pPhone, pAllergy,doctorAdvice,lastTime,tableMain,patientId,mName;
     let mIdList = new Set();
+    var idList = new Set();
+    var numberList = new Set();
+    var count = 0;
+    var total = 0;
 
     function getQueryParams() {
         let params = {};
@@ -152,10 +156,6 @@ layui.extend({
             ],
         });
         tableMain = tableIns;
-        /*getUnit();
-        getmType();
-        getmPower();
-        getmName();*/
 
         table.on('toolbar(checkPharmacyList)', function(obj) {
             var checkdata = table.checkStatus(obj.config.id)
@@ -168,15 +168,9 @@ layui.extend({
             }
 
             switch (obj.event) {
-                case 'search':
-                    console.log("---------------");
-                    console.log(mPower);
-                    console.log(mType);
-                    console.log(Unit);
-                    console.log("---------------");
-                    Search(mPower,mType,Unit,mName);
+                case 'submit':
+                    pay(pIds);
                     break;
-
             }
         });
     });
@@ -209,6 +203,24 @@ layui.extend({
     //     getmPower();
     //     getmName();
     // }
+
+    function pay(pIds){
+        $.ajax({
+            url: "/pharmacy?action=Pay",
+            data:{
+                "pIds":pIds
+            },
+            type: "post",
+            dataType: "json",
+            traditional: true,
+            success: function(res) {
+
+                console.log("这是res的值"+res.data);
+                layer.msg("需支付总金额!" + res.data + "元!");
+
+            }
+        })
+    }
 
     //病患信息回显
     function backValues(){

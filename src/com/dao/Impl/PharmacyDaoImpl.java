@@ -172,4 +172,78 @@ public class PharmacyDaoImpl implements PharmacyDao {
         return result;
     }
 
+    @Override
+    public List<Medicine> getMedicineValues(int pId) {
+        String sql = "select medicineorder.number as number,salePrice from dictionary\n" +
+                "left join medicineorder on dictionary.mId = medicineorder.mId\n" +
+                "where status = '未取药' and orderId in (\n" +
+                "select orderId from morder where pId = ?\n" +
+                ")";
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<Medicine> medicines = new ArrayList<>();
+        try {
+            while (resultSet.next()){
+                Medicine medicine = new Medicine();
+                medicine.setNumber(resultSet.getInt("number"));
+                medicine.setSalePrice(resultSet.getInt("salePrice"));
+                medicines.add(medicine);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return medicines;
+    }
+
+    @Override
+    public int updateMe(int pId) {
+        String sql = "update dic_num\n" +
+                "set statue = '已付款'\n" +
+                "where patientId = ?;";
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        int result = JDBC.update(sql,objects);
+        return result;
+    }
+
+    @Override
+    public List<Integer> getorderId(int pId) {
+        String sql = "select orderId from morder\n" +
+                "where pId = ?;";
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        List<Integer> orderIds = new ArrayList<>();
+        try{
+            while (resultSet.next()){
+                orderIds.add(resultSet.getInt("orderId"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return orderIds;
+    }
+
+    @Override
+    public int updateMes(int id) {
+        String sql = "update medicineorder\n" +
+                "set status = '已取药'\n" +
+                "where orderId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = id;
+        int result = JDBC.update(sql,objects);
+        return result;
+    }
+
+    @Override
+    public int delMe(int pId) {
+        String sql = "delete from morder\n" +
+                "where pId = ?";
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        int result = JDBC.update(sql,objects);
+        return result;
+    }
+
 }

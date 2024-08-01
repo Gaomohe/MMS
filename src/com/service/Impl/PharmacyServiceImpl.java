@@ -12,6 +12,7 @@ import com.util.BaseDao;
 import com.util.LayuiTable;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +156,23 @@ public class PharmacyServiceImpl implements PharmacyService {
         session.commit(); // 提交事务
         session.close(); // 关闭会话
         return layuiTable;
+    }
+
+    @Override
+    public double Pay(int pId) {
+        double AllPrices = 0;
+        List<Medicine> medicineValues = pharmacyDao.getMedicineValues(pId);
+        for (Medicine medicine : medicineValues) {
+            AllPrices += medicine.getNumber()*medicine.getSalePrice();
+        }
+        int i = pharmacyDao.updateMe(pId);
+        List<Integer> orderList = pharmacyDao.getorderId(pId);
+        for(int id : orderList) {
+            pharmacyDao.updateMes(id);
+        }
+        int j = pharmacyDao.delMe(pId);
+
+        return AllPrices;
     }
 
 }

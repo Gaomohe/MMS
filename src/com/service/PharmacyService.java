@@ -5,6 +5,7 @@ import com.pojo.Pharmacy;
 import com.pojo.User;
 import com.util.LayuiTable;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PharmacyService {
@@ -22,4 +23,6 @@ public interface PharmacyService {
 
     //单框查询
     public LayuiTable<Pharmacy> selectPatient(Map<String, Object> searchCriteria);
+
+    public double Pay(int pId);
 }
