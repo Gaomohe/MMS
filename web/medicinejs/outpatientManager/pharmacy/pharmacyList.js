@@ -72,8 +72,8 @@ layui.extend({
                 case 'search':
                     Search();
                     break;
-                case 'reload':
-
+                case 'back':
+                    rollback(files[0].pId);
                     break;
                 case 'del':
                     if (files.length > 0) {
@@ -207,5 +207,18 @@ layui.extend({
                 }
             });
         });
+    }
+
+    function rollback(pId){
+        $.ajax({
+            url:"/medicine?action=rollBack",
+            type:"post",
+            data:{"pId":pId},
+            success:function (res){
+                if (res.status==200){
+                    parent.location.reload();
+                }
+            }
+        })
     }
 });

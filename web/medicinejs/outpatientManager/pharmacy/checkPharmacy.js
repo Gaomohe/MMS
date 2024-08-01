@@ -99,12 +99,11 @@ layui.extend({
                         sort: true
                     },
                     {
-                        field: 'productDate',
-                        title: '生产日期',
+                        field: 'position',
+                        title: '推荐取药库位',
                         minWidth: 200,
                         align: 'center',
-                        sort: true,
-                        hide:true
+                        sort: true
                     },
                     {
                         field: 'defined',
@@ -147,6 +146,7 @@ layui.extend({
                         align: 'center',
                         sort: true
                     },
+
 
                 ]
             ],

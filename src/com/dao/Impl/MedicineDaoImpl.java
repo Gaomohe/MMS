@@ -9,6 +9,7 @@ import com.util.JDBC;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MedicineDaoImpl implements MedicineDao {
@@ -585,6 +586,30 @@ public class MedicineDaoImpl implements MedicineDao {
         String sql = "SELECT * FROM `dic_num` WHERE `statue`='未付款'";
         List<DicNum> list = new ArrayList<>();
         ResultSet resultSet = JDBC.select(sql,new Object[1]);
+        try{
+            while(resultSet.next()){
+                DicNum dicNum = new DicNum();
+                dicNum.setId(resultSet.getInt(1));
+                dicNum.setTableCoding(resultSet.getInt(2));
+                dicNum.setNumber(resultSet.getInt(3));
+                dicNum.setStatue(resultSet.getString(4));
+                dicNum.setPatientId(resultSet.getInt(5));
+                dicNum.setTime(resultSet.getString(6));
+                list.add(dicNum);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<DicNum> getDic_Num(int pId) {
+        String sql = "SELECT * FROM `dic_num` WHERE `statue`='未付款' AND patientId=?";
+        List<DicNum> list = new ArrayList<>();
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        ResultSet resultSet = JDBC.select(sql,objects);
         try{
             while(resultSet.next()){
                 DicNum dicNum = new DicNum();

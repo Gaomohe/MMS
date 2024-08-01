@@ -43,5 +43,5 @@ public interface MedicineService {
     //售出药品
     public String delDic_Num(int tableCoding, int number, int patientId, User user);
     //实现库存回滚
-    public int rollBack();
+    public int rollBack(int pId);
 }

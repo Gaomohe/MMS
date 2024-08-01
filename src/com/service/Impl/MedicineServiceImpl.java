@@ -193,9 +193,9 @@ public class MedicineServiceImpl implements MedicineService {
 
     //实现药品库存回滚
     @Override
-    public int rollBack() {
+    public int rollBack(int pId) {
         int i = 0;
-        List<DicNum> dicNum = medicineDao.getDic_Num();
+        List<DicNum> dicNum = medicineDao.getDic_Num(pId);
         for (DicNum dicNum1:dicNum){
             Medicine medicine = medicineDao.getMedicine(dicNum1.getTableCoding());
             medicine.setNumber(medicine.getNumber()+dicNum1.getNumber());

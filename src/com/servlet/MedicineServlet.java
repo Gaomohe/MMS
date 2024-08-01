@@ -293,8 +293,9 @@ public class MedicineServlet extends BaseServlet {
         HttpSession session9 = request.getSession();
         User user9 = (User)session9.getAttribute("user");
         String name9 = userService.getName(user9.getId());
+        int pId = Integer.parseInt(request.getParameter("pId"));
         logService.setLog(name9,"点击","药品管理","库存回滚");
-        int i = medicineService.rollBack();
+        int i = medicineService.rollBack(pId);
         return Result.resultStatus(i);
     }
     //更新药品付款状态

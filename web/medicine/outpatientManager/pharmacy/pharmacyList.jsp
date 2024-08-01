@@ -33,6 +33,7 @@
                         </div>
                         <button type="button" id="submit" lay-event="submit" lay-filter="submit" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe615;</i>查询</button>
                     </div>
+                    <button type="button" id="back" lay-event="back" lay-filter="back" class="layui-btn layui-bg-blue"><i class="layui-icon">&#xe65c;</i>药品回滚</button>
                 </form>
                 <%--<c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}

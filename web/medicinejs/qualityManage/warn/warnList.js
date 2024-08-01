@@ -276,16 +276,16 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
             table.on('toolbar(xTable1)', function(obj){
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
-                var tableCoding = '';
-                var totlNumber="";
                 var id='';
-                var arr='';
-                var oId='';
+                var warnNumber='';
+                var mName = '';
                 for(i=0;i<data.length;i++){
-                    arr+=data[i].tableCoding+",";
+                    id = data[i].id;
+                    warnNumber = data[i].warnNumber;
+                    mName = data[i].mName;
                 }
                 switch(obj.event){
-                    case 'time':	//按照养护时间查找
+                    case 'time':	//按照时间查找
                         getTime();
                         break;
                     case 'delFunc':
@@ -299,39 +299,20 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                             setTimeout(function (){location.reload()},2000);
                         }
                         break;
-                    case 'addFunc':
-                        var i = 0;
-                        for(i;i<data.length;i++){
-                            id = data[i].id;
-                            oId = data[i].orderId;
-                            addFunc(oId,id,1);
-                            delFuncByOid(oId)
-                        }
-                        if (i=data.length){
-                            layer.msg("删除成功")
-                            setTimeout(function (){location.reload()},2000);
-                        }
-                        break;
-                    case 'issue':
+                    case 'upFunc':
                         var i = 0;
                         if (data.length != 1){
                             layer.msg("请选择一条数据")
                         }else {
-                            for(i;i<data.length;i++){
-                                tableCoding = data[i].tableCoding;
-                                id = data[i].id;
-                                oId = data[i].orderId;
-                                layer.confirm('是否要单退此药品？', {icon: 3}, function(){
-                                    var a = addFunc(oId,id,2);
-                                    issue(tableCoding);
-                                    if (a = 1){
-                                        delFunc(id);
-                                    }
-                                }, function(){
-                                    issue(tableCoding,id);
-                                });
-
-                            }
+                            upFunc(id,warnNumber)
+                        }
+                        break;
+                    case 'addFunc':
+                        var i = 0;
+                        if (data.length != 1){
+                            layer.msg("请选择一条数据")
+                        }else {
+                            addFunc(id,mName);
                         }
                         break;
                 };
