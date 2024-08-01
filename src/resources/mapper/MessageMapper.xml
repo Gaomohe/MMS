@@ -5,7 +5,7 @@
 <mapper namespace="com.dao.MessageDao">
 
     <insert id="addMessage" parameterType="Message" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `message` (uId,uName,message,wId,time) VALUES (#{uId},#{uName},#{message},#{wId},NOW());
+        INSERT INTO `message` (uId,uName,message,wId,time,title) VALUES (#{uId},#{uName},#{message},#{wId},NOW(),"预警消息");
     </insert>
 
 </mapper>
