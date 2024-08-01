@@ -32,14 +32,13 @@ layui.extend({
                 {field: 'doctor', title: '开方医生', align:'center', width:200, sort: true},
                 {field: 'isPharmacy', title: '是否含有处方药', minWidth:100, align:"center", sort: true},
                 {field: 'time', title: '开方时间',  align:'center', width:200, sort: true},
-                {field: 'pharmacist', title: '药师',  align:'center', width:200, sort: true},
-                {field: 'pharmacistApprove', title: '药师审核',  align:'center', width:200, sort: true},
-                {field: 'pharmacistTime', title: '药师审核时间',  align:'center', width:200, sort: true},
+                {field: 'pharmacist', title: '药师',  align:'center', width:200, sort: true,hide: true},
+                {field: 'pharmacistApprove', title: '药师审核',  align:'center', width:200, sort: true,hide: true},
+                {field: 'pharmacistTime', title: '药师审核时间',  align:'center', width:200, sort: true,hide: true},
             ]],
         });
         tableMain = tableIns;
         // 初始化下拉框
-
 
         table.on('row(pharmacyList)', function (obj) {
             var data = obj.data;
@@ -215,6 +214,7 @@ layui.extend({
             type:"post",
             data:{"pId":pId},
             success:function (res){
+                table.reload('pharmacyList');
                 if (res.status==200){
                     parent.location.reload();
                 }

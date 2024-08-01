@@ -125,6 +125,16 @@ public class MedicineDaoImpl implements MedicineDao {
         return count;
     }
 
+    //药品回滚删除
+    @Override
+    public int delMedicineByTableCoding(int mId,int oId) {
+        String sql="delete from medicineorder where status='未取药' AND orderId = ?";
+        Object[]  objects= new Object[1];
+        objects[0]=oId;
+        int count= JDBC.update(sql,objects);
+        return count;
+    }
+
     //更新药品基本信息
     @Override
     public int updateMedicineBasic(Medicine medicine) {
@@ -667,5 +677,23 @@ public class MedicineDaoImpl implements MedicineDao {
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    public int getMId(int pId) {
+        String sql = "select mId from patient where pId = ?;";
+        Object[] objects = new Object[1];
+        objects[0] = pId;
+        ResultSet resultSet = JDBC.select(sql,objects);
+        int i = 0;
+        try{
+            while(resultSet.next()){
+                int mId = resultSet.getInt("mId");
+                i = mId;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return i;
     }
 }

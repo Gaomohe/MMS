@@ -196,10 +196,13 @@ public class MedicineServiceImpl implements MedicineService {
     public int rollBack(int pId) {
         int i = 0;
         List<DicNum> dicNum = medicineDao.getDic_Num(pId);
+        int oId = medicineDao.getMId(pId);
+        medicineDao.delMedicineByTableCoding(0,oId);
         for (DicNum dicNum1:dicNum){
             Medicine medicine = medicineDao.getMedicine(dicNum1.getTableCoding());
             medicine.setNumber(medicine.getNumber()+dicNum1.getNumber());
             medicineDao.updateMedicineNumber(medicine);
+            medicineDao.delMedicineByTableCoding(dicNum1.getTableCoding(),oId);
             i = medicineDao.delDic_Num(dicNum1.getId());
         }
         return i;

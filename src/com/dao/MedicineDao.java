@@ -19,7 +19,9 @@ public interface MedicineDao {
     public int updateMedicineWarehousingDate(Medicine medicine);
     //药品库存数量修改
     public int updateMedicineNumber(Medicine medicine);
-    //药品基本信息修改
+
+    //药品回滚删除
+    public int delMedicineByTableCoding(int mId,int oId);
     public int updateMedicineBasic(Medicine medicine);
     //全部查询
     public List<Medicine> getAllMedicine(int index,int limit);
@@ -47,4 +49,6 @@ public interface MedicineDao {
     public int updateDic_Num(DicNum dicNum);
     //回滚后删除维护表信息
     public int delDic_Num(int id);
+
+    public int getMId(int pId);
 }

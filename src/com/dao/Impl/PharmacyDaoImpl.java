@@ -118,6 +118,7 @@ public class PharmacyDaoImpl implements PharmacyDao {
                 medicine.setPurchasePrice(resultSet.getInt(11));*/
                 medicine.setSalePrice(resultSet.getInt("salePrice"));
                 medicine.setProductDate(resultSet.getString("productDate"));
+                medicine.setPosition(resultSet.getString("position"));
                 /*medicine.setProfits(resultSet.getString(14));
                 medicine.setCode(resultSet.getString(15));*/
                 medicine.setGoodsType(resultSet.getString("goodsType"));
