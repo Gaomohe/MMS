@@ -76,8 +76,10 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form'], f
         switch(obj.event){
             case 'back':
                 var historyPrice = data.historyPrice; // 获取历史价格值
-                alert("历史价格：" + historyPrice);
-                upPrice(tableCoding,mId,salePrice,historyPrice)
+                layer.confirm('是否回溯为'+historyPrice+'元？', {icon: 3}, function(){
+                    upPrice(tableCoding,mId,salePrice,historyPrice)
+                }, function(){
+                });
                 break;
         }
     });
