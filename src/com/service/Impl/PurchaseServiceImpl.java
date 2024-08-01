@@ -147,14 +147,14 @@ public class PurchaseServiceImpl implements PurchaseService {
                 }
 
                 message.setMessage(msg.getString("message"));
-                if (msg.getString("title") == null || msg.getString("receivePeople").equals("")){
+                if (msg.getString("receivePeople") == null || msg.getString("receivePeople").equals("")){
                     message.setReceivePeople("所有人");
                 }else {
                     message.setReceivePeople(msg.getString("receivePeople"));
                 }
 
                 message.setuName(msg.getString("uName"));
-                if (msg.getString("title") == null || msg.getString("time").equals("")){
+                if (msg.getString("time") == null || msg.getString("time").equals("")){
                     message.setTime("无");
                 }else {
                     message.setTime(msg.getString("time"));
