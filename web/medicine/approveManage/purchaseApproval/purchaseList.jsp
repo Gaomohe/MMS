@@ -96,6 +96,7 @@
         <button lay-event="noaudit" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-disabled"></i>反审核</button>
         <button lay-event="noPass" type="button" class="layui-btn layui-bg-blue"><i class="layui-icon layui-icon-template-1"></i>不通过</button>
         <button lay-event="download" class="layui-btn layui-btn-primary layui-border-blue"><i class="layui-icon layui-icon-download-circle"></i>导出</button>
+        <button lay-event="msg" type="button" class="layui-btn">&nbsp;<i class="layui-icon layui-icon-notice"></i>&nbsp;消息</button>
     </div>
 
 

@@ -141,6 +141,10 @@ layui.extend({
                 //导出
                 download(array);
                 break;
+            case 'msg':
+                //右侧消息
+                msg();
+                break;
             case 'delOK':
                 delOK();
                 break;
@@ -151,9 +155,24 @@ layui.extend({
             default:
                 break;
 
+
         }
 
     });
+
+    function msg(){
+        layer.open({
+            type: 2,
+            offset: 'r',
+            anim: 'slideLeft', // 从右往左
+            area: ['320px', '100%'],
+            shade: 0.1,
+
+            shadeClose: true,
+            id: 'ID-demo-layer-direction-r',
+            content : "http://localhost:8080/medicine/shoppingManage/requestApply/msgList.jsp"
+        });
+    }
 
     //不通过
     function noPass(array,state){

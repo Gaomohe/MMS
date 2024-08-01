@@ -29,6 +29,7 @@
                 <c:forEach var="menu" items="${menuList}" varStatus="s">
                     ${menu.resUrl}
                 </c:forEach>
+                <button lay-event="msg" type="button" class="layui-btn">&nbsp;<i class="layui-icon layui-icon-notice"></i>&nbsp;消息</button>
             </script>
             <table id="financialList" lay-filter="financialList"></table>
         </div>

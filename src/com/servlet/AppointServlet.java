@@ -1,5 +1,6 @@
 package com.servlet;
 
+import com.dao.Impl.PurchaseDaoImpl;
 import com.pojo.Apply;
 import com.pojo.Appointment;
 import com.pojo.Menu;
@@ -114,6 +115,7 @@ public class AppointServlet extends BaseServlet {
         String[] idStr = request.getParameterValues("idsList");
         List<Integer> idList = Format.StringToInt(idStr);
         int i = appointService.addAppoint(idList);
+        new PurchaseDaoImpl().isOK_msg(0,"预警信息","您的药品申请已经发出,请耐心等待审批结果!",1001,1001);
         return Result.resultStatus(i);
     }
 

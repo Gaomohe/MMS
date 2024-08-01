@@ -399,7 +399,6 @@ layui.use(['layer', 'element', 'util', 'table', 'tableX','mousewheel','form','la
                             delFuncByOid(oId)
                         }
                         if (i=data.length){
-                            layer.msg("删除成功")
                             setTimeout(function (){location.reload()},2000);
                         }
                         break;

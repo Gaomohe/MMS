@@ -401,6 +401,10 @@ layui.extend({
             case 'download':
                 downloads();
                 break;
+            case 'msg':
+                //右侧消息
+                msg();
+                break;
         }
     });
 
@@ -414,6 +418,20 @@ layui.extend({
             }
         });
     })
+
+    function msg(){
+        layer.open({
+            type: 2,
+            offset: 'r',
+            anim: 'slideLeft', // 从右往左
+            area: ['320px', '100%'],
+            shade: 0.1,
+
+            shadeClose: true,
+            id: 'ID-demo-layer-direction-r',
+            content : "http://localhost:8080/medicine/shoppingManage/requestApply/msgList.jsp"
+        });
+    }
 
 
 
