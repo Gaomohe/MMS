@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="commons-fileupload-1.2.2 (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/commons-fileupload-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/fastjson-1.2.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/jackson-annotations-2.12.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/jackson-core-2.12.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/jackson-databind-2.12.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/jsp-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/jsqlparser-4.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/mybatis-3.5.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/mysql-connector-j-8.4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/pagehelper-5.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/com/util/lib/standard.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
