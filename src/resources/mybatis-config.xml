@@ -24,9 +24,9 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://rm-bp1ln5cud01u6z7893o.mysql.rds.aliyuncs.com:3306/mms"/>
-                <property name="username" value="root1"/>
-                <property name="password" value="MMS_root"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mms"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
             </dataSource>
         </environment>
     </environments>
@@ -37,5 +37,4 @@
         <mapper resource="mapper/AppointMapper.xml"></mapper>
         <mapper resource="mapper/MessageMapper.xml"></mapper>
     </mappers>
-
 </configuration>
